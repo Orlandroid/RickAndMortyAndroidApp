@@ -29,11 +29,9 @@ class CharacterViewModel @Inject constructor(
             try {
                 val response = repository.getCharacters(page)
                 withContext(Dispatchers.Main) {
-                    Log.w("ANDROID",response.toString())
                     _characterResponse.value = response
                 }
             } catch (e: Exception) {
-                Log.w("ANDROID", e.message.toString())
             }
         }
     }

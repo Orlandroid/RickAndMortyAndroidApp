@@ -1,6 +1,5 @@
 package com.example.paggingexample.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.example.paggingexample.R
 import com.example.paggingexample.data.models.Character
 
 
-class CharacterAdapter() :
+class CharacterAdapter :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     private var characters= listOf<Character>()
