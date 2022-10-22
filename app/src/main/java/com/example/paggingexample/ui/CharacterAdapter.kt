@@ -9,25 +9,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.Character
+import com.example.paggingexample.utils.getColorStatus
 
 
 class CharacterAdapter :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
-    private var characters= listOf<Character>()
+    private var characters = listOf<Character>()
 
-     fun setData(list: List<Character>){
-        characters=list
+    fun setData(list: List<Character>) {
+        characters = list
         notifyDataSetChanged()
     }
 
     class ViewHolder(val view: View) :
         RecyclerView.ViewHolder(view) {
         fun bind(character: Character) {
-            val image=view.findViewById<ImageView>(R.id.imageView)
-            val name=view.findViewById<TextView>(R.id.tv_character_name)
-            name.text=character.name
+            val image = view.findViewById<ImageView>(R.id.imageView)
+            val imageStatus = view.findViewById<ImageView>(R.id.image_status_session)
+            val name = view.findViewById<TextView>(R.id.tv_character_name)
+            val status = view.findViewById<TextView>(R.id.tv_status)
+            val specie = view.findViewById<TextView>(R.id.tv_specie)
+            name.text = character.name
             Glide.with(itemView.context).load(character.image).into(image)
+            imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
+            status.text = character.status
+            specie.text = character.species
         }
     }
 

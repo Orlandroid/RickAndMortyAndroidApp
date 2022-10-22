@@ -2,4 +2,7 @@
     <string name="app_name">PaggingExample</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alive">Alive</string>
+    <string name="human">Human</string>
+    <string name="rick">Rick</string>
 </resources>
