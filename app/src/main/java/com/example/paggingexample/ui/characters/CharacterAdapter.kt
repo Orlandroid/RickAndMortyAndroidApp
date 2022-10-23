@@ -1,4 +1,4 @@
-package com.example.paggingexample.ui
+package com.example.paggingexample.ui.characters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.Character
 import com.example.paggingexample.utils.getColorStatus
@@ -31,7 +32,7 @@ class CharacterAdapter :
             val status = view.findViewById<TextView>(R.id.tv_status)
             val specie = view.findViewById<TextView>(R.id.tv_specie)
             name.text = character.name
-            Glide.with(itemView.context).load(character.image).into(image)
+            Glide.with(itemView.context).load(character.image).transition(DrawableTransitionOptions.withCrossFade()).into(image)
             imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
             status.text = character.status
             specie.text = character.species

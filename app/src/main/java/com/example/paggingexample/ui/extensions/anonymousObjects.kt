@@ -1,4 +1,4 @@
-package com.example.paggingexample.extensions
+package com.example.paggingexample.ui.extensions
 
 import android.text.Editable
 import android.text.TextWatcher

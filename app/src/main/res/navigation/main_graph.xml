@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/characterFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.paggingexample.ui.CharacterFragment"
+        android:name="com.example.paggingexample.ui.characters.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.paggingexample.ui.menu.MenuFragment"
+        android:label="MenuFragment"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+    </fragment>
 </navigation>

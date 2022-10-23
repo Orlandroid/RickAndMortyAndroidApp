@@ -5,4 +5,7 @@
     <string name="alive">Alive</string>
     <string name="human">Human</string>
     <string name="rick">Rick</string>
+    <string name="characters">Characters</string>
+    <string name="episodes">episodes</string>
+    <string name="locations">Locations</string>
 </resources>
