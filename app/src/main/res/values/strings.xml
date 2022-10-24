@@ -8,4 +8,12 @@
     <string name="characters">Characters</string>
     <string name="episodes">episodes</string>
     <string name="locations">Locations</string>
+    <string name="status"><b>Status:</b></string>
+    <string name="species"><b>Species:</b></string>
+    <string name="gender"><b>Gender:</b></string>
+    <string name="male">Male</string>
+    <string name="number_of_episodes"><b>Number of episodes:</b></string>
+    <string name="_5">5</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="canceler">Canceler</string>
 </resources>

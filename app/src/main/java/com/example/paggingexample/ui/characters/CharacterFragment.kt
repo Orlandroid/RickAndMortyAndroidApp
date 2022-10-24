@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CharacterFragment : Fragment() {
 
-
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CharacterViewModel by viewModels()
@@ -47,6 +46,13 @@ class CharacterFragment : Fragment() {
         binding.progressBar.visible()
         with(binding) {
             recyclerView.adapter = adapter
+            adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
+                override fun clickOnCharacter(character: Character) {
+                    val action =
+                        CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(character.id)
+                    findNavController().navigate(action)
+                }
+            })
             recyclerView.myOnScrolled {
                 if (!canCallToTheNextPage) {
                     return@myOnScrolled

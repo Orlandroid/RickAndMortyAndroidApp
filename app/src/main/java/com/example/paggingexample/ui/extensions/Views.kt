@@ -29,3 +29,4 @@ fun View.getColor(@ColorRes color: Int) :Int{
     return this.context.resources.getColor(color)
 }
 
+

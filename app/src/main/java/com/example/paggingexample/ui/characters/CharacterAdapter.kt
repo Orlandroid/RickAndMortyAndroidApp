@@ -10,17 +10,24 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.Character
+import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.utils.getColorStatus
+import com.google.android.material.card.MaterialCardView
 
 
 class CharacterAdapter :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     private var characters = listOf<Character>()
+    private var clickOnCharacter: ClickOnCharacter? = null
 
     fun setData(list: List<Character>) {
         characters = list
         notifyDataSetChanged()
+    }
+
+    fun setListener(clickOnCharacter: ClickOnCharacter) {
+        this.clickOnCharacter = clickOnCharacter
     }
 
     class ViewHolder(val view: View) :
@@ -31,9 +38,12 @@ class CharacterAdapter :
             val name = view.findViewById<TextView>(R.id.tv_character_name)
             val status = view.findViewById<TextView>(R.id.tv_status)
             val specie = view.findViewById<TextView>(R.id.tv_specie)
+            val card = view.findViewById<MaterialCardView>(R.id.card)
             name.text = character.name
-            Glide.with(itemView.context).load(character.image).transition(DrawableTransitionOptions.withCrossFade()).into(image)
+            Glide.with(itemView.context).load(character.image)
+                .transition(DrawableTransitionOptions.withCrossFade()).into(image)
             imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
+            card.strokeColor = getColorStatus(character.status, itemView.context)
             status.text = character.status
             specie.text = character.species
         }
@@ -50,9 +60,16 @@ class CharacterAdapter :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(characters[position])
+        viewHolder.itemView.click {
+            clickOnCharacter?.clickOnCharacter(characters[position])
+        }
     }
 
 
     override fun getItemCount() = characters.size
+
+    interface ClickOnCharacter {
+        fun clickOnCharacter(character: Character)
+    }
 
 }

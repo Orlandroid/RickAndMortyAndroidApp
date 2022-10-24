@@ -10,4 +10,12 @@
     <color name="alive">#2E8B57</color>
     <color name="dead">#FF0000</color>
     <color name="unknown">#D3D3D3</color>
+    <color name="primary">#0275d8</color>
+    <color name="succes">#5cb85c</color>
+    <color name="verde">#006400</color>
+    <color name="info">#5bc0de</color>
+    <color name="waring">#f0ad4e</color>
+    <color name="danger">#d9534f</color>
+    <color name="azul">#3949AB</color>
+    <color name="background">#d3d3d3</color>
 </resources>
