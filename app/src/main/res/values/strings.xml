@@ -16,4 +16,12 @@
     <string name="_5">5</string>
     <string name="aceptar">Aceptar</string>
     <string name="canceler">Canceler</string>
+    <string name="last_seen_location_residents">Last seen location residents</string>
+    <string name="name">Name:</string>
+    <string name="type">Type:</string>
+    <string name="planet">Planet:</string>
+    <string name="dimension">Dimension:</string>
+    <string name="numbers_of_residents">Numbers of Residents:</string>
+    <string name="_101">101</string>
+    <string name="earth_c_137">Earth (C-137)</string>
 </resources>

@@ -1,11 +1,11 @@
 package com.example.paggingexample.data.api
 
-import com.example.paggingexample.data.models.Character
-import com.example.paggingexample.data.models.CharacterResponse
+import com.example.paggingexample.data.models.character.Character
+import com.example.paggingexample.data.models.character.CharacterResponse
+import com.example.paggingexample.data.models.location.SingleLocation
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.net.IDN
 
 interface RickAndMortyService {
 
@@ -14,4 +14,7 @@ interface RickAndMortyService {
 
     @GET("character/{id}")
     suspend fun getCharacter(@Path("id") id: String): Character
+
+    @GET("location/{id}")
+    suspend fun getSingleLocation(@Path("id") id: Int): SingleLocation
 }

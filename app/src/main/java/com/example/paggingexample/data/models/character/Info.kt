@@ -1,4 +1,4 @@
-package com.example.paggingexample.data.models
+package com.example.paggingexample.data.models.character
 
 data class Info(
     val count:Int,

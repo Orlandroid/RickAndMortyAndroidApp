@@ -2,19 +2,20 @@ package com.example.paggingexample.ui.characters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.paggingexample.data.models.Character
+import com.example.paggingexample.data.models.character.Character
+import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.click
-import com.example.paggingexample.ui.extensions.gone
 import com.example.paggingexample.ui.extensions.myOnScrolled
 import com.example.paggingexample.ui.extensions.visible
+import com.example.paggingexample.ui.main.AlertDialogs
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -49,7 +50,9 @@ class CharacterFragment : Fragment() {
             adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
                 override fun clickOnCharacter(character: Character) {
                     val action =
-                        CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(character.id)
+                        CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                            character.id
+                        )
                     findNavController().navigate(action)
                 }
             })
@@ -62,26 +65,41 @@ class CharacterFragment : Fragment() {
                     canCallToTheNextPage = false
                     viewModel.getCharacters(page = page.toString())
                     binding.progressBar.visible()
-                    Log.w("PAGE", "Current page call $page")
                 }
             }
             toolbarLayout.toolbarTitle.text = "Characters"
             toolbarLayout.toolbarBack.click {
                 findNavController().popBackStack()
             }
-            toolbarLayout.tvInfo.visible()
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserves() {
-        viewModel.characterResponse.observe(viewLifecycleOwner) {
-            charactesrList.addAll(it.results)
-            totalPages = it.info.pages
-            adapter.setData(charactesrList)
-            canCallToTheNextPage = true
-            binding.progressBar.gone()
-            binding.toolbarLayout.tvInfo.text = "Total -> ${charactesrList.size}"
+        viewModel.characterResponse.observe(viewLifecycleOwner) { apiState ->
+            binding.progressBar.isVisible = apiState is ApiState.Loading
+            when (apiState) {
+                is ApiState.Success -> {
+                    if (apiState.data != null) {
+                        charactesrList.addAll(apiState.data.results)
+                        totalPages = apiState.data.info.pages
+                        adapter.setData(charactesrList)
+                        canCallToTheNextPage = true
+                    }
+                }
+                is ApiState.Error -> {
+                    val dialog = AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
+                    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                    findNavController().popBackStack()
+                }
+                is ApiState.ErrorNetwork -> {
+                    val dialog =
+                        AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Verifica tu conexion de internet")
+                    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                }
+                else -> {}
+            }
+
         }
     }
 

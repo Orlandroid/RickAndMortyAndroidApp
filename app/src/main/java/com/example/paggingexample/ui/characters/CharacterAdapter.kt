@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.Character
+import com.example.paggingexample.data.models.character.Character
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.utils.getColorStatus
 import com.google.android.material.card.MaterialCardView
@@ -40,8 +40,7 @@ class CharacterAdapter :
             val specie = view.findViewById<TextView>(R.id.tv_specie)
             val card = view.findViewById<MaterialCardView>(R.id.card)
             name.text = character.name
-            Glide.with(itemView.context).load(character.image)
-                .transition(DrawableTransitionOptions.withCrossFade()).into(image)
+            Glide.with(itemView.context).load(character.image).transition(DrawableTransitionOptions.withCrossFade()).into(image)
             imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
             card.strokeColor = getColorStatus(character.status, itemView.context)
             status.text = character.status
