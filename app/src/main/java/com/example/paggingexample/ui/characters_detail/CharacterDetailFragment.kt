@@ -1,5 +1,6 @@
 package com.example.paggingexample.ui.characters_detail
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -11,10 +12,12 @@ import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click
+import com.example.paggingexample.ui.extensions.gone
 import com.example.paggingexample.ui.extensions.loadImage
 import com.example.paggingexample.ui.extensions.showToast
 import com.example.paggingexample.ui.main.AlertDialogs
 import com.example.paggingexample.ui.main.AlertDialogs.Companion.ERROR_MESSAGE
+import com.example.paggingexample.utils.getColorStatus
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -97,9 +100,12 @@ class CharacterDetailFragment :
             imageCharacter.loadImage(character.image)
             tvStatus.text = character.status
             tvSpecie.text = character.species
-            tvGender.text = character.species
+            tvGender.text = character.gender
             tvEpisodes.text = character.episode.size.toString()
             toolbarLayout.toolbarTitle.text = character.name
+            imageStatusSession.setColorFilter(getColorStatus(character.status, requireContext()))
+            cardView.strokeColor = getColorStatus(character.status, requireContext())
+            cardLocation.strokeColor = getColorStatus(character.status, requireContext())
         }
     }
 

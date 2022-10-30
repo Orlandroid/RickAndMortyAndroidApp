@@ -1,0 +1,125 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    style="@style/card_style"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:strokeColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/gris"
+            android:text="@string/status"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/gris"
+            android:text="@string/species"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/gender_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/gris"
+            android:text="@string/gender"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/Species"
+            app:layout_constraintTop_toBottomOf="@+id/Species" />
+
+        <TextView
+            android:id="@+id/episodios_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/gris"
+            android:text="@string/number_of_episodes"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gender_label"
+            app:layout_constraintTop_toBottomOf="@+id/gender_label" />
+
+        <ImageView
+            android:id="@+id/image_status_session"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/border_image"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:tint="@color/gris" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/empty_skeleton"
+            android:background="@color/gris"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_status_session"
+            app:layout_constraintStart_toEndOf="@+id/image_status_session"
+            app:layout_constraintTop_toTopOf="@+id/image_status_session" />
+
+        <TextView
+            android:id="@+id/tv_specie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_skeleton"
+            android:background="@color/gris"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_status"
+            app:layout_constraintTop_toTopOf="@+id/Species" />
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_skeleton"
+            android:background="@color/gris"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_specie"
+            app:layout_constraintTop_toTopOf="@+id/gender_label" />
+
+        <TextView
+            android:id="@+id/tv_episodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/empty"
+            android:background="@color/gris"
+            android:textColor="@color/gris"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/episodios_label"
+            app:layout_constraintTop_toTopOf="@+id/episodios_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

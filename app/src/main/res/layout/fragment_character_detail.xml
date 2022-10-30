@@ -18,9 +18,10 @@
 
         <ImageView
             android:id="@+id/image_character"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginTop="24dp"
+            android:background="@drawable/shape_image_border"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_layout" />
@@ -38,14 +39,16 @@
                 android:layout_height="wrap_content">
 
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardView"
                     style="@style/card_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/white">
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -106,15 +109,14 @@
                             android:src="@drawable/border_image"
                             app:layout_constraintBottom_toBottomOf="@+id/textView3"
                             app:layout_constraintStart_toEndOf="@+id/textView3"
-                            app:layout_constraintTop_toTopOf="@+id/textView3"
-                            app:tint="@color/alive" />
+                            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
                         <TextView
                             android:id="@+id/tv_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="@string/alive"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="@+id/image_status_session"
@@ -125,7 +127,7 @@
                             android:id="@+id/tv_specie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/human"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="@+id/tv_status"
@@ -135,7 +137,7 @@
                             android:id="@+id/tv_gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/male"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="@+id/tv_specie"
@@ -146,15 +148,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:text="@string/_5"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/episodios_label"
                             app:layout_constraintTop_toTopOf="@+id/episodios_label" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_location"
                     style="@style/card_style"
                     android:layout_width="match_parent"
@@ -162,7 +164,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView">
+                    app:layout_constraintTop_toBottomOf="@+id/cardView"
+                    app:strokeColor="@color/white">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -173,7 +176,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
-                            android:text="@string/_101"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -198,7 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
-                            android:text="@string/planet"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -221,7 +224,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
-                            android:text="@string/planet"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -244,7 +247,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:text="@string/earth_c_137"
+                            android:text="@string/empty"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -275,7 +278,7 @@
                             app:layout_constraintStart_toStartOf="@+id/textView4"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

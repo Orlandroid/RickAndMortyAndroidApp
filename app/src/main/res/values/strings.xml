@@ -25,4 +25,6 @@
     <string name="_101">101</string>
     <string name="earth_c_137">Earth (C-137)</string>
     <string name="last_seen_location">Last seen location</string>
+    <string name="empty">-</string>
+    <string name="empty_skeleton">-------------</string>
 </resources>
