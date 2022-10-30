@@ -41,7 +41,8 @@ class CharacterAdapter :
             val card = view.findViewById<MaterialCardView>(R.id.card)
             name.text = character.name
             Glide.with(itemView.context).load(character.image)
-                .transition(DrawableTransitionOptions.withCrossFade()).into(image)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.loading_animation).into(image)
             imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
             card.strokeColor = getColorStatus(character.status, itemView.context)
             status.text = character.status
