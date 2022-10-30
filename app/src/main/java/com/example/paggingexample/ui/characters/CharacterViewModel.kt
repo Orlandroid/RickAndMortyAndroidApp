@@ -29,7 +29,6 @@ class CharacterViewModel @Inject constructor(
     @SuppressLint("NullSafeMutableLiveData")
     fun getCharacters(page: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            delay(4000)
             withContext(Dispatchers.Main) {
                 _myCharacterResponse.value = ApiState.Loading()
             }
