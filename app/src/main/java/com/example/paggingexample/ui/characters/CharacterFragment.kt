@@ -2,6 +2,7 @@ package com.example.paggingexample.ui.characters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,8 @@ class CharacterFragment : Fragment() {
     private val adapter = CharacterAdapter()
     private var canCallToTheNextPage = true
     private var charactesrList: ArrayList<Character> = arrayListOf()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,10 +45,13 @@ class CharacterFragment : Fragment() {
 
 
     private fun setUpUi() {
-        charactesrList.clear()
+        resetPaging()
         viewModel.getCharacters(page.toString())
-        binding.progressBar.visible()
         with(binding) {
+            toolbarLayout.toolbarTitle.text = "Characters"
+            toolbarLayout.toolbarBack.click {
+                findNavController().popBackStack()
+            }
             recyclerView.adapter = adapter
             adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
                 override fun clickOnCharacter(character: Character) {
@@ -67,42 +73,47 @@ class CharacterFragment : Fragment() {
                     binding.progressBar.visible()
                 }
             }
-            toolbarLayout.toolbarTitle.text = "Characters"
-            toolbarLayout.toolbarBack.click {
-                findNavController().popBackStack()
-            }
         }
+    }
+
+    private fun resetPaging() {
+        charactesrList.clear()
+        page = 1
     }
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserves() {
-        viewModel.characterResponse.observe(viewLifecycleOwner) { apiState ->
-            binding.progressBar.isVisible = apiState is ApiState.Loading
-            when (apiState) {
-                is ApiState.Success -> {
-                    if (apiState.data != null) {
-                        charactesrList.addAll(apiState.data.results)
-                        totalPages = apiState.data.info.pages
-                        adapter.setData(charactesrList)
-                        canCallToTheNextPage = true
+        viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
+            apiState?.let {
+                binding.progressBar.isVisible = apiState is ApiState.Loading
+                when (apiState) {
+                    is ApiState.Success -> {
+                        if (apiState.data != null) {
+                            charactesrList.addAll(apiState.data.results)
+                            totalPages = apiState.data.info.pages
+                            adapter.setData(charactesrList)
+                            canCallToTheNextPage = true
+                        }
                     }
+                    is ApiState.Error -> {
+                        val dialog =
+                            AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
+                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                        findNavController().popBackStack()
+                    }
+                    is ApiState.ErrorNetwork -> {
+                        val dialog =
+                            AlertDialogs(
+                                AlertDialogs.ERROR_MESSAGE,
+                                "Verifica tu conexion de internet"
+                            )
+                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                    }
+                    else -> {}
                 }
-                is ApiState.Error -> {
-                    val dialog = AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
-                    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
-                    findNavController().popBackStack()
-                }
-                is ApiState.ErrorNetwork -> {
-                    val dialog =
-                        AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Verifica tu conexion de internet")
-                    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
-                }
-                else -> {}
             }
-
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

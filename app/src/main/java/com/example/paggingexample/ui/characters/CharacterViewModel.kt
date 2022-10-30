@@ -1,5 +1,6 @@
 package com.example.paggingexample.ui.characters
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,29 +21,31 @@ class CharacterViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    private val _characterResponse = MutableLiveData<ApiState<CharacterResponse>>()
-    val characterResponse: LiveData<ApiState<CharacterResponse>>
-        get() = _characterResponse
+    private val _myCharacterResponse = MutableLiveData<ApiState<CharacterResponse>>()
+    val myCharacterResponse: LiveData<ApiState<CharacterResponse>>
+        get() = _myCharacterResponse
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun getCharacters(page: String) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-                _characterResponse.value = ApiState.Loading()
+                _myCharacterResponse.value = ApiState.Loading()
             }
             if (!networkHelper.isNetworkConnected()) {
                 withContext(Dispatchers.Main) {
-                    _characterResponse.value = ApiState.ErrorNetwork()
+                    _myCharacterResponse.value = ApiState.ErrorNetwork()
                 }
                 return@launch
             }
             try {
                 val response = repository.getCharacters(page)
                 withContext(Dispatchers.Main) {
-                    _characterResponse.value = ApiState.Success(response)
+                    _myCharacterResponse.value = ApiState.Success(response)
+                    _myCharacterResponse.value = null
                 }
             } catch (e: Throwable) {
                 withContext(Dispatchers.Main) {
-                    _characterResponse.value = ApiState.Error(e)
+                    _myCharacterResponse.value = ApiState.Error(e)
                 }
             }
         }

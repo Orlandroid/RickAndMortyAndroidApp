@@ -1,8 +1,6 @@
 package com.example.paggingexample.ui.characters_detail
 
 import android.os.Bundle
-import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -36,7 +34,6 @@ class CharacterDetailFragment :
     override fun setUpUi() {
         viewModel.getCharacter(args.charcaterId.toString())
         with(binding) {
-            toolbarLayout.toolbarTitle.text = "Rick Sanchez"
             toolbarLayout.toolbarBack.click {
                 findNavController().popBackStack()
             }
@@ -102,6 +99,7 @@ class CharacterDetailFragment :
             tvSpecie.text = character.species
             tvGender.text = character.species
             tvEpisodes.text = character.episode.size.toString()
+            toolbarLayout.toolbarTitle.text = character.name
         }
     }
 
