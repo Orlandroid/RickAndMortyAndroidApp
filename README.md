@@ -12,6 +12,6 @@
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/home.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/caracteres.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/caracteres.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/caracteres.png" width="100%"></td> 
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td> 
   </tr>
 </table>
