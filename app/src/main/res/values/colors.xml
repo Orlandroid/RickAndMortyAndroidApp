@@ -20,4 +20,6 @@
     <color name="background">#d3d3d3</color>
     <color name="gris">#9F9F9F</color>
     <color name="transparent">#00000000</color>
+    <color name="mask_color">#34495e</color>
+    <color name="shimmer_color">#85929e</color>
 </resources>

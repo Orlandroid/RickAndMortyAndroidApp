@@ -1,8 +1,9 @@
 package com.example.paggingexample.ui.characters_detail
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.view.marginStart
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -12,8 +13,8 @@ import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click
-import com.example.paggingexample.ui.extensions.gone
 import com.example.paggingexample.ui.extensions.loadImage
+import com.example.paggingexample.ui.extensions.setMargins
 import com.example.paggingexample.ui.extensions.showToast
 import com.example.paggingexample.ui.main.AlertDialogs
 import com.example.paggingexample.ui.main.AlertDialogs.Companion.ERROR_MESSAGE
@@ -37,6 +38,8 @@ class CharacterDetailFragment :
     override fun setUpUi() {
         viewModel.getCharacter(args.charcaterId.toString())
         with(binding) {
+            skeletonInfo.showSkeleton()
+            skeletonLocation.showSkeleton()
             toolbarLayout.toolbarBack.click {
                 findNavController().popBackStack()
             }
@@ -56,7 +59,12 @@ class CharacterDetailFragment :
                         viewModel.getSingleLocation(
                             character.location.url.last().toString().toInt()
                         )
-                        setDataToView(character)
+                        with(binding) {
+                            skeletonInfo.showOriginal()
+                            skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
+                            setDataToView(character)
+                            skeletonInfo.setMargins(0, 0, 0, 0)
+                        }
                     }
                 }
                 is ApiState.Error -> {
@@ -79,6 +87,9 @@ class CharacterDetailFragment :
                         tvType.text = apiState.data?.type ?: ""
                         tvDimention.text = apiState.data?.dimension ?: ""
                         tvNumbersOfResidenst.text = apiState.data?.residents?.size.toString()
+                        skeletonLocation.showOriginal()
+                        skeletonLocation.setBackgroundColor(resources.getColor(R.color.background))
+                        skeletonLocation.setMargins(0, 0, 0, 0)
                     }
                 }
                 is ApiState.Error -> {
