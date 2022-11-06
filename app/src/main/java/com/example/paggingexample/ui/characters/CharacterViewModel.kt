@@ -9,10 +9,13 @@ import com.example.paggingexample.data.Repository
 import com.example.paggingexample.data.models.character.CharacterResponse
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.ui.main.NetworkHelper
+import com.example.paggingexample.utils.ErrorType
+import com.example.paggingexample.utils.getTypeOfError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +27,10 @@ class CharacterViewModel @Inject constructor(
     private val _myCharacterResponse = MutableLiveData<ApiState<CharacterResponse>>()
     val myCharacterResponse: LiveData<ApiState<CharacterResponse>>
         get() = _myCharacterResponse
+
+    private val _searchCharacterResponse = MutableLiveData<ApiState<CharacterResponse>>()
+    val searchCharacterResponse: LiveData<ApiState<CharacterResponse>>
+        get() = _searchCharacterResponse
 
     @SuppressLint("NullSafeMutableLiveData")
     fun getCharacters(page: String) {
@@ -51,8 +58,40 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
-    fun searchCharacters() {
-        
+    @SuppressLint("NullSafeMutableLiveData")
+    fun searchCharacters(
+        name: String = "",
+        status: String = "",
+        species: String = "",
+        gender: String = "",
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                _searchCharacterResponse.value = ApiState.Loading()
+            }
+            if (!networkHelper.isNetworkConnected()) {
+                withContext(Dispatchers.Main) {
+                    _searchCharacterResponse.value = ApiState.ErrorNetwork()
+                }
+                return@launch
+            }
+            try {
+                val response = repository.searchCharacter(name, status, species, gender)
+                withContext(Dispatchers.Main) {
+                    _searchCharacterResponse.value = ApiState.Success(response)
+                    _searchCharacterResponse.value = null
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    val errorType = getTypeOfError(e)
+                    if (errorType is ErrorType.HttpException) {
+                        _searchCharacterResponse.value = ApiState.Error(msg = e, codeError = errorType.responseCode)
+                    } else {
+                        _searchCharacterResponse.value = ApiState.Error(e)
+                    }
+                }
+            }
+        }
     }
 
 }

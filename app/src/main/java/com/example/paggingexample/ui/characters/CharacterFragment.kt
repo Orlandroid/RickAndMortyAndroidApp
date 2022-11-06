@@ -16,6 +16,7 @@ import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.*
 import com.example.paggingexample.ui.main.AlertDialogs
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.http.Query
 
 
 @AndroidEntryPoint
@@ -82,6 +83,11 @@ class CharacterFragment : Fragment() {
 
 
     private fun setUpObserves() {
+        observeCharactersResponse()
+        observeSearchCharacters()
+    }
+
+    private fun observeCharactersResponse() {
         viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
                 if (page > 1) {
@@ -118,20 +124,54 @@ class CharacterFragment : Fragment() {
         }
     }
 
+    private fun observeSearchCharacters() {
+        viewModel.searchCharacterResponse.observe(viewLifecycleOwner) { apiState ->
+            apiState?.let {
+                when (apiState) {
+                    is ApiState.Success -> {
+                        if (apiState.data != null) {
+
+                        }
+                    }
+                    is ApiState.Error -> {
+                        if (apiState.codeError == 404) {
+                            requireContext().showToast("Character not found")
+                        } else {
+                            val dialog =
+                                AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
+                            activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                            findNavController().popBackStack()
+                        }
+                    }
+                    is ApiState.ErrorNetwork -> {
+                        val dialog =
+                            AlertDialogs(
+                                AlertDialogs.ERROR_MESSAGE,
+                                "Verifica tu conexion de internet"
+                            )
+                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                    }
+                    else -> {}
+                }
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         myOnCreateOptionsMenu(
             menu = menu,
-            onQueryTextChange = { myOnQueryTextChange() },
-            onQueryTextSubmit = { myOnQueryTextSubmit() }
+            myOnQueryTextChange = { myOnQueryTextChange(it) },
+            myOnQueryTextSubmit = { myOnQueryTextSubmit(it) }
         )
     }
 
-    private fun myOnQueryTextChange() {
-        Log.w("ANDORID", "TEXTCHANGE")
+    private fun myOnQueryTextChange(textChange: String) {
+        Log.w("ANDROID", textChange)
     }
 
-    private fun myOnQueryTextSubmit() {
-        Log.w("ANDRIOD", "submit")
+    private fun myOnQueryTextSubmit(query: String) {
+        Log.w("ANDROID SUBMIT", query)
+        viewModel.searchCharacters(name = query)
     }
 
     override fun onDestroyView() {

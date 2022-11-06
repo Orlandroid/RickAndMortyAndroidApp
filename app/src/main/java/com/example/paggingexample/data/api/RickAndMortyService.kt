@@ -17,4 +17,13 @@ interface RickAndMortyService {
 
     @GET("location/{id}")
     suspend fun getSingleLocation(@Path("id") id: Int): SingleLocation
+
+    @GET("character")
+    suspend fun searchCharacter(
+        @Query("name") name: String,
+        @Query("status") status: String,
+        @Query("species") species: String,
+        @Query("gender") gender: String,
+    ): CharacterResponse
+
 }

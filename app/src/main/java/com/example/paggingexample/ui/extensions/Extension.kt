@@ -35,9 +35,9 @@ fun Fragment.myOnCreateOptionsMenu(
     menu: Menu,
     isSearchIconVisible: Boolean = true,
     setonMenuItemActionExpand: () -> Unit = {},
-    onMenuItemActionCollapse: () -> Unit = {},
-    onQueryTextSubmit: () -> Unit = {},
-    onQueryTextChange: () -> Unit = {}
+    myOnMenuItemActionCollapse: () -> Unit = {},
+    myOnQueryTextSubmit: (myQuery: String) -> Unit = {},
+    myOnQueryTextChange: (MyNewText: String) -> Unit = {}
 ) {
     activity?.menuInflater?.inflate(R.menu.menu_search, menu)
     val searchItem = menu.findItem(R.id.search)
@@ -50,7 +50,7 @@ fun Fragment.myOnCreateOptionsMenu(
         }
 
         override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
-            onMenuItemActionCollapse()
+            myOnMenuItemActionCollapse()
             searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
             return true
         }
@@ -60,12 +60,12 @@ fun Fragment.myOnCreateOptionsMenu(
     searchView.gravity = View.TEXT_ALIGNMENT_CENTER
     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String): Boolean {
-            onQueryTextSubmit()
+            myOnQueryTextSubmit(query)
             return false
         }
 
         override fun onQueryTextChange(newText: String): Boolean {
-            onQueryTextChange()
+            myOnQueryTextChange(newText)
             return false
         }
     })
