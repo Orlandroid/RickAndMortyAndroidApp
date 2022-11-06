@@ -2,9 +2,9 @@ package com.example.paggingexample.ui.characters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,10 +13,7 @@ import com.example.paggingexample.R
 import com.example.paggingexample.data.models.character.Character
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterBinding
-import com.example.paggingexample.ui.extensions.click
-import com.example.paggingexample.ui.extensions.gone
-import com.example.paggingexample.ui.extensions.myOnScrolled
-import com.example.paggingexample.ui.extensions.visible
+import com.example.paggingexample.ui.extensions.*
 import com.example.paggingexample.ui.main.AlertDialogs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,6 +43,7 @@ class CharacterFragment : Fragment() {
 
 
     private fun setUpUi() {
+        enableToolbarForListeners(binding.toolbarLayout.toolbar)
         resetPaging()
         viewModel.getCharacters(page.toString())
         with(binding) {
@@ -82,7 +80,7 @@ class CharacterFragment : Fragment() {
         page = 1
     }
 
-    @SuppressLint("SetTextI18n")
+
     private fun setUpObserves() {
         viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
@@ -118,6 +116,22 @@ class CharacterFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        myOnCreateOptionsMenu(
+            menu = menu,
+            onQueryTextChange = { myOnQueryTextChange() },
+            onQueryTextSubmit = { myOnQueryTextSubmit() }
+        )
+    }
+
+    private fun myOnQueryTextChange() {
+        Log.w("ANDORID", "TEXTCHANGE")
+    }
+
+    private fun myOnQueryTextSubmit() {
+        Log.w("ANDRIOD", "submit")
     }
 
     override fun onDestroyView() {

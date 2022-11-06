@@ -11,7 +11,6 @@ import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -50,6 +49,10 @@ class CharacterViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun searchCharacters() {
+        
     }
 
 }
