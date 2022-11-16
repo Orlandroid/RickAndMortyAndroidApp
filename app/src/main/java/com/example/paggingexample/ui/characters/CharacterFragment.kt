@@ -1,10 +1,8 @@
 package com.example.paggingexample.ui.characters
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +14,6 @@ import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.*
 import com.example.paggingexample.ui.main.AlertDialogs
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.http.Query
 
 
 @AndroidEntryPoint
@@ -29,7 +26,10 @@ class CharacterFragment : Fragment() {
     private var totalPages = 0
     private val adapter = CharacterAdapter()
     private var canCallToTheNextPage = true
-    private var charactesrList: ArrayList<Character> = arrayListOf()
+    private var characterList: ArrayList<Character> = arrayListOf()
+    private var characterSearchList: ArrayList<Character> = arrayListOf()
+    private var isSearching = false
+    private var currentCharacter = ""
 
 
     override fun onCreateView(
@@ -46,6 +46,7 @@ class CharacterFragment : Fragment() {
     private fun setUpUi() {
         enableToolbarForListeners(binding.toolbarLayout.toolbar)
         resetPaging()
+        isSearching = false
         viewModel.getCharacters(page.toString())
         with(binding) {
             toolbarLayout.toolbarTitle.text = "Characters"
@@ -69,7 +70,11 @@ class CharacterFragment : Fragment() {
                 if (totalPages > page) {
                     page++
                     canCallToTheNextPage = false
-                    viewModel.getCharacters(page = page.toString())
+                    if (isSearching) {
+                        viewModel.searchCharacters(page = page.toString(), name = currentCharacter)
+                    } else {
+                        viewModel.getCharacters(page = page.toString())
+                    }
                     binding.progressBar.visible()
                 }
             }
@@ -77,7 +82,8 @@ class CharacterFragment : Fragment() {
     }
 
     private fun resetPaging() {
-        charactesrList.clear()
+        characterSearchList.clear()
+        characterList.clear()
         page = 1
     }
 
@@ -96,9 +102,9 @@ class CharacterFragment : Fragment() {
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
-                            charactesrList.addAll(apiState.data.results)
+                            characterList.addAll(apiState.data.results)
                             totalPages = apiState.data.info.pages
-                            adapter.setData(charactesrList)
+                            adapter.setData(characterList)
                             canCallToTheNextPage = true
                             binding.skeleton.gone()
                             binding.root.setBackgroundColor(resources.getColor(R.color.background))
@@ -127,15 +133,19 @@ class CharacterFragment : Fragment() {
     private fun observeSearchCharacters() {
         viewModel.searchCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
+                binding.progressBar.isVisible = apiState is ApiState.Loading
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
-
+                            characterSearchList.addAll(apiState.data.results)
+                            totalPages = apiState.data.info.pages
+                            adapter.setData(characterSearchList)
+                            canCallToTheNextPage = true
                         }
                     }
                     is ApiState.Error -> {
                         if (apiState.codeError == 404) {
-                            requireContext().showToast("Character not found")
+                            Log.w("ANDROID CHARACTER", "Character not found")
                         } else {
                             val dialog =
                                 AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
@@ -160,18 +170,21 @@ class CharacterFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         myOnCreateOptionsMenu(
             menu = menu,
-            myOnQueryTextChange = { myOnQueryTextChange(it) },
-            myOnQueryTextSubmit = { myOnQueryTextSubmit(it) }
+            myOnQueryTextSubmit = {
+                characterSearchList.clear()
+                page = 1
+                currentCharacter = it
+                viewModel.searchCharacters(name = currentCharacter, page = page.toString())
+            },
+            myOnMenuItemActionCollapse = {
+                isSearching = false
+                page = 1
+                viewModel.getCharacters(page.toString())
+            },
+            setonMenuItemActionExpand = {
+                isSearching = true
+            }
         )
-    }
-
-    private fun myOnQueryTextChange(textChange: String) {
-        Log.w("ANDROID", textChange)
-    }
-
-    private fun myOnQueryTextSubmit(query: String) {
-        Log.w("ANDROID SUBMIT", query)
-        viewModel.searchCharacters(name = query)
     }
 
     override fun onDestroyView() {

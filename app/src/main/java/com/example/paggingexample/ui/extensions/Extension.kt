@@ -37,11 +37,17 @@ fun Fragment.myOnCreateOptionsMenu(
     setonMenuItemActionExpand: () -> Unit = {},
     myOnMenuItemActionCollapse: () -> Unit = {},
     myOnQueryTextSubmit: (myQuery: String) -> Unit = {},
-    myOnQueryTextChange: (MyNewText: String) -> Unit = {}
+    myOnQueryTextChange: (MyNewText: String) -> Unit = {},
+    clickOnChange: () -> Unit = {}
 ) {
     activity?.menuInflater?.inflate(R.menu.menu_search, menu)
     val searchItem = menu.findItem(R.id.search)
+    val change = menu.findItem(R.id.change)
     searchItem.isVisible = isSearchIconVisible
+    change.setOnMenuItemClickListener {
+        clickOnChange()
+        false
+    }
 
     searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
         override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {

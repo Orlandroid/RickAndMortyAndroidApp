@@ -14,7 +14,7 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
 
     suspend fun getSingleLocation(id: Int) = rickAndMortyService.getSingleLocation(id)
 
-    suspend fun searchCharacter(name: String, status: String, species: String, gender: String) =
-        rickAndMortyService.searchCharacter(name, status, species, gender)
+    suspend fun searchCharacter(name: String, status: String, species: String, gender: String,page: String) =
+        rickAndMortyService.searchCharacter(name, status, species, gender,page)
 
 }

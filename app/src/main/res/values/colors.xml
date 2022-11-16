@@ -22,4 +22,5 @@
     <color name="transparent">#00000000</color>
     <color name="mask_color">#34495e</color>
     <color name="shimmer_color">#85929e</color>
+    <color name="always_white">#FFFFFFFF</color>
 </resources>

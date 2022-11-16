@@ -64,6 +64,7 @@ class CharacterViewModel @Inject constructor(
         status: String = "",
         species: String = "",
         gender: String = "",
+        page: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
@@ -76,7 +77,7 @@ class CharacterViewModel @Inject constructor(
                 return@launch
             }
             try {
-                val response = repository.searchCharacter(name, status, species, gender)
+                val response = repository.searchCharacter(name, status, species, gender, page)
                 withContext(Dispatchers.Main) {
                     _searchCharacterResponse.value = ApiState.Success(response)
                     _searchCharacterResponse.value = null
@@ -85,7 +86,8 @@ class CharacterViewModel @Inject constructor(
                 withContext(Dispatchers.Main) {
                     val errorType = getTypeOfError(e)
                     if (errorType is ErrorType.HttpException) {
-                        _searchCharacterResponse.value = ApiState.Error(msg = e, codeError = errorType.responseCode)
+                        _searchCharacterResponse.value =
+                            ApiState.Error(msg = e, codeError = errorType.responseCode)
                     } else {
                         _searchCharacterResponse.value = ApiState.Error(e)
                     }
