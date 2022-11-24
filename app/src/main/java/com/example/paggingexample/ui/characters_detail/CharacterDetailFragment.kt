@@ -117,8 +117,23 @@ class CharacterDetailFragment :
             imageStatusSession.setColorFilter(getColorStatus(character.status, requireContext()))
             cardView.strokeColor = getColorStatus(character.status, requireContext())
             cardLocation.strokeColor = getColorStatus(character.status, requireContext())
+            setDrawableImage(character.status)
         }
     }
 
+
+    private fun setDrawableImage(status: String) {
+        when (status) {
+            "Alive" -> {
+                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_alive))
+            }
+            "Dead" -> {
+                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_dead))
+            }
+            "unknown" -> {
+                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_unknown))
+            }
+        }
+    }
 
 }
