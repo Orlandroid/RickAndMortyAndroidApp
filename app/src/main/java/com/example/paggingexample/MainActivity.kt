@@ -18,6 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+
+    fun canShowProgress(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
+    }
+
     fun showProgress() {
         if (!binding.progressBar.isVisible) {
             binding.progressBar.visible()

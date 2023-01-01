@@ -6,14 +6,12 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.character.Character
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.*
-import com.example.paggingexample.ui.main.AlertDialogs
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,6 +29,7 @@ class CharacterFragment : Fragment() {
     private var characterSearchList: ArrayList<Character> = arrayListOf()
     private var isSearching = false
     private var currentCharacter = ""
+    private var isFirstTimeOnTheView = true
 
 
     override fun onCreateView(
@@ -46,10 +45,10 @@ class CharacterFragment : Fragment() {
 
     private fun setUpUi() = with(binding) {
         enableToolbarForListeners(binding.toolbarLayout.toolbar)
-        resetPaging()
         isSearching = false
+        resetPaging()
         viewModel.getCharacters(page.toString())
-        toolbarLayout.toolbarTitle.text = "Characters"
+        toolbarLayout.toolbarTitle.text = getString(R.string.characters)
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
@@ -75,8 +74,14 @@ class CharacterFragment : Fragment() {
                 } else {
                     viewModel.getCharacters(page = page.toString())
                 }
-                binding.progressBar.visible()
+                showProgress()
             }
+        }
+        swipRefresh.setOnRefreshListener {
+            resetPaging()
+            swipRefresh.isRefreshing = false
+            isSearching = false
+            viewModel.getCharacters(page.toString())
         }
     }
 
@@ -96,7 +101,9 @@ class CharacterFragment : Fragment() {
         viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
                 if (page > 1) {
-                    binding.progressBar.isVisible = apiState is ApiState.Loading
+                    canShowProgress(apiState is ApiState.Loading)
+                } else {
+                    binding.skeleton.handleStatus(apiState is ApiState.Loading)
                 }
                 when (apiState) {
                     is ApiState.Success -> {
@@ -105,7 +112,6 @@ class CharacterFragment : Fragment() {
                             totalPages = apiState.data.info.pages
                             adapter.setData(characterList)
                             canCallToTheNextPage = true
-                            binding.skeleton.gone()
                             binding.root.setBackgroundColor(resources.getColor(R.color.background))
                         }
                     }
@@ -124,7 +130,7 @@ class CharacterFragment : Fragment() {
     private fun observeSearchCharacters() {
         viewModel.searchCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
-                binding.progressBar.isVisible = apiState is ApiState.Loading
+                canShowProgress(apiState is ApiState.Loading)
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
@@ -150,6 +156,7 @@ class CharacterFragment : Fragment() {
         }
     }
 
+    //Todo check Deorecation
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         myOnCreateOptionsMenu(
             menu = menu,

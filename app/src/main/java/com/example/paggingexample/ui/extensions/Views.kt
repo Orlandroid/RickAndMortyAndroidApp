@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.faltenreich.skeletonlayout.Skeleton
 
 
 fun View.visible() {
@@ -29,6 +31,14 @@ fun View.click(click: () -> Unit) {
 
 fun View.getColor(@ColorRes color: Int): Int {
     return this.context.resources.getColor(color)
+}
+
+fun ShimmerFrameLayout.handleStatus(isLoading: Boolean) {
+    if (isLoading) {
+        visible()
+    } else {
+        gone()
+    }
 }
 
 fun View.getPackageName(): String {
