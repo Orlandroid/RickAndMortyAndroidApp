@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorRes
+import androidx.fragment.app.Fragment
 
 
 fun View.visible() {
@@ -28,6 +29,10 @@ fun View.click(click: () -> Unit) {
 
 fun View.getColor(@ColorRes color: Int): Int {
     return this.context.resources.getColor(color)
+}
+
+fun View.getPackageName(): String {
+    return context?.applicationContext?.packageName.toString()
 }
 
 fun View.setMargins(left: Int, top: Int, right: Int, bottom: Int) {

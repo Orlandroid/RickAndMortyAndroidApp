@@ -22,14 +22,22 @@
         <action
             android:id="@+id/action_menuFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.example.paggingexample.ui.characters_detail.CharacterDetailFragment"
         android:label="CharacterDetailFragment"
-        tools:layout="@layout/fragment_character_detail" >
+        tools:layout="@layout/fragment_character_detail">
         <argument
             android:name="charcaterId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.example.paggingexample.ui.episodes.EpisodesFragment"
+        android:label="EpisodesFragment"
+        tools:layout="@layout/fragment_episodes" />
 </navigation>

@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.paggingexample.ui.extensions.hideProgress
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected val contentLayoutId: Int) :
     Fragment() {
@@ -24,10 +25,21 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpUi()
+        observerViewModel()
+    }
+
     protected abstract fun setUpUi()
 
     open fun observerViewModel() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideProgress()
     }
 
 }

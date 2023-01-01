@@ -2,6 +2,7 @@ package com.example.paggingexample.data.api
 
 import com.example.paggingexample.data.models.character.Character
 import com.example.paggingexample.data.models.character.CharacterResponse
+import com.example.paggingexample.data.models.episode.EpisodeResponse
 import com.example.paggingexample.data.models.location.SingleLocation
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,5 +27,11 @@ interface RickAndMortyService {
         @Query("gender") gender: String,
         @Query("page") page: String
     ): CharacterResponse
+
+    @GET("episode")
+    suspend fun getEpisodes(
+        @Query("page") page: Int
+    ): EpisodeResponse
+
 
 }

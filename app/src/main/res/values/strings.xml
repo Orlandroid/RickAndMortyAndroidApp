@@ -29,4 +29,12 @@
     <string name="empty_skeleton">-------------</string>
     <string name="search">Search</string>
     <string name="change">Change</string>
+    <string name="s01e01">S01E01</string>
+    <string name="pilot">Pilot</string>
+    <string name="december_2_2013">December 2, 2013</string>
+    <string name="error_al_obtener_datos">Error al obtener los datos</string>
+    <string name="error_internet">Verifica tu conexión de internet</string>
+    <string name="message_succes">La operación se realizó con éxito</string>
+    <string name="episodios">Episodios</string>
+    <string name="caracteres">Characters</string>
 </resources>

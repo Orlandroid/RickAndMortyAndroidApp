@@ -6,6 +6,7 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.character.Character
@@ -43,40 +44,38 @@ class CharacterFragment : Fragment() {
     }
 
 
-    private fun setUpUi() {
+    private fun setUpUi() = with(binding) {
         enableToolbarForListeners(binding.toolbarLayout.toolbar)
         resetPaging()
         isSearching = false
         viewModel.getCharacters(page.toString())
-        with(binding) {
-            toolbarLayout.toolbarTitle.text = "Characters"
-            toolbarLayout.toolbarBack.click {
-                findNavController().popBackStack()
+        toolbarLayout.toolbarTitle.text = "Characters"
+        toolbarLayout.toolbarBack.click {
+            findNavController().popBackStack()
+        }
+        recyclerView.adapter = adapter
+        adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
+            override fun clickOnCharacter(character: Character) {
+                val action =
+                    CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                        character.id
+                    )
+                findNavController().navigate(action)
             }
-            recyclerView.adapter = adapter
-            adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
-                override fun clickOnCharacter(character: Character) {
-                    val action =
-                        CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
-                            character.id
-                        )
-                    findNavController().navigate(action)
+        })
+        recyclerView.myOnScrolled {
+            if (!canCallToTheNextPage) {
+                return@myOnScrolled
+            }
+            if (totalPages > page) {
+                page++
+                canCallToTheNextPage = false
+                if (isSearching) {
+                    viewModel.searchCharacters(page = page.toString(), name = currentCharacter)
+                } else {
+                    viewModel.getCharacters(page = page.toString())
                 }
-            })
-            recyclerView.myOnScrolled {
-                if (!canCallToTheNextPage) {
-                    return@myOnScrolled
-                }
-                if (totalPages > page) {
-                    page++
-                    canCallToTheNextPage = false
-                    if (isSearching) {
-                        viewModel.searchCharacters(page = page.toString(), name = currentCharacter)
-                    } else {
-                        viewModel.getCharacters(page = page.toString())
-                    }
-                    binding.progressBar.visible()
-                }
+                binding.progressBar.visible()
             }
         }
     }
@@ -111,18 +110,10 @@ class CharacterFragment : Fragment() {
                         }
                     }
                     is ApiState.Error -> {
-                        val dialog =
-                            AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
-                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
-                        findNavController().popBackStack()
+                        showErrorApi()
                     }
                     is ApiState.ErrorNetwork -> {
-                        val dialog =
-                            AlertDialogs(
-                                AlertDialogs.ERROR_MESSAGE,
-                                "Verifica tu conexion de internet"
-                            )
-                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                        showErrorNetwork()
                     }
                     else -> {}
                 }
@@ -147,19 +138,11 @@ class CharacterFragment : Fragment() {
                         if (apiState.codeError == 404) {
                             Log.w("ANDROID CHARACTER", "Character not found")
                         } else {
-                            val dialog =
-                                AlertDialogs(AlertDialogs.ERROR_MESSAGE, "Error al obtener datos")
-                            activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
-                            findNavController().popBackStack()
+                            showErrorApi()
                         }
                     }
                     is ApiState.ErrorNetwork -> {
-                        val dialog =
-                            AlertDialogs(
-                                AlertDialogs.ERROR_MESSAGE,
-                                "Verifica tu conexion de internet"
-                            )
-                        activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+                        showErrorNetwork()
                     }
                     else -> {}
                 }

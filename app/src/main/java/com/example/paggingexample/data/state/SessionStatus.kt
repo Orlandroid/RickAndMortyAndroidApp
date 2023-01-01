@@ -1,4 +1,4 @@
-package com.example.citassalon.data.state
+package com.example.paggingexample.data.state
 
 sealed class SessionStatus() {
     object LOADING : SessionStatus()

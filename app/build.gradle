@@ -42,9 +42,10 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def retrofit_version = "2.9.0"
-    def navigation_version = "2.5.2"
+    def navigation_version = "2.5.3"
     def lifecycle_version = "2.4.1"
     def dagger_hilt_version = "2.38.1"
+    def paging_version = "3.1.1"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -75,4 +76,6 @@ dependencies {
     //Shimer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.faltenreich:skeletonlayout:4.0.0'
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
 }
