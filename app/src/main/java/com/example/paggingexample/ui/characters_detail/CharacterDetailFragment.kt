@@ -1,12 +1,10 @@
 package com.example.paggingexample.ui.characters_detail
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.character.Character
+import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.*
@@ -66,7 +64,6 @@ class CharacterDetailFragment :
     }
 
     private fun setDataToView(character: Character) = with(binding) {
-        imageCharacter.loadImage(character.image)
         tvStatus.text = character.status
         tvSpecie.text = character.species
         tvGender.text = character.gender
@@ -75,7 +72,8 @@ class CharacterDetailFragment :
         imageStatusSession.setColorFilter(getColorStatus(character.status, requireContext()))
         cardView.strokeColor = getColorStatus(character.status, requireContext())
         cardLocation.strokeColor = getColorStatus(character.status, requireContext())
-        setDrawableImage(character.status)
+        //setDrawableImage(character.status)
+        imageCharacter.loadImage(character.image)
     }
 
 

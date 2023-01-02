@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun canShowProgress(isLoading: Boolean) {
+    fun shouldShowProgress(isLoading: Boolean) {
         binding.progressBar.isVisible = isLoading
     }
 

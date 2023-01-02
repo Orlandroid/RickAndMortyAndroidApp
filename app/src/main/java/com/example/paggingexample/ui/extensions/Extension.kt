@@ -19,7 +19,8 @@ fun Context.showToast(message: String) {
 }
 
 fun ImageView.loadImage(urlImage: String) {
-    Glide.with(context).load(urlImage).placeholder(R.drawable.loading_animation)
+    Glide.with(context).load(urlImage).error(R.drawable.ic_baseline_broken_image_24)
+        .placeholder(R.drawable.loading_animation)
         .transition(DrawableTransitionOptions.withCrossFade()).circleCrop().into(this)
 }
 

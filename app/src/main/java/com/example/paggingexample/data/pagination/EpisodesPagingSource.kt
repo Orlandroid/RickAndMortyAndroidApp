@@ -1,10 +1,9 @@
 package com.example.paggingexample.data.pagination
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.paggingexample.data.api.RickAndMortyService
-import com.example.paggingexample.data.models.episode.Episode
+import com.example.paggingexample.data.models.remote.location.episode.Episode
 
 class EpisodesPagingSource(
     val service: RickAndMortyService

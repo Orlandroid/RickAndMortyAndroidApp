@@ -1,38 +1,26 @@
 package com.example.paggingexample.ui.episodes
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.paggingexample.data.models.episode.Episode
+import com.example.paggingexample.data.models.remote.location.episode.Episode
 import com.example.paggingexample.databinding.ItemEpisodeBinding
 
 class EpisodesAdapter :
-    PagingDataAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(EpisodeComparator) {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): EpisodeViewHolder {
-        return EpisodeViewHolder(
-            ItemEpisodeBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    RecyclerView.Adapter<EpisodesAdapter.ViewHolder>() {
+
+    private var characters = listOf<Episode>()
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(list: List<Episode>) {
+        characters = list
+        notifyDataSetChanged()
     }
 
 
-    override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
-        val item = getItem(position)
-        item?.let {
-            holder.bind(it)
-        }
-    }
-
-
-    inner class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
+    class ViewHolder(val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(episode: Episode) = with(binding) {
             tvEpisode.text = episode.episode
@@ -41,15 +29,21 @@ class EpisodesAdapter :
         }
     }
 
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(viewGroup.context)
+        val binding = ItemEpisodeBinding.inflate(layoutInflater,viewGroup,false)
+        return ViewHolder(binding)
 
-    object EpisodeComparator : DiffUtil.ItemCallback<Episode>() {
-        override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
-            return oldItem == newItem
-        }
     }
+
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.bind(characters[position])
+
+    }
+
+
+    override fun getItemCount() = characters.size
+
 
 }

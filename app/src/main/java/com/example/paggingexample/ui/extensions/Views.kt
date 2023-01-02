@@ -33,7 +33,7 @@ fun View.getColor(@ColorRes color: Int): Int {
     return this.context.resources.getColor(color)
 }
 
-fun ShimmerFrameLayout.handleStatus(isLoading: Boolean) {
+fun ShimmerFrameLayout.shouldShowSkeleton(isLoading: Boolean) {
     if (isLoading) {
         visible()
     } else {

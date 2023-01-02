@@ -1,21 +1,11 @@
 package com.example.paggingexample.data
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.example.paggingexample.data.api.RickAndMortyService
-import com.example.paggingexample.data.models.character.CharacterResponse
-import com.example.paggingexample.data.models.episode.Episode
-import com.example.paggingexample.data.pagination.EpisodesPagingSource
-import kotlinx.coroutines.flow.Flow
+import com.example.paggingexample.data.models.local.SearchCharacter
+import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val rickAndMortyService: RickAndMortyService) {
-
-    companion object {
-        const val NETWORK_PAGE_SIZE = 20
-        const val PRE_FETCH_DISTANCE = 5
-    }
 
 
     suspend fun getCharacters(page: String): CharacterResponse =
@@ -25,26 +15,16 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
 
     suspend fun getSingleLocation(id: Int) = rickAndMortyService.getSingleLocation(id)
 
-    suspend fun searchCharacter(
-        name: String,
-        status: String,
-        species: String,
-        gender: String,
-        page: String
-    ) = rickAndMortyService.searchCharacter(name, status, species, gender, page)
+    suspend fun searchCharacter(searchCharacter: SearchCharacter, page: String) =
+        rickAndMortyService.searchCharacter(
+            searchCharacter.name,
+            searchCharacter.status,
+            searchCharacter.species,
+            searchCharacter.gender,
+            page
+        )
 
-    fun getEpisodes(): Flow<PagingData<Episode>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                prefetchDistance = PRE_FETCH_DISTANCE
-            ),
-            pagingSourceFactory = {
-                EpisodesPagingSource(service = rickAndMortyService)
-            }
-        ).flow
-    }
+    suspend fun getEpisodes(page: Int) = rickAndMortyService.getEpisodes(page)
 
 
 }

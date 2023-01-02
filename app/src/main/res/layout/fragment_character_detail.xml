@@ -137,44 +137,49 @@
 
                                 <TextView
                                     android:id="@+id/tv_status"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
+                                    android:layout_marginEnd="8dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
                                     app:layout_constraintBottom_toBottomOf="@+id/image_status_session"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/image_status_session"
                                     app:layout_constraintTop_toTopOf="@+id/image_status_session" />
 
                                 <TextView
                                     android:id="@+id/tv_specie"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_status"
                                     app:layout_constraintStart_toStartOf="@+id/tv_status"
                                     app:layout_constraintTop_toTopOf="@+id/Species" />
 
                                 <TextView
                                     android:id="@+id/tv_gender"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_specie"
                                     app:layout_constraintStart_toStartOf="@+id/tv_specie"
                                     app:layout_constraintTop_toTopOf="@+id/gender_label" />
 
                                 <TextView
                                     android:id="@+id/tv_episodes"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="24dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_gender"
                                     app:layout_constraintStart_toEndOf="@+id/episodios_label"
                                     app:layout_constraintTop_toTopOf="@+id/episodios_label" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -209,12 +214,13 @@
 
                                 <TextView
                                     android:id="@+id/tv_numbers_of_residenst"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="32dp"
+                                    android:layout_marginStart="24dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_dimention"
                                     app:layout_constraintStart_toEndOf="@+id/textView8"
                                     app:layout_constraintTop_toTopOf="@+id/textView8" />
 
@@ -230,16 +236,17 @@
                                     android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/textView7"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                                    app:layout_constraintTop_toBottomOf="@+id/tv_dimention" />
 
                                 <TextView
                                     android:id="@+id/tv_dimention"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="32dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_type"
                                     app:layout_constraintStart_toEndOf="@+id/textView7"
                                     app:layout_constraintTop_toTopOf="@+id/textView7" />
 
@@ -257,12 +264,13 @@
 
                                 <TextView
                                     android:id="@+id/tv_type"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="32dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
                                     app:layout_constraintStart_toEndOf="@+id/textView6"
                                     app:layout_constraintTop_toTopOf="@+id/textView6" />
 
@@ -276,16 +284,18 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     app:layout_constraintStart_toStartOf="@+id/textView4"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
                                 <TextView
                                     android:id="@+id/tv_name"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="24dp"
+                                    android:layout_marginEnd="8dp"
                                     android:text="@string/empty"
                                     android:textColor="@color/black"
                                     android:textSize="20sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/textView4"
                                     app:layout_constraintTop_toTopOf="@+id/textView4" />
 

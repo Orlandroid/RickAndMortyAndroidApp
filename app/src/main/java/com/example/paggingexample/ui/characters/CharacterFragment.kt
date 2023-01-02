@@ -3,12 +3,12 @@ package com.example.paggingexample.ui.characters
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.character.Character
+import com.example.paggingexample.data.models.local.SearchCharacter
+import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.*
@@ -28,9 +28,7 @@ class CharacterFragment : Fragment() {
     private var characterList: ArrayList<Character> = arrayListOf()
     private var characterSearchList: ArrayList<Character> = arrayListOf()
     private var isSearching = false
-    private var currentCharacter = ""
-    private var isFirstTimeOnTheView = true
-
+    var searchCharacter = SearchCharacter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +68,7 @@ class CharacterFragment : Fragment() {
                 page++
                 canCallToTheNextPage = false
                 if (isSearching) {
-                    viewModel.searchCharacters(page = page.toString(), name = currentCharacter)
+                    viewModel.searchCharacters(page = page.toString(), searchCharacter = searchCharacter)
                 } else {
                     viewModel.getCharacters(page = page.toString())
                 }
@@ -101,9 +99,9 @@ class CharacterFragment : Fragment() {
         viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
                 if (page > 1) {
-                    canShowProgress(apiState is ApiState.Loading)
+                    shouldShowProgress(apiState is ApiState.Loading)
                 } else {
-                    binding.skeleton.handleStatus(apiState is ApiState.Loading)
+                    binding.skeleton.shouldShowSkeleton(apiState is ApiState.Loading)
                 }
                 when (apiState) {
                     is ApiState.Success -> {
@@ -130,7 +128,7 @@ class CharacterFragment : Fragment() {
     private fun observeSearchCharacters() {
         viewModel.searchCharacterResponse.observe(viewLifecycleOwner) { apiState ->
             apiState?.let {
-                canShowProgress(apiState is ApiState.Loading)
+                shouldShowProgress(apiState is ApiState.Loading)
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
@@ -163,8 +161,8 @@ class CharacterFragment : Fragment() {
             myOnQueryTextSubmit = {
                 characterSearchList.clear()
                 page = 1
-                currentCharacter = it
-                viewModel.searchCharacters(name = currentCharacter, page = page.toString())
+                searchCharacter.name = it
+                viewModel.searchCharacters(searchCharacter = searchCharacter, page = page.toString())
             },
             myOnMenuItemActionCollapse = {
                 isSearching = false

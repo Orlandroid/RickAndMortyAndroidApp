@@ -16,8 +16,8 @@ fun Fragment.hideProgress() {
     (requireActivity() as MainActivity).hideProgress()
 }
 
-fun Fragment.canShowProgress(isLoading: Boolean) {
-    (requireActivity() as MainActivity).canShowProgress(isLoading)
+fun Fragment.shouldShowProgress(isLoading: Boolean) {
+    (requireActivity() as MainActivity).shouldShowProgress(isLoading)
 }
 
 fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.message_succes)) {
@@ -82,6 +82,7 @@ fun <T> Fragment.observeApiResultGeneric(
     onSuccess: (data: T) -> Unit,
 ) {
     liveData.observe(viewLifecycleOwner) { apiState ->
+        if (apiState == null) return@observe
         fun handleStatus(isLoading: Boolean) {
             if (isLoading) {
                 onLoading()
@@ -92,7 +93,7 @@ fun <T> Fragment.observeApiResultGeneric(
 
         val isLoading = apiState is ApiState.Loading
         if (hasProgressTheView) {
-            canShowProgress(isLoading)
+            shouldShowProgress(isLoading)
         } else {
             handleStatus(isLoading)
         }

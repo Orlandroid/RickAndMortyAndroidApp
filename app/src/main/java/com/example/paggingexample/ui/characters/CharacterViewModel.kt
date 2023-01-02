@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paggingexample.data.Repository
-import com.example.paggingexample.data.models.character.CharacterResponse
+import com.example.paggingexample.data.models.local.SearchCharacter
+import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.ui.main.NetworkHelper
 import com.example.paggingexample.utils.ErrorType
@@ -60,10 +61,7 @@ class CharacterViewModel @Inject constructor(
 
     @SuppressLint("NullSafeMutableLiveData")
     fun searchCharacters(
-        name: String = "",
-        status: String = "",
-        species: String = "",
-        gender: String = "",
+        searchCharacter: SearchCharacter,
         page: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -77,7 +75,7 @@ class CharacterViewModel @Inject constructor(
                 return@launch
             }
             try {
-                val response = repository.searchCharacter(name, status, species, gender, page)
+                val response = repository.searchCharacter(searchCharacter, page)
                 withContext(Dispatchers.Main) {
                     _searchCharacterResponse.value = ApiState.Success(response)
                     _searchCharacterResponse.value = null

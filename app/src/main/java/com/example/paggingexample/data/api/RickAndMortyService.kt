@@ -1,9 +1,9 @@
 package com.example.paggingexample.data.api
 
-import com.example.paggingexample.data.models.character.Character
-import com.example.paggingexample.data.models.character.CharacterResponse
-import com.example.paggingexample.data.models.episode.EpisodeResponse
-import com.example.paggingexample.data.models.location.SingleLocation
+import com.example.paggingexample.data.models.remote.location.character.Character
+import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
+import com.example.paggingexample.data.models.remote.location.episode.EpisodeResponse
+import com.example.paggingexample.data.models.remote.location.SingleLocation
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

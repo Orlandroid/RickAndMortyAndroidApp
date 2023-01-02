@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.character.Character
+import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.utils.getColorStatus
 import com.google.android.material.card.MaterialCardView

@@ -23,4 +23,5 @@
     <color name="mask_color">#34495e</color>
     <color name="shimmer_color">#85929e</color>
     <color name="always_white">#FFFFFFFF</color>
+    <color name="status_bar_color">#FF6200EE</color>
 </resources>

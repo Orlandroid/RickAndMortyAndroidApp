@@ -1,4 +1,4 @@
-package com.example.paggingexample.data.models.location
+package com.example.paggingexample.data.models.remote.location
 
 data class SingleLocation(
     val id: Int,
