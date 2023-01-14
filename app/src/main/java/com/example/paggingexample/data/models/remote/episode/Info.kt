@@ -1,4 +1,4 @@
-package com.example.paggingexample.data.models.remote.location.episode
+package com.example.paggingexample.data.models.remote.episode
 
 data class Info(
     val count: Int,

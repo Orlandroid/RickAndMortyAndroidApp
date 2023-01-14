@@ -20,6 +20,7 @@
     <string name="name">Name:</string>
     <string name="type">Type:</string>
     <string name="planet">Planet:</string>
+    <string name="planet2">Planet</string>
     <string name="dimension">Dimension:</string>
     <string name="numbers_of_residents">Numbers of Residents:</string>
     <string name="_101">101</string>

@@ -1,5 +1,6 @@
 package com.example.paggingexample.data.api
 
+import com.example.paggingexample.data.models.remote.location.LocationsResponse
 import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
 import com.example.paggingexample.data.models.remote.location.episode.EpisodeResponse
@@ -18,6 +19,9 @@ interface RickAndMortyService {
 
     @GET("location/{id}")
     suspend fun getSingleLocation(@Path("id") id: Int): SingleLocation
+
+    @GET("location")
+    suspend fun getLocations(@Query("page") page: String): LocationsResponse
 
     @GET("character")
     suspend fun searchCharacter(

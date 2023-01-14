@@ -1,4 +1,4 @@
-package com.example.paggingexample.data.models.remote.location.character
+package com.example.paggingexample.data.models.remote.character
 
 data class Info(
     val count:Int,

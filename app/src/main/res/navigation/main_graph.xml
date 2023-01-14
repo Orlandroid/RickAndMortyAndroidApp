@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_menuFragment_to_episodesFragment"
             app:destination="@id/episodesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_locationsFragment"
+            app:destination="@id/locationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
@@ -40,4 +43,9 @@
         android:name="com.example.paggingexample.ui.episodes.EpisodesFragment"
         android:label="EpisodesFragment"
         tools:layout="@layout/fragment_episodes" />
+    <fragment
+        tools:layout="@layout/fragment_locations"
+        android:id="@+id/locationsFragment"
+        android:name="com.example.paggingexample.ui.locations.LocationsFragment"
+        android:label="LocationsFragment" />
 </navigation>

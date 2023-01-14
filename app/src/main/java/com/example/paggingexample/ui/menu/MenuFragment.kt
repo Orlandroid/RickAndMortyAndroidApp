@@ -20,6 +20,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
                 val action = MenuFragmentDirections.actionMenuFragmentToEpisodesFragment()
                 findNavController().navigate(action)
             }
+            imageLocations.click {
+                val action = MenuFragmentDirections.actionMenuFragmentToLocationsFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 

@@ -26,5 +26,6 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
 
     suspend fun getEpisodes(page: Int) = rickAndMortyService.getEpisodes(page)
 
+    suspend fun getLocations(page: String) = rickAndMortyService.getLocations(page)
 
 }
