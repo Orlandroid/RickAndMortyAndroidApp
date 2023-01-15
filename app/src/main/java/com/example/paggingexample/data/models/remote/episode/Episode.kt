@@ -1,4 +1,4 @@
-package com.example.paggingexample.data.models.remote.location.episode
+package com.example.paggingexample.data.models.remote.episode
 
 data class Episode(
     val air_date: String,

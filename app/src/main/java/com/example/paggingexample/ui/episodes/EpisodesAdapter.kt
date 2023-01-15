@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.paggingexample.data.models.remote.location.episode.Episode
+import com.example.paggingexample.data.models.remote.episode.Episode
 import com.example.paggingexample.databinding.ItemEpisodeBinding
 
 class EpisodesAdapter :
@@ -19,7 +19,6 @@ class EpisodesAdapter :
         notifyDataSetChanged()
     }
 
-
     class ViewHolder(val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(episode: Episode) = with(binding) {
@@ -31,19 +30,14 @@ class EpisodesAdapter :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
-        val binding = ItemEpisodeBinding.inflate(layoutInflater,viewGroup,false)
+        val binding = ItemEpisodeBinding.inflate(layoutInflater, viewGroup, false)
         return ViewHolder(binding)
 
     }
 
-
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(characters[position])
-
     }
 
-
     override fun getItemCount() = characters.size
-
-
 }

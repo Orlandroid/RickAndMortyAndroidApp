@@ -3,6 +3,7 @@ package com.example.paggingexample.data
 import com.example.paggingexample.data.api.RickAndMortyService
 import com.example.paggingexample.data.models.local.SearchCharacter
 import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
+import com.example.paggingexample.data.models.remote.episode.Episode
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val rickAndMortyService: RickAndMortyService) {
@@ -25,6 +26,12 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
         )
 
     suspend fun getEpisodes(page: Int) = rickAndMortyService.getEpisodes(page)
+
+
+    suspend fun getManyEpisodes(ids: String): List<Episode> {
+        val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
+        return rickAndMortyService.getManyEpisodes(url = baseUrl)
+    }
 
     suspend fun getLocations(page: String) = rickAndMortyService.getLocations(page)
 

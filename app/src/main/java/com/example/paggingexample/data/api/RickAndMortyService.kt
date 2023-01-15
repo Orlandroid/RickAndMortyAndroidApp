@@ -3,11 +3,13 @@ package com.example.paggingexample.data.api
 import com.example.paggingexample.data.models.remote.location.LocationsResponse
 import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
-import com.example.paggingexample.data.models.remote.location.episode.EpisodeResponse
+import com.example.paggingexample.data.models.remote.episode.EpisodeResponse
 import com.example.paggingexample.data.models.remote.location.SingleLocation
+import com.example.paggingexample.data.models.remote.episode.Episode
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface RickAndMortyService {
 
@@ -36,6 +38,12 @@ interface RickAndMortyService {
     suspend fun getEpisodes(
         @Query("page") page: Int
     ): EpisodeResponse
+
+
+    @GET
+    suspend fun getManyEpisodes(
+        @Url url: String
+    ): List<Episode>
 
 
 }

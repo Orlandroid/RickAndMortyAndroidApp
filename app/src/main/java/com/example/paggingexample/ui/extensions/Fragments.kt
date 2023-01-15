@@ -1,5 +1,6 @@
 package com.example.paggingexample.ui.extensions
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
@@ -104,6 +105,7 @@ fun <T> Fragment.observeApiResultGeneric(
                 }
             }
             is ApiState.Error -> {
+                Log.w(context?.packageName,apiState.message.toString())
                 if (onError == null) {
                     showErrorApi(shouldCloseTheViewOnApiError)
                 } else {

@@ -1,5 +1,6 @@
 package com.example.paggingexample.ui.characters_detail
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -9,6 +10,7 @@ import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.*
 import com.example.paggingexample.utils.getColorStatus
+import com.example.paggingexample.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -18,6 +20,7 @@ class CharacterDetailFragment :
 
     private val viewModel: CharacterDetailViewModel by viewModels()
     private val args: CharacterDetailFragmentArgs by navArgs()
+    private var idsOfEpisodesOfTheCharacter = ""
 
 
     override fun setUpUi() = with(binding) {
@@ -28,7 +31,8 @@ class CharacterDetailFragment :
             findNavController().popBackStack()
         }
         binding.tvEpisodes.click {
-            requireContext().showToast("Go to episodies view and show episodios of the user")
+            val action = CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(idsOfEpisodesOfTheCharacter)
+            findNavController().navigate(action)
         }
 
     }
@@ -44,6 +48,7 @@ class CharacterDetailFragment :
                 skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
                 skeletonInfo.setMargins(0, 0, 0, 0)
                 setDataToView(character)
+                idsOfEpisodesOfTheCharacter = getListOfEpisodes(character.episode)
             }
             viewModel.getSingleLocation(character.id)
         }
@@ -62,6 +67,15 @@ class CharacterDetailFragment :
             }
         }
     }
+
+    private fun getListOfEpisodes(episodesString: List<String>): String {
+        val episodes = arrayListOf<Int>()
+        episodesString.forEach {
+            episodes.add(it.split("episode/")[1].toInt())
+        }
+        return removeCharactersForEpisodesList(episodes.toString())
+    }
+
 
     private fun setDataToView(character: Character) = with(binding) {
         tvStatus.text = character.status

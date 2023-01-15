@@ -3,7 +3,7 @@ package com.example.paggingexample.ui.episodes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.remote.location.episode.Episode
+import com.example.paggingexample.data.models.remote.episode.Episode
 import com.example.paggingexample.databinding.FragmentEpisodesBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click

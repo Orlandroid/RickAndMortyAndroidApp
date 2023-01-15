@@ -1,6 +1,4 @@
-package com.example.paggingexample.data.models.remote.location.episode
-
-import com.example.paggingexample.data.models.remote.episode.Info
+package com.example.paggingexample.data.models.remote.episode
 
 data class EpisodeResponse(
     val info: Info,
