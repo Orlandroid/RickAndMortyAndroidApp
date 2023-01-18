@@ -68,5 +68,8 @@
         <argument
             android:name="idsEpisodes"
             app:argType="string" />
+        <argument
+            android:name="isSingleEpisode"
+            app:argType="boolean" />
     </fragment>
 </navigation>

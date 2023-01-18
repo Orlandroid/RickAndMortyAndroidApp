@@ -1,13 +1,21 @@
 package com.example.paggingexample.ui.episodes
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.paggingexample.R
+import com.example.paggingexample.data.models.remote.episode.Episode
 import com.example.paggingexample.databinding.FragmentEpisodesBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.ui.extensions.observeApiResultGeneric
+import com.example.paggingexample.ui.extensions.showErrorApi
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -25,7 +33,11 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
         }
         adapter = EpisodesAdapter()
         recyclerEpisodes.adapter = adapter
-        viewModel.getManyEpisodesResponse(args.idsEpisodes)
+        if (args.isSingleEpisode) {
+            getOnlineOneEpisode()
+        } else {
+            viewModel.getManyEpisodesResponse(args.idsEpisodes)
+        }
     }
 
     override fun observerViewModel() {
@@ -33,6 +45,21 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
         observeApiResultGeneric(viewModel.manyEpisodesResponse, hasProgressTheView = true) {
             adapter?.setData(it)
         }
+    }
+
+    private fun getOnlineOneEpisode() {
+        val queue = Volley.newRequestQueue(requireContext())
+        val url = "https://rickandmortyapi.com/api/episode/${args.idsEpisodes}"
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+                val episode = Gson().fromJson(response, Episode::class.java)
+                adapter?.setData(listOf(episode))
+            },
+            {
+                showErrorApi(messageBody = it.message ?: "error")
+            })
+        queue.add(stringRequest)
     }
 
 }

@@ -31,7 +31,8 @@ class CharacterDetailFragment :
             findNavController().popBackStack()
         }
         binding.tvEpisodes.click {
-            val action = CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(idsOfEpisodesOfTheCharacter)
+            val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
+            val action = CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(idsOfEpisodesOfTheCharacter,!isSingleEpisode)
             findNavController().navigate(action)
         }
 
