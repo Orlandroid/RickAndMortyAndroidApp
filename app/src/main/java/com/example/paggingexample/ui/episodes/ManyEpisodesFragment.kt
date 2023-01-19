@@ -14,6 +14,7 @@ import com.example.paggingexample.databinding.FragmentEpisodesBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.ui.extensions.observeApiResultGeneric
+import com.example.paggingexample.ui.extensions.shouldShowProgress
 import com.example.paggingexample.ui.extensions.showErrorApi
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +49,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     }
 
     private fun getOnlineOneEpisode() {
+        shouldShowProgress(true)
         val queue = Volley.newRequestQueue(requireContext())
         val url = "https://rickandmortyapi.com/api/episode/${args.idsEpisodes}"
         val stringRequest = StringRequest(
@@ -55,9 +57,11 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
             { response ->
                 val episode = Gson().fromJson(response, Episode::class.java)
                 adapter?.setData(listOf(episode))
+                shouldShowProgress(false)
             },
             {
                 showErrorApi(messageBody = it.message ?: "error")
+                shouldShowProgress(false)
             })
         queue.add(stringRequest)
     }

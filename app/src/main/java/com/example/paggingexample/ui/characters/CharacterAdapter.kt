@@ -3,6 +3,8 @@ package com.example.paggingexample.ui.characters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -64,6 +66,7 @@ class CharacterAdapter :
         viewHolder.itemView.click {
             clickOnCharacter?.clickOnCharacter(characters[position])
         }
+        viewHolder.itemView.startAnimation(AnimationUtils.loadAnimation(viewHolder.itemView.context,R.anim.items_animation))
     }
 
 

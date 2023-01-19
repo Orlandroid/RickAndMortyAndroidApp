@@ -1,6 +1,5 @@
 package com.example.paggingexample.ui.characters_detail
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -8,7 +7,10 @@ import com.example.paggingexample.R
 import com.example.paggingexample.data.models.remote.location.character.Character
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
-import com.example.paggingexample.ui.extensions.*
+import com.example.paggingexample.ui.extensions.click
+import com.example.paggingexample.ui.extensions.loadImage
+import com.example.paggingexample.ui.extensions.observeApiResultGeneric
+import com.example.paggingexample.ui.extensions.setMargins
 import com.example.paggingexample.utils.getColorStatus
 import com.example.paggingexample.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +34,10 @@ class CharacterDetailFragment :
         }
         binding.tvEpisodes.click {
             val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
-            val action = CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(idsOfEpisodesOfTheCharacter,!isSingleEpisode)
+            val action =
+                CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(
+                    idsOfEpisodesOfTheCharacter, !isSingleEpisode
+                )
             findNavController().navigate(action)
         }
 
@@ -41,8 +46,7 @@ class CharacterDetailFragment :
     override fun observerViewModel() {
         super.observerViewModel()
         observeApiResultGeneric(
-            viewModel.characterResponse,
-            shouldCloseTheViewOnApiError = true
+            viewModel.characterResponse, shouldCloseTheViewOnApiError = true
         ) { character ->
             with(binding) {
                 skeletonInfo.showOriginal()
@@ -54,8 +58,7 @@ class CharacterDetailFragment :
             viewModel.getSingleLocation(character.id)
         }
         observeApiResultGeneric(
-            viewModel.locationResponse,
-            shouldCloseTheViewOnApiError = true
+            viewModel.locationResponse, shouldCloseTheViewOnApiError = true
         ) { singleLocation ->
             with(binding) {
                 tvName.text = singleLocation.name
