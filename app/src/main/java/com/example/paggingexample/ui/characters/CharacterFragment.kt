@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.R
 import com.example.paggingexample.data.models.local.SearchCharacter
-import com.example.paggingexample.data.models.remote.location.character.Character
+import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.databinding.FragmentCharacterBinding
 import com.example.paggingexample.ui.extensions.*

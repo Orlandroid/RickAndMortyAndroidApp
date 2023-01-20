@@ -1,6 +1,4 @@
-package com.example.paggingexample.data.models.remote.location.character
-
-import com.example.paggingexample.data.models.remote.character.Info
+package com.example.paggingexample.data.models.remote.character
 
 data class CharacterResponse(
     val info: Info,

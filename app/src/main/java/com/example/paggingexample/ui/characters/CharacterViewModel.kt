@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paggingexample.data.Repository
 import com.example.paggingexample.data.models.local.SearchCharacter
-import com.example.paggingexample.data.models.remote.location.character.CharacterResponse
+import com.example.paggingexample.data.models.remote.character.Character
+import com.example.paggingexample.data.models.remote.character.CharacterResponse
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.ui.main.NetworkHelper
 import com.example.paggingexample.utils.ErrorType
@@ -33,6 +34,10 @@ class CharacterViewModel @Inject constructor(
     val searchCharacterResponse: LiveData<ApiState<CharacterResponse>>
         get() = _searchCharacterResponse
 
+    private val _manyCharactersResponse = MutableLiveData<ApiState<List<Character>>>()
+    val manyCharactersResponse: LiveData<ApiState<List<Character>>>
+        get() = _manyCharactersResponse
+
     @SuppressLint("NullSafeMutableLiveData")
     fun getCharacters(page: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -54,6 +59,33 @@ class CharacterViewModel @Inject constructor(
             } catch (e: Throwable) {
                 withContext(Dispatchers.Main) {
                     _myCharacterResponse.value = ApiState.Error(e)
+                }
+            }
+        }
+    }
+
+
+    @SuppressLint("NullSafeMutableLiveData")
+    fun getManyCharacters(ids: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                _manyCharactersResponse.value = ApiState.Loading()
+            }
+            if (!networkHelper.isNetworkConnected()) {
+                withContext(Dispatchers.Main) {
+                    _manyCharactersResponse.value = ApiState.ErrorNetwork()
+                }
+                return@launch
+            }
+            try {
+                val response = repository.getManyCharacters(ids)
+                withContext(Dispatchers.Main) {
+                    _manyCharactersResponse.value = ApiState.Success(response)
+                    _manyCharactersResponse.value = null
+                }
+            } catch (e: Throwable) {
+                withContext(Dispatchers.Main) {
+                    _manyCharactersResponse.value = ApiState.Error(e)
                 }
             }
         }

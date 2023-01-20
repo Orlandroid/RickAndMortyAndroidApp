@@ -3,7 +3,6 @@ package com.example.paggingexample.ui.characters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.remote.location.character.Character
+import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.utils.getColorStatus
 import com.google.android.material.card.MaterialCardView
@@ -66,7 +65,7 @@ class CharacterAdapter :
         viewHolder.itemView.click {
             clickOnCharacter?.clickOnCharacter(characters[position])
         }
-        viewHolder.itemView.startAnimation(AnimationUtils.loadAnimation(viewHolder.itemView.context,R.anim.items_animation))
+        //viewHolder.itemView.startAnimation(AnimationUtils.loadAnimation(viewHolder.itemView.context,R.anim.items_animation))
     }
 
 

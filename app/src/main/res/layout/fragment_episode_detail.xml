@@ -26,6 +26,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/morty_and_rick"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -67,29 +68,33 @@
 
                 <TextView
                     android:id="@+id/tv_name_episode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/pilot"
                     android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView9"
                     app:layout_constraintTop_toTopOf="@+id/textView9" />
 
                 <TextView
                     android:id="@+id/tv_episode_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/s01e01"
                     android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_name_episode"
                     app:layout_constraintStart_toStartOf="@+id/tv_name_episode"
                     app:layout_constraintTop_toTopOf="@+id/textView10" />
 
                 <TextView
                     android:id="@+id/tv_episode_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/december_2_2013"
                     android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_episode_number"
                     app:layout_constraintStart_toStartOf="@+id/tv_episode_number"
                     app:layout_constraintTop_toTopOf="@+id/textView11" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,7 +102,8 @@
 
 
         <TextView
-            android:id="@+id/textView15"
+            android:visibility="gone"
+            android:id="@+id/tv_characters"
             android:layout_width="363dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -111,15 +117,17 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
-            android:layout_width="363dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/recycler_characters"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/textView15"
-            app:layout_constraintStart_toStartOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_characters"
+            app:layout_constraintStart_toStartOf="@+id/tv_characters"
+            app:layout_constraintTop_toBottomOf="@+id/tv_characters"
+            tools:listitem="@layout/item_character" />
 
         <include
             android:id="@+id/toolbar_layout"

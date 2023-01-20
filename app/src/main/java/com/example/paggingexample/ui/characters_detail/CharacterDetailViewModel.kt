@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paggingexample.data.Repository
-import com.example.paggingexample.data.models.remote.location.character.Character
+import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.data.models.remote.location.SingleLocation
 import com.example.paggingexample.data.state.ApiState
 import com.example.paggingexample.ui.main.NetworkHelper

@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.paggingexample.R
-import com.example.paggingexample.data.models.remote.location.character.Character
+import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click

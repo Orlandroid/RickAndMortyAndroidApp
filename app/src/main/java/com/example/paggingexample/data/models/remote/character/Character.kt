@@ -1,4 +1,7 @@
-package com.example.paggingexample.data.models.remote.location.character
+package com.example.paggingexample.data.models.remote.character
+
+import com.example.paggingexample.data.models.remote.location.character.Location
+import com.example.paggingexample.data.models.remote.location.character.Origin
 
 data class Character(
     val id: Int,
