@@ -6,16 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paggingexample.data.models.remote.episode.Episode
 import com.example.paggingexample.databinding.ItemEpisodeBinding
+import com.example.paggingexample.ui.extensions.click
 
-class EpisodesAdapter :
+class EpisodesAdapter(private val clickOnEpisode: (episodeNumber: Int) -> Unit={}) :
     RecyclerView.Adapter<EpisodesAdapter.ViewHolder>() {
 
-    private var characters = listOf<Episode>()
+    private var episodeList = listOf<Episode>()
 
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<Episode>) {
-        characters = list
+        episodeList = list
         notifyDataSetChanged()
     }
 
@@ -36,8 +37,11 @@ class EpisodesAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(characters[position])
+        viewHolder.bind(episodeList[position])
+        viewHolder.itemView.click {
+            clickOnEpisode(episodeList[position].id)
+        }
     }
 
-    override fun getItemCount() = characters.size
+    override fun getItemCount() = episodeList.size
 }

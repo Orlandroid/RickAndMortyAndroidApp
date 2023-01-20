@@ -39,4 +39,7 @@
     <string name="episodios">Episodios</string>
     <string name="caracteres">Characters</string>
     <string name="episode_detail">Episode Detail</string>
+    <string name="episode_name">Episode name:</string>
+    <string name="episode_number">Episode number:</string>
+    <string name="episode_date">Episode date:</string>
 </resources>

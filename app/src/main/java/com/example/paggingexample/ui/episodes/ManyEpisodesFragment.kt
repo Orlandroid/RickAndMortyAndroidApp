@@ -1,11 +1,9 @@
 package com.example.paggingexample.ui.episodes
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.paggingexample.R
@@ -32,7 +30,11 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
-        adapter = EpisodesAdapter()
+        adapter = EpisodesAdapter {
+            val action =
+                ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it)
+            findNavController().navigate(action)
+        }
         recyclerEpisodes.adapter = adapter
         if (args.isSingleEpisode) {
             getOnlineOneEpisode()
