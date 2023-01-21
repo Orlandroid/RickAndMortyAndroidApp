@@ -1,5 +1,7 @@
 package com.example.paggingexample.ui.characters_detail
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -7,11 +9,9 @@ import com.example.paggingexample.R
 import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.databinding.FragmentCharacterDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
-import com.example.paggingexample.ui.extensions.click
-import com.example.paggingexample.ui.extensions.loadImage
-import com.example.paggingexample.ui.extensions.observeApiResultGeneric
-import com.example.paggingexample.ui.extensions.setMargins
+import com.example.paggingexample.ui.extensions.*
 import com.example.paggingexample.utils.getColorStatus
+import com.example.paggingexample.utils.getColorStatusResource
 import com.example.paggingexample.utils.getNumberFromUrWithPrefix
 import com.example.paggingexample.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,7 @@ class CharacterDetailFragment :
         skeletonLocation.showSkeleton()
         viewModel.getCharacter(args.charcaterId.toString())
         toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack(R.id.characterFragment,false)
+            findNavController().popBackStack(R.id.characterFragment, false)
         }
         binding.tvEpisodes.click {
             val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
@@ -41,7 +41,6 @@ class CharacterDetailFragment :
                 )
             findNavController().navigate(action)
         }
-
     }
 
     override fun observerViewModel() {
@@ -96,8 +95,11 @@ class CharacterDetailFragment :
         imageStatusSession.setColorFilter(getColorStatus(character.status, requireContext()))
         cardView.strokeColor = getColorStatus(character.status, requireContext())
         cardLocation.strokeColor = getColorStatus(character.status, requireContext())
-        //setDrawableImage(character.status)
         imageCharacter.loadImage(character.image)
+        val colorResource = getColorStatusResource(character.status, requireContext())
+        setStatusBarColor(colorResource)
+        val colorDrawable = ColorDrawable(resources.getColor(colorResource))
+        binding.toolbarLayout.appBar.setBackgroundDrawable(colorDrawable)
     }
 
 

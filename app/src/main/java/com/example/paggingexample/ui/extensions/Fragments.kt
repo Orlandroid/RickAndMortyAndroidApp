@@ -1,7 +1,10 @@
 package com.example.paggingexample.ui.extensions
 
 import android.util.Log
+import android.view.WindowManager
+import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
@@ -32,6 +35,8 @@ fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.mess
     activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
 }
 
+fun Fragment.getPackageName():String = context?.packageName.toString()
+
 
 fun Fragment.navigateAction(action: NavDirections) {
     val navController = this.findNavController()
@@ -42,6 +47,12 @@ fun Fragment.navigateAction(action: NavDirections) {
     }
 }
 
+fun Fragment.setStatusBarColor(@ColorRes colorStatusCharacter: Int) {
+    val window = activity?.window
+    window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+    window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window?.statusBarColor = ContextCompat.getColor(requireActivity(), colorStatusCharacter)
+}
 
 
 fun Fragment.showErrorApi(
@@ -120,7 +131,7 @@ fun <T> Fragment.observeApiResultGeneric(
                 }
             }
             is ApiState.Error -> {
-                Log.w(context?.packageName,apiState.message.toString())
+                Log.w(context?.packageName, apiState.message.toString())
                 if (onError == null) {
                     showErrorApi(shouldCloseTheViewOnApiError)
                 } else {

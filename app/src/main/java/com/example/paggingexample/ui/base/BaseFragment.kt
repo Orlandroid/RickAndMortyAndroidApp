@@ -9,7 +9,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.paggingexample.R
 import com.example.paggingexample.ui.extensions.hideProgress
+import com.example.paggingexample.ui.extensions.setStatusBarColor
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected val contentLayoutId: Int) :
     Fragment() {
@@ -40,6 +42,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
     override fun onDestroy() {
         super.onDestroy()
         hideProgress()
+        setStatusBarColor(R.color.status_bar_color)
     }
-
 }

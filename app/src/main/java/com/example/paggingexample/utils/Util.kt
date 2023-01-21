@@ -1,9 +1,7 @@
 package com.example.paggingexample.utils
 
 import android.content.Context
-import android.net.IpPrefix
 import com.example.paggingexample.R
-import com.google.gson.JsonDeserializer
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -23,6 +21,23 @@ fun getColorStatus(status: String, context: Context): Int {
         }
         else -> {
             context.resources.getColor(R.color.unknown)
+        }
+    }
+}
+
+fun getColorStatusResource(status: String, context: Context): Int {
+    return when (status) {
+        "Alive" -> {
+            R.color.alive
+        }
+        "Dead" -> {
+            R.color.dead
+        }
+        "unknown" -> {
+            R.color.unknown
+        }
+        else -> {
+            R.color.unknown
         }
     }
 }
