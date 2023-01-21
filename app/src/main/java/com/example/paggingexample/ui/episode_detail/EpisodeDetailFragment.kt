@@ -28,7 +28,7 @@ class EpisodeDetailFragment :
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
         toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.characterFragment,false)
         }
         toolbarLayout.toolbarTitle.setText(R.string.episode_detail)
         recyclerCharacters.adapter = adapter

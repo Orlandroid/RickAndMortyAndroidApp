@@ -31,7 +31,7 @@ class CharacterDetailFragment :
         skeletonLocation.showSkeleton()
         viewModel.getCharacter(args.charcaterId.toString())
         toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
+            findNavController().popBackStack(R.id.characterFragment,false)
         }
         binding.tvEpisodes.click {
             val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
