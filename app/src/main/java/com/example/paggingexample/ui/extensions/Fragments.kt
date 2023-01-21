@@ -1,8 +1,11 @@
 package com.example.paggingexample.ui.extensions
 
 import android.util.Log
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.paggingexample.MainActivity
 import com.example.paggingexample.R
@@ -28,6 +31,18 @@ fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.mess
     )
     activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
 }
+
+
+fun Fragment.navigateAction(action: NavDirections) {
+    val navController = this.findNavController()
+    if (navController.currentDestination?.getAction(action.actionId) == null) {
+        return
+    } else {
+        navController.navigate(action)
+    }
+}
+
+
 
 fun Fragment.showErrorApi(
     shouldCloseTheViewOnApiError: Boolean = false,

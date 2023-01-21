@@ -8,6 +8,7 @@ import com.example.paggingexample.databinding.FragmentEpisodesBinding
 import com.example.paggingexample.ui.base.BaseFragment
 import com.example.paggingexample.ui.extensions.click
 import com.example.paggingexample.ui.extensions.myOnScrolled
+import com.example.paggingexample.ui.extensions.navigateAction
 import com.example.paggingexample.ui.extensions.observeApiResultGeneric
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +30,10 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
             findNavController().popBackStack()
         }
         viewModel.getEpisodes(currentPage)
-        adapter = EpisodesAdapter()
+        adapter = EpisodesAdapter{
+            val action = EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(it)
+            navigateAction(action)
+        }
         recyclerEpisodes.adapter = adapter
         recyclerEpisodes.myOnScrolled {
             if (!canCallToTheNextPage) return@myOnScrolled
