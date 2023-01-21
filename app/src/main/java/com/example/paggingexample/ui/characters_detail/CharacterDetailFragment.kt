@@ -12,6 +12,7 @@ import com.example.paggingexample.ui.extensions.loadImage
 import com.example.paggingexample.ui.extensions.observeApiResultGeneric
 import com.example.paggingexample.ui.extensions.setMargins
 import com.example.paggingexample.utils.getColorStatus
+import com.example.paggingexample.utils.getNumberFromUrWithPrefix
 import com.example.paggingexample.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,7 +56,12 @@ class CharacterDetailFragment :
                 setDataToView(character)
                 idsOfEpisodesOfTheCharacter = getListOfEpisodes(character.episode)
             }
-            viewModel.getSingleLocation(character.id)
+            viewModel.getSingleLocation(
+                getNumberFromUrWithPrefix(
+                    character.location.url,
+                    "location"
+                )
+            )
         }
         observeApiResultGeneric(
             viewModel.locationResponse, shouldCloseTheViewOnApiError = true

@@ -71,7 +71,7 @@ class EpisodeDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             binding.tvCharacters.visible()
-            adapter?.setData(it)
+            adapter.setData(it)
         }
     }
 

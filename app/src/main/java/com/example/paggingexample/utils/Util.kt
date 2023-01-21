@@ -1,6 +1,7 @@
 package com.example.paggingexample.utils
 
 import android.content.Context
+import android.net.IpPrefix
 import com.example.paggingexample.R
 import com.google.gson.JsonDeserializer
 import okhttp3.ResponseBody
@@ -24,6 +25,10 @@ fun getColorStatus(status: String, context: Context): Int {
             context.resources.getColor(R.color.unknown)
         }
     }
+}
+
+fun getNumberFromUrWithPrefix(urlWithNumberInTheFinalCharacter: String, prefix: String): Int {
+    return urlWithNumberInTheFinalCharacter.split("$prefix/")[1].toInt()
 }
 
 fun removeCharactersForEpisodesList(episodesList: String): String {
