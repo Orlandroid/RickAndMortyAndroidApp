@@ -1,6 +1,5 @@
 package com.example.paggingexample.ui.episode_detail
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -8,6 +7,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.paggingexample.R
+import com.example.paggingexample.data.models.remote.character.Character
 import com.example.paggingexample.data.models.remote.episode.Episode
 import com.example.paggingexample.databinding.FragmentEpisodeDetailBinding
 import com.example.paggingexample.ui.base.BaseFragment
@@ -25,13 +25,19 @@ class EpisodeDetailFragment :
 
     private val args: EpisodeDetailFragmentArgs by navArgs()
     private val viewModel: CharacterViewModel by viewModels()
-    private val adapter = CharacterAdapter()
+    private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
         toolbarLayout.toolbarTitle.setText(R.string.episode_detail)
         recyclerCharacters.adapter = adapter
+        adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
+            override fun clickOnCharacter(character: Character) {
+                val action = EpisodeDetailFragmentDirections.actionEpisodeDetailFragmentToCharacterDetailFragment(character.id)
+                navigateAction(action)
+            }
+        })
         getOnlineOneEpisode()
     }
 
@@ -65,7 +71,7 @@ class EpisodeDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             binding.tvCharacters.visible()
-            adapter.setData(it)
+            adapter?.setData(it)
         }
     }
 
