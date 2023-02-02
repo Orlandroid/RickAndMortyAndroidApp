@@ -1,6 +1,5 @@
 package com.example.paggingexample.ui.characters_detail
 
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController

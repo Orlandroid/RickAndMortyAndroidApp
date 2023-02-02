@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paggingexample.data.models.remote.location.SingleLocation
-import com.example.paggingexample.databinding.ItemEpisodeBinding
 import com.example.paggingexample.databinding.ItemLocationBinding
+import com.example.paggingexample.ui.extensions.click
 
-class LocationsAdapter :
+class LocationsAdapter(private val clickOnLocation: (locationId: Int) -> Unit = {}) :
     RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
 
     private var characters = listOf<SingleLocation>()
@@ -38,8 +38,11 @@ class LocationsAdapter :
 
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val currentLocation = characters[position]
         viewHolder.bind(characters[position])
-
+        viewHolder.itemView.click {
+            clickOnLocation(currentLocation.id)
+        }
     }
 
 

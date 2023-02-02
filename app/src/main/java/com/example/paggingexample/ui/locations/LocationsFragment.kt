@@ -28,7 +28,11 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
         }
         toolbarLayout.toolbarTitle.text = getString(R.string.locations)
         viewModel.getLocations(currentPage)
-        adapter = LocationsAdapter()
+        adapter = LocationsAdapter {
+            val action =
+                LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(it)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
         recyclerView.myOnScrolled {
             if (!canCallToTheNextPage) return@myOnScrolled

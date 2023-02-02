@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PaggingExample</string>
+    <string name="app_name">Rick And Morty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alive">Alive</string>
@@ -42,4 +42,6 @@
     <string name="episode_name">Episode name:</string>
     <string name="episode_number">Episode number:</string>
     <string name="episode_date">Episode date:</string>
+    <string name="microverse">Microverse</string>
+    <string name="anatomy_park">Anatomy Park</string>
 </resources>

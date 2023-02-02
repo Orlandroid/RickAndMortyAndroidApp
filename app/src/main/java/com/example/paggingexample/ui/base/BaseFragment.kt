@@ -31,6 +31,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
         super.onViewCreated(view, savedInstanceState)
         setUpUi()
         observerViewModel()
+        setStatusBarColor(R.color.status_bar_color)
     }
 
     protected abstract fun setUpUi()

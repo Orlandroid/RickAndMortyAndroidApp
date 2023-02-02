@@ -46,6 +46,17 @@ fun getNumberFromUrWithPrefix(urlWithNumberInTheFinalCharacter: String, prefix: 
     return urlWithNumberInTheFinalCharacter.split("$prefix/")[1].toInt()
 }
 
+fun getListOfNumbersFromUrlWithPrefix(
+    episodesString: List<String>,
+    prefix: String
+): String {
+    val episodes = arrayListOf<Int>()
+    episodesString.forEach {
+        episodes.add(it.split("$prefix/")[1].toInt())
+    }
+    return removeCharactersForEpisodesList(episodes.toString())
+}
+
 fun removeCharactersForEpisodesList(episodesList: String): String {
     return episodesList.replace("[", "").replace("]", "").replace(" ", "")
 }

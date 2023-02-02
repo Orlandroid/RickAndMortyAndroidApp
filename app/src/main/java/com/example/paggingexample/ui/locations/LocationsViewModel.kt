@@ -3,11 +3,13 @@ package com.example.paggingexample.ui.locations
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paggingexample.data.Repository
 import com.example.paggingexample.data.models.remote.location.LocationsResponse
+import com.example.paggingexample.data.models.remote.location.SingleLocation
 import com.example.paggingexample.data.state.ApiState
+import com.example.paggingexample.di.CoroutineDispatchers
+import com.example.paggingexample.ui.base.BaseViewModel
 import com.example.paggingexample.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +20,28 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationsViewModel @Inject constructor(
     private val repository: Repository,
-    private val networkHelper: NetworkHelper
-) : ViewModel() {
+    networkHelper: NetworkHelper,
+    coroutineDispatcher: CoroutineDispatchers
+) : BaseViewModel(networkHelper = networkHelper, coroutineDispatchers = coroutineDispatcher) {
 
     private val _locationResponse = MutableLiveData<ApiState<LocationsResponse>>()
     val locationResponse: LiveData<ApiState<LocationsResponse>>
         get() = _locationResponse
+
+    private val _singleLocationResponse = MutableLiveData<ApiState<SingleLocation>>()
+    val singleLocationResponse: LiveData<ApiState<SingleLocation>> get() = _singleLocationResponse
+
+
+    fun getSingleLocation(locationId: Int) {
+        viewModelScope.launch {
+            safeApiCall(_singleLocationResponse, coroutineDispatchers) {
+                val response = repository.getSingleLocation(locationId)
+                withContext(Dispatchers.Main) {
+                    _singleLocationResponse.value = ApiState.Success(response)
+                }
+            }
+        }
+    }
 
     @SuppressLint("NullSafeMutableLiveData")
     fun getLocations(page: Int) {
