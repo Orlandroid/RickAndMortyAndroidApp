@@ -54,7 +54,7 @@
         android:id="@+id/locationsFragment"
         android:name="com.example.paggingexample.ui.locations.LocationsFragment"
         android:label="LocationsFragment"
-        tools:layout="@layout/fragment_locations" >
+        tools:layout="@layout/fragment_locations">
         <action
             android:id="@+id/action_locationsFragment_to_locationDetailFragment"
             app:destination="@id/locationDetailFragment" />
@@ -63,7 +63,7 @@
         android:id="@+id/episodeDetailFragment"
         android:name="com.example.paggingexample.ui.episode_detail.EpisodeDetailFragment"
         android:label="EpisodeDetailFragment"
-        tools:layout="@layout/fragment_episode_detail" >
+        tools:layout="@layout/fragment_episode_detail">
         <argument
             android:name="idEpisode"
             app:argType="integer" />
@@ -75,7 +75,7 @@
         android:id="@+id/manyEpisodesFragment"
         android:name="com.example.paggingexample.ui.episodes.ManyEpisodesFragment"
         android:label="ManyEpisodesFragment"
-        tools:layout="@layout/fragment_episodes" >
+        tools:layout="@layout/fragment_episodes">
         <argument
             android:name="idsEpisodes"
             app:argType="string" />
@@ -87,10 +87,10 @@
             app:destination="@id/episodeDetailFragment" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_location_detail"
         android:id="@+id/locationDetailFragment"
         android:name="com.example.paggingexample.ui.location_detail.LocationDetailFragment"
-        android:label="LocationDetailFragment" >
+        android:label="LocationDetailFragment"
+        tools:layout="@layout/fragment_location_detail">
         <argument
             android:name="idLocation"
             app:argType="integer" />
