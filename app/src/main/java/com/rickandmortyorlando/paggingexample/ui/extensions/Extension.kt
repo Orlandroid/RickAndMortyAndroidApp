@@ -38,14 +38,15 @@ fun Fragment.myOnCreateOptionsMenu(
     myOnMenuItemActionCollapse: () -> Unit = {},
     myOnQueryTextSubmit: (myQuery: String) -> Unit = {},
     myOnQueryTextChange: (MyNewText: String) -> Unit = {},
-    clickOnChange: () -> Unit = {}
+    clickOnFavorites: () -> Unit = {}
 ) {
     activity?.menuInflater?.inflate(R.menu.menu_search, menu)
     val searchItem = menu.findItem(R.id.search)
-    val change = menu.findItem(R.id.change)
+    val favorite = menu.findItem(R.id.favorite)
+    favorite.isVisible = false
     searchItem.isVisible = isSearchIconVisible
-    change.setOnMenuItemClickListener {
-        clickOnChange()
+    favorite.setOnMenuItemClickListener {
+        clickOnFavorites()
         false
     }
 

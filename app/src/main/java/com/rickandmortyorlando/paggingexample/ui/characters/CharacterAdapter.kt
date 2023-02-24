@@ -64,7 +64,6 @@ class CharacterAdapter :
         viewHolder.itemView.click {
             clickOnCharacter?.clickOnCharacter(characters[position])
         }
-        //viewHolder.itemView.startAnimation(AnimationUtils.loadAnimation(viewHolder.itemView.context,R.anim.items_animation))
     }
 
 

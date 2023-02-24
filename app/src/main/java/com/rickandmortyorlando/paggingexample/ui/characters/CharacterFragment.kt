@@ -68,7 +68,10 @@ class CharacterFragment : Fragment() {
                 page++
                 canCallToTheNextPage = false
                 if (isSearching) {
-                    viewModel.searchCharacters(page = page.toString(), searchCharacter = searchCharacter)
+                    viewModel.searchCharacters(
+                        page = page.toString(),
+                        searchCharacter = searchCharacter
+                    )
                 } else {
                     viewModel.getCharacters(page = page.toString())
                 }
@@ -154,7 +157,7 @@ class CharacterFragment : Fragment() {
         }
     }
 
-    //Todo check Deorecation
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         myOnCreateOptionsMenu(
             menu = menu,
@@ -162,7 +165,10 @@ class CharacterFragment : Fragment() {
                 characterSearchList.clear()
                 page = 1
                 searchCharacter.name = it
-                viewModel.searchCharacters(searchCharacter = searchCharacter, page = page.toString())
+                viewModel.searchCharacters(
+                    searchCharacter = searchCharacter,
+                    page = page.toString()
+                )
             },
             myOnMenuItemActionCollapse = {
                 isSearching = false
@@ -171,6 +177,10 @@ class CharacterFragment : Fragment() {
             },
             setonMenuItemActionExpand = {
                 isSearching = true
+            },
+            clickOnFavorites = {
+                val action = CharacterFragmentDirections.actionCharacterFragmentToFavoritesFragment()
+                findNavController().navigate(action)
             }
         )
     }

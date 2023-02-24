@@ -16,14 +16,17 @@ import com.rickandmortyorlando.paggingexample.ui.extensions.setStatusBarColor
 abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected val contentLayoutId: Int) :
     Fragment() {
 
-    protected lateinit var binding: ViewBinding
+    private var _binding: ViewBinding? = null
+
+    protected val binding: ViewBinding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, contentLayoutId, container, false)
+        _binding = DataBindingUtil.inflate(inflater, contentLayoutId, container, false)
         return binding.root
     }
 
@@ -42,6 +45,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
         hideProgress()
         setStatusBarColor(R.color.status_bar_color)
     }

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_characterFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
+        <action
+            android:id="@+id/action_characterFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -95,4 +98,9 @@
             android:name="idLocation"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.rickandmortyorlando.paggingexample.ui.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
