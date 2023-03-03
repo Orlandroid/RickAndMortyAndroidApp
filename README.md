@@ -1,5 +1,7 @@
 # RickApi
 
+##  🛠 IN PROGRESS 🛠
+
 
 <table>
   <tr>
@@ -34,4 +36,5 @@
 
 
 https://user-images.githubusercontent.com/39423969/202087739-8fd3b7a3-6280-4a81-b02c-6b8db8187bf8.mp4
+
 
