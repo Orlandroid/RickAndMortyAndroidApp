@@ -4,11 +4,12 @@ package com.rickandmortyorlando.paggingexample.ui.settings
 import com.rickandmortyorlando.paggingexample.R
 import com.rickandmortyorlando.paggingexample.databinding.FragmentSettingsBinding
 import com.rickandmortyorlando.paggingexample.ui.base.BaseFragment
+import com.rickandmortyorlando.paggingexample.utils.ThemeUtils
 
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
 
-    private var settingsAdapter = SettingsAdapter()
+    private var settingsAdapter = SettingsAdapter { changeTheme(it.showSwitch) }
 
     override fun setUpUi() = with(binding) {
         toolbarLayout.toolbarTitle.text = getText(R.string.settings)
@@ -17,10 +18,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     }
 
     private fun setSettingsMenu() {
-        val setting = SettingsAdapter.Setting(getString(R.string.settings), true)
-        val setting2 = SettingsAdapter.Setting(getString(R.string.settings), true)
-        val setting3 = SettingsAdapter.Setting(getString(R.string.settings), true)
-        settingsAdapter.setData(listOf(setting, setting2, setting3))
+        val setting = SettingsAdapter.Setting(getString(R.string.change_theme), true)
+        settingsAdapter.setData(listOf(setting))
+    }
+
+    private fun changeTheme(isNightMode: Boolean) {
+        ThemeUtils.themeUtils.setNightMode(isNightMode)
     }
 
 }

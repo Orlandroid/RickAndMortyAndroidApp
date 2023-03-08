@@ -1,15 +1,15 @@
 package com.rickandmortyorlando.paggingexample.ui.settings
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rickandmortyorlando.paggingexample.databinding.ItemSettingBinding
+import com.rickandmortyorlando.paggingexample.ui.extensions.click
 import com.rickandmortyorlando.paggingexample.ui.extensions.gone
 import com.rickandmortyorlando.paggingexample.ui.extensions.visible
 
-class SettingsAdapter :
+class SettingsAdapter(private val clickOnSetting: (Setting) -> Unit) :
     RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     private var settingsList = listOf<Setting>()
@@ -20,11 +20,14 @@ class SettingsAdapter :
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ItemSettingBinding) :
+    inner class ViewHolder(val binding: ItemSettingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(settings: Setting) = with(binding) {
-            binding.textViewSettingName.text = settings.nameSetting
-            if (settings.showSwitch) {
+        fun bind(setting: Setting) = with(binding) {
+            textViewSettingName.text = setting.nameSetting
+            itemView.click {
+                clickOnSetting(setting)
+            }
+            if (setting.showSwitch) {
                 switchTheme.visible()
             } else {
                 switchTheme.gone()
