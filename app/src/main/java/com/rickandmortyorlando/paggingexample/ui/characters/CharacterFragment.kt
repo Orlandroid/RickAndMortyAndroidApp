@@ -179,7 +179,7 @@ class CharacterFragment : Fragment() {
                 isSearching = true
             },
             clickOnFavorites = {
-                val action = CharacterFragmentDirections.actionCharacterFragmentToFavoritesFragment()
+                val action = CharacterFragmentDirections.actionCharacterFragmentToSettingsFragment()
                 findNavController().navigate(action)
             }
         )

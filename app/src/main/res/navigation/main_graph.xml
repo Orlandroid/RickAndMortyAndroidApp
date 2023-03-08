@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_characterFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_characterFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -103,4 +106,9 @@
         android:name="com.rickandmortyorlando.paggingexample.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        tools:layout="@layout/fragment_settings"
+        android:id="@+id/settingsFragment"
+        android:name="com.rickandmortyorlando.paggingexample.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

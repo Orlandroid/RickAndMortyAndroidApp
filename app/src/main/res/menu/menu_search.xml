@@ -10,8 +10,8 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/baseline_favorite_24"
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
         app:showAsAction="ifRoom|collapseActionView"
         android:title="@string/change" />
 </menu>
