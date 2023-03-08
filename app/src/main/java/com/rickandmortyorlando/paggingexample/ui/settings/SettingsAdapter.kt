@@ -24,7 +24,6 @@ class SettingsAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(settings: Setting) = with(binding) {
             binding.textViewSettingName.text = settings.nameSetting
-            Log.w(itemView.context.packageName, settings.nameSetting)
             if (settings.showSwitch) {
                 switchTheme.visible()
             } else {
