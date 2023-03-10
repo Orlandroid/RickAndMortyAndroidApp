@@ -3,19 +3,27 @@ package com.rickandmortyorlando.paggingexample.ui.settings
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.recyclerview.widget.RecyclerView
 import com.rickandmortyorlando.paggingexample.databinding.ItemSettingBinding
 import com.rickandmortyorlando.paggingexample.ui.extensions.click
 import com.rickandmortyorlando.paggingexample.ui.extensions.gone
 import com.rickandmortyorlando.paggingexample.ui.extensions.visible
 
-class SettingsAdapter(private val clickOnSetting: (Setting) -> Unit) :
+
+class SettingsAdapter(
+    private val clickOnSetting: (Setting) -> Unit = {},
+    private val changeSwitch: (isCheck: Boolean) -> Unit = {}
+) :
     RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     private var settingsList = listOf<Setting>()
+    private var isNightModeEnable: Boolean = false
+
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<Setting>) {
+    fun setData(list: List<Setting>, isNightMode: Boolean) {
+        isNightModeEnable = isNightMode
         settingsList = list
         notifyDataSetChanged()
     }
@@ -24,13 +32,17 @@ class SettingsAdapter(private val clickOnSetting: (Setting) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(setting: Setting) = with(binding) {
             textViewSettingName.text = setting.nameSetting
-            itemView.click {
-                clickOnSetting(setting)
-            }
             if (setting.showSwitch) {
                 switchTheme.visible()
             } else {
                 switchTheme.gone()
+            }
+            switchTheme.isChecked = isNightModeEnable
+            switchTheme.setOnCheckedChangeListener { _, isCheck ->
+                changeSwitch(isCheck)
+            }
+            itemView.click {
+                clickOnSetting(setting)
             }
         }
     }
