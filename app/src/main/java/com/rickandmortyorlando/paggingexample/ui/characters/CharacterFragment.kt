@@ -23,12 +23,16 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     private val adapter = CharacterAdapter()
     private var canCallToTheNextPage = true
     private var characterList: ArrayList<Character> = arrayListOf()
+    private var isFirsTimeOneTheView = true
 
 
     override fun setUpUi() = with(binding) {
         enableToolbarForListeners(binding.toolbarLayout.toolbar)
-        resetPaging()
-        viewModel.getCharacters(page.toString())
+        if (isFirsTimeOneTheView) {
+            resetPaging()
+            viewModel.getCharacters(page.toString())
+            isFirsTimeOneTheView = false
+        }
         toolbarLayout.toolbarTitle.text = getString(R.string.characters)
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()

@@ -110,5 +110,9 @@
         android:id="@+id/searchFragment"
         android:name="com.rickandmortyorlando.paggingexample.ui.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
 </navigation>

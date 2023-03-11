@@ -4,4 +4,5 @@
     <color name="black">#FFFFFF</color>
     <color name="white">#000000</color>
     <color name="status_bar_color">#34495e</color>
+    <color name="progress_color">#f0ad4e</color>
 </resources>

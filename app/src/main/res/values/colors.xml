@@ -17,6 +17,7 @@
     <color name="waring">#f0ad4e</color>
     <color name="danger">#d9534f</color>
     <color name="azul">#3949AB</color>
+    <color name="progress_color">#3949AB</color>
     <color name="background">#d3d3d3</color>
     <color name="gris">#9F9F9F</color>
     <color name="transparent">#00000000</color>

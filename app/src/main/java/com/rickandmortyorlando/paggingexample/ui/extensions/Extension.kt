@@ -45,7 +45,8 @@ fun Fragment.myOnCreateOptionsMenu(
     activity?.menuInflater?.inflate(R.menu.menu_search, menu)
     val searchItem = menu.findItem(R.id.search)
     val settings = menu.findItem(R.id.settings)
-    settings.isVisible = true
+    settings.isVisible = false
+    settings.isVisible = false
     searchItem.isVisible = isSearchIconVisible
     settings.setOnMenuItemClickListener {
         clickOnFavorites()

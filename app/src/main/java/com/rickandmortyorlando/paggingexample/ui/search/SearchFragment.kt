@@ -12,6 +12,7 @@ import com.rickandmortyorlando.paggingexample.data.state.ApiState
 import com.rickandmortyorlando.paggingexample.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.paggingexample.ui.base.BaseFragment
 import com.rickandmortyorlando.paggingexample.ui.characters.CharacterAdapter
+import com.rickandmortyorlando.paggingexample.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.paggingexample.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.paggingexample.ui.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
+        toolbarLayout.toolbarTitle.text = getString(R.string.search)
         recyclerView.adapter = adapter
+        adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
+            override fun clickOnCharacter(character: Character) {
+                findNavController().navigate(
+                    SearchFragmentDirections.actionSearchFragmentToCharacterDetailFragment(
+                        character.id
+                    )
+                )
+            }
+        })
         recyclerView.myOnScrolled {
             if (!canCallToTheNextPage) {
                 return@myOnScrolled
@@ -99,6 +110,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         myOnCreateOptionsMenu(
             menu = menu,
@@ -110,9 +122,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             },
             myOnMenuItemActionCollapse = {
                 page = 1
+                resetSearch()
+                resetPaging()
                 searchCharacters()
             }
         )
+    }
+
+    private fun resetSearch() {
+        searchCharacter.name = ""
+        searchCharacter.status = ""
+        searchCharacter.species = ""
+        searchCharacter.gender = ""
     }
 
 }
