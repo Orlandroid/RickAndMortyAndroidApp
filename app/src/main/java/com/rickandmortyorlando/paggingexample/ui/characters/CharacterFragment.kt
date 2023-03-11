@@ -59,6 +59,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
             }
         }
         swipRefresh.setOnRefreshListener {
+            adapter.setData(listOf())
             resetPaging()
             swipRefresh.isRefreshing = false
             viewModel.getCharacters(page.toString())

@@ -56,6 +56,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
         }
         swipRefresh.setOnRefreshListener {
+            adapter.setData(listOf())
             resetPaging()
             swipRefresh.isRefreshing = false
             searchCharacters()

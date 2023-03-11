@@ -22,7 +22,7 @@ class CharacterAdapter :
     private var clickOnCharacter: ClickOnCharacter? = null
 
     fun setData(list: List<Character>) {
-        characters = list
+        characters = list.distinct()
         notifyDataSetChanged()
     }
 
@@ -57,7 +57,6 @@ class CharacterAdapter :
         return ViewHolder(view)
 
     }
-
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(characters[position])
