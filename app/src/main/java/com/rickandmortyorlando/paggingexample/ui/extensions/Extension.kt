@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -38,18 +39,23 @@ fun Fragment.myOnCreateOptionsMenu(
     myOnMenuItemActionCollapse: () -> Unit = {},
     myOnQueryTextSubmit: (myQuery: String) -> Unit = {},
     myOnQueryTextChange: (MyNewText: String) -> Unit = {},
-    clickOnFavorites: () -> Unit = {}
+    clickOnFavorites: () -> Unit = {},
+    clickOnSearch: () -> Unit = {},
 ) {
     activity?.menuInflater?.inflate(R.menu.menu_search, menu)
     val searchItem = menu.findItem(R.id.search)
     val settings = menu.findItem(R.id.settings)
-    settings.isVisible = true
+    settings.isVisible = false
+    settings.isVisible = false
     searchItem.isVisible = isSearchIconVisible
     settings.setOnMenuItemClickListener {
         clickOnFavorites()
         false
     }
-
+    searchItem.setOnMenuItemClickListener {
+        clickOnSearch()
+        false
+    }
     searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
         override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
             setonMenuItemActionExpand()
