@@ -12,7 +12,7 @@
   </tr>
   <tr>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/home.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/caracteres.png" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/caracteres.jpg" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/episodes.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td> 
   </tr>
@@ -29,6 +29,14 @@
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle_3.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/episode_detail.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/locations.png" width="100%"></td> 
+  </tr>
+   <tr>
+    <td><strong>Location Detail</strong></td>
+    <td><strong>Settings</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/location_detail.jpg" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/settings.jpg" width="100%"></td>
   </tr>
   
 </table>
