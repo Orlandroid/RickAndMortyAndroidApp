@@ -31,6 +31,7 @@ class EpisodeDetailFragment :
         defaultViewModelProviderFactory
     }
 
+
     
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
