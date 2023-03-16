@@ -23,11 +23,11 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
 
     override fun setUpUi() = with(binding) {
         resetPaging()
+        viewModel.getLocations(currentPage)
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
         toolbarLayout.toolbarTitle.text = getString(R.string.locations)
-        viewModel.getLocations(currentPage)
         adapter = LocationsAdapter {
             val action =
                 LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(it)

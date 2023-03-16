@@ -27,6 +27,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val adapter = CharacterAdapter()
     private var characterSearchList: ArrayList<Character> = arrayListOf()
     private val viewModel: CharacterViewModel by viewModels()
+    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
         enableToolbarForListeners(binding.toolbarLayout.toolbar)
@@ -58,10 +59,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         swipRefresh.setOnRefreshListener {
             adapter.setData(listOf())
             resetPaging()
+            resetSearch()
             swipRefresh.isRefreshing = false
             searchCharacters()
         }
-        searchCharacters()
+        if (isFirsTimeOneTheView) {
+            searchCharacters()
+            isFirsTimeOneTheView = false
+        }
     }
 
     private fun searchCharacters() {

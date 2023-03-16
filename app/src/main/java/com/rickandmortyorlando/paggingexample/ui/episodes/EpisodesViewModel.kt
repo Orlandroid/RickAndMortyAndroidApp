@@ -30,6 +30,9 @@ class EpisodesViewModel @Inject constructor(
     val manyEpisodesResponse: LiveData<ApiState<List<Episode>>>
         get() = _manyEpisodesResponse
 
+    var comesFromEpisodesMainMenu: Boolean = false
+
+
     @SuppressLint("NullSafeMutableLiveData")
     fun getEpisodes(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,7 +60,7 @@ class EpisodesViewModel @Inject constructor(
     }
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun getManyEpisodesResponse(idsEpisodes:String) {
+    fun getManyEpisodesResponse(idsEpisodes: String) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
                 _manyEpisodesResponse.value = ApiState.Loading()

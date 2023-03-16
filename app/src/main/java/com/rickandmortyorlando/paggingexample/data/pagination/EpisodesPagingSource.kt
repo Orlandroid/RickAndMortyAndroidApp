@@ -6,7 +6,7 @@ import com.rickandmortyorlando.paggingexample.data.api.RickAndMortyService
 import com.rickandmortyorlando.paggingexample.data.models.remote.episode.Episode
 
 class EpisodesPagingSource(
-    val service: RickAndMortyService
+    private val service: RickAndMortyService
 ) : PagingSource<Int, Episode>() {
 
     companion object {

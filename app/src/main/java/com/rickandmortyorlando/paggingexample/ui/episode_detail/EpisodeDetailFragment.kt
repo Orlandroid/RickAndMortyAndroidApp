@@ -3,6 +3,7 @@ package com.rickandmortyorlando.paggingexample.ui.episode_detail
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -16,6 +17,7 @@ import com.rickandmortyorlando.paggingexample.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.paggingexample.ui.extensions.*
 import com.rickandmortyorlando.paggingexample.utils.removeCharactersForEpisodesList
 import com.google.gson.Gson
+import com.rickandmortyorlando.paggingexample.ui.episodes.EpisodesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -25,16 +27,26 @@ class EpisodeDetailFragment :
 
     private val args: EpisodeDetailFragmentArgs by navArgs()
     private val viewModel: CharacterViewModel by viewModels()
+    private val episodesViewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
+        defaultViewModelProviderFactory
+    }
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
         toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack(R.id.characterFragment,false)
+            if (episodesViewModel.comesFromEpisodesMainMenu) {
+                findNavController().popBackStack()
+            } else {
+                findNavController().popBackStack(R.id.characterFragment, false)
+            }
         }
         toolbarLayout.toolbarTitle.setText(R.string.episode_detail)
         recyclerCharacters.adapter = adapter
         adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
             override fun clickOnCharacter(character: Character) {
-                val action = EpisodeDetailFragmentDirections.actionEpisodeDetailFragmentToCharacterDetailFragment(character.id)
+                val action =
+                    EpisodeDetailFragmentDirections.actionEpisodeDetailFragmentToCharacterDetailFragment(
+                        character.id
+                    )
                 navigateAction(action)
             }
         })
@@ -87,6 +99,7 @@ class EpisodeDetailFragment :
         tvNameEpisode.text = episode.name
         tvEpisodeNumber.text = episode.episode
         tvEpisodeDate.text = episode.air_date
+        toolbarLayout.toolbarTitle.text = episode.name
     }
 
 }

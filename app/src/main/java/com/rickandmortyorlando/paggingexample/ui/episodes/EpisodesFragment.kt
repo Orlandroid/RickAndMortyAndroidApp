@@ -22,16 +22,19 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
     private var totalPages = 0
     private var canCallToTheNextPage = true
     private var episodesList: ArrayList<Episode> = arrayListOf()
+    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
         resetPaging()
+        viewModel.getEpisodes(currentPage)
+        isFirsTimeOneTheView = false
         toolbarLayout.toolbarTitle.text = getString(R.string.episodes)
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
-        viewModel.getEpisodes(currentPage)
-        adapter = EpisodesAdapter{
-            val action = EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(it)
+        adapter = EpisodesAdapter {
+            val action =
+                EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(it)
             navigateAction(action)
         }
         recyclerEpisodes.adapter = adapter

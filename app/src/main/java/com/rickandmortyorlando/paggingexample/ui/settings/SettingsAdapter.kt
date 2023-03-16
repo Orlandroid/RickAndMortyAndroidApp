@@ -3,7 +3,6 @@ package com.rickandmortyorlando.paggingexample.ui.settings
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.recyclerview.widget.RecyclerView
 import com.rickandmortyorlando.paggingexample.databinding.ItemSettingBinding
 import com.rickandmortyorlando.paggingexample.ui.extensions.click
