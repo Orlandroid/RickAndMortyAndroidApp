@@ -32,6 +32,7 @@ class EpisodeDetailFragment :
     }
 
 
+
     
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
