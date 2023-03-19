@@ -42,6 +42,7 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
             }
         }
     }
+    
 
     override fun observerViewModel() {
         super.observerViewModel()
