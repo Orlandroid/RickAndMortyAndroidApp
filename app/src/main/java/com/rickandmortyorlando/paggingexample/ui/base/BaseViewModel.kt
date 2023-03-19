@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.rickandmortyorlando.paggingexample.data.state.ApiState
 import com.rickandmortyorlando.paggingexample.di.CoroutineDispatchers
 import com.rickandmortyorlando.paggingexample.ui.main.NetworkHelper
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okio.IOException
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -25,12 +24,14 @@ abstract class BaseViewModel constructor(
         UNKNOWN
     }
 
+    var job = SupervisorJob()
+
     suspend inline fun <T> safeApiCall(
         result: MutableLiveData<ApiState<T>>,
         coroutineDispatchers: CoroutineDispatchers,
         crossinline apiToCall: suspend () -> Unit,
     ) {
-        viewModelScope.launch(coroutineDispatchers.io) {
+        viewModelScope.launch(coroutineDispatchers.io + job) {
             try {
                 withContext(coroutineDispatchers.main) {
                     result.value = ApiState.Loading()
@@ -58,6 +59,11 @@ abstract class BaseViewModel constructor(
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
     }
 
 

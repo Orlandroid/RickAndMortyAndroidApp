@@ -30,10 +30,6 @@ class EpisodeDetailFragment :
     private val episodesViewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
         defaultViewModelProviderFactory
     }
-
-
-
-    
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
         toolbarLayout.toolbarBack.click {

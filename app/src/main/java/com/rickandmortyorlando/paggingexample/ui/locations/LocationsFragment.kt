@@ -15,24 +15,23 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragment_locations) {
 
     private val viewModel: LocationsViewModel by viewModels()
-    private var adapter: LocationsAdapter? = null
+    private var adapter = LocationsAdapter { clickOnLocation(it) }
     private var currentPage = 1
     private var totalPages = 0
     private var canCallToTheNextPage = true
     private var locationsList: ArrayList<SingleLocation> = arrayListOf()
+    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
-        resetPaging()
-        viewModel.getLocations(currentPage)
+        if (isFirsTimeOneTheView) {
+            resetPaging()
+            viewModel.getLocations(currentPage)
+            isFirsTimeOneTheView = false
+        }
         toolbarLayout.toolbarBack.click {
             findNavController().popBackStack()
         }
         toolbarLayout.toolbarTitle.text = getString(R.string.locations)
-        adapter = LocationsAdapter {
-            val action =
-                LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(it)
-            findNavController().navigate(action)
-        }
         recyclerView.adapter = adapter
         recyclerView.myOnScrolled {
             if (!canCallToTheNextPage) return@myOnScrolled
@@ -48,10 +47,16 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
         super.observerViewModel()
         observeApiResultGeneric(viewModel.locationResponse, hasProgressTheView = true) {
             locationsList.addAll(it.results)
-            adapter?.setData(locationsList)
+            adapter.setData(locationsList)
             canCallToTheNextPage = true
             totalPages = it.info.pages
         }
+    }
+
+    private fun clickOnLocation(locationId: Int) {
+        val action =
+            LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(locationId)
+        findNavController().navigate(action)
     }
 
     private fun resetPaging() {
