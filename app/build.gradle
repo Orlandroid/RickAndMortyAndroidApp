@@ -10,11 +10,11 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.rickandmortyorlando.paggingexample"
+        applicationId "com.rickandmortyorlando.orlando"
         minSdk 21
         targetSdk 32
-        versionCode 3
-        versionName "1.0"
+        versionCode 6
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
