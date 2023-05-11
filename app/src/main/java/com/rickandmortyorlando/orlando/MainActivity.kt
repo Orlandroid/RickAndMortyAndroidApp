@@ -38,4 +38,5 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.gone()
         }
     }
+    
 }
