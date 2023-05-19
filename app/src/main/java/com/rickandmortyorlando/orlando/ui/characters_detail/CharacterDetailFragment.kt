@@ -12,6 +12,7 @@ import com.rickandmortyorlando.orlando.ui.extensions.*
 import com.rickandmortyorlando.orlando.utils.getColorStatus
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 import com.rickandmortyorlando.orlando.utils.getNumberFromUrWithPrefix
+import com.rickandmortyorlando.orlando.utils.loadCircularImage
 import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -90,29 +91,19 @@ class CharacterDetailFragment :
         tvGender.text = character.gender
         tvEpisodes.text = character.episode.size.toString()
         toolbarLayout.toolbarTitle.text = character.name
-        imageStatusSession.setColorFilter(getColorStatus(character.status, requireContext()))
-        cardView.strokeColor = getColorStatus(character.status, requireContext())
-        cardLocation.strokeColor = getColorStatus(character.status, requireContext())
-        imageCharacter.loadImage(character.image)
+        val statusColor = getColorStatus(character.status, requireContext())
+        imageStatusSession.setColorFilter(statusColor)
+        cardView.strokeColor = statusColor
+        cardLocation.strokeColor = statusColor
+        imageCharacter.loadCircularImage(
+            model = character.image,
+            borderSize = 8f,
+            borderColor = statusColor
+        )
         val colorResource = getColorStatusResource(character.status, requireContext())
         setStatusBarColor(colorResource)
         val colorDrawable = ColorDrawable(resources.getColor(colorResource))
         binding.toolbarLayout.appBar.setBackgroundDrawable(colorDrawable)
-    }
-
-
-    private fun setDrawableImage(status: String) {
-        when (status) {
-            "Alive" -> {
-                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_alive))
-            }
-            "Dead" -> {
-                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_dead))
-            }
-            "unknown" -> {
-                binding.imageCharacter.setImageDrawable(resources.getDrawable(R.drawable.shape_image_unknown))
-            }
-        }
     }
 
 }
