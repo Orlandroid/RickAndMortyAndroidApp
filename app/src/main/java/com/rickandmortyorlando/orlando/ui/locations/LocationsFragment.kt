@@ -2,6 +2,7 @@ package com.rickandmortyorlando.orlando.ui.locations
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
@@ -28,10 +29,6 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
             viewModel.getLocations(currentPage)
             isFirsTimeOneTheView = false
         }
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
-        toolbarLayout.toolbarTitle.text = getString(R.string.locations)
         recyclerView.adapter = adapter
         recyclerView.myOnScrolled {
             if (!canCallToTheNextPage) return@myOnScrolled
@@ -42,7 +39,12 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
             }
         }
     }
-    
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.locations)
+    )
+
 
     override fun observerViewModel() {
         super.observerViewModel()

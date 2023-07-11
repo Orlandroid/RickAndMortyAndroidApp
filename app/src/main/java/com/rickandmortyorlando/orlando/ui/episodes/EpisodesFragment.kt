@@ -2,12 +2,15 @@ package com.rickandmortyorlando.orlando.ui.episodes
 
 import android.util.Log
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.*
+import com.rickandmortyorlando.orlando.ui.extensions.getPackageName
+import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
+import com.rickandmortyorlando.orlando.ui.extensions.navigateAction
+import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -29,10 +32,6 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
             viewModel.getEpisodes(currentPage)
             isFirsTimeOneTheView = false
         }
-        toolbarLayout.toolbarTitle.text = getString(R.string.episodes)
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
         recyclerEpisodes.adapter = adapter
         recyclerEpisodes.myOnScrolled {
             if (!canCallToTheNextPage) return@myOnScrolled
@@ -43,6 +42,11 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
             }
         }
     }
+
+    override fun configureToolbar()= MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.episodes)
+    )
 
     override fun observerViewModel() {
         super.observerViewModel()

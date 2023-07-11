@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.ui.extensions
 
+import android.icu.text.CaseMap.Title
 import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.ColorRes
@@ -25,6 +26,11 @@ fun Fragment.shouldShowProgress(isLoading: Boolean) {
     (requireActivity() as MainActivity).shouldShowProgress(isLoading)
 }
 
+fun Fragment.changeToolbarTitle(title: String) {
+    (requireActivity() as MainActivity).changeTitleToolbar(title)
+}
+
+
 fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.message_succes)) {
     val dialog = AlertDialogs(
         kindOfMessage = AlertDialogs.SUCCES_MESSAGE,
@@ -33,7 +39,7 @@ fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.mess
     activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
 }
 
-fun Fragment.getPackageName():String = context?.packageName.toString()
+fun Fragment.getPackageName(): String = context?.packageName.toString()
 
 
 fun Fragment.navigateAction(action: NavDirections) {
@@ -128,6 +134,7 @@ fun <T> Fragment.observeApiResultGeneric(
                     onSuccess(apiState.data)
                 }
             }
+
             is ApiState.Error -> {
                 Log.w(context?.packageName, apiState.message.toString())
                 if (onError == null) {
@@ -136,12 +143,15 @@ fun <T> Fragment.observeApiResultGeneric(
                     onError()
                 }
             }
+
             is ApiState.ErrorNetwork -> {
                 showErrorNetwork(shouldCloseTheViewOnApiError)
             }
+
             is ApiState.NoData -> {
                 noData()
             }
+
             else -> {}
         }
     }

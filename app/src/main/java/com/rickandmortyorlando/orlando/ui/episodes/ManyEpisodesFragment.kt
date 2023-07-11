@@ -15,6 +15,7 @@ import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.google.gson.Gson
+import com.rickandmortyorlando.orlando.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -26,10 +27,6 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     private val args: ManyEpisodesFragmentArgs by navArgs()
 
     override fun setUpUi() = with(binding) {
-        toolbarLayout.toolbarTitle.text = getString(R.string.episodes)
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
         adapter = EpisodesAdapter {
             val action =
                 ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it)
@@ -42,6 +39,11 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
             viewModel.getManyEpisodesResponse(args.idsEpisodes)
         }
     }
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.episodes)
+    )
 
     override fun observerViewModel() {
         super.observerViewModel()

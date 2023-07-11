@@ -17,6 +17,7 @@ import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.*
 import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
 import com.google.gson.Gson
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,14 +33,6 @@ class EpisodeDetailFragment :
     }
     private var adapter = CharacterAdapter()
     override fun setUpUi() = with(binding) {
-        toolbarLayout.toolbarBack.click {
-            if (episodesViewModel.comesFromEpisodesMainMenu) {
-                findNavController().popBackStack()
-            } else {
-                findNavController().popBackStack(R.id.characterFragment, false)
-            }
-        }
-        toolbarLayout.toolbarTitle.setText(R.string.episode_detail)
         recyclerCharacters.adapter = adapter
         adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
             override fun clickOnCharacter(character: Character) {
@@ -51,6 +44,19 @@ class EpisodeDetailFragment :
             }
         })
         getOnlineOneEpisode()
+    }
+
+    override fun configureToolbar() =
+        MainActivity.ToolbarConfiguration(
+            toolbarTitle = getString(R.string.episode_detail),
+            clickOnBack = { onBackButton() })
+
+    private fun onBackButton() {
+        if (episodesViewModel.comesFromEpisodesMainMenu) {
+            findNavController().popBackStack()
+        } else {
+            findNavController().popBackStack(R.id.characterFragment, false)
+        }
     }
 
     private fun getOnlineOneEpisode() {
@@ -99,7 +105,7 @@ class EpisodeDetailFragment :
         tvNameEpisode.text = episode.name
         tvEpisodeNumber.text = episode.episode
         tvEpisodeDate.text = episode.air_date
-        toolbarLayout.toolbarTitle.text = episode.name
+        changeToolbarTitle(episode.name)
     }
 
 }

@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.ui.base
 
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.setStatusBarColor
@@ -30,11 +32,14 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
         return binding.root
     }
 
+    open fun configureToolbar() = MainActivity.ToolbarConfiguration()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUi()
         observerViewModel()
         setStatusBarColor(R.color.status_bar_color)
+        (requireActivity() as MainActivity).setToolbarConfiguration(configureToolbar())
     }
 
     protected abstract fun setUpUi()

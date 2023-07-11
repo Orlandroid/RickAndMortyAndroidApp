@@ -14,9 +14,10 @@
             android:id="@+id/skeleton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_layout">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -128,14 +129,6 @@
             app:layout_constraintStart_toStartOf="@+id/tv_characters"
             app:layout_constraintTop_toBottomOf="@+id/tv_characters"
             tools:listitem="@layout/item_character" />
-
-        <include
-            android:id="@+id/toolbar_layout"
-            layout="@layout/toolbar_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

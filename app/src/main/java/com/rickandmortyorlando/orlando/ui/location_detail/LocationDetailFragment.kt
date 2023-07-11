@@ -3,12 +3,14 @@ package com.rickandmortyorlando.orlando.ui.location_detail
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.characters_detail.CharacterDetailViewModel
+import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.ui.extensions.visible
@@ -31,13 +33,14 @@ class LocationDetailFragment :
 
 
     override fun setUpUi() = with(binding) {
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
         adapter = CharacterAdapter()
         recycler.adapter = adapter
         locationViewModel.getSingleLocation(args.idLocation)
     }
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true
+    )
 
     override fun observerViewModel() {
         super.observerViewModel()
@@ -47,7 +50,7 @@ class LocationDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             with(binding) {
-                toolbarLayout.toolbarTitle.text = it.name
+                changeToolbarTitle(it.name)
                 locationType.text = it.type
                 locationName.text = it.name
             }

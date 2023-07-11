@@ -1,12 +1,11 @@
 package com.rickandmortyorlando.orlando.ui.settings
 
 
-import androidx.navigation.fragment.findNavController
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.preferences.RickAndMortyPreferences
 import com.rickandmortyorlando.orlando.databinding.FragmentSettingsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.utils.ThemeUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,13 +23,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     @Inject
     lateinit var rickAndMortyPreferences: RickAndMortyPreferences
     override fun setUpUi() = with(binding) {
-        toolbarLayout.toolbarTitle.text = getText(R.string.settings)
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
         recyclerSettings.adapter = settingsAdapter
         setSettingsMenu()
     }
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.settings)
+    )
 
 
     private fun setSettingsMenu() {

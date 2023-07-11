@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
@@ -30,9 +31,6 @@ class CharacterDetailFragment :
         skeletonInfo.showSkeleton()
         skeletonLocation.showSkeleton()
         viewModel.getCharacter(args.charcaterId.toString())
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack(R.id.characterFragment, false)
-        }
         binding.tvEpisodes.click {
             val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
             val action =
@@ -42,6 +40,8 @@ class CharacterDetailFragment :
             findNavController().navigate(action)
         }
     }
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
 
     override fun observerViewModel() {
         super.observerViewModel()
@@ -90,7 +90,7 @@ class CharacterDetailFragment :
         tvSpecie.text = character.species
         tvGender.text = character.gender
         tvEpisodes.text = character.episode.size.toString()
-        toolbarLayout.toolbarTitle.text = character.name
+        (requireActivity() as MainActivity).changeTitleToolbar(character.name)
         val statusColor = getColorStatus(character.status, requireContext())
         imageStatusSession.setColorFilter(statusColor)
         cardView.strokeColor = statusColor
@@ -103,7 +103,8 @@ class CharacterDetailFragment :
         val colorResource = getColorStatusResource(character.status, requireContext())
         setStatusBarColor(colorResource)
         val colorDrawable = ColorDrawable(resources.getColor(colorResource))
-        binding.toolbarLayout.appBar.setBackgroundDrawable(colorDrawable)
+        (requireActivity() as MainActivity).changeDrawableAppBar(colorDrawable)
     }
+
 
 }
