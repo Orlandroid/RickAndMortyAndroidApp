@@ -34,12 +34,18 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
 
     open fun configureToolbar() = MainActivity.ToolbarConfiguration()
 
+    open fun configSearchView() = MainActivity.SearchViewConfig()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUi()
         observerViewModel()
         setStatusBarColor(R.color.status_bar_color)
-        (requireActivity() as MainActivity).setToolbarConfiguration(configureToolbar())
+        (requireActivity() as MainActivity).apply {
+            setToolbarConfiguration(configureToolbar())
+            invalidateOptionsMenu()
+            showSearchView(configSearchView())
+        }
     }
 
     protected abstract fun setUpUi()

@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar_color</item>
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -35,9 +36,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="MyThemeOverlay_Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
+    
+    <style name="AppTheme.PopupOverlay.toolbar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorControlNormal">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
+        <item name="android:textColorPrimary">@color/always_white</item>
+        <item name="colorAccent">@color/always_white</item>
+        <item name="android:textColorHint">@color/always_white</item>
+        <item name="android:tint">@color/always_white</item>
     </style>
 </resources>

@@ -1,10 +1,12 @@
 package com.rickandmortyorlando.orlando
 
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -19,11 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
+    private var searchViewConfig = SearchViewConfig()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpNavController()
+        setSupportActionBar(binding.toolbarLayout.toolbar)
     }
 
     private fun setUpNavController() {
@@ -57,23 +61,16 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarLayout.toolbarTitle.text = title
     }
 
-    fun showStatusBar() {
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    }
-
-    fun hideStatusBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-    }
-
     private fun showToolbar(showToolbar: Boolean) {
         if (showToolbar) {
             binding.toolbarLayout.root.visible()
         } else {
             binding.toolbarLayout.root.gone()
         }
+    }
+
+    fun showSearchView(config: SearchViewConfig) {
+        searchViewConfig = config
     }
 
     private fun setOnBackButton(clickOnBack: (() -> Unit)?) = with(binding) {
@@ -91,6 +88,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        val searchItem = menu.findItem(R.id.search)
+        val settingIcon = menu.findItem(R.id.settings)
+
+        searchItem.isVisible = searchViewConfig.showSearchView
+        settingIcon.isVisible = searchViewConfig.showConfigIcon
+
+        searchItem.setOnMenuItemClickListener {
+            searchViewConfig.clickOnSearchIcon()
+            true
+        }
+
+        settingIcon.setOnMenuItemClickListener {
+            searchViewConfig.clickOnConfigIcon()
+            true
+        }
+
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
+                searchViewConfig.onMenuItemActionExpand.invoke()
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
+                searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
+                searchViewConfig.onMenuItemActionCollapse.invoke()
+                return true
+            }
+        })
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.queryHint = searchViewConfig.hintText
+        searchView.gravity = View.TEXT_ALIGNMENT_CENTER
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchViewConfig.onQueryTextSubmit.invoke(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                searchViewConfig.onQueryTextChange.invoke(newText)
+                return false
+            }
+        })
+        return true
+    }
+
     fun changeDrawableAppBar(colorDrawable: ColorDrawable) {
         binding.toolbarLayout.appBar.setBackgroundDrawable(colorDrawable)
     }
@@ -100,6 +144,18 @@ class MainActivity : AppCompatActivity() {
         changeTitleToolbar(configuration.toolbarTitle)
         showToolbar(configuration.showToolbar)
     }
+
+    data class SearchViewConfig(
+        val hintText: String = "Buscar",
+        val showSearchView: Boolean = false,
+        val showConfigIcon: Boolean = false,
+        val onMenuItemActionExpand: () -> Unit = {},
+        val onMenuItemActionCollapse: () -> Unit = {},
+        val onQueryTextSubmit: (query: String) -> Unit = {},
+        val onQueryTextChange: (newText: String) -> Unit = {},
+        val clickOnSearchIcon: () -> Unit = {},
+        val clickOnConfigIcon: () -> Unit = {}
+    )
 
     data class ToolbarConfiguration(
         val showToolbar: Boolean = false,

@@ -1,10 +1,9 @@
 package com.rickandmortyorlando.orlando.ui.search
 
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.local.SearchCharacter
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
@@ -13,7 +12,11 @@ import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
-import com.rickandmortyorlando.orlando.ui.extensions.*
+import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
+import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
+import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
+import com.rickandmortyorlando.orlando.ui.extensions.showErrorNetwork
+import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,11 +32,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
-        enableToolbarForListeners(binding.toolbarLayout.toolbar)
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
-        }
-        toolbarLayout.toolbarTitle.text = getString(R.string.search)
         recyclerView.adapter = adapter
         adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
             override fun clickOnCharacter(character: Character) {
@@ -68,11 +66,40 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
     }
 
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.search)
+    )
+
+    override fun configSearchView() = MainActivity.SearchViewConfig(
+        showSearchView = true,
+        onQueryTextSubmit = {
+            characterSearchList.clear()
+            page = 1
+            searchCharacter.name = it
+            searchCharacters()
+        },
+        onMenuItemActionCollapse = {
+            page = 1
+            resetSearch()
+            resetPaging()
+            searchCharacters()
+        }
+    )
+
+
     private fun searchCharacters() {
         viewModel.searchCharacters(
             page = page.toString(),
             searchCharacter = searchCharacter
         )
+    }
+
+    private fun resetSearch() {
+        searchCharacter.name = ""
+        searchCharacter.status = ""
+        searchCharacter.species = ""
+        searchCharacter.gender = ""
     }
 
     override fun observerViewModel() {
@@ -99,6 +126,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                             canCallToTheNextPage = true
                         }
                     }
+
                     is ApiState.Error -> {
                         if (apiState.codeError == 404) {
                             Log.w("ANDROID CHARACTER", "Character not found")
@@ -106,39 +134,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                             showErrorApi()
                         }
                     }
+
                     is ApiState.ErrorNetwork -> {
                         showErrorNetwork()
                     }
+
                     else -> {}
                 }
             }
         }
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        myOnCreateOptionsMenu(
-            menu = menu,
-            myOnQueryTextSubmit = {
-                characterSearchList.clear()
-                page = 1
-                searchCharacter.name = it
-                searchCharacters()
-            },
-            myOnMenuItemActionCollapse = {
-                page = 1
-                resetSearch()
-                resetPaging()
-                searchCharacters()
-            }
-        )
-    }
-
-    private fun resetSearch() {
-        searchCharacter.name = ""
-        searchCharacter.status = ""
-        searchCharacter.species = ""
-        searchCharacter.gender = ""
-    }
 
 }

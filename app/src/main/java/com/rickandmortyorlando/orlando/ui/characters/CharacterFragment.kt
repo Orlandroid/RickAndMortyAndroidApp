@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
 import com.rickandmortyorlando.orlando.data.state.ApiState
@@ -27,15 +28,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
 
     override fun setUpUi() = with(binding) {
-        enableToolbarForListeners(binding.toolbarLayout.toolbar)
         if (isFirsTimeOneTheView) {
             resetPaging()
             viewModel.getCharacters(page.toString())
             isFirsTimeOneTheView = false
-        }
-        toolbarLayout.toolbarTitle.text = getString(R.string.characters)
-        toolbarLayout.toolbarBack.click {
-            findNavController().popBackStack()
         }
         recyclerView.adapter = adapter
         adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
@@ -66,6 +62,24 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         }
     }
 
+
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.characters)
+    )
+
+    override fun configSearchView() = MainActivity.SearchViewConfig(
+        showSearchView = true,
+        showConfigIcon = true,
+        clickOnSearchIcon = {
+            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSearchFragment())
+        },
+        clickOnConfigIcon = {
+            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSettingsFragment())
+        }
+    )
+
+
     private fun resetPaging() {
         characterList.clear()
         page = 1
@@ -75,6 +89,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         super.observerViewModel()
         observeCharactersResponse()
     }
+
 
     private fun observeCharactersResponse() {
         viewModel.myCharacterResponse.observe(viewLifecycleOwner) { apiState ->
@@ -94,31 +109,20 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
                             binding.root.setBackgroundColor(resources.getColor(R.color.background))
                         }
                     }
+
                     is ApiState.Error -> {
                         showErrorApi()
                     }
+
                     is ApiState.ErrorNetwork -> {
                         showErrorNetwork()
                     }
+
                     else -> {}
                 }
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        activity?.menuInflater?.inflate(R.menu.menu_search_witout, menu)
-        val searchItem = menu.findItem(R.id.search)
-        val settings = menu.findItem(R.id.settings)
-        settings.setOnMenuItemClickListener {
-            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSettingsFragment())
-            false
-        }
-        searchItem.setOnMenuItemClickListener {
-            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSearchFragment())
-            false
-        }
-    }
 
 }
