@@ -1,6 +1,5 @@
 package com.rickandmortyorlando.orlando.ui.extensions
 
-import android.icu.text.CaseMap.Title
 import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.ColorRes
@@ -9,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.state.ApiState
 import com.rickandmortyorlando.orlando.ui.main.AlertDialogs
 
 fun Fragment.showProgress() {
@@ -131,7 +130,7 @@ fun <T> Fragment.observeApiResultGeneric(
         when (apiState) {
             is ApiState.Success -> {
                 if (apiState.data != null) {
-                    onSuccess(apiState.data)
+                    onSuccess(apiState.data!!)
                 }
             }
 

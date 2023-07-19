@@ -6,16 +6,15 @@ import androidx.navigation.fragment.navArgs
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
-import com.google.gson.Gson
-import com.rickandmortyorlando.orlando.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 

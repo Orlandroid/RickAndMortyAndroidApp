@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rickandmortyorlando.orlando.data.state.ApiState
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import kotlinx.coroutines.*

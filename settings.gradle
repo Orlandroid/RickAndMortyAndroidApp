@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PaggingExample"
 include ':app'
+include ':domain'
+include ':data'

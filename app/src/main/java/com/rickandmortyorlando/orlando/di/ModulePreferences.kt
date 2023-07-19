@@ -2,8 +2,8 @@ package com.rickandmortyorlando.orlando.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.rickandmortyorlando.orlando.data.preferences.PreferencesManager
-import com.rickandmortyorlando.orlando.data.preferences.RickAndMortyPreferences
+import com.example.data.preferences.PreferencesManager
+import com.example.data.preferences.RickAndMortyPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

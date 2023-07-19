@@ -1,9 +1,9 @@
 package com.rickandmortyorlando.orlando.ui.settings
 
 
+import com.example.data.preferences.RickAndMortyPreferences
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.preferences.RickAndMortyPreferences
 import com.rickandmortyorlando.orlando.databinding.FragmentSettingsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.utils.ThemeUtils

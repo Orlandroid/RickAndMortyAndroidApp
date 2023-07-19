@@ -1,7 +1,6 @@
 package com.rickandmortyorlando.orlando.ui.location_detail
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -11,7 +10,6 @@ import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.characters_detail.CharacterDetailViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
-import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.ui.extensions.visible
 import com.rickandmortyorlando.orlando.ui.locations.LocationsViewModel

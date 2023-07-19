@@ -3,11 +3,11 @@ package com.rickandmortyorlando.orlando.ui.search
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.local.SearchCharacter
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
-import com.rickandmortyorlando.orlando.data.state.ApiState
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
@@ -120,8 +120,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
-                            characterSearchList.addAll(apiState.data.results)
-                            totalPages = apiState.data.info.pages
+                            characterSearchList.addAll(apiState.data!!.results)
+                            totalPages = apiState.data!!.info.pages
                             adapter.setData(characterSearchList)
                             canCallToTheNextPage = true
                         }

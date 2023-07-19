@@ -1,3 +1,21 @@
+import com.example.androidbase.presentation.BuildModules.DATA
+import com.example.androidbase.presentation.BuildModules.DOMAIN
+import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNNER
+import com.example.androidbase.presentation.Dependencies.ANDROIDX_APPCOMPAT
+import com.example.androidbase.presentation.Dependencies.ANDROIDX_CONSTRAINT_LAYOUT
+import com.example.androidbase.presentation.Dependencies.ANDROIDX_CORE_KTX
+import com.example.androidbase.presentation.Dependencies.ANDROID_MATERIAL
+import com.example.androidbase.presentation.Dependencies.GOOGLE_GSON
+import com.example.androidbase.presentation.Dependencies.JUNIT
+import com.example.androidbase.presentation.Dependencies.RETROFIT
+import com.example.androidbase.presentation.Dependencies.RETROFIT_CONVERTER_GSON
+import com.example.androidbase.presentation.Dependencies.RETROFIT_INTERCEPTOR
+import com.example.androidbase.presentation.Dependencies.TEST_EXPRESO
+import com.example.androidbase.presentation.Dependencies.TEST_JUNIT
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,16 +25,16 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
         applicationId = "com.rickandmortyorlando.orlando"
-        minSdk = 21
-        targetSdk = 32
+        minSdk = MIN_SDK_VERSION
+        targetSdk = TARGET_SDK_VERSION
         versionCode = 7
         versionName = "1.3"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = TEST_INSTRUMENTATION_RUNNER
     }
 
     buildTypes {
@@ -43,28 +61,26 @@ android {
 }
 
 dependencies {
-
-
-    val retrofit_version = "2.9.0"
     val navigation_version = "2.5.3"
     val lifecycle_version = "2.4.1"
     val dagger_hilt_version = "2.38.1"
     val paging_version = "3.1.1"
-
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation(project(DATA))
+    implementation(project(DOMAIN))
+    implementation(ANDROIDX_CORE_KTX)
+    implementation(ANDROIDX_APPCOMPAT)
+    implementation(ANDROID_MATERIAL)
+    implementation(ANDROIDX_CONSTRAINT_LAYOUT)
+    testImplementation(JUNIT)
+    androidTestImplementation(TEST_JUNIT)
+    androidTestImplementation(TEST_EXPRESO)
+    implementation(RETROFIT)
+    implementation(RETROFIT_CONVERTER_GSON)
+    implementation(RETROFIT_INTERCEPTOR)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.android.volley:volley:1.2.1")
     //GSON
-    implementation("com.google.code.gson:gson:2.9.0")
+    implementation(GOOGLE_GSON)
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // LiveData

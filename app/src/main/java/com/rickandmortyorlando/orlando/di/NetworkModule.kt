@@ -1,7 +1,8 @@
 package com.rickandmortyorlando.orlando.di
 
-import com.rickandmortyorlando.orlando.data.Repository
-import com.rickandmortyorlando.orlando.data.api.RickAndMortyService
+
+import com.example.data.Repository
+import com.example.data.api.RickAndMortyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

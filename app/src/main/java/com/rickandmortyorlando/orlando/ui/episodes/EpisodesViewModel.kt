@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rickandmortyorlando.orlando.data.Repository
+import com.example.data.Repository
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.data.models.remote.episode.EpisodeResponse
 import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
-import com.rickandmortyorlando.orlando.data.state.ApiState
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

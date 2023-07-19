@@ -1,14 +1,12 @@
 package com.rickandmortyorlando.orlando.ui.characters
 
 
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
-import com.rickandmortyorlando.orlando.data.state.ApiState
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.extensions.*
@@ -102,8 +100,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
                 when (apiState) {
                     is ApiState.Success -> {
                         if (apiState.data != null) {
-                            characterList.addAll(apiState.data.results)
-                            totalPages = apiState.data.info.pages
+                            characterList.addAll(apiState.data!!.results)
+                            totalPages = apiState.data!!.info.pages
                             adapter.setData(characterList)
                             canCallToTheNextPage = true
                             binding.root.setBackgroundColor(resources.getColor(R.color.background))

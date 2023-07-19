@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rickandmortyorlando.orlando.data.Repository
+import com.example.data.Repository
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.data.models.local.SearchCharacter
 import com.rickandmortyorlando.orlando.data.models.remote.character.Character
 import com.rickandmortyorlando.orlando.data.models.remote.character.CharacterResponse
-import com.rickandmortyorlando.orlando.data.state.ApiState
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import com.rickandmortyorlando.orlando.utils.ErrorType
 import com.rickandmortyorlando.orlando.utils.getTypeOfError

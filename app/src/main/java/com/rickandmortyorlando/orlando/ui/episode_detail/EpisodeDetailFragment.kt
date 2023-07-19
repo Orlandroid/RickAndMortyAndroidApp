@@ -46,10 +46,11 @@ class EpisodeDetailFragment :
         getOnlineOneEpisode()
     }
 
-    override fun configureToolbar() =
-        MainActivity.ToolbarConfiguration(
-            toolbarTitle = getString(R.string.episode_detail),
-            clickOnBack = { onBackButton() })
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        showToolbar = true,
+        toolbarTitle = getString(R.string.episode_detail),
+        clickOnBack = { onBackButton() }
+    )
 
     private fun onBackButton() {
         if (episodesViewModel.comesFromEpisodesMainMenu) {
