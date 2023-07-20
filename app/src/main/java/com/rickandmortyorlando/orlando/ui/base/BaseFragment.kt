@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.ui.base
 
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,5 +59,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding>(@LayoutRes protected 
         _binding = null
         hideProgress()
         setStatusBarColor(R.color.status_bar_color)
+        (requireActivity() as MainActivity).changeToolbarColor(ColorDrawable(resources.getColor(R.color.status_bar_color)))
     }
 }

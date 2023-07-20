@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
 import com.example.domain.state.ApiState
-import com.rickandmortyorlando.orlando.data.models.remote.location.LocationsResponse
-import com.rickandmortyorlando.orlando.data.models.remote.location.SingleLocation
+import com.example.domain.models.remote.location.LocationsResponse
+import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.ui.base.BaseViewModel
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper

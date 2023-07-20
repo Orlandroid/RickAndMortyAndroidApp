@@ -1,6 +1,6 @@
-package com.rickandmortyorlando.orlando.data.models.remote.location
+package com.example.domain.models.remote.location
 
-import com.rickandmortyorlando.orlando.data.models.remote.character.Info
+import com.example.domain.models.remote.character.Info
 
 data class LocationsResponse(
     val info: Info,

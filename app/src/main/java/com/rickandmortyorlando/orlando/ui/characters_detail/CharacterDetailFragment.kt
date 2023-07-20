@@ -1,12 +1,13 @@
 package com.rickandmortyorlando.orlando.ui.characters_detail
 
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
+import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.extensions.*
@@ -103,7 +104,10 @@ class CharacterDetailFragment :
         val colorResource = getColorStatusResource(character.status, requireContext())
         setStatusBarColor(colorResource)
         val colorDrawable = ColorDrawable(resources.getColor(colorResource))
-        (requireActivity() as MainActivity).changeDrawableAppBar(colorDrawable)
+        (requireActivity() as MainActivity).apply {
+            changeDrawableAppBar(colorDrawable)
+            changeToolbarColor(colorDrawable)
+        }
     }
 
 

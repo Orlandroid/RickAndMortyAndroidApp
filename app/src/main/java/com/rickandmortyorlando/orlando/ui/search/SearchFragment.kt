@@ -6,8 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.local.SearchCharacter
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
+import com.example.domain.models.local.SearchCharacter
+import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter

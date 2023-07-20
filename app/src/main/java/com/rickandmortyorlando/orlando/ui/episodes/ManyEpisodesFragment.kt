@@ -9,7 +9,7 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric

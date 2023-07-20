@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rickandmortyorlando.orlando.data.models.remote.location.SingleLocation
+import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.ItemLocationBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 

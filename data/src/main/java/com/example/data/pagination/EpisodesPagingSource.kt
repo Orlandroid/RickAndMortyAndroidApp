@@ -3,7 +3,7 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.Episode
 
 class EpisodesPagingSource(
     private val service: RickAndMortyService

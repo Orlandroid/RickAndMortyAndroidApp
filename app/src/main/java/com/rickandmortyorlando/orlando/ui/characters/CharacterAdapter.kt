@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
+import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.utils.getColorStatus
 import com.google.android.material.card.MaterialCardView

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.fragment.app.viewModels
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.extensions.getPackageName

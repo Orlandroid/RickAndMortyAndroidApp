@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.data.models.remote.location
+package com.example.domain.models.remote.location
 
 data class SingleLocation(
     val id: Int,

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
 import com.example.domain.state.ApiState
-import com.rickandmortyorlando.orlando.data.models.remote.episode.EpisodeResponse
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.EpisodeResponse
+import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

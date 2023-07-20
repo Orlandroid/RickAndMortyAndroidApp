@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 

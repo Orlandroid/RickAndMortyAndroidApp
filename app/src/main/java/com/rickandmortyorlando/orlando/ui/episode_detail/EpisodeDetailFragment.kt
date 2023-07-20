@@ -8,8 +8,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.character.Character
+import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter

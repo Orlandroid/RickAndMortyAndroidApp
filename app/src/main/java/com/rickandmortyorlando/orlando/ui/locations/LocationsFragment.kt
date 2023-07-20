@@ -4,10 +4,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.data.models.remote.location.SingleLocation
+import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
 import dagger.hilt.android.AndroidEntryPoint

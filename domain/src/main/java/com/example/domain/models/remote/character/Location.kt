@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.data.models.remote.character
+package com.example.domain.models.remote.character
 
 data class Location(
     val name:String,

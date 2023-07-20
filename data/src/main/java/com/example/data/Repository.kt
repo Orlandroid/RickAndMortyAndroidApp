@@ -1,10 +1,10 @@
 package com.example.data
 
 import com.example.data.api.RickAndMortyService
-import com.rickandmortyorlando.orlando.data.models.local.SearchCharacter
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
-import com.rickandmortyorlando.orlando.data.models.remote.character.CharacterResponse
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.local.SearchCharacter
+import com.example.domain.models.remote.character.Character
+import com.example.domain.models.remote.character.CharacterResponse
+import com.example.domain.models.remote.episode.Episode
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val rickAndMortyService: RickAndMortyService) {

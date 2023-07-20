@@ -1,11 +1,11 @@
 package com.example.data.api
 
-import com.rickandmortyorlando.orlando.data.models.remote.location.LocationsResponse
-import com.rickandmortyorlando.orlando.data.models.remote.character.Character
-import com.rickandmortyorlando.orlando.data.models.remote.character.CharacterResponse
-import com.rickandmortyorlando.orlando.data.models.remote.episode.EpisodeResponse
-import com.rickandmortyorlando.orlando.data.models.remote.location.SingleLocation
-import com.rickandmortyorlando.orlando.data.models.remote.episode.Episode
+import com.example.domain.models.remote.location.LocationsResponse
+import com.example.domain.models.remote.character.Character
+import com.example.domain.models.remote.character.CharacterResponse
+import com.example.domain.models.remote.episode.EpisodeResponse
+import com.example.domain.models.remote.location.SingleLocation
+import com.example.domain.models.remote.episode.Episode
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

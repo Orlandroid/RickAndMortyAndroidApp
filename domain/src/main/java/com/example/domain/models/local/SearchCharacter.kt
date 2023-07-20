@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.data.models.local
+package com.example.domain.models.local
 
 data class SearchCharacter(
     var name: String = "",

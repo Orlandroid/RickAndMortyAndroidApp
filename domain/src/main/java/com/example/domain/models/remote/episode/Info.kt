@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.data.models.remote.episode
+package com.example.domain.models.remote.episode
 
 data class Info(
     val count: Int,
