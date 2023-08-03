@@ -1,16 +1,18 @@
 package com.rickandmortyorlando.orlando.ui.characters_detail
 
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.*
+import com.rickandmortyorlando.orlando.ui.extensions.click
+import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.setMargins
+import com.rickandmortyorlando.orlando.ui.extensions.setStatusBarColor
 import com.rickandmortyorlando.orlando.utils.getColorStatus
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 import com.rickandmortyorlando.orlando.utils.getNumberFromUrWithPrefix

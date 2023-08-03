@@ -51,11 +51,11 @@ android {
         dataBinding = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     namespace = "com.rickandmortyorlando.orlando"
 }
@@ -63,7 +63,7 @@ android {
 dependencies {
     val navigation_version = "2.5.3"
     val lifecycle_version = "2.4.1"
-    val dagger_hilt_version = "2.38.1"
+    val dagger_hilt_version = "2.45"
     val paging_version = "3.1.1"
     implementation(project(DATA))
     implementation(project(DOMAIN))
@@ -94,7 +94,6 @@ dependencies {
     //Image
     implementation("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
-    implementation("com.squareup.picasso:picasso:2.71828")
     //Shimer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.faltenreich:skeletonlayout:4.0.0")

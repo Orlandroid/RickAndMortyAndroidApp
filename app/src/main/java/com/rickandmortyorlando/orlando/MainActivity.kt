@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -142,8 +141,6 @@ class MainActivity : AppCompatActivity() {
 
     fun changeToolbarColor(color: ColorDrawable) {
         binding.toolbarLayout.toolbar.setBackgroundDrawable(color)
-        //binding.toolbarLayout.toolbar.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.status_bar_color)))
-        //binding.toolbarLayout.toolbar.setBackgroundColor(background)
     }
 
     fun setToolbarConfiguration(configuration: ToolbarConfiguration) {
