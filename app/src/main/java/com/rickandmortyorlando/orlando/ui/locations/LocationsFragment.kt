@@ -7,8 +7,12 @@ import com.rickandmortyorlando.orlando.R
 import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
+import com.rickandmortyorlando.orlando.ui.extensions.gone
+import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.showProgress
+import com.rickandmortyorlando.orlando.ui.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,12 +51,31 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
 
     override fun observerViewModel() {
         super.observerViewModel()
-        observeApiResultGeneric(viewModel.locationResponse, hasProgressTheView = true) {
+        observeApiResultGeneric(
+            viewModel.locationResponse,
+            onLoading = { onLoading() },
+            onFinishLoading = { onFinishLoading() }) {
             locationsList.addAll(it.results)
             adapter.setData(locationsList)
             canCallToTheNextPage = true
             totalPages = it.info.pages
         }
+    }
+
+    private fun onLoading() {
+        if (currentPage > 1) {
+            showProgress()
+            return
+        }
+        binding.skeleton.visible()
+    }
+
+    private fun onFinishLoading() {
+        if (currentPage > 1) {
+            hideProgress()
+            return
+        }
+        binding.skeleton.gone()
     }
 
     private fun clickOnLocation(locationId: Int) {

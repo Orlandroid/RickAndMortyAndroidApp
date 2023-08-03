@@ -68,9 +68,9 @@ class EpisodeDetailFragment :
             Request.Method.GET, url,
             { response ->
                 val episode = Gson().fromJson(response, Episode::class.java)
-                binding.skeleton.showOriginal()
                 setDataDetail(episode)
                 viewModel.getManyCharacters(getListOfCharactersId(episode.characters))
+                binding.skeleton.showOriginal()
             },
             {
                 showErrorApi(
