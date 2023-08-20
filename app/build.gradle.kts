@@ -31,8 +31,8 @@ android {
         applicationId = "com.rickandmortyorlando.orlando"
         minSdk = MIN_SDK_VERSION
         targetSdk = TARGET_SDK_VERSION
-        versionCode = 7
-        versionName = "1.3"
+        versionCode = 8
+        versionName = "1.4"
 
         testInstrumentationRunner = TEST_INSTRUMENTATION_RUNNER
     }
