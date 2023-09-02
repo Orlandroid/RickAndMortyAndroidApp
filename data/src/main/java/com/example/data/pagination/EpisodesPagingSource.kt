@@ -5,6 +5,9 @@ import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.domain.models.remote.episode.Episode
 
+
+private const val STARTING_PAGE_INDEX = 1
+
 class EpisodesPagingSource(
     private val service: RickAndMortyService
 ) : PagingSource<Int, Episode>() {
@@ -17,13 +20,12 @@ class EpisodesPagingSource(
         params: LoadParams<Int>
     ): LoadResult<Int, Episode> {
         return try {
-            val nextPageNumber = params.key ?: START_PAGE
-            val response = service.getEpisodes(nextPageNumber)
-            val nextPage = response.info.next.split("=")[1].toInt()
+            val currentPage = params.key ?: 1
+            val data = service.getEpisodes(currentPage).results
             LoadResult.Page(
-                data = response.results,
-                prevKey = null,
-                nextKey = nextPage
+                data = data,
+                prevKey = if (currentPage == 1) null else -1,
+                nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

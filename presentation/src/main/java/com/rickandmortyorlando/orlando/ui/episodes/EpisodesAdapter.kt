@@ -8,7 +8,7 @@ import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 
-class EpisodesAdapter(private val clickOnEpisode: (episodeNumber: Int) -> Unit={}) :
+class EpisodesAdapter(private val clickOnEpisode: (episodeNumber: Int) -> Unit = {}) :
     RecyclerView.Adapter<EpisodesAdapter.ViewHolder>() {
 
     private var episodeList = listOf<Episode>()

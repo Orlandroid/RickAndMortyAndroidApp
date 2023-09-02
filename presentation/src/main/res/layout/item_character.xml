@@ -15,7 +15,6 @@
         android:layout_height="wrap_content">
 
 
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
