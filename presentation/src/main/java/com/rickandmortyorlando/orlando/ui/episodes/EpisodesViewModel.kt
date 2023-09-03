@@ -5,16 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.example.data.Repository
-import com.example.domain.state.ApiState
-import com.example.domain.models.remote.episode.EpisodeResponse
 import com.example.domain.models.remote.episode.Episode
+import com.example.domain.models.remote.episode.EpisodeResponse
+import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 @HiltViewModel
 class EpisodesViewModel @Inject constructor(
@@ -31,6 +34,11 @@ class EpisodesViewModel @Inject constructor(
         get() = _manyEpisodesResponse
 
     var comesFromEpisodesMainMenu: Boolean = false
+
+
+    fun getEpisodes(): Flow<PagingData<Episode>> {
+        return repository.getEpisodes()
+    }
 
 
     @SuppressLint("NullSafeMutableLiveData")

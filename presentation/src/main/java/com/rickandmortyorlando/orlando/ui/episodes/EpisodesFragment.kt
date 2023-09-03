@@ -1,19 +1,20 @@
 package com.rickandmortyorlando.orlando.ui.episodes
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.gone
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
-import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
 import com.rickandmortyorlando.orlando.ui.extensions.navigateAction
-import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
-import com.rickandmortyorlando.orlando.ui.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -21,77 +22,47 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
 
     private val viewModel: EpisodesViewModel by viewModels()
     private var adapter = EpisodesAdapter { clickOnEpisode(it) }
-    private var currentPage = 1
-    private var totalPages = 0
-    private var canCallToTheNextPage = true
-    private var episodesList: ArrayList<Episode> = arrayListOf()
-    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
-        if (isFirsTimeOneTheView) {
-            resetPaging()
-            viewModel.getEpisodes(currentPage)
-            isFirsTimeOneTheView = false
-        }
         recyclerEpisodes.adapter = adapter
-        recyclerEpisodes.myOnScrolled {
-            if (!canCallToTheNextPage) return@myOnScrolled
-            if (totalPages > currentPage) {
-                currentPage++
-                canCallToTheNextPage = false
-                viewModel.getEpisodes(page = currentPage)
-            }
-        }
+        getEpisodes()
+        listenerAdapter()
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
         showToolbar = true, toolbarTitle = getString(R.string.episodes)
     )
 
-    override fun observerViewModel() {
-        super.observerViewModel()
-        observeApiResultGeneric(
-            viewModel.episodeResponse,
-            onLoading = {
-                onLoading()
-            },
-            onFinishLoading = {
-                onFinishLoading()
+    private fun getEpisodes() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getEpisodes().collectLatest { episodes ->
+                adapter.submitData(episodes)
             }
-        ) {
-            episodesList.addAll(it.results)
-            adapter.setData(episodesList)
-            canCallToTheNextPage = true
-            totalPages = it.info.pages
+        }
+
+    }
+
+    private fun listenerAdapter() {
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
+                showProgress()
+            } else {
+                hideProgress()
+            }
+            when (loadState.source.refresh) {
+                is LoadState.Error -> {
+                    showErrorApi(true)
+                }
+
+                else -> {}
+            }
         }
     }
 
-    private fun onLoading() {
-        if (currentPage > 1) {
-            showProgress()
-            return
-        }
-        binding.skeleton.visible()
-    }
-
-    private fun onFinishLoading() {
-        if (currentPage > 1) {
-            hideProgress()
-            return
-        }
-        binding.skeleton.gone()
-    }
-
-    private fun clickOnEpisode(idOfEpisode: Int) {
+    private fun clickOnEpisode(item: Episode) {
         val action =
-            EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(idOfEpisode)
+            EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(item.id)
         navigateAction(action)
     }
-
-    private fun resetPaging() {
-        episodesList.clear()
-        currentPage = 1
-    }
-
 
 }

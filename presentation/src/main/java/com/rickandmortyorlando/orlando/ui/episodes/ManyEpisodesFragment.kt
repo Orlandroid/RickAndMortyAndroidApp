@@ -28,7 +28,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     override fun setUpUi() = with(binding) {
         adapter = EpisodesAdapter {
             val action =
-                ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it)
+                ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it.id)
             findNavController().navigate(action)
         }
         recyclerEpisodes.adapter = adapter
@@ -47,7 +47,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     override fun observerViewModel() {
         super.observerViewModel()
         observeApiResultGeneric(viewModel.manyEpisodesResponse, hasProgressTheView = true) {
-            adapter?.setData(it)
+            //adapter?.setData(it)
         }
     }
 
@@ -59,7 +59,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
             Request.Method.GET, url,
             { response ->
                 val episode = Gson().fromJson(response, Episode::class.java)
-                adapter?.setData(listOf(episode))
+                //adapter?.setData(listOf(episode))
                 shouldShowProgress(false)
             },
             {

@@ -20,7 +20,7 @@ class EpisodesPagingSource(
         params: LoadParams<Int>
     ): LoadResult<Int, Episode> {
         return try {
-            val currentPage = params.key ?: 1
+            val currentPage = params.key ?: START_PAGE
             val data = service.getEpisodes(currentPage).results
             LoadResult.Page(
                 data = data,
