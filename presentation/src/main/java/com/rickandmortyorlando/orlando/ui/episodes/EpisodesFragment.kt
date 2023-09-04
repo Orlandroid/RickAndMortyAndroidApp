@@ -39,7 +39,6 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
                 adapter.submitData(episodes)
             }
         }
-
     }
 
     private fun listenerAdapter() {

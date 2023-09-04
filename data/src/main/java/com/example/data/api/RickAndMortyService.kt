@@ -14,7 +14,7 @@ import retrofit2.http.Url
 interface RickAndMortyService {
 
     @GET("character")
-    suspend fun getCharacters(@Query("page") page: String): CharacterResponse
+    suspend fun getCharacters(@Query("page") page: Int): CharacterResponse
 
     @GET("character/{id}")
     suspend fun getCharacter(@Path("id") id: String): Character

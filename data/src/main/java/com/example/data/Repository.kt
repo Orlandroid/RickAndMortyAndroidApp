@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.data.api.RickAndMortyService
+import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
@@ -20,7 +21,7 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
         const val PRE_FETCH_DISTANCE = 5
     }
 
-    suspend fun getCharacters(page: String): CharacterResponse =
+    suspend fun getCharacters(page: Int): CharacterResponse =
         rickAndMortyService.getCharacters(page)
 
     suspend fun getCharacter(id: String) = rickAndMortyService.getCharacter(id)
@@ -52,7 +53,7 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
 
     suspend fun getLocations(page: String) = rickAndMortyService.getLocations(page)
 
-    fun getEpisodes(): Flow<PagingData<Episode>> {
+    fun getEpisodesPagingSource(): Flow<PagingData<Episode>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
@@ -61,6 +62,19 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
             ),
             pagingSourceFactory = {
                 EpisodesPagingSource(service = rickAndMortyService)
+            }
+        ).flow
+    }
+
+    fun getCharactersPagingSource(): Flow<PagingData<Character>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false,
+                prefetchDistance = PRE_FETCH_DISTANCE
+            ),
+            pagingSourceFactory = {
+                CharactersPagingSource(service = rickAndMortyService)
             }
         ).flow
     }

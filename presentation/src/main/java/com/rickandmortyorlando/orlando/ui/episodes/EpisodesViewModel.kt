@@ -37,7 +37,7 @@ class EpisodesViewModel @Inject constructor(
 
 
     fun getEpisodes(): Flow<PagingData<Episode>> {
-        return repository.getEpisodes()
+        return repository.getEpisodesPagingSource()
     }
 
 

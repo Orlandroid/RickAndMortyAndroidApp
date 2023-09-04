@@ -1,75 +1,66 @@
 package com.rickandmortyorlando.orlando.ui.characters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.rickandmortyorlando.orlando.R
 import com.example.domain.models.remote.character.Character
+import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.databinding.ItemCharacterBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.utils.getColorStatus
-import com.google.android.material.card.MaterialCardView
 
 
-class CharacterAdapter :
-    RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
+class CharacterAdapter(private val clickOnCharacter: (Character) -> Unit) :
+    PagingDataAdapter<Character, CharacterAdapter.CharacterViewHolder>(CharacterComparator) {
 
-    private var characters = listOf<Character>()
-    private var clickOnCharacter: ClickOnCharacter? = null
 
-    fun setData(list: List<Character>) {
-        characters = list.distinct()
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): CharacterViewHolder {
+        return CharacterViewHolder(
+            ItemCharacterBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
-    fun setListener(clickOnCharacter: ClickOnCharacter) {
-        this.clickOnCharacter = clickOnCharacter
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
+        val item = getItem(position)
+        item?.let {
+            holder.bind(it)
+        }
     }
 
-    class ViewHolder(val view: View) :
-        RecyclerView.ViewHolder(view) {
-        fun bind(character: Character) {
-            val image = view.findViewById<ImageView>(R.id.imageView)
-            val imageStatus = view.findViewById<ImageView>(R.id.image_status_session)
-            val name = view.findViewById<TextView>(R.id.tv_character_name)
-            val status = view.findViewById<TextView>(R.id.tv_status)
-            val specie = view.findViewById<TextView>(R.id.tv_specie)
-            val card = view.findViewById<MaterialCardView>(R.id.card)
-            name.text = character.name
+
+    inner class CharacterViewHolder(private val binding: ItemCharacterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(character: Character) = with(binding) {
+            tvCharacterName.text = character.name
             Glide.with(itemView.context).load(character.image)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.loading_animation).into(image)
-            imageStatus.setColorFilter(getColorStatus(character.status, itemView.context))
+                .placeholder(R.drawable.loading_animation).into(imageCharacter)
+            imageStatusSession.setColorFilter(getColorStatus(character.status, itemView.context))
             card.strokeColor = getColorStatus(character.status, itemView.context)
-            status.text = character.status
-            specie.text = character.species
+            tvStatus.text = character.status
+            tvSpecie.text = character.species
+            root.click {
+                clickOnCharacter(character)
+            }
         }
     }
 
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_character, viewGroup, false)
-        return ViewHolder(view)
-
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(characters[position])
-        viewHolder.itemView.click {
-            clickOnCharacter?.clickOnCharacter(characters[position])
+    object CharacterComparator : DiffUtil.ItemCallback<Character>() {
+        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
 
-
-    override fun getItemCount() = characters.size
-
-    interface ClickOnCharacter {
-        fun clickOnCharacter(character: Character)
+        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem == newItem
+        }
     }
 
 }

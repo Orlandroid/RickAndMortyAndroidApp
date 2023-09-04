@@ -18,6 +18,7 @@ import com.rickandmortyorlando.orlando.ui.extensions.*
 import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
 import com.google.gson.Gson
 import com.rickandmortyorlando.orlando.MainActivity
+import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,18 +32,9 @@ class EpisodeDetailFragment :
     private val episodesViewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
         defaultViewModelProviderFactory
     }
-    private var adapter = CharacterAdapter()
+    private var adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
     override fun setUpUi() = with(binding) {
         recyclerCharacters.adapter = adapter
-        adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
-            override fun clickOnCharacter(character: Character) {
-                val action =
-                    EpisodeDetailFragmentDirections.actionEpisodeDetailFragmentToCharacterDetailFragment(
-                        character.id
-                    )
-                navigateAction(action)
-            }
-        })
         getOnlineOneEpisode()
     }
 
@@ -90,7 +82,7 @@ class EpisodeDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             binding.tvCharacters.visible()
-            adapter.setData(it)
+            //adapter.setData(it)
         }
     }
 
@@ -107,6 +99,14 @@ class EpisodeDetailFragment :
         tvEpisodeNumber.text = episode.episode
         tvEpisodeDate.text = episode.air_date
         changeToolbarTitle(episode.name)
+    }
+
+    private fun clickOnCharacter(character: Character) {
+        findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                character.id
+            )
+        )
     }
 
 }

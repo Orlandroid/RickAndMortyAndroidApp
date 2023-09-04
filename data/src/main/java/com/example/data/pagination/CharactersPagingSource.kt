@@ -3,12 +3,11 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.remote.episode.Episode
+import com.example.domain.models.remote.character.Character
 
-
-class EpisodesPagingSource(
+class CharactersPagingSource(
     private val service: RickAndMortyService
-) : PagingSource<Int, Episode>() {
+) : PagingSource<Int, Character>() {
 
     companion object {
         private const val START_PAGE = 1
@@ -16,10 +15,10 @@ class EpisodesPagingSource(
 
     override suspend fun load(
         params: LoadParams<Int>
-    ): LoadResult<Int, Episode> {
+    ): LoadResult<Int, Character> {
         return try {
             val currentPage = params.key ?: START_PAGE
-            val data = service.getEpisodes(currentPage).results
+            val data = service.getCharacters(currentPage).results
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == 1) null else -1,
@@ -30,7 +29,7 @@ class EpisodesPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

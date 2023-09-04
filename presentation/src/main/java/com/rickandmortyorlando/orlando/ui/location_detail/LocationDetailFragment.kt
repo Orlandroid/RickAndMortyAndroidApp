@@ -1,12 +1,15 @@
 package com.rickandmortyorlando.orlando.ui.location_detail
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
+import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.characters_detail.CharacterDetailViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
@@ -31,7 +34,7 @@ class LocationDetailFragment :
 
 
     override fun setUpUi() = with(binding) {
-        adapter = CharacterAdapter()
+        adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
         recycler.adapter = adapter
         locationViewModel.getSingleLocation(args.idLocation)
     }
@@ -65,7 +68,7 @@ class LocationDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             showLocationInfo()
-            adapter?.setData(it)
+            //adapter?.setData(it)
         }
         observeApiResultGeneric(
             characterDetailViewModel.characterResponse,
@@ -73,7 +76,7 @@ class LocationDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) { character ->
             showLocationInfo()
-            adapter?.setData(listOf(character))
+            //adapter?.setData(listOf(character))
         }
     }
 
@@ -90,6 +93,14 @@ class LocationDetailFragment :
         return getListOfNumbersFromUrlWithPrefix(
             idsInUrl,
             "character"
+        )
+    }
+
+    private fun clickOnCharacter(character: Character) {
+        findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                character.id
+            )
         )
     }
 

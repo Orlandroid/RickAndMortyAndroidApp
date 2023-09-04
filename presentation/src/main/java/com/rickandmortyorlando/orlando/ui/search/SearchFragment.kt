@@ -11,6 +11,7 @@ import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
+import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
 import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
@@ -26,22 +27,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private var page = 1
     private var totalPages = 0
     var searchCharacter = SearchCharacter()
-    private val adapter = CharacterAdapter()
+    private val adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
     private var characterSearchList: ArrayList<Character> = arrayListOf()
     private val viewModel: CharacterViewModel by viewModels()
     private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
         recyclerView.adapter = adapter
-        adapter.setListener(object : CharacterAdapter.ClickOnCharacter {
-            override fun clickOnCharacter(character: Character) {
-                findNavController().navigate(
-                    SearchFragmentDirections.actionSearchFragmentToCharacterDetailFragment(
-                        character.id
-                    )
-                )
-            }
-        })
         recyclerView.myOnScrolled {
             if (!canCallToTheNextPage) {
                 return@myOnScrolled
@@ -54,7 +46,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
         }
         swipRefresh.setOnRefreshListener {
-            adapter.setData(listOf())
+            //adapter.setData(listOf())
             resetPaging()
             resetSearch()
             swipRefresh.isRefreshing = false
@@ -122,7 +114,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                         if (apiState.data != null) {
                             characterSearchList.addAll(apiState.data!!.results)
                             totalPages = apiState.data!!.info.pages
-                            adapter.setData(characterSearchList)
+                            //adapter.setData(characterSearchList)
                             canCallToTheNextPage = true
                         }
                     }
@@ -143,6 +135,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
             }
         }
+    }
+
+    private fun clickOnCharacter(character: Character) {
+        findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+                character.id
+            )
+        )
     }
 
 
