@@ -29,7 +29,7 @@ interface RickAndMortyService {
     suspend fun getSingleLocation(@Path("id") id: Int): SingleLocation
 
     @GET("location")
-    suspend fun getLocations(@Query("page") page: String): LocationsResponse
+    suspend fun getLocations(@Query("page") page: Int): LocationsResponse
 
     @GET("character")
     suspend fun searchCharacter(

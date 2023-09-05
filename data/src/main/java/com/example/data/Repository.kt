@@ -51,7 +51,7 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
     }
 
 
-    suspend fun getLocations(page: String) = rickAndMortyService.getLocations(page)
+    suspend fun getLocations(page: Int) = rickAndMortyService.getLocations(page)
 
     fun getEpisodesPagingSource(): Flow<PagingData<Episode>> {
         return Pager(
@@ -62,19 +62,6 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
             ),
             pagingSourceFactory = {
                 EpisodesPagingSource(service = rickAndMortyService)
-            }
-        ).flow
-    }
-
-    fun getCharactersPagingSource(): Flow<PagingData<Character>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                prefetchDistance = PRE_FETCH_DISTANCE
-            ),
-            pagingSourceFactory = {
-                CharactersPagingSource(service = rickAndMortyService)
             }
         ).flow
     }

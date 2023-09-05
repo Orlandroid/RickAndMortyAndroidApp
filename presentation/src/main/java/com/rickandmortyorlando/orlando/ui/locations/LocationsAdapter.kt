@@ -1,52 +1,51 @@
 package com.rickandmortyorlando.orlando.ui.locations
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.ItemLocationBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 
 class LocationsAdapter(private val clickOnLocation: (locationId: Int) -> Unit = {}) :
-    RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
+    PagingDataAdapter<SingleLocation, LocationsAdapter.LocationViewHolder>(LocationComparator) {
 
-    private var characters = listOf<SingleLocation>()
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<SingleLocation>) {
-        characters = list
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): LocationViewHolder {
+        return LocationViewHolder(
+            ItemLocationBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
+    override fun onBindViewHolder(holder: LocationsAdapter.LocationViewHolder, position: Int) {
+        val item = getItem(position)
+        item?.let {
+            holder.bind(it)
+        }
+    }
 
-    class ViewHolder(val binding: ItemLocationBinding) :
+    inner class LocationViewHolder(val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(location: SingleLocation) = with(binding) {
+            root.click { clickOnLocation(location.id) }
             tvType.text = location.type
             tvName.text = location.name
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(viewGroup.context)
-        val binding = ItemLocationBinding.inflate(layoutInflater, viewGroup, false)
-        return ViewHolder(binding)
+    object LocationComparator : DiffUtil.ItemCallback<SingleLocation>() {
+        override fun areItemsTheSame(oldItem: SingleLocation, newItem: SingleLocation): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    }
-
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentLocation = characters[position]
-        viewHolder.bind(characters[position])
-        viewHolder.itemView.click {
-            clickOnLocation(currentLocation.id)
+        override fun areContentsTheSame(oldItem: SingleLocation, newItem: SingleLocation): Boolean {
+            return oldItem == newItem
         }
     }
-
-
-    override fun getItemCount() = characters.size
-
 
 }

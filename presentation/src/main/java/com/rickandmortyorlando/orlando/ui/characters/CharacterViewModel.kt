@@ -148,10 +148,6 @@ class CharacterViewModel @Inject constructor(
         ).flow
     }
 
-    fun getCharactersPaging(): Flow<PagingData<Character>> {
-        return repository.getCharactersPagingSource()
-    }
-
     fun refreshCharactersPagingSource() = charactersPagingSource.invalidate()
 
 

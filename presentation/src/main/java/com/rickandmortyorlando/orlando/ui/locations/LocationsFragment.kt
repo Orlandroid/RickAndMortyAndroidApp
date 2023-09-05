@@ -1,46 +1,31 @@
 package com.rickandmortyorlando.orlando.ui.locations
 
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.extensions.gone
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
-import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
-import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
-import com.rickandmortyorlando.orlando.ui.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragment_locations) {
 
     private val viewModel: LocationsViewModel by viewModels()
     private var adapter = LocationsAdapter { clickOnLocation(it) }
-    private var currentPage = 1
-    private var totalPages = 0
-    private var canCallToTheNextPage = true
-    private var locationsList: ArrayList<SingleLocation> = arrayListOf()
-    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
-        if (isFirsTimeOneTheView) {
-            resetPaging()
-            viewModel.getLocations(currentPage)
-            isFirsTimeOneTheView = false
-        }
         recyclerView.adapter = adapter
-        recyclerView.myOnScrolled {
-            if (!canCallToTheNextPage) return@myOnScrolled
-            if (totalPages > currentPage) {
-                currentPage++
-                canCallToTheNextPage = false
-                viewModel.getLocations(page = currentPage)
-            }
-        }
+        getLocations()
+        listenerAdapter()
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
@@ -48,45 +33,38 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
         toolbarTitle = getString(R.string.locations)
     )
 
-
-    override fun observerViewModel() {
-        super.observerViewModel()
-        observeApiResultGeneric(
-            viewModel.locationResponse,
-            onLoading = { onLoading() },
-            onFinishLoading = { onFinishLoading() }) {
-            locationsList.addAll(it.results)
-            adapter.setData(locationsList)
-            canCallToTheNextPage = true
-            totalPages = it.info.pages
+    private fun getLocations() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getLocationsPagingSource().collectLatest { locations ->
+                adapter.submitData(locations)
+            }
         }
     }
 
-    private fun onLoading() {
-        if (currentPage > 1) {
-            showProgress()
-            return
+    private fun listenerAdapter() {
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
+                showProgress()
+            } else {
+                hideProgress()
+            }
+            val errorState = when {
+                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                else -> null
+            }
+            errorState?.let {
+                showErrorApi()
+            }
         }
-        binding.skeleton.visible()
     }
 
-    private fun onFinishLoading() {
-        if (currentPage > 1) {
-            hideProgress()
-            return
-        }
-        binding.skeleton.gone()
-    }
 
     private fun clickOnLocation(locationId: Int) {
         val action =
             LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(locationId)
         findNavController().navigate(action)
-    }
-
-    private fun resetPaging() {
-        locationsList.clear()
-        currentPage = 1
     }
 
 }
