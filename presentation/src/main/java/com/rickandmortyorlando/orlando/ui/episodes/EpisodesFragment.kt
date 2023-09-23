@@ -35,7 +35,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
 
     private fun getEpisodes() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getEpisodes().collectLatest { episodes ->
+            viewModel.getEpisodesPagingSource().collectLatest { episodes ->
                 adapter.submitData(episodes)
             }
         }

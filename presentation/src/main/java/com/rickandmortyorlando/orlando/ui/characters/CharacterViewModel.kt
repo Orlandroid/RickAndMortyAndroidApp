@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersPagingSource
@@ -138,14 +139,13 @@ class CharacterViewModel @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = Repository.NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                prefetchDistance = Repository.PRE_FETCH_DISTANCE
+                maxSize =100
             ),
             pagingSourceFactory = {
                 charactersPagingSource = CharactersPagingSource(service = rickAndMortyService)
                 charactersPagingSource
             }
-        ).flow
+        ).flow.cachedIn(viewModelScope)
     }
 
     fun refreshCharactersPagingSource() = charactersPagingSource.invalidate()

@@ -5,8 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.data.Repository
+import com.example.data.api.RickAndMortyService
+import com.example.data.pagination.CharactersPagingSource
+import com.example.data.pagination.EpisodesPagingSource
 import com.example.domain.models.remote.episode.Episode
 import com.example.domain.models.remote.episode.EpisodeResponse
 import com.example.domain.state.ApiState
@@ -22,7 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class EpisodesViewModel @Inject constructor(
     private val repository: Repository,
-    private val networkHelper: NetworkHelper
+    private val networkHelper: NetworkHelper,
+    private val rickAndMortyService: RickAndMortyService
 ) : ViewModel() {
 
     private val _episodeResponse = MutableLiveData<ApiState<EpisodeResponse>>()
@@ -35,11 +42,23 @@ class EpisodesViewModel @Inject constructor(
 
     var comesFromEpisodesMainMenu: Boolean = false
 
+    private lateinit var episodesPagingSource: EpisodesPagingSource
 
-    fun getEpisodes(): Flow<PagingData<Episode>> {
-        return repository.getEpisodesPagingSource()
+    fun getEpisodesPagingSource(): Flow<PagingData<Episode>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Repository.NETWORK_PAGE_SIZE,
+                enablePlaceholders = false,
+                prefetchDistance = Repository.PRE_FETCH_DISTANCE
+            ),
+            pagingSourceFactory = {
+                episodesPagingSource = EpisodesPagingSource(service = rickAndMortyService)
+                episodesPagingSource
+            }
+        ).flow.cachedIn(viewModelScope)
     }
 
+    fun refreshEpisodesPagingSource() = episodesPagingSource.invalidate()
 
     @SuppressLint("NullSafeMutableLiveData")
     fun getEpisodes(page: Int) {

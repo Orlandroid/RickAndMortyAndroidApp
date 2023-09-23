@@ -1,61 +1,39 @@
 package com.rickandmortyorlando.orlando.ui.search
 
-import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.domain.state.ApiState
-import com.rickandmortyorlando.orlando.MainActivity
-import com.rickandmortyorlando.orlando.R
+import androidx.paging.LoadState
 import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
+import com.rickandmortyorlando.orlando.MainActivity
+import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
-import com.rickandmortyorlando.orlando.ui.extensions.myOnScrolled
-import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
+import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
-import com.rickandmortyorlando.orlando.ui.extensions.showErrorNetwork
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    private var canCallToTheNextPage = true
-    private var page = 1
-    private var totalPages = 0
-    var searchCharacter = SearchCharacter()
+    private var searchCharacter = SearchCharacter()
     private val adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
-    private var characterSearchList: ArrayList<Character> = arrayListOf()
     private val viewModel: CharacterViewModel by viewModels()
-    private var isFirsTimeOneTheView = true
 
     override fun setUpUi() = with(binding) {
         recyclerView.adapter = adapter
-        recyclerView.myOnScrolled {
-            if (!canCallToTheNextPage) {
-                return@myOnScrolled
-            }
-            if (totalPages > page) {
-                page++
-                canCallToTheNextPage = false
-                searchCharacters()
-                showProgress()
-            }
-        }
         swipRefresh.setOnRefreshListener {
-            //adapter.setData(listOf())
-            resetPaging()
-            resetSearch()
             swipRefresh.isRefreshing = false
-            searchCharacters()
         }
-        if (isFirsTimeOneTheView) {
-            searchCharacters()
-            isFirsTimeOneTheView = false
-        }
+        getCharacters()
+        listenerAdapter()
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
@@ -66,19 +44,41 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun configSearchView() = MainActivity.SearchViewConfig(
         showSearchView = true,
         onQueryTextSubmit = {
-            characterSearchList.clear()
-            page = 1
             searchCharacter.name = it
-            searchCharacters()
         },
         onMenuItemActionCollapse = {
-            page = 1
-            resetSearch()
-            resetPaging()
-            searchCharacters()
+            
         }
     )
 
+
+    private fun getCharacters() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getCharactersPagingSource().collectLatest { characters ->
+                adapter.submitData(characters)
+            }
+        }
+    }
+
+    private fun listenerAdapter() {
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
+                showProgress()
+            } else {
+                hideProgress()
+            }
+            when (loadState.source.refresh) {
+                is LoadState.Error -> {
+                    showErrorApi(true)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+
+    /*
 
     private fun searchCharacters() {
         viewModel.searchCharacters(
@@ -136,6 +136,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
         }
     }
+     */
+
 
     private fun clickOnCharacter(character: Character) {
         findNavController().navigate(
