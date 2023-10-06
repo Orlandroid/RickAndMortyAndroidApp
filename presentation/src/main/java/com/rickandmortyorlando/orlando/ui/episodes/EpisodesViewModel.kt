@@ -11,8 +11,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
-import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.EpisodesPagingSource
+import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.remote.episode.Episode
 import com.example.domain.models.remote.episode.EpisodeResponse
 import com.example.domain.state.ApiState
@@ -44,19 +44,14 @@ class EpisodesViewModel @Inject constructor(
 
     private lateinit var episodesPagingSource: EpisodesPagingSource
 
-    fun getEpisodesPagingSource(): Flow<PagingData<Episode>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = Repository.NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                prefetchDistance = Repository.PRE_FETCH_DISTANCE
-            ),
-            pagingSourceFactory = {
-                episodesPagingSource = EpisodesPagingSource(service = rickAndMortyService)
-                episodesPagingSource
-            }
-        ).flow.cachedIn(viewModelScope)
-    }
+    val getEpisodesPagingSource: Flow<PagingData<Episode>> = Pager(
+        config = getPagingConfig(),
+        pagingSourceFactory = {
+            episodesPagingSource = EpisodesPagingSource(service = rickAndMortyService)
+            episodesPagingSource
+        }
+    ).flow.cachedIn(viewModelScope)
+
 
     fun refreshEpisodesPagingSource() = episodesPagingSource.invalidate()
 

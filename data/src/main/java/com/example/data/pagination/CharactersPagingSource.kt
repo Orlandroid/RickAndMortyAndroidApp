@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.domain.models.remote.character.Character
+import kotlin.math.max
 
 class CharactersPagingSource(
     private val service: RickAndMortyService
@@ -21,7 +22,7 @@ class CharactersPagingSource(
             val data = service.getCharacters(currentPage).results
             LoadResult.Page(
                 data = data,
-                prevKey = if (currentPage == 1) null else -1,
+                prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
                 nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
@@ -35,4 +36,7 @@ class CharactersPagingSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
+
+    private fun ensureValidKey(key: Int) = max(START_PAGE, key)
 }

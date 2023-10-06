@@ -12,6 +12,7 @@ import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersPagingSource
+import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
 import com.example.domain.models.remote.character.CharacterResponse
@@ -135,18 +136,15 @@ class CharacterViewModel @Inject constructor(
 
     private lateinit var charactersPagingSource: CharactersPagingSource
 
-    fun getCharactersPagingSource(): Flow<PagingData<Character>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = Repository.NETWORK_PAGE_SIZE,
-                maxSize =100
-            ),
+    val getCharactersPagingSource: Flow<PagingData<Character>> =
+        Pager(
+            config = getPagingConfig(),
             pagingSourceFactory = {
                 charactersPagingSource = CharactersPagingSource(service = rickAndMortyService)
                 charactersPagingSource
             }
         ).flow.cachedIn(viewModelScope)
-    }
+
 
     fun refreshCharactersPagingSource() = charactersPagingSource.invalidate()
 

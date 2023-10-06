@@ -1,7 +1,9 @@
 package com.rickandmortyorlando.orlando.ui.episodes
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.MainActivity
@@ -35,8 +37,10 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
 
     private fun getEpisodes() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getEpisodesPagingSource().collectLatest { episodes ->
-                adapter.submitData(episodes)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getEpisodesPagingSource.collectLatest { episodes ->
+                    adapter.submitData(episodes)
+                }
             }
         }
     }

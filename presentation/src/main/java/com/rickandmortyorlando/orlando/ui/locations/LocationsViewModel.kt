@@ -12,6 +12,7 @@ import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.LocationPagingSource
+import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.remote.character.Character
 import com.example.domain.state.ApiState
 import com.example.domain.models.remote.location.LocationsResponse
@@ -81,19 +82,14 @@ class LocationsViewModel @Inject constructor(
 
     private lateinit var locationPagingSource: LocationPagingSource
 
-    fun getLocationsPagingSource(): Flow<PagingData<SingleLocation>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = Repository.NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                prefetchDistance = Repository.PRE_FETCH_DISTANCE
-            ),
-            pagingSourceFactory = {
-                locationPagingSource = LocationPagingSource(service = rickAndMortyService)
-                locationPagingSource
-            }
-        ).flow.cachedIn(viewModelScope)
-    }
+    val getLocationsPagingSource: Flow<PagingData<SingleLocation>> = Pager(
+        config = getPagingConfig(),
+        pagingSourceFactory = {
+            locationPagingSource = LocationPagingSource(service = rickAndMortyService)
+            locationPagingSource
+        }
+    ).flow.cachedIn(viewModelScope)
+
 
     fun refreshLocationsPagingSource() = locationPagingSource.invalidate()
 

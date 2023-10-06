@@ -2,7 +2,9 @@ package com.rickandmortyorlando.orlando.ui.characters
 
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.domain.models.remote.character.Character
@@ -23,9 +25,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
     private val viewModel: CharacterViewModel by viewModels()
     private val adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
-
-    private var isFirstTimeOnTheView = true
-
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
         showToolbar = true, toolbarTitle = getString(R.string.characters)
     )
@@ -45,17 +44,16 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
             swipRefresh.isRefreshing = false
             viewModel.refreshCharactersPagingSource()
         }
-        if (isFirstTimeOnTheView) {
-            getCharacters()
-            isFirstTimeOnTheView = false
-        }
+        getCharacters()
         listenerAdapter()
     }
 
     private fun getCharacters() {
         lifecycleScope.launch {
-            viewModel.getCharactersPagingSource().collectLatest { characters ->
-                adapter.submitData(lifecycle, characters)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getCharactersPagingSource.collectLatest { characters ->
+                    adapter.submitData(lifecycle, characters)
+                }
             }
         }
     }

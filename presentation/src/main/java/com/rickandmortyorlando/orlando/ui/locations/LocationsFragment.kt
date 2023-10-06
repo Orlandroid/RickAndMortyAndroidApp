@@ -1,8 +1,9 @@
 package com.rickandmortyorlando.orlando.ui.locations
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.rickandmortyorlando.orlando.MainActivity
@@ -35,8 +36,10 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
 
     private fun getLocations() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getLocationsPagingSource().collectLatest { locations ->
-                adapter.submitData(locations)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getLocationsPagingSource.collectLatest { locations ->
+                    adapter.submitData(locations)
+                }
             }
         }
     }

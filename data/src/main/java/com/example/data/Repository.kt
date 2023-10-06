@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.data.api.RickAndMortyService
-import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character

@@ -1,7 +1,9 @@
 package com.rickandmortyorlando.orlando.ui.search
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.domain.models.local.SearchCharacter
@@ -47,15 +49,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             searchCharacter.name = it
         },
         onMenuItemActionCollapse = {
-            
+
         }
     )
 
 
     private fun getCharacters() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getCharactersPagingSource().collectLatest { characters ->
-                adapter.submitData(characters)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getCharactersPagingSource.collectLatest { characters ->
+                    adapter.submitData(lifecycle, characters)
+                }
             }
         }
     }
