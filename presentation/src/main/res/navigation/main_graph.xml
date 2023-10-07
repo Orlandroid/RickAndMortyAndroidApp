@@ -14,9 +14,6 @@
             android:id="@+id/action_characterFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
         <action
-            android:id="@+id/action_characterFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
             android:id="@+id/action_characterFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
@@ -34,6 +31,9 @@
         <action
             android:id="@+id/action_menuFragment_to_locationsFragment"
             app:destination="@id/locationsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
@@ -73,9 +73,6 @@
         <argument
             android:name="idEpisode"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_episodeDetailFragment_to_characterDetailFragment"
-            app:destination="@id/characterDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/manyEpisodesFragment"

@@ -1,8 +1,11 @@
 package com.rickandmortyorlando.orlando.ui.episodes
 
+import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.PagingData
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -13,9 +16,11 @@ import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.setStatusBarColor
 import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -26,6 +31,8 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     private val args: ManyEpisodesFragmentArgs by navArgs()
 
     override fun setUpUi() = with(binding) {
+        setStatusBarColor(R.color.status_bar_color)
+        (requireActivity() as MainActivity).changeToolbarColor(ColorDrawable(resources.getColor(R.color.status_bar_color)))
         adapter = EpisodesAdapter {
             val action =
                 ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it.id)
@@ -47,7 +54,9 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
     override fun observerViewModel() {
         super.observerViewModel()
         observeApiResultGeneric(viewModel.manyEpisodesResponse, hasProgressTheView = true) {
-            //adapter?.setData(it)
+            viewLifecycleOwner.lifecycleScope.launch {
+                adapter?.submitData(PagingData.from(it))
+            }
         }
     }
 
@@ -59,7 +68,9 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
             Request.Method.GET, url,
             { response ->
                 val episode = Gson().fromJson(response, Episode::class.java)
-                //adapter?.setData(listOf(episode))
+                viewLifecycleOwner.lifecycleScope.launch {
+                    adapter?.submitData(PagingData.from(listOf(episode)))
+                }
                 shouldShowProgress(false)
             },
             {

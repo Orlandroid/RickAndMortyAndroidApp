@@ -104,11 +104,12 @@ class LocationDetailFragment :
     }
 
     private fun clickOnCharacter(character: Character) {
+        /*
         findNavController().navigate(
             CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
                 character.id
             )
-        )
+        )*/
     }
 
 }

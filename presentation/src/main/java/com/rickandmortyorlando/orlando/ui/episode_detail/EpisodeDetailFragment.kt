@@ -9,19 +9,22 @@ import androidx.paging.PagingData
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.rickandmortyorlando.orlando.R
 import com.example.domain.models.remote.character.Character
 import com.example.domain.models.remote.episode.Episode
+import com.google.gson.Gson
+import com.rickandmortyorlando.orlando.MainActivity
+import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
-import com.rickandmortyorlando.orlando.ui.extensions.*
-import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
-import com.google.gson.Gson
-import com.rickandmortyorlando.orlando.MainActivity
-import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
+import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
+import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
+import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
+import com.rickandmortyorlando.orlando.ui.extensions.visible
+import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -107,11 +110,7 @@ class EpisodeDetailFragment :
     }
 
     private fun clickOnCharacter(character: Character) {
-        findNavController().navigate(
-            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
-                character.id
-            )
-        )
+
     }
 
 }

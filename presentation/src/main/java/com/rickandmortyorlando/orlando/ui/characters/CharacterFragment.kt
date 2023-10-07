@@ -31,14 +31,12 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
         showToolbar = true, toolbarTitle = getString(R.string.characters)
     )
 
-    override fun configSearchView() = MainActivity.SearchViewConfig(showSearchView = true,
-        showConfigIcon = true,
+    override fun configSearchView() = MainActivity.SearchViewConfig(
+        showSearchView = true,
         clickOnSearchIcon = {
             findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSearchFragment())
-        },
-        clickOnConfigIcon = {
-            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSettingsFragment())
-        })
+        }
+    )
 
     override fun setUpUi() = with(binding) {
         recyclerView.adapter = adapter
