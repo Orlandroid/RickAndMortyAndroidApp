@@ -1,9 +1,11 @@
 package com.rickandmortyorlando.orlando.ui.episode_detail
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.paging.PagingData
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -21,6 +23,7 @@ import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -82,7 +85,9 @@ class EpisodeDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             binding.tvCharacters.visible()
-            //adapter.setData(it)
+            lifecycleScope.launch {
+                adapter.submitData(PagingData.from(it))
+            }
         }
     }
 

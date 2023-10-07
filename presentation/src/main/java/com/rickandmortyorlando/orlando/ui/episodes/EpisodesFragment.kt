@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.ui.episodes
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -10,9 +11,12 @@ import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
+import com.rickandmortyorlando.orlando.ui.extensions.getError
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.navigateAction
+import com.rickandmortyorlando.orlando.ui.extensions.showError
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
+import com.rickandmortyorlando.orlando.ui.extensions.showLogW
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -46,18 +50,19 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
     }
 
     private fun listenerAdapter() {
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
-                showProgress()
-            } else {
-                hideProgress()
-            }
-            when (loadState.source.refresh) {
-                is LoadState.Error -> {
-                    showErrorApi(true)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.addLoadStateListener { loadState ->
+                    if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
+                        showProgress()
+                    } else {
+                        hideProgress()
+                    }
+                    val errorState = loadState.getError()
+                    errorState?.showError {
+                        showErrorApi()
+                    }
                 }
-
-                else -> {}
             }
         }
     }

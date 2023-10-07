@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.domain.models.remote.character.Character
+import retrofit2.HttpException
 import kotlin.math.max
 
 class CharactersPagingSource(
@@ -26,7 +27,13 @@ class CharactersPagingSource(
                 nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
-            LoadResult.Error(e)
+            if (e is HttpException) {
+                val errorString =
+                    e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
+                LoadResult.Error(Throwable(errorString))
+            } else {
+                LoadResult.Error(e)
+            }
         }
     }
 

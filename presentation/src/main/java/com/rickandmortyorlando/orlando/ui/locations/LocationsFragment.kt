@@ -6,16 +6,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
+import com.rickandmortyorlando.orlando.ui.extensions.getError
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
+import com.rickandmortyorlando.orlando.ui.extensions.showError
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.Error
 
 @AndroidEntryPoint
 class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragment_locations) {
@@ -45,20 +49,19 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
     }
 
     private fun listenerAdapter() {
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
-                showProgress()
-            } else {
-                hideProgress()
-            }
-            val errorState = when {
-                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                else -> null
-            }
-            errorState?.let {
-                showErrorApi()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.addLoadStateListener { loadState ->
+                    if (loadState.source.append is LoadState.Loading || loadState.source.refresh is LoadState.Loading) {
+                        showProgress()
+                    } else {
+                        hideProgress()
+                    }
+                    val errorState = loadState.getError()
+                    errorState?.showError {
+                        showErrorApi()
+                    }
+                }
             }
         }
     }

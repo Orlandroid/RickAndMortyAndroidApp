@@ -1,9 +1,11 @@
 package com.example.data.pagination
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.domain.models.remote.episode.Episode
+import retrofit2.HttpException
 
 
 class EpisodesPagingSource(
@@ -26,7 +28,12 @@ class EpisodesPagingSource(
                 nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
-            LoadResult.Error(e)
+            if (e is HttpException) {
+                val errorString = e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
+                LoadResult.Error(Throwable(errorString))
+            } else {
+                LoadResult.Error(e)
+            }
         }
     }
 

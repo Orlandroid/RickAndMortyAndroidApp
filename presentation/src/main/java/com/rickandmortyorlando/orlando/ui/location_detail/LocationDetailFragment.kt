@@ -1,8 +1,10 @@
 package com.rickandmortyorlando.orlando.ui.location_detail
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.PagingData
 import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -18,6 +20,7 @@ import com.rickandmortyorlando.orlando.ui.extensions.visible
 import com.rickandmortyorlando.orlando.ui.locations.LocationsViewModel
 import com.rickandmortyorlando.orlando.utils.getListOfNumbersFromUrlWithPrefix
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -66,9 +69,11 @@ class LocationDetailFragment :
             characterViewModel.manyCharactersResponse,
             hasProgressTheView = true,
             shouldCloseTheViewOnApiError = true
-        ) {
+        ) { characters ->
             showLocationInfo()
-            //adapter?.setData(it)
+            lifecycleScope.launch {
+                adapter?.submitData(PagingData.from(characters))
+            }
         }
         observeApiResultGeneric(
             characterDetailViewModel.characterResponse,
@@ -76,7 +81,9 @@ class LocationDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) { character ->
             showLocationInfo()
-            //adapter?.setData(listOf(character))
+            lifecycleScope.launch {
+                adapter?.submitData(PagingData.from(listOf(character)))
+            }
         }
     }
 
