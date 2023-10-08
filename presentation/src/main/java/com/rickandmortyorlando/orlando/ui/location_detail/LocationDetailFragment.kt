@@ -2,16 +2,15 @@ package com.rickandmortyorlando.orlando.ui.location_detail
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
-import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
+import com.rickandmortyorlando.orlando.ui.characters.CharacterGridAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.characters_detail.CharacterDetailViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
@@ -31,14 +30,16 @@ class LocationDetailFragment :
     private val locationViewModel: LocationsViewModel by viewModels()
     private val characterViewModel: CharacterViewModel by viewModels()
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
-    private var adapter: CharacterAdapter? = null
+    private var adapter: CharacterGridAdapter? = null
     private val args: LocationDetailFragmentArgs by navArgs()
     private var idsOfCharacters = ""
 
 
     override fun setUpUi() = with(binding) {
-        adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
+        adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         recycler.adapter = adapter
+        recycler.layoutManager = gridLayoutManager
         locationViewModel.getSingleLocation(args.idLocation)
     }
 

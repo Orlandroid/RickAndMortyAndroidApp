@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.GridLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -16,7 +17,7 @@ import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
-import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
+import com.rickandmortyorlando.orlando.ui.characters.CharacterGridAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
@@ -38,9 +39,11 @@ class EpisodeDetailFragment :
     private val episodesViewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
         defaultViewModelProviderFactory
     }
-    private var adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
+    private var adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
     override fun setUpUi() = with(binding) {
         recyclerCharacters.adapter = adapter
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerCharacters.layoutManager = gridLayoutManager
         getOnlineOneEpisode()
     }
 
@@ -51,11 +54,7 @@ class EpisodeDetailFragment :
     )
 
     private fun onBackButton() {
-        if (episodesViewModel.comesFromEpisodesMainMenu) {
-            findNavController().popBackStack()
-        } else {
-            findNavController().popBackStack(R.id.characterFragment, false)
-        }
+        findNavController().popBackStack()
     }
 
     private fun getOnlineOneEpisode() {

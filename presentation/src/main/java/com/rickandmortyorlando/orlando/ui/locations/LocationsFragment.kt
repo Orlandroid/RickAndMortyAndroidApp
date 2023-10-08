@@ -6,7 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingDataAdapter
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationsBinding
@@ -19,7 +18,6 @@ import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Error
 
 @AndroidEntryPoint
 class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragment_locations) {
