@@ -51,31 +51,6 @@ class LocationsViewModel @Inject constructor(
         }
     }
 
-    @SuppressLint("NullSafeMutableLiveData")
-    fun getLocations(page: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                _locationResponse.value = ApiState.Loading()
-            }
-            if (!networkHelper.isNetworkConnected()) {
-                withContext(Dispatchers.Main) {
-                    _locationResponse.value = ApiState.ErrorNetwork()
-                }
-                return@launch
-            }
-            try {
-                val response = repository.getLocations(page)
-                withContext(Dispatchers.Main) {
-                    _locationResponse.value = ApiState.Success(response)
-                    _locationResponse.value = null
-                }
-            } catch (e: Throwable) {
-                withContext(Dispatchers.Main) {
-                    _locationResponse.value = ApiState.Error(e)
-                }
-            }
-        }
-    }
 
     private lateinit var locationPagingSource: LocationPagingSource
 

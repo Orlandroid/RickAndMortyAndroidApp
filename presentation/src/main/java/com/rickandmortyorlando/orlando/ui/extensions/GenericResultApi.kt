@@ -39,7 +39,6 @@ fun <T> Fragment.observeApiResultGeneric(
             }
 
             is ApiState.Error -> {
-                Log.w(context?.packageName, apiState.message.toString())
                 if (onError == null) {
                     showErrorApi(shouldCloseTheViewOnApiError)
                 } else {

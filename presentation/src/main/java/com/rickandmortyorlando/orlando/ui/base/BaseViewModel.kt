@@ -41,6 +41,9 @@ abstract class BaseViewModel constructor(
                     return@launch
                 }
                 apiToCall()
+                withContext(coroutineDispatchers.main) {
+                    result.value = null
+                }
             } catch (e: Exception) {
                 withContext(coroutineDispatchers.main) {
                     e.printStackTrace()
@@ -51,8 +54,10 @@ abstract class BaseViewModel constructor(
                             val errorCode = e.response()?.code()
                             result.value = ApiState.Error(e)
                         }
+
                         is SocketTimeoutException -> result.value =
                             ApiState.Error(e)
+
                         is IOException -> result.value = ApiState.Error(e)
                         else -> result.value = ApiState.Error(e)
                     }

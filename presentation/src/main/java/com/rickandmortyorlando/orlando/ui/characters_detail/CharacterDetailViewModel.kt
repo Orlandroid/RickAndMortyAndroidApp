@@ -2,12 +2,13 @@ package com.rickandmortyorlando.orlando.ui.characters_detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
-import com.example.domain.state.ApiState
 import com.example.domain.models.remote.character.Character
 import com.example.domain.models.remote.location.SingleLocation
+import com.example.domain.state.ApiState
+import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
+import com.rickandmortyorlando.orlando.ui.base.BaseViewModel
 import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val repository: Repository,
-    private val networkHelper: NetworkHelper
-) : ViewModel() {
+    networkHelper: NetworkHelper,
+    coroutineDispatcher: CoroutineDispatchers,
+) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
     private val _characterResponse = MutableLiveData<ApiState<Character>>()
     val characterResponse: LiveData<ApiState<Character>>
@@ -30,48 +32,22 @@ class CharacterDetailViewModel @Inject constructor(
         get() = _locationResponse
 
     fun getCharacter(id: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                _characterResponse.value = ApiState.Loading()
-            }
-            if (!networkHelper.isNetworkConnected()) {
-                withContext(Dispatchers.Main) {
-                    _characterResponse.value = ApiState.ErrorNetwork()
-                }
-                return@launch
-            }
-            try {
+        viewModelScope.launch {
+            safeApiCall(_characterResponse, coroutineDispatchers) {
                 val response = repository.getCharacter(id)
                 withContext(Dispatchers.Main) {
                     _characterResponse.value = ApiState.Success(response)
-                }
-            } catch (e: Throwable) {
-                withContext(Dispatchers.Main) {
-                    _characterResponse.value = ApiState.Error(e)
                 }
             }
         }
     }
 
     fun getSingleLocation(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                _locationResponse.value = ApiState.Loading()
-            }
-            if (!networkHelper.isNetworkConnected()) {
-                withContext(Dispatchers.Main) {
-                    _locationResponse.value = ApiState.ErrorNetwork()
-                }
-                return@launch
-            }
-            try {
+        viewModelScope.launch {
+            safeApiCall(_locationResponse, coroutineDispatchers) {
                 val response = repository.getSingleLocation(id)
                 withContext(Dispatchers.Main) {
                     _locationResponse.value = ApiState.Success(response)
-                }
-            } catch (e: Throwable) {
-                withContext(Dispatchers.Main) {
-                    _locationResponse.value = ApiState.Error(e)
                 }
             }
         }
