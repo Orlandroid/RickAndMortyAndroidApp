@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/image_character"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="@dimen/width_image_tablet"
+            android:layout_height="@dimen/height_image_tablet"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

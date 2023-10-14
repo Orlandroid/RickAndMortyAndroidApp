@@ -26,8 +26,8 @@
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="@dimen/height_image_tablet"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/morty_and_rick"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,18 +103,19 @@
 
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_characters"
-            android:layout_width="363dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/characters"
             android:textColor="@color/black"
             android:textSize="30sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skeleton" />
+            app:layout_constraintTop_toBottomOf="@+id/skeleton"
+            tools:visibility="visible" />
 
 
         <androidx.recyclerview.widget.RecyclerView
