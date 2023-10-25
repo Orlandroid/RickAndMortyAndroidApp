@@ -3,13 +3,14 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.domain.models.local.SearchCharacter
+import com.example.domain.models.remote.character.Character
 import retrofit2.HttpException
 
-
-class LocationPagingSource(
-    private val service: RickAndMortyService
-) : PagingSource<Int, SingleLocation>() {
+class CharactersSearchPagingSource(
+    private val service: RickAndMortyService,
+    private val search: SearchCharacter
+) : PagingSource<Int, Character>() {
 
     companion object {
         private const val START_PAGE = 1
@@ -17,10 +18,16 @@ class LocationPagingSource(
 
     override suspend fun load(
         params: LoadParams<Int>
-    ): LoadResult<Int, SingleLocation> {
+    ): LoadResult<Int, Character> {
         return try {
             val currentPage = params.key ?: START_PAGE
-            val data = service.getLocations(currentPage).results
+            val data = service.searchCharacter(
+                name = search.name,
+                status = search.status,
+                species = search.species,
+                gender = search.gender,
+                page = currentPage.toString()
+            ).results
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
@@ -37,10 +44,11 @@ class LocationPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, SingleLocation>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
 }

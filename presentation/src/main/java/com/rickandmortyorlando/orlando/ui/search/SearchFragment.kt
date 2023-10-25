@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
@@ -25,14 +26,17 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    private var searchCharacter = SearchCharacter()
     private val adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
     private val viewModel: CharacterViewModel by viewModels()
 
     override fun setUpUi() = with(binding) {
         recyclerView.adapter = adapter
         swipRefresh.setOnRefreshListener {
-            swipRefresh.isRefreshing = false
+            lifecycleScope.launch {
+                adapter.submitData(PagingData.from(emptyList()))
+                swipRefresh.isRefreshing = false
+                viewModel.refreshCharactersSearchPagingSource()
+            }
         }
         getCharacters()
         listenerAdapter()
@@ -46,7 +50,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun configSearchView() = MainActivity.SearchViewConfig(
         showSearchView = true,
         onQueryTextSubmit = {
-            searchCharacter.name = it
+            viewModel.searchCharacter.name = it
+            viewModel.refreshCharactersSearchPagingSource()
         },
         onMenuItemActionCollapse = {
 
@@ -57,7 +62,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun getCharacters() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getCharactersPagingSource.collectLatest { characters ->
+                viewModel.getCharactersSearchPagingSource.collectLatest { characters ->
                     adapter.submitData(lifecycle, characters)
                 }
             }
@@ -145,7 +150,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun clickOnCharacter(character: Character) {
         findNavController().navigate(
-            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+            SearchFragmentDirections.actionSearchFragmentToCharacterDetailFragment(
                 character.id
             )
         )

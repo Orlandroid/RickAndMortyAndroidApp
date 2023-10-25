@@ -9,7 +9,9 @@ import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersPagingSource
+import com.example.data.pagination.CharactersSearchPagingSource
 import com.example.data.pagination.getPagingConfig
+import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
@@ -35,6 +37,7 @@ class CharacterViewModel @Inject constructor(
     val manyCharactersResponse: LiveData<ApiState<List<Character>>>
         get() = _manyCharactersResponse
 
+    var searchCharacter = SearchCharacter()
 
     fun getManyCharacters(ids: String) {
         viewModelScope.launch {
@@ -59,8 +62,24 @@ class CharacterViewModel @Inject constructor(
             }
         ).flow.cachedIn(viewModelScope)
 
-
     fun refreshCharactersPagingSource() = charactersPagingSource.invalidate()
+
+
+    private lateinit var charactersSearchPagingSource: CharactersSearchPagingSource
+
+    val getCharactersSearchPagingSource: Flow<PagingData<Character>> =
+        Pager(
+            config = getPagingConfig(),
+            pagingSourceFactory = {
+                charactersSearchPagingSource = CharactersSearchPagingSource(
+                    service = rickAndMortyService,
+                    search = searchCharacter
+                )
+                charactersSearchPagingSource
+            }
+        ).flow.cachedIn(viewModelScope)
+
+    fun refreshCharactersSearchPagingSource() = charactersSearchPagingSource.invalidate()
 
 
 }

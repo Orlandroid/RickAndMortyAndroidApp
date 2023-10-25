@@ -1,6 +1,5 @@
 package com.rickandmortyorlando.orlando.ui.episodes
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +15,6 @@ import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.navigateAction
 import com.rickandmortyorlando.orlando.ui.extensions.showError
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
-import com.rickandmortyorlando.orlando.ui.extensions.showLogW
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

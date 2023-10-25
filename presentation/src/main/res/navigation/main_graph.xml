@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_characterDetailFragment_to_manyEpisodesFragment"
             app:destination="@id/manyEpisodesFragment" />
+        <action
+            android:id="@+id/action_characterDetailFragment_to_locationDetailFragment"
+            app:destination="@id/locationDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/episodesFragment"
