@@ -21,7 +21,9 @@ import com.rickandmortyorlando.orlando.ui.characters.CharacterGridAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
+import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
+import com.rickandmortyorlando.orlando.ui.extensions.openYoutubeApp
 import com.rickandmortyorlando.orlando.ui.extensions.shouldShowProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.rickandmortyorlando.orlando.ui.extensions.visible
@@ -106,6 +108,9 @@ class EpisodeDetailFragment :
         tvEpisodeNumber.text = episode.episode
         tvEpisodeDate.text = episode.air_date
         changeToolbarTitle(episode.name)
+        tvWatch.click {
+            requireContext().openYoutubeApp("${episode.name} ${episode.episode}")
+        }
     }
 
     private fun clickOnCharacter(character: Character) {
