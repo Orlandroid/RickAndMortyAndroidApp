@@ -61,10 +61,10 @@ android {
 }
 
 dependencies {
-    val navigation_version = "2.5.3"
-    val lifecycle_version = "2.4.1"
-    val dagger_hilt_version = "2.45"
-    val paging_version = "3.1.1"
+    val navigation_version = "2.7.6"
+    val lifecycle_version = "2.6.2"
+    val dagger_hilt_version = "2.48"
+    val paging_version = "3.2.1"
     implementation(project(DATA))
     implementation(project(DOMAIN))
     implementation(ANDROIDX_CORE_KTX)
@@ -92,11 +92,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
     implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
     //Image
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     //Shimer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.faltenreich:skeletonlayout:4.0.0")
-    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation("com.airbnb.android:lottie:6.0.0")
 }
