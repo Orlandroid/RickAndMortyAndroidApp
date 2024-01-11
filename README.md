@@ -1,23 +1,5 @@
-## Tech &amp; Tools
-* ✅ Clean Architecture
-* ✅ MVVM
-* ✅ Kotlin DSL
-* ✅ Kotlin Coroutines
-* ✅ Navigation Component
-* ✅ Safe-Args
-* ✅ Dagger Hilt
-* ✅ ViewModel
-* ✅ Retrofit
-* ✅ Material3
-* ✅ Room
-* ✅ Paging 3
-* ✅ View Binding
-* ✅ Lifecycle
-* ✅ Single-Activity
-* ✅ Lifecycle
-* ✅ BaseViewModel
-
 # RickApi
+Rick-and-Morty
 
 ##  🛠 IN PROGRESS 🛠
 
@@ -63,5 +45,24 @@
 
 
 https://user-images.githubusercontent.com/39423969/202087739-8fd3b7a3-6280-4a81-b02c-6b8db8187bf8.mp4
+
+## Tech &amp; Tools
+* ✅ Clean Architecture
+* ✅ MVVM
+* ✅ Kotlin DSL
+* ✅ Kotlin Coroutines
+* ✅ Navigation Component
+* ✅ Safe-Args
+* ✅ Dagger Hilt
+* ✅ ViewModel
+* ✅ Retrofit
+* ✅ Material3
+* ✅ Room
+* ✅ Paging 3
+* ✅ View Binding
+* ✅ Lifecycle
+* ✅ Single-Activity
+* ✅ Lifecycle
+* ✅ BaseViewModel
 
 
