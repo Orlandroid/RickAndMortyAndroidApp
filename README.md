@@ -1,6 +1,10 @@
 # RickApi
 Rick-and-Morty
 
+This is and android project make using the most popular tech recomend by google is an app make for the fans of rick and moty 
+the app provide imformation about characters,locations and episodes the project it is almot done but i am still adding some remaining features.
+
+
 ##  🛠 IN PROGRESS 🛠
 
 
