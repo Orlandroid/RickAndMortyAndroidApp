@@ -12,6 +12,7 @@ import com.example.androidbase.presentation.Dependencies.TEST_JUNIT
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    //id("com.apollographql.apollo3").version("3.8.2")
 }
 
 android {
@@ -42,6 +43,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
 }
 
 dependencies {
@@ -52,4 +54,5 @@ dependencies {
     testImplementation(JUNIT)
     androidTestImplementation(TEST_JUNIT)
     androidTestImplementation(TEST_EXPRESO)
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 }

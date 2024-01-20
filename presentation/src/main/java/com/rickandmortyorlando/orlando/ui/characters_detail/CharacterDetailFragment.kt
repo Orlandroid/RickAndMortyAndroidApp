@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.domain.models.remote.character.Character
+import com.example.domain.models.remote.location.SingleLocation
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
@@ -68,14 +69,7 @@ class CharacterDetailFragment :
         observeApiResultGeneric(
             viewModel.locationResponse, shouldCloseTheViewOnApiError = true
         ) { singleLocation ->
-            with(binding) {
-                tvName.text = singleLocation.name
-                tvType.text = singleLocation.type
-                tvDimention.text = singleLocation.dimension
-                tvNumbersOfResidenst.text = singleLocation.residents.size.toString()
-                skeletonLocation.showOriginal()
-                skeletonLocation.setBackgroundColor(resources.getColor(R.color.background))
-            }
+            setLocation(singleLocation)
         }
     }
 
@@ -85,6 +79,17 @@ class CharacterDetailFragment :
             episodes.add(it.split("episode/")[1].toInt())
         }
         return removeCharactersForEpisodesList(episodes.toString())
+    }
+
+    private fun setLocation(singleLocation: SingleLocation) {
+        with(binding) {
+            tvName.text = singleLocation.name
+            tvType.text = singleLocation.type
+            tvDimention.text = singleLocation.dimension
+            tvNumbersOfResidenst.text = singleLocation.residents.size.toString()
+            skeletonLocation.showOriginal()
+            skeletonLocation.setBackgroundColor(resources.getColor(R.color.background))
+        }
     }
 
 

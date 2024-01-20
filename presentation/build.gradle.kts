@@ -22,6 +22,7 @@ plugins {
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    //id("com.apollographql.apollo3") version "3.8.2"
 }
 
 android {
@@ -58,11 +59,24 @@ android {
         jvmTarget = "17"
     }
     namespace = "com.rickandmortyorlando.orlando"
+
 }
+
+
+/*
+apollo {
+
+    service("service") {
+
+        packageName.set("com.example")
+
+    }
+
+}*/
 
 dependencies {
     val navigation_version = "2.7.6"
-    val lifecycle_version = "2.6.2"
+    val lifecycle_version = "2.7.0"
     val dagger_hilt_version = "2.48"
     val paging_version = "3.2.1"
     implementation(project(DATA))
@@ -96,7 +110,10 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     //Shimer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
-    implementation("com.faltenreich:skeletonlayout:4.0.0")
+    implementation("com.faltenreich:skeletonlayout:5.0.0")
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
-    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 }
+
+

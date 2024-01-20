@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.di
 
 
+import com.apollographql.apollo3.ApolloClient
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import dagger.Module
@@ -56,5 +57,11 @@ object NetworkModule {
     @Provides
     fun provideRepository(rickAndMortyService: RickAndMortyService): Repository =
         Repository(rickAndMortyService)
+
+    @Singleton
+    @Provides
+    fun provideApolloClient(): ApolloClient = ApolloClient.builder()
+        .serverUrl("https://rickandmortyapi.com/graphql")
+        .build()
 
 }

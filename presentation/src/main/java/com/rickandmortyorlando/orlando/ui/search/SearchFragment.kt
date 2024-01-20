@@ -7,14 +7,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import com.example.domain.models.local.SearchCharacter
 import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
-import com.rickandmortyorlando.orlando.ui.characters.CharacterFragmentDirections
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
