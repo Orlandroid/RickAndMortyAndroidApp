@@ -5,14 +5,18 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/menuFragment">
 
+    <action
+        android:id="@+id/navigation_to_character_detail"
+        app:destination="@id/characterDetailFragment" />
+    <action
+        android:id="@+id/navigation_to_episode_detail"
+        app:destination="@id/episodeDetailFragment" />
+
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.rickandmortyorlando.orlando.ui.characters.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character">
-        <action
-            android:id="@+id/action_characterFragment_to_characterDetailFragment"
-            app:destination="@id/characterDetailFragment" />
         <action
             android:id="@+id/action_characterFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -46,19 +50,12 @@
         <action
             android:id="@+id/action_characterDetailFragment_to_manyEpisodesFragment"
             app:destination="@id/manyEpisodesFragment" />
-        <action
-            android:id="@+id/action_characterDetailFragment_to_locationDetailFragment"
-            app:destination="@id/locationDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/episodesFragment"
         android:name="com.rickandmortyorlando.orlando.ui.episodes.EpisodesFragment"
         android:label="EpisodesFragment"
-        tools:layout="@layout/fragment_episodes">
-        <action
-            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
-            app:destination="@id/episodeDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_episodes"/>
     <fragment
         android:id="@+id/locationsFragment"
         android:name="com.rickandmortyorlando.orlando.ui.locations.LocationsFragment"
@@ -88,9 +85,6 @@
         <argument
             android:name="isSingleEpisode"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_manyEpisodesFragment_to_episodeDetailFragment"
-            app:destination="@id/episodeDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationDetailFragment"
@@ -110,9 +104,5 @@
         android:id="@+id/searchFragment"
         android:name="com.rickandmortyorlando.orlando.ui.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_characterDetailFragment"
-            app:destination="@id/characterDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_search"/>
 </navigation>

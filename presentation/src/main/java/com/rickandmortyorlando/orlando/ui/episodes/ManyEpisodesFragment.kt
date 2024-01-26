@@ -35,7 +35,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
         (requireActivity() as MainActivity).changeToolbarColor(ColorDrawable(resources.getColor(R.color.status_bar_color)))
         adapter = EpisodesAdapter {
             val action =
-                ManyEpisodesFragmentDirections.actionManyEpisodesFragmentToEpisodeDetailFragment(it.id)
+                ManyEpisodesFragmentDirections.navigationToEpisodeDetail(it.id)
             findNavController().navigate(action)
         }
         recyclerEpisodes.adapter = adapter

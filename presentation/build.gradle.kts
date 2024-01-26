@@ -29,10 +29,10 @@ android {
     compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = "com.rickandmortyorlando.orlando"
+        applicationId = "com.rickandmortyorlando.app"
         minSdk = MIN_SDK_VERSION
         targetSdk = TARGET_SDK_VERSION
-        versionCode = 8
+        versionCode = 9
         versionName = "1.4"
 
         testInstrumentationRunner = TEST_INSTRUMENTATION_RUNNER

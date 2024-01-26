@@ -79,7 +79,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
 
     private fun clickOnCharacter(character: Character) {
         findNavController().navigate(
-            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+            CharacterFragmentDirections.navigationToCharacterDetail(
                 character.id
             )
         )

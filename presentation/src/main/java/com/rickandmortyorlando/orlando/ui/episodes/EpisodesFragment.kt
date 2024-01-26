@@ -67,7 +67,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
 
     private fun clickOnEpisode(item: Episode) {
         val action =
-            EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(item.id)
+            EpisodesFragmentDirections.navigationToEpisodeDetail(item.id)
         navigateAction(action)
     }
 
