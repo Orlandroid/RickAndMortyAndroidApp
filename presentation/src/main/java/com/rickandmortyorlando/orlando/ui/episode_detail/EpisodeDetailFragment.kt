@@ -38,9 +38,6 @@ class EpisodeDetailFragment :
 
     private val args: EpisodeDetailFragmentArgs by navArgs()
     private val viewModel: CharacterViewModel by viewModels()
-    private val episodesViewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
-        defaultViewModelProviderFactory
-    }
     private var adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
     override fun setUpUi() = with(binding) {
         recyclerCharacters.adapter = adapter
