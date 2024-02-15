@@ -28,7 +28,7 @@ fun getColorStatus(status: String? = "unknown", context: Context): Int {
     }
 }
 
-fun getColorStatusResource(status: String? = "unknown", context: Context): Int {
+fun getColorStatusResource(status: String? = "unknown"): Int {
     return when (status) {
         "Alive" -> {
             R.color.alive

@@ -18,7 +18,6 @@ import com.rickandmortyorlando.orlando.utils.getColorStatus
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 import com.rickandmortyorlando.orlando.utils.getNumberFromUrWithPrefix
 import com.rickandmortyorlando.orlando.utils.loadCircularImage
-import com.rickandmortyorlando.orlando.utils.removeCharactersForEpisodesList
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -73,13 +72,6 @@ class CharacterDetailFragment :
         }
     }
 
-    private fun getListOfEpisodes(episodesString: List<String>): String {
-        val episodes = arrayListOf<Int>()
-        episodesString.forEach {
-            episodes.add(it.split("episode/")[1].toInt())
-        }
-        return removeCharactersForEpisodesList(episodes.toString())
-    }
 
     private fun setLocation(singleLocation: SingleLocation) {
         with(binding) {
@@ -108,7 +100,7 @@ class CharacterDetailFragment :
             borderSize = 8f,
             borderColor = statusColor
         )
-        val colorResource = getColorStatusResource(character.status, requireContext())
+        val colorResource = getColorStatusResource(character.status)
         setStatusBarColor(colorResource)
         val colorDrawable = ColorDrawable(resources.getColor(colorResource))
         (requireActivity() as MainActivity).apply {

@@ -13,7 +13,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 
-abstract class BaseViewModel constructor(
+abstract class BaseViewModel(
     protected val coroutineDispatchers: CoroutineDispatchers,
     val networkHelper: NetworkHelper
 ) : ViewModel() {

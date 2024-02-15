@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.volley.Request
@@ -19,7 +18,6 @@ import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterGridAdapter
 import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
-import com.rickandmortyorlando.orlando.ui.episodes.EpisodesViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.observeApiResultGeneric
@@ -111,7 +109,11 @@ class EpisodeDetailFragment :
     }
 
     private fun clickOnCharacter(character: Character) {
-
+        findNavController().navigate(
+            EpisodeDetailFragmentDirections.navigationToCharacterDetail(
+                character.id
+            )
+        )
     }
 
 }

@@ -2,6 +2,7 @@ package com.rickandmortyorlando.orlando.ui.location_detail
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
@@ -105,12 +106,11 @@ class LocationDetailFragment :
     }
 
     private fun clickOnCharacter(character: Character) {
-        /*
         findNavController().navigate(
-            CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(
+            LocationDetailFragmentDirections.navigationToCharacterDetail(
                 character.id
             )
-        )*/
+        )
     }
 
 }
