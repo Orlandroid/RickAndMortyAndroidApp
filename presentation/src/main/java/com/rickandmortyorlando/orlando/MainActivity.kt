@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
     private fun showToolbar(showToolbar: Boolean) {
         if (showToolbar) {
             binding.toolbarLayout.root.visible()
+            binding.toolbarLayout.toolbarTitle
         } else {
             binding.toolbarLayout.root.gone()
         }
