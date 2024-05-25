@@ -7,6 +7,8 @@ import androidx.fragment.app.DialogFragment
 import com.rickandmortyorlando.orlando.R
 
 import com.rickandmortyorlando.orlando.databinding.AlertDialogMessagesBinding
+import com.rickandmortyorlando.orlando.ui.extensions.gone
+import com.rickandmortyorlando.orlando.ui.extensions.visible
 
 
 class AlertDialogs(
@@ -85,15 +87,15 @@ class AlertDialogs(
     private fun setKindOfView(isTwoButtonDialog: Boolean) {
         if (isTwoButtonDialog) {
             with(binding) {
-                buttonAceptarOneButton.visibility = View.GONE
-                buttonAceptar.visibility = View.VISIBLE
-                buttonCancelar.visibility = View.VISIBLE
+                buttonAceptarOneButton.gone()
+                buttonAceptar.visible()
+                buttonCancelar.visible()
             }
         } else {
             with(binding) {
-                buttonAceptarOneButton.visibility = View.VISIBLE
-                buttonAceptar.visibility = View.GONE
-                buttonCancelar.visibility = View.GONE
+                buttonAceptarOneButton.visible()
+                buttonAceptar.gone()
+                buttonCancelar.gone()
             }
         }
     }
@@ -102,19 +104,22 @@ class AlertDialogs(
         when (kindOfMessage) {
             0 -> {
                 binding.headerDialog.setCardBackgroundColor(resources.getColor(SUCCES_MESSAGE_COLOR))
-                binding.titleHeader.text = "Succes"
+                binding.titleHeader.text = getString(R.string.success)
             }
+
             1 -> {
                 binding.headerDialog.setCardBackgroundColor(resources.getColor(WARNING_MESSAGE_COLOR))
-                binding.titleHeader.text = "Warning"
+                binding.titleHeader.text = getString(R.string.warning)
             }
+
             2 -> {
                 binding.headerDialog.setCardBackgroundColor(resources.getColor(ERROR_MESSAGE_COLOR))
-                binding.titleHeader.text = "Error"
+                binding.titleHeader.text = getString(R.string.error)
             }
+
             3 -> {
                 binding.headerDialog.setCardBackgroundColor(resources.getColor(INFO_MESSAGE))
-                binding.titleHeader.text = "Info"
+                binding.titleHeader.text = getString(R.string.info)
             }
         }
     }

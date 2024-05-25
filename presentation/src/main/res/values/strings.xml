@@ -48,4 +48,8 @@
     <string name="change_theme">Change Theme</string>
     <string name="home">Inicio</string>
     <string name="watch">Watch</string>
+    <string name="success">Succes</string>
+    <string name="warning">Warning</string>
+    <string name="error">Error</string>
+    <string name="info">Info</string>
 </resources>

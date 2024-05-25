@@ -31,6 +31,7 @@ abstract class BaseViewModel(
         coroutineDispatchers: CoroutineDispatchers,
         crossinline apiToCall: suspend () -> Unit,
     ) {
+        job.cancel()
         viewModelScope.launch(coroutineDispatchers.io + job) {
             try {
                 withContext(coroutineDispatchers.main) {
