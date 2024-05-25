@@ -50,6 +50,10 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -75,10 +79,10 @@ apollo {
 }*/
 
 dependencies {
-    val navigation_version = "2.7.6"
-    val lifecycle_version = "2.7.0"
-    val dagger_hilt_version = "2.48"
-    val paging_version = "3.2.1"
+    val navigation_version = "2.7.7"
+    val lifecycle_version = "2.8.0"
+    val dagger_hilt_version = "2.49"
+    val paging_version = "3.3.0"
     implementation(project(DATA))
     implementation(project(DOMAIN))
     implementation(ANDROIDX_CORE_KTX)
@@ -115,9 +119,18 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.1.0")
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    //Compose
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
 }
 
 
