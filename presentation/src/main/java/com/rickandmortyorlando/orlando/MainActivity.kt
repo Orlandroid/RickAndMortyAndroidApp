@@ -14,6 +14,7 @@ import com.rickandmortyorlando.orlando.databinding.ActivityMainBinding
 import com.rickandmortyorlando.orlando.ui.extensions.click
 import com.rickandmortyorlando.orlando.ui.extensions.gone
 import com.rickandmortyorlando.orlando.ui.extensions.visible
+import com.rickandmortyorlando.orlando.utils.AppProgress
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.progressBar.setContent {
+            AppProgress()
+        }
         setUpNavController()
         setSupportActionBar(binding.toolbarLayout.toolbar)
     }
