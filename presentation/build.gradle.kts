@@ -46,6 +46,14 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            isDebuggable = true
+        }
     }
     buildFeatures {
         viewBinding = true
@@ -67,20 +75,9 @@ android {
 }
 
 
-/*
-apollo {
-
-    service("service") {
-
-        packageName.set("com.example")
-
-    }
-
-}*/
-
 dependencies {
     val navigation_version = "2.7.7"
-    val lifecycle_version = "2.8.0"
+    val lifecycle_version = "2.8.2"
     val dagger_hilt_version = "2.49"
     val paging_version = "3.3.0"
     implementation(project(DATA))
@@ -128,9 +125,10 @@ dependencies {
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.activity:activity-compose:1.9.0")
-    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }
 
 

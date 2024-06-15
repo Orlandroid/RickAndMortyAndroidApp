@@ -4,6 +4,7 @@ package com.rickandmortyorlando.orlando.di
 import com.apollographql.apollo3.ApolloClient
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
+import com.rickandmortyorlando.orlando.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +28,9 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            if (BuildConfig.DEBUG) {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
         }
         return OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)

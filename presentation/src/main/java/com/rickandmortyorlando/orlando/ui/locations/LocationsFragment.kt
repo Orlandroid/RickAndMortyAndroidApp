@@ -26,6 +26,7 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
     private var adapter = LocationsAdapter { clickOnLocation(it) }
 
     override fun setUpUi() = with(binding) {
+        showProgress()
         recyclerView.adapter = adapter
         getLocations()
         listenerAdapter()

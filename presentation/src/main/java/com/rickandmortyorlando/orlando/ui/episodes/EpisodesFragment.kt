@@ -28,6 +28,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
     private var adapter = EpisodesAdapter { clickOnEpisode(it) }
 
     override fun setUpUi() = with(binding) {
+        showProgress()
         recyclerEpisodes.adapter = adapter
         getEpisodes()
         listenerAdapter()

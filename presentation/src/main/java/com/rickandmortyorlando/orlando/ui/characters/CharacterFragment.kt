@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import com.example.domain.models.remote.character.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -39,6 +40,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(R.layout.fragme
     )
 
     override fun setUpUi() = with(binding) {
+        showProgress()
         recyclerView.adapter = adapter
         swipRefresh.setOnRefreshListener {
             swipRefresh.isRefreshing = false
