@@ -18,12 +18,6 @@ abstract class BaseViewModel(
     val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    enum class ErrorType {
-        NETWORK,
-        TIMEOUT,
-        UNKNOWN
-    }
-
     var job = SupervisorJob()
 
     suspend inline fun <T> safeApiCall(
@@ -31,7 +25,6 @@ abstract class BaseViewModel(
         coroutineDispatchers: CoroutineDispatchers,
         crossinline apiToCall: suspend () -> Unit,
     ) {
-        job.cancel()
         viewModelScope.launch(coroutineDispatchers.io + job) {
             try {
                 withContext(coroutineDispatchers.main) {

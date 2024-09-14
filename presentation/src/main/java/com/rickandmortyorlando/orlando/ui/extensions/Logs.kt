@@ -1,8 +1,8 @@
 package com.rickandmortyorlando.orlando.ui.extensions
 
-import android.util.Log
 import androidx.fragment.app.Fragment
+import timber.log.Timber
 
 fun Fragment.showLogW(error: String) {
-    Log.w("${getPackageName()}--> Error", error)
+    Timber.tag(getPackageName() + "--> Error").w(error)
 }

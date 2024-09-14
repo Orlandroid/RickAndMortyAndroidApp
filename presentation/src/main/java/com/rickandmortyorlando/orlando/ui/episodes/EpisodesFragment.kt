@@ -38,15 +38,14 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
         showToolbar = true, toolbarTitle = getString(R.string.episodes)
     )
 
-    private fun getEpisodes() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getEpisodesPagingSource.collectLatest { episodes ->
-                    adapter.submitData(episodes)
-                }
+    private fun getEpisodes() = viewLifecycleOwner.lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.getEpisodesPagingSource.collectLatest { episodes ->
+                adapter.submitData(episodes)
             }
         }
     }
+
 
     private fun listenerAdapter() {
         viewLifecycleOwner.lifecycleScope.launch {

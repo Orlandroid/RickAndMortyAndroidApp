@@ -39,13 +39,11 @@ class CharacterViewModel @Inject constructor(
 
     var searchCharacter = SearchCharacter()
 
-    fun getManyCharacters(ids: String) {
-        viewModelScope.launch {
-            safeApiCall(_manyCharactersResponse, coroutineDispatchers) {
-                val response = repository.getManyCharacters(ids)
-                withContext(Dispatchers.Main) {
-                    _manyCharactersResponse.value = ApiState.Success(response)
-                }
+    fun getManyCharacters(ids: String) = viewModelScope.launch {
+        safeApiCall(_manyCharactersResponse, coroutineDispatchers) {
+            val response = repository.getManyCharacters(ids)
+            withContext(Dispatchers.Main) {
+                _manyCharactersResponse.value = ApiState.Success(response)
             }
         }
     }

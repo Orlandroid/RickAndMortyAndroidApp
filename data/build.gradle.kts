@@ -61,8 +61,8 @@ dependencies {
     implementation(RETROFIT)
     implementation(RETROFIT_CONVERTER_GSON)
     implementation(RETROFIT_INTERCEPTOR)
-    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("com.google.dagger:hilt-android:2.49")
+    kapt("com.google.dagger:hilt-android-compiler:2.49")
 
 }

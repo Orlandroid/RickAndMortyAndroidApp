@@ -25,6 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class CharacterDetailFragment :
     BaseFragment<FragmentCharacterDetailBinding>(R.layout.fragment_character_detail) {
 
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
+
     private val viewModel: CharacterDetailViewModel by viewModels()
     private val args: CharacterDetailFragmentArgs by navArgs()
     private var idsOfEpisodesOfTheCharacter = ""
@@ -35,16 +37,19 @@ class CharacterDetailFragment :
         skeletonLocation.showSkeleton()
         viewModel.getCharacter(args.charcaterId.toString())
         binding.tvEpisodes.click {
-            val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
-            val action =
-                CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(
-                    idsOfEpisodesOfTheCharacter, !isSingleEpisode
-                )
-            findNavController().navigate(action)
+            navigateToEpisodes()
         }
     }
 
-    override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
+    private fun navigateToEpisodes() {
+        val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
+        val action =
+            CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(
+                idsOfEpisodesOfTheCharacter, !isSingleEpisode
+            )
+        findNavController().navigate(action)
+    }
+
 
     override fun observerViewModel() {
         super.observerViewModel()

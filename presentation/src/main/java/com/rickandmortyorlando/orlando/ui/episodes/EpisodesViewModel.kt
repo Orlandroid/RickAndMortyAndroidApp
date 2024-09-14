@@ -11,7 +11,6 @@ import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.remote.episode.Episode
-import com.example.domain.models.remote.episode.EpisodeResponse
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.ui.base.BaseViewModel
@@ -32,9 +31,6 @@ class EpisodesViewModel @Inject constructor(
     coroutineDispatcher: CoroutineDispatchers,
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
-    private val _episodeResponse = MutableLiveData<ApiState<EpisodeResponse>>()
-    val episodeResponse: LiveData<ApiState<EpisodeResponse>>
-        get() = _episodeResponse
 
     private val _manyEpisodesResponse = MutableLiveData<ApiState<List<Episode>>>()
     val manyEpisodesResponse: LiveData<ApiState<List<Episode>>>

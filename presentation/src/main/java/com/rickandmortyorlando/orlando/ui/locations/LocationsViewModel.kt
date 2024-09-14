@@ -39,13 +39,11 @@ class LocationsViewModel @Inject constructor(
     val singleLocationResponse: LiveData<ApiState<SingleLocation>> get() = _singleLocationResponse
 
 
-    fun getSingleLocation(locationId: Int) {
-        viewModelScope.launch {
-            safeApiCall(_singleLocationResponse, coroutineDispatchers) {
-                val response = repository.getSingleLocation(locationId)
-                withContext(Dispatchers.Main) {
-                    _singleLocationResponse.value = ApiState.Success(response)
-                }
+    fun getSingleLocation(locationId: Int) = viewModelScope.launch {
+        safeApiCall(_singleLocationResponse, coroutineDispatchers) {
+            val response = repository.getSingleLocation(locationId)
+            withContext(Dispatchers.Main) {
+                _singleLocationResponse.value = ApiState.Success(response)
             }
         }
     }
