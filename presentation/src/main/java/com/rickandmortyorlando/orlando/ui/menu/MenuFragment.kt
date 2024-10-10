@@ -27,7 +27,8 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
         showConfigIcon = true,
         clickOnConfigIcon = {
             findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToSettingsFragment())
-        })
+        }
+    )
 
     override fun setUpUi() = with(binding) {
         imageCharacters.click {
@@ -37,12 +38,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
         }
         imageEpisiodos.click {
             viewModel.comesFromEpisodesMainMenu = true
-            val action = MenuFragmentDirections.actionMenuFragmentToEpisodesFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToEpisodesFragment())
         }
         imageLocations.click {
-            val action = MenuFragmentDirections.actionMenuFragmentToLocationsFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToLocationsFragment())
         }
     }
 

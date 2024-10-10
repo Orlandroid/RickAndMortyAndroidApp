@@ -36,12 +36,14 @@ class LocationDetailFragment :
     private var idsOfCharacters = ""
 
 
-    override fun setUpUi() = with(binding) {
-        adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
-        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
-        recycler.adapter = adapter
-        recycler.layoutManager = gridLayoutManager
-        locationViewModel.getSingleLocation(args.idLocation)
+    override fun setUpUi() {
+        with(binding) {
+            adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
+            val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+            recycler.adapter = adapter
+            recycler.layoutManager = gridLayoutManager
+            locationViewModel.getSingleLocation(args.idLocation)
+        }
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(

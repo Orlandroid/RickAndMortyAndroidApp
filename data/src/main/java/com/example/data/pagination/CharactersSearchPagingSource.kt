@@ -26,6 +26,7 @@ class CharactersSearchPagingSource(
                 status = search.status,
                 species = search.species,
                 gender = search.gender,
+                type = search.type,
                 page = currentPage.toString()
             ).results
             LoadResult.Page(

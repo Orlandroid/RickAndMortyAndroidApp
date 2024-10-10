@@ -13,19 +13,19 @@ import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentSearchBinding
 import com.rickandmortyorlando.orlando.ui.base.BaseFragment
 import com.rickandmortyorlando.orlando.ui.characters.CharacterAdapter
-import com.rickandmortyorlando.orlando.ui.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.ui.extensions.hideProgress
 import com.rickandmortyorlando.orlando.ui.extensions.showErrorApi
 import com.rickandmortyorlando.orlando.ui.extensions.showProgress
+import com.rickandmortyorlando.orlando.ui.filter_dialog.FilterDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
+class SearchCharactersFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
     private val adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
-    private val viewModel: CharacterViewModel by viewModels()
+    private val viewModel: SearchCharactersViewModel by viewModels()
 
     override fun setUpUi() = with(binding) {
         recyclerView.adapter = adapter
@@ -41,20 +41,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
-        showToolbar = true,
-        toolbarTitle = getString(R.string.search)
+        showToolbar = true, toolbarTitle = getString(R.string.search)
     )
 
-    override fun configSearchView() = MainActivity.SearchViewConfig(
-        showSearchView = true,
-        onQueryTextSubmit = {
+    override fun configSearchView() =
+        MainActivity.SearchViewConfig(showSearchView = true, onQueryTextSubmit = {
             viewModel.searchCharacter.name = it
             viewModel.refreshCharactersSearchPagingSource()
-        },
-        onMenuItemActionCollapse = {
+        }, showFilterIcon = true, clickOnFilterIcon = {
+            clickOnFilterIcon()
+        })
 
-        }
-    )
+    private fun clickOnFilterIcon() {
+        val filterDialog = FilterDialogFragment(searchInfo = {
+            viewModel.searchCharacter = it
+            viewModel.refreshCharactersSearchPagingSource()
+        })
+        activity?.let { filterDialog.show(it.supportFragmentManager, "alertMessage") }
+    }
 
 
     private fun getCharacters() {
@@ -83,11 +87,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
         }
     }
-    
+
 
     private fun clickOnCharacter(character: Character) {
         findNavController().navigate(
-            SearchFragmentDirections.navigationToCharacterDetail(
+            SearchCharactersFragmentDirections.navigationToCharacterDetail(
                 character.id
             )
         )

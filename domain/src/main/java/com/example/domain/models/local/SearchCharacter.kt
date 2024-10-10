@@ -5,4 +5,5 @@ data class SearchCharacter(
     var status: String = "",
     var species: String = "",
     var gender: String = "",
+    var type: String = ""
 )

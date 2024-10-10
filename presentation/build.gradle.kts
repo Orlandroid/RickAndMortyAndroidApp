@@ -76,6 +76,7 @@ android {
 
 
 dependencies {
+    implementation("androidx.compose.material3:material3-android:1.3.0")
     val navigation_version = "2.8.0"
     val lifecycle_version = "2.8.5"
     val dagger_hilt_version = "2.49"
@@ -115,20 +116,35 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation("com.airbnb.android:lottie:6.1.0")
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    implementation("com.github.skydoves:powerspinner:1.2.7")
 
     //Compose
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.activity:activity-compose:1.9.2")
-    implementation(platform("androidx.compose:compose-bom:2024.09.01"))
+    implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //Testing
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    testImplementation("com.google.truth:truth:1.1.3")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("org.mockito:mockito-inline:3.0.0")
+    testImplementation("app.cash.turbine:turbine:0.12.1")
+    implementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+
 }
 
 

@@ -37,7 +37,8 @@ interface RickAndMortyService {
         @Query("status") status: String,
         @Query("species") species: String,
         @Query("gender") gender: String,
-        @Query("page") page: String
+        @Query("page") page: String,
+        @Query("type") type: String,
     ): CharacterResponse
 
     @GET("episode")

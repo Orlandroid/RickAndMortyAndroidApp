@@ -105,9 +105,11 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.search_menu, menu)
         val searchItem = menu.findItem(R.id.search)
         val settingIcon = menu.findItem(R.id.settings)
+        val filterIcon = menu.findItem(R.id.filter)
 
         searchItem.isVisible = searchViewConfig.showSearchView
         settingIcon.isVisible = searchViewConfig.showConfigIcon
+        filterIcon.isVisible = searchViewConfig.showFilterIcon
 
         searchItem.setOnMenuItemClickListener {
             searchViewConfig.clickOnSearchIcon()
@@ -116,6 +118,11 @@ class MainActivity : AppCompatActivity() {
 
         settingIcon.setOnMenuItemClickListener {
             searchViewConfig.clickOnConfigIcon()
+            true
+        }
+
+        filterIcon.setOnMenuItemClickListener {
+            searchViewConfig.clickOnFilterIcon()
             true
         }
 
@@ -165,6 +172,7 @@ class MainActivity : AppCompatActivity() {
 
     data class SearchViewConfig(
         val hintText: String = "Buscar",
+        val showFilterIcon: Boolean = false,
         val showSearchView: Boolean = false,
         val showConfigIcon: Boolean = false,
         val onMenuItemActionExpand: () -> Unit = {},
@@ -172,7 +180,8 @@ class MainActivity : AppCompatActivity() {
         val onQueryTextSubmit: (query: String) -> Unit = {},
         val onQueryTextChange: (newText: String) -> Unit = {},
         val clickOnSearchIcon: () -> Unit = {},
-        val clickOnConfigIcon: () -> Unit = {}
+        val clickOnConfigIcon: () -> Unit = {},
+        val clickOnFilterIcon: () -> Unit = {},
     )
 
     data class ToolbarConfiguration(

@@ -7,7 +7,7 @@ class RickAndMortyPreferences @Inject constructor(sharedPreferences: SharedPrefe
     PreferencesManager(sharedPreferences) {
 
     companion object {
-        const val IS_NIGHT_MODE = "isNigthMode"
+        const val IS_NIGHT_MODE = "isNightMode"
     }
 
     fun saveIsNightMode(isNightMode: Boolean?) {
