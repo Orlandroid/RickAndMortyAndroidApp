@@ -1,6 +1,6 @@
 package com.rickandmortyorlando.orlando
 
-import com.rickandmortyorlando.orlando.ui.main.NetworkHelper
+import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before

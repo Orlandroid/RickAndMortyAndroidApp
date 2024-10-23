@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.characters.CharacterFragment"
+        android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.menu.MenuFragment"
+        android:name="com.rickandmortyorlando.orlando.features.menu.MenuFragment"
         android:label="MenuFragment"
         tools:layout="@layout/fragment_menu">
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.characters_detail.CharacterDetailFragment"
+        android:name="com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetailFragment"
         android:label="CharacterDetailFragment"
         tools:layout="@layout/fragment_character_detail">
         <argument
@@ -53,12 +53,12 @@
     </fragment>
     <fragment
         android:id="@+id/episodesFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.episodes.EpisodesFragment"
+        android:name="com.rickandmortyorlando.orlando.features.episodes.EpisodesFragment"
         android:label="EpisodesFragment"
         tools:layout="@layout/fragment_episodes"/>
     <fragment
         android:id="@+id/locationsFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.locations.LocationsFragment"
+        android:name="com.rickandmortyorlando.orlando.features.locations.LocationsFragment"
         android:label="LocationsFragment"
         tools:layout="@layout/fragment_locations">
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.episode_detail.EpisodeDetailFragment"
+        android:name="com.rickandmortyorlando.orlando.features.episode_detail.EpisodeDetailFragment"
         android:label="EpisodeDetailFragment"
         tools:layout="@layout/fragment_episode_detail">
         <argument
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/manyEpisodesFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.episodes.ManyEpisodesFragment"
+        android:name="com.rickandmortyorlando.orlando.features.episodes.ManyEpisodesFragment"
         android:label="ManyEpisodesFragment"
         tools:layout="@layout/fragment_episodes">
         <argument
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.location_detail.LocationDetailFragment"
+        android:name="com.rickandmortyorlando.orlando.features.location_detail.LocationDetailFragment"
         android:label="LocationDetailFragment"
         tools:layout="@layout/fragment_location_detail">
         <argument
@@ -97,12 +97,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.settings.SettingsFragment"
+        android:name="com.rickandmortyorlando.orlando.features.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.search.SearchCharactersFragment"
+        android:name="com.rickandmortyorlando.orlando.features.search.SearchCharactersFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search">
         <action
@@ -111,6 +111,6 @@
     </fragment>
     <fragment
         android:id="@+id/filterDialogFragment"
-        android:name="com.rickandmortyorlando.orlando.ui.filter_dialog.FilterDialogFragment"
+        android:name="com.rickandmortyorlando.orlando.features.filter_dialog.FilterDialogFragment"
         android:label="FilterDialogFragment" />
 </navigation>

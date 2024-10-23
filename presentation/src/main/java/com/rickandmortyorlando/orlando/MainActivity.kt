@@ -11,9 +11,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.rickandmortyorlando.orlando.databinding.ActivityMainBinding
-import com.rickandmortyorlando.orlando.ui.extensions.click
-import com.rickandmortyorlando.orlando.ui.extensions.gone
-import com.rickandmortyorlando.orlando.ui.extensions.visible
+import com.rickandmortyorlando.orlando.features.extensions.click
+import com.rickandmortyorlando.orlando.features.extensions.gone
+import com.rickandmortyorlando.orlando.features.extensions.visible
 import com.rickandmortyorlando.orlando.utils.AppProgress
 import dagger.hilt.android.AndroidEntryPoint
 

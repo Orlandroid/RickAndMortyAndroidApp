@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".ui.characters_detail.CharacterDetailFragment">
+        tools:context=".features.characters_detail.CharacterDetailFragment">
 
 
         <ImageView
