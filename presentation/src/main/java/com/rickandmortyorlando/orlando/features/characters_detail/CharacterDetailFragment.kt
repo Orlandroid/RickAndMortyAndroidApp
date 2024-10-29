@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -31,14 +32,34 @@ class CharacterDetailFragment :
     private val viewModel: CharacterDetailViewModel by viewModels()
     private val args: CharacterDetailFragmentArgs by navArgs()
     private var idsOfEpisodesOfTheCharacter = ""
+    private var mCharacter: Character? = null
+    private var mLocation: SingleLocation? = null
+
+    override fun setUpUi() = binding.tvEpisodes.click {
+        navigateToEpisodes()
+    }
 
 
-    override fun setUpUi() = with(binding) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.getCharacter(args.charcaterId.toString())
-        skeletonInfo.showSkeleton()
-        skeletonLocation.showSkeleton()
-        binding.tvEpisodes.click {
-            navigateToEpisodes()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        restoreCharacterAndLocation()
+    }
+
+    private fun restoreCharacterAndLocation() {
+        mCharacter?.let { character ->
+            with(binding) {
+                skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
+                skeletonInfo.setMargins(0, 0, 0, 0)
+            }
+            setDataToView(character)
+        }
+        mLocation?.let { location ->
+            setLocation(location)
         }
     }
 
@@ -54,9 +75,22 @@ class CharacterDetailFragment :
 
     override fun observerViewModel() {
         super.observerViewModel()
+        observeCharacterResponse()
+        observeLocationResponse()
+    }
+
+    private fun observeCharacterResponse() {
         observeApiResultGeneric(
-            viewModel.characterResponse, shouldCloseTheViewOnApiError = true
+            viewModel.characterResponse,
+            shouldCloseTheViewOnApiError = true,
+            onLoading = {
+                with(binding) {
+                    skeletonInfo.showSkeleton()
+                    skeletonLocation.showSkeleton()
+                }
+            }
         ) { character ->
+            mCharacter = character
             with(binding) {
                 skeletonInfo.showOriginal()
                 skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
@@ -76,9 +110,13 @@ class CharacterDetailFragment :
             binding.skeletonLocation.gone()
 
         }
+    }
+
+    private fun observeLocationResponse() {
         observeApiResultGeneric(
             viewModel.locationResponse, shouldCloseTheViewOnApiError = true
         ) { singleLocation ->
+            mLocation = singleLocation
             setLocation(singleLocation)
         }
     }
