@@ -36,20 +36,23 @@ import com.rickandmortyorlando.orlando.R
 
 @Composable
 fun FilterScreen(
+    currentFilter: SearchCharacter,
     onSearchClicked: (SearchCharacter) -> Unit
 ) {
     FilterScreenContent(
         modifier = Modifier,
-        searchFilter = onSearchClicked
+        searchFilter = onSearchClicked,
+        currentFilter = currentFilter
     )
 }
 
 @Composable
 fun FilterScreenContent(
+    currentFilter: SearchCharacter,
     modifier: Modifier = Modifier,
     searchFilter: (SearchCharacter) -> Unit
 ) {
-    var searchInfo = remember { SearchCharacter() }
+    var searchInfo = remember { currentFilter }
     Column(
         modifier.fillMaxWidth()
     ) {
@@ -126,9 +129,12 @@ fun InputType(
 
 
 @Composable
-@Preview(showBackground = true, apiLevel = 33)
+@Preview(showBackground = true)
 fun FilterScreenPreview(modifier: Modifier = Modifier) {
-    FilterScreen(onSearchClicked = {})
+    FilterScreen(
+        currentFilter = SearchCharacter(),
+        onSearchClicked = {}
+    )
 }
 
 

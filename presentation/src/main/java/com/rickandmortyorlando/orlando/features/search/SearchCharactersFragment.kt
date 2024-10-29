@@ -45,18 +45,26 @@ class SearchCharactersFragment : BaseFragment<FragmentSearchBinding>(R.layout.fr
     )
 
     override fun configSearchView() =
-        MainActivity.SearchViewConfig(showSearchView = true, onQueryTextSubmit = {
-            viewModel.searchCharacter.name = it
-            viewModel.refreshCharactersSearchPagingSource()
-        }, showFilterIcon = true, clickOnFilterIcon = {
-            clickOnFilterIcon()
-        })
+        MainActivity.SearchViewConfig(
+            showSearchView = true,
+            onQueryTextSubmit = {
+                viewModel.searchCharacter.name = it
+                viewModel.refreshCharactersSearchPagingSource()
+            },
+            showFilterIcon = true,
+            clickOnFilterIcon = {
+                clickOnFilterIcon()
+            }
+        )
 
     private fun clickOnFilterIcon() {
-        val filterDialog = FilterDialogFragment(searchInfo = {
-            viewModel.searchCharacter = it
-            viewModel.refreshCharactersSearchPagingSource()
-        })
+        val filterDialog = FilterDialogFragment(
+            currentFilter = viewModel.searchCharacter,
+            searchInfo = {
+                viewModel.searchCharacter = it
+                viewModel.refreshCharactersSearchPagingSource()
+            }
+        )
         activity?.let { filterDialog.show(it.supportFragmentManager, "alertMessage") }
     }
 

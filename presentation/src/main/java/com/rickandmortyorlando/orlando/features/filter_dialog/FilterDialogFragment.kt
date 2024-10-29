@@ -11,7 +11,10 @@ import androidx.fragment.app.DialogFragment
 import com.example.domain.models.local.SearchCharacter
 import com.rickandmortyorlando.orlando.databinding.FragmentFilterDialogBinding
 
-class FilterDialogFragment(val searchInfo: (SearchCharacter) -> Unit) : DialogFragment() {
+class FilterDialogFragment(
+    val currentFilter: SearchCharacter,
+    val searchInfo: (SearchCharacter) -> Unit
+) : DialogFragment() {
 
     private lateinit var binding: FragmentFilterDialogBinding
 
@@ -43,6 +46,7 @@ class FilterDialogFragment(val searchInfo: (SearchCharacter) -> Unit) : DialogFr
     fun setUpUi() {
         binding.main.setContent {
             FilterScreen(
+                currentFilter = currentFilter,
                 onSearchClicked = {
                     searchInfo.invoke(it)
                     dialog?.dismiss()
