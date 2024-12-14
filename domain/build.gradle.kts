@@ -54,6 +54,6 @@ dependencies {
     testImplementation(JUNIT)
     androidTestImplementation(TEST_JUNIT)
     androidTestImplementation(TEST_EXPRESO)
-    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-runtime-ktx:3.3.5")
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 }

@@ -71,7 +71,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/alive"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/image_status_session"
                 app:layout_constraintStart_toEndOf="@+id/image_status_session"
                 app:layout_constraintTop_toTopOf="@+id/image_status_session" />
@@ -84,7 +84,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/human"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView"

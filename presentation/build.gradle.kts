@@ -76,11 +76,12 @@ android {
 
 
 dependencies {
-    implementation("androidx.compose.material3:material3-android:1.3.0")
-    val navigation_version = "2.8.0"
-    val lifecycle_version = "2.8.5"
+    implementation("androidx.compose.material3:material3-android:1.3.1")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
+    val navigation_version = "2.8.5"
+    val lifecycle_version = "2.8.7"
     val dagger_hilt_version = "2.49"
-    val paging_version = "3.3.2"
+    val paging_version = "3.3.5"
     implementation(project(DATA))
     implementation(project(DOMAIN))
     implementation(ANDROIDX_CORE_KTX)
@@ -122,8 +123,8 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime")
-    implementation("androidx.activity:activity-compose:1.9.2")
-    implementation(platform("androidx.compose:compose-bom:2024.09.03"))
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")

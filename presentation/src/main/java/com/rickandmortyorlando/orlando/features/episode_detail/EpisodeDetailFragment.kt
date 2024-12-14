@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.episode_detail
 
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.example.domain.models.remote.episode.Episode
 import com.google.gson.Gson
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.TextLink
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.characters.CharacterGridAdapter
@@ -38,6 +40,9 @@ class EpisodeDetailFragment :
     private val viewModel: CharacterViewModel by viewModels()
     private var adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
     override fun setUpUi() = with(binding) {
+        binding.tvWatch.setContent {
+            TextLink(text = stringResource(R.string.watch))
+        }
         recyclerCharacters.adapter = adapter
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         recyclerCharacters.layoutManager = gridLayoutManager

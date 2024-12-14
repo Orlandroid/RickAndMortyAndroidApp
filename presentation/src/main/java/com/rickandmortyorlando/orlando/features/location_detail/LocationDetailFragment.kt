@@ -1,22 +1,35 @@
 package com.rickandmortyorlando.orlando.features.location_detail
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.domain.models.remote.character.Character
+import com.example.domain.models.remote.character.Location
+import com.example.domain.models.remote.character.getPairInfoLocation
+import com.example.domain.models.remote.location.toLocation
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
-import com.rickandmortyorlando.orlando.features.characters.CharacterGridAdapter
+import com.rickandmortyorlando.orlando.features.characters.CharacterAdapter
 import com.rickandmortyorlando.orlando.features.characters.CharacterViewModel
 import com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetailViewModel
-import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.observeApiResultGeneric
-import com.rickandmortyorlando.orlando.features.extensions.visible
 import com.rickandmortyorlando.orlando.features.locations.LocationsViewModel
 import com.rickandmortyorlando.orlando.utils.getListOfNumbersFromUrlWithPrefix
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,22 +44,22 @@ class LocationDetailFragment :
     private val locationViewModel: LocationsViewModel by viewModels()
     private val characterViewModel: CharacterViewModel by viewModels()
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
-    private var adapter: CharacterGridAdapter? = null
+    private var adapter: CharacterAdapter? = null
     private val args: LocationDetailFragmentArgs by navArgs()
     private var idsOfCharacters = ""
 
 
     override fun setUpUi() {
         with(binding) {
-            adapter = CharacterGridAdapter(clickOnCharacter = { clickOnCharacter(it) })
-            val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = CharacterAdapter(clickOnCharacter = { clickOnCharacter(it) })
             recycler.adapter = adapter
-            recycler.layoutManager = gridLayoutManager
             locationViewModel.getSingleLocation(args.idLocation)
         }
     }
 
+
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
+        toolbarTitle = getString(R.string.location),
         showToolbar = true
     )
 
@@ -58,9 +71,9 @@ class LocationDetailFragment :
             shouldCloseTheViewOnApiError = true
         ) {
             with(binding) {
-                changeToolbarTitle(it.name)
-                locationType.text = it.type
-                locationName.text = it.name
+                locationInfo.setContent {
+                    ItemInfoLocation(location = it.toLocation())
+                }
             }
             idsOfCharacters = getListOfIdsOfCharacters(it.residents)
             if (isSingleCharacter()) {
@@ -92,10 +105,7 @@ class LocationDetailFragment :
     }
 
     private fun showLocationInfo() {
-        with(binding) {
-            locationType.visible()
-            locationName.visible()
-        }
+//        binding.locationInfo.visible()
     }
 
     private fun isSingleCharacter() = !idsOfCharacters.contains(",")
@@ -115,4 +125,40 @@ class LocationDetailFragment :
         )
     }
 
+}
+
+
+@Composable
+fun ItemInfoLocation(
+    modifier: Modifier = Modifier,
+    location: Location
+) {
+    Column(Modifier.fillMaxWidth()) {
+        location.getPairInfoLocation().forEach { infoItemLocation ->
+            Card(
+                modifier
+                    .padding(8.dp)
+                    .background(Color.White)
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier.padding(8.dp),
+                        text = infoItemLocation.first
+                    )
+                    Text(
+                        modifier =
+                        Modifier.padding(8.dp),
+                        text = infoItemLocation.second
+                    )
+                }
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@
     <string name="characters">Characters</string>
     <string name="episodes">episodes</string>
     <string name="locations">Locations</string>
+    <string name="location">Location</string>
     <string name="status"><b>Status:</b></string>
     <string name="species"><b>Species:</b></string>
     <string name="gender"><b>Gender:</b></string>
@@ -46,7 +47,7 @@
     <string name="anatomy_park">Anatomy Park</string>
     <string name="settings">Settings</string>
     <string name="change_theme">Change Theme</string>
-    <string name="home">Inicio</string>
+    <string name="home">Home</string>
     <string name="watch">Watch</string>
     <string name="success">Succes</string>
     <string name="warning">Warning</string>

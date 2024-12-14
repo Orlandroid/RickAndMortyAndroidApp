@@ -10,6 +10,7 @@ import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import kotlinx.coroutines.*
 import okio.IOException
 import retrofit2.HttpException
+import timber.log.Timber
 import java.net.SocketTimeoutException
 
 
@@ -20,7 +21,7 @@ abstract class BaseViewModel(
 
     var job = SupervisorJob()
 
-    suspend inline fun <T> safeApiCall(
+    inline fun <T> safeApiCall(
         result: MutableLiveData<ApiState<T>>,
         coroutineDispatchers: CoroutineDispatchers,
         crossinline apiToCall: suspend () -> Unit,
@@ -41,11 +42,9 @@ abstract class BaseViewModel(
             } catch (e: Exception) {
                 withContext(coroutineDispatchers.main) {
                     e.printStackTrace()
-                    Log.e("ApiCalls", "Call error: ${e.localizedMessage}", e.cause)
+                    Timber.tag("ApiCalls").e(e.cause, "Call error: ${e.localizedMessage}")
                     when (e) {
                         is HttpException -> {
-                            val errorBody = e.response()?.errorBody()
-                            val errorCode = e.response()?.code()
                             result.value = ApiState.Error(e)
                         }
 
