@@ -8,6 +8,6 @@
     <dimen name="card_marginTop">24dp</dimen>
     <dimen name="card_marginEnd">12dp</dimen>
     <dimen name="cardCornerRadius">8dp</dimen>
-    <dimen name="width_image_tablet">250dp</dimen>
-    <dimen name="height_image_tablet">250dp</dimen>
+    <dimen name="width_image_tablet">200dp</dimen>
+    <dimen name="height_image_tablet">200dp</dimen>
 </resources>

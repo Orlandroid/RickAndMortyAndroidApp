@@ -38,6 +38,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_image_tablet"
+                    android:contentDescription="@string/content_description"
                     android:src="@drawable/morty_and_rick"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

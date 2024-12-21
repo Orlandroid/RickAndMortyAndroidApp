@@ -128,6 +128,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
