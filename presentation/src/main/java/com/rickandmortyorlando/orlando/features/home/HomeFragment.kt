@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.features.menu
+package com.rickandmortyorlando.orlando.features.home
 
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -11,7 +11,7 @@ import com.rickandmortyorlando.orlando.features.extensions.click
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
+class HomeFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
 
     private val viewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
         defaultViewModelProviderFactory
@@ -26,22 +26,22 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
     override fun configSearchView() = MainActivity.SearchViewConfig(
         showConfigIcon = true,
         clickOnConfigIcon = {
-            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToSettingsFragment())
+            findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToSettingsFragment())
         }
     )
 
     override fun setUpUi() = with(binding) {
         imageCharacters.click {
             viewModel.comesFromEpisodesMainMenu = false
-            val action = MenuFragmentDirections.actionMenuFragmentToCharacterFragment()
+            val action = HomeFragmentDirections.actionMenuFragmentToCharacterFragment()
             findNavController().navigate(action)
         }
         imageEpisiodos.click {
             viewModel.comesFromEpisodesMainMenu = true
-            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToEpisodesFragment())
+            findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToEpisodesFragment())
         }
         imageLocations.click {
-            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToLocationsFragment())
+            findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragment())
         }
     }
 

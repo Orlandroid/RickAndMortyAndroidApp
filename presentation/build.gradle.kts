@@ -77,6 +77,7 @@ android {
 
 dependencies {
     implementation("androidx.compose.material3:material3-android:1.3.1")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
     debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
     val navigation_version = "2.8.5"
     val lifecycle_version = "2.8.7"
@@ -129,6 +130,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
 
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
@@ -137,10 +139,10 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:3.0.0")
     testImplementation("app.cash.turbine:turbine:0.12.1")
     implementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

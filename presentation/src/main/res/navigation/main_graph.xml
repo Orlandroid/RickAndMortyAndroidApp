@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.rickandmortyorlando.orlando.features.menu.MenuFragment"
+        android:name="com.rickandmortyorlando.orlando.features.home.HomeFragment"
         android:label="MenuFragment"
         tools:layout="@layout/fragment_menu">
         <action
