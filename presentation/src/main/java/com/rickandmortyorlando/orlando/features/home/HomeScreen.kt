@@ -23,76 +23,71 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.components.BaseComposeScreen
-import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
-import com.rickandmortyorlando.orlando.theme.AlwaysWhite
 
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    clickOnCharacters: () -> Unit,
+    clickOnLocation: () -> Unit,
+    clickOnEpisodes: () -> Unit
+) {
     val charactersImage = painterResource(id = R.drawable.rick_and_morty)
     val episodesImage = painterResource(id = R.drawable.img_episode)
     val locationsImage = painterResource(id = R.drawable.img_location)
-    BaseComposeScreen (
-        background = AlwaysWhite,
-        navController = navController,
-        toolbarConfiguration = ToolbarConfiguration(title = stringResource(id = R.string.home))
+
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize()
     ) {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxSize()
+        val (imageCharacter, imageEpisodes, imageLocations, toolbar) = createRefs()
+        val firstGuideline = createGuidelineFromTop(0.33f)
+        val secondGuideline = createGuidelineFromTop(0.67f)
+        ImageCard(
+            modifier = Modifier
+                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                .fillMaxWidth()
+                .constrainAs(imageCharacter) {
+                    height = Dimension.fillToConstraints
+                    top.linkTo(parent.top)
+                    bottom.linkTo(firstGuideline)
+                }, textOnCard = stringResource(
+                R.string.characters
+            ), painter = charactersImage
         ) {
-            val (imageCharacter, imageEpisodes, imageLocations, toolbar) = createRefs()
-            val firstGuideline = createGuidelineFromTop(0.33f)
-            val secondGuideline = createGuidelineFromTop(0.67f)
-            ImageCard(
-                modifier = Modifier
-                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                    .fillMaxWidth()
-                    .constrainAs(imageCharacter) {
-                        height = Dimension.fillToConstraints
-                        top.linkTo(parent.top)
-                        bottom.linkTo(firstGuideline)
-                    }, textOnCard = stringResource(
-                    R.string.characters
-                ), painter = charactersImage
-            ) {
-//                navController.navigate(Screens.ListOfCharacters.route)
-            }
+            clickOnCharacters()
+        }
 
-            ImageCard(
-                modifier = Modifier
-                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                    .constrainAs(imageEpisodes) {
-                        height = Dimension.fillToConstraints
-                        top.linkTo(firstGuideline)
-                        bottom.linkTo(secondGuideline)
-                    }, textOnCard = stringResource(
-                    R.string.episodes
-                ), painter = episodesImage
-            ) {
-//                navController.navigate(Screens.ListOfEpisodes.route)
-            }
+        ImageCard(
+            modifier = Modifier
+                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                .constrainAs(imageEpisodes) {
+                    height = Dimension.fillToConstraints
+                    top.linkTo(firstGuideline)
+                    bottom.linkTo(secondGuideline)
+                }, textOnCard = stringResource(
+                R.string.episodes
+            ), painter = episodesImage
+        ) {
+            clickOnEpisodes()
+        }
 
-            ImageCard(
-                modifier = Modifier
-                    .padding(top = 12.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)
-                    .constrainAs(imageLocations) {
-                        height = Dimension.fillToConstraints
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(secondGuideline)
-                        bottom.linkTo(parent.bottom)
-                    }, textOnCard = stringResource(
-                    R.string.locations
-                ), painter = locationsImage
-            ) {
-//                navController.navigate(Screens.ListOfLocations.route)
-            }
+        ImageCard(
+            modifier = Modifier
+                .padding(top = 12.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)
+                .constrainAs(imageLocations) {
+                    height = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(secondGuideline)
+                    bottom.linkTo(parent.bottom)
+                }, textOnCard = stringResource(
+                R.string.locations
+            ), painter = locationsImage
+        ) {
+            clickOnLocation()
         }
     }
+
 
 }
 
@@ -104,8 +99,7 @@ fun ImageCard(
     clickOnCard: () -> Unit = {}
 ) {
     Card(
-        onClick = clickOnCard,
-        modifier = modifier, colors = CardDefaults.cardColors(
+        onClick = clickOnCard, modifier = modifier, colors = CardDefaults.cardColors(
             containerColor = Color.White,
         ), border = BorderStroke(2.dp, Color.Black), shape = RoundedCornerShape(8.dp)
     ) {
@@ -138,5 +132,9 @@ fun ImageCard(
 @Preview(showBackground = true)
 @Composable
 fun SimpleComposablePreview() {
-    HomeScreen(rememberNavController())
+    HomeScreen(
+        clickOnCharacters = {},
+        clickOnLocation = {},
+        clickOnEpisodes = {}
+    )
 }

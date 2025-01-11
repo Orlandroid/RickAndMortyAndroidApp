@@ -2,6 +2,9 @@ package com.rickandmortyorlando.orlando.features.extensions
 
 import android.view.WindowManager
 import androidx.annotation.ColorRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -9,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.features.main.AlertDialogs
+import timber.log.Timber
 
 fun Fragment.showProgress() {
     (requireActivity() as MainActivity).showProgress()
@@ -26,6 +30,10 @@ fun Fragment.changeToolbarTitle(title: String) {
     (requireActivity() as MainActivity).changeTitleToolbar(title)
 }
 
+fun Fragment.showLog(messageBody: String) {
+    Timber.tag("ANDROID").e(messageBody)
+}
+
 
 fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.message_succes)) {
     val dialog = AlertDialogs(
@@ -36,6 +44,13 @@ fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.mess
 }
 
 fun Fragment.getPackageName(): String = context?.packageName.toString()
+
+fun Fragment.content(content: @Composable () -> Unit): ComposeView {
+    return ComposeView(requireContext()).apply {
+        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        setContent(content)
+    }
+}
 
 
 fun Fragment.navigateAction(action: NavDirections) {

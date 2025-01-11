@@ -1,5 +1,9 @@
 package com.rickandmortyorlando.orlando.features.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.rickandmortyorlando.orlando.MainActivity
@@ -7,7 +11,7 @@ import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentMenuBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.episodes.EpisodesViewModel
-import com.rickandmortyorlando.orlando.features.extensions.click
+import com.rickandmortyorlando.orlando.features.extensions.content
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,6 +19,29 @@ class HomeFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
 
     private val viewModel: EpisodesViewModel by navGraphViewModels(R.id.main_graph) {
         defaultViewModelProviderFactory
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return content {
+            HomeScreen(
+                clickOnCharacters = {
+                    viewModel.comesFromEpisodesMainMenu = false
+                    val action = HomeFragmentDirections.actionMenuFragmentToCharacterFragment()
+                    findNavController().navigate(action)
+                },
+                clickOnEpisodes = {
+                    viewModel.comesFromEpisodesMainMenu = true
+                    findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToEpisodesFragment())
+                },
+                clickOnLocation = {
+                    findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragment())
+                }
+            )
+        }
     }
 
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(
@@ -30,19 +57,8 @@ class HomeFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
         }
     )
 
-    override fun setUpUi() = with(binding) {
-        imageCharacters.click {
-            viewModel.comesFromEpisodesMainMenu = false
-            val action = HomeFragmentDirections.actionMenuFragmentToCharacterFragment()
-            findNavController().navigate(action)
-        }
-        imageEpisiodos.click {
-            viewModel.comesFromEpisodesMainMenu = true
-            findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToEpisodesFragment())
-        }
-        imageLocations.click {
-            findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragment())
-        }
+    override fun setUpUi() {
+
     }
 
 
