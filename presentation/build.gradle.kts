@@ -131,10 +131,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
     implementation("androidx.fragment:fragment-compose:1.8.5")
-
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.github.skydoves:landscapist-glide:1.3.7")
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("com.google.truth:truth:1.1.3")

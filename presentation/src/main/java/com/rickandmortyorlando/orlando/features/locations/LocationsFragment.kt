@@ -67,9 +67,11 @@ class LocationsFragment : BaseFragment<FragmentLocationsBinding>(R.layout.fragme
 
 
     private fun clickOnLocation(locationId: Int) {
-        val action =
-            LocationsFragmentDirections.actionLocationsFragmentToLocationDetailFragment(locationId)
-        findNavController().navigate(action)
+        findNavController().navigate(
+            LocationsFragmentDirections.actionLocationsFragmentToLocationDetailScreenWrapper(
+                locationDetail = locationId
+            )
+        )
     }
 
 }

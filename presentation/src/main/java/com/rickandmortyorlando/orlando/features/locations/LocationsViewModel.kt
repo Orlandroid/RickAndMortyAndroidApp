@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
 @HiltViewModel
 class LocationsViewModel @Inject constructor(
     private val repository: Repository,
@@ -34,6 +35,7 @@ class LocationsViewModel @Inject constructor(
     private val _locationResponse = MutableLiveData<ApiState<LocationsResponse>>()
     val locationResponse: LiveData<ApiState<LocationsResponse>>
         get() = _locationResponse
+
 
     private val _singleLocationResponse = MutableLiveData<ApiState<SingleLocation>>()
     val singleLocationResponse: LiveData<ApiState<SingleLocation>> get() = _singleLocationResponse

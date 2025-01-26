@@ -1,26 +1,11 @@
 package com.rickandmortyorlando.orlando.features.location_detail
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
 import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.character.Location
-import com.example.domain.models.remote.character.getPairInfoLocation
 import com.example.domain.models.remote.location.toLocation
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -125,40 +110,4 @@ class LocationDetailFragment :
         )
     }
 
-}
-
-
-@Composable
-fun ItemInfoLocation(
-    modifier: Modifier = Modifier,
-    location: Location
-) {
-    Column(Modifier.fillMaxWidth()) {
-        location.getPairInfoLocation().forEach { infoItemLocation ->
-            Card(
-                modifier
-                    .padding(8.dp)
-                    .background(Color.White)
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        fontWeight = FontWeight.ExtraBold,
-                        modifier = Modifier.padding(8.dp),
-                        text = infoItemLocation.first
-                    )
-                    Text(
-                        modifier =
-                        Modifier.padding(8.dp),
-                        text = infoItemLocation.second
-                    )
-                }
-            }
-        }
-    }
 }

@@ -13,3 +13,12 @@ data class Character(
     val episode: List<String>,
     val url: String,
 )
+
+data class CharacterMin(
+    val image: String,
+    val name: String,
+    val status: String,
+    val species: String
+)
+
+fun Character.toMin() = CharacterMin(image, name, status, species)

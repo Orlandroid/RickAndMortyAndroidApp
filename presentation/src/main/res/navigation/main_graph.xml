@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_locationsFragment_to_locationDetailFragment"
             app:destination="@id/locationDetailFragment" />
+        <action
+            android:id="@+id/action_locationsFragment_to_locationDetailScreenWrapper"
+            app:destination="@id/locationDetailScreenWrapper" />
     </fragment>
     <fragment
         android:id="@+id/episodeDetailFragment"
@@ -113,4 +116,13 @@
         android:id="@+id/filterDialogFragment"
         android:name="com.rickandmortyorlando.orlando.features.filter_dialog.FilterDialogFragment"
         android:label="FilterDialogFragment" />
+    <fragment
+        android:id="@+id/locationDetailScreenWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.location_detail.LocationDetailScreenWrapper"
+        android:label="LocationDetailScreenWrapper" >
+        <argument
+            android:name="locationDetail"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
