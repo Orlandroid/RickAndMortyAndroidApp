@@ -17,8 +17,7 @@ import javax.inject.Inject
 
 sealed class LocationState {
     data object Loading : LocationState()
-    data class Success(val location: SingleLocation, val character: List<Character>) :
-        LocationState()
+    data class Success(val location: SingleLocation, val character: List<Character>) : LocationState()
     data class Error(val message: String) : LocationState()
 }
 
