@@ -1,7 +1,7 @@
 package com.example.data.model.location
 
-import com.example.data.model.character.Info
-import com.example.domain.models.local.characters.Location
+import com.example.data.model.Info
+import com.example.domain.models.characters.Location
 
 data class LocationsResponse(
     val info: Info,

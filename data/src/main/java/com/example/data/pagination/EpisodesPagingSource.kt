@@ -3,13 +3,14 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.data.model.episode.EpisodeData
+import com.example.data.model.episode.toEpisode
+import com.example.domain.models.episodes.Episode
 import retrofit2.HttpException
 
 
 class EpisodesPagingSource(
     private val service: RickAndMortyService
-) : PagingSource<Int, EpisodeData>() {
+) : PagingSource<Int, Episode>() {
 
     companion object {
         private const val START_PAGE = 1
@@ -17,10 +18,10 @@ class EpisodesPagingSource(
 
     override suspend fun load(
         params: LoadParams<Int>
-    ): LoadResult<Int, EpisodeData> {
+    ): LoadResult<Int, Episode> {
         return try {
             val currentPage = params.key ?: START_PAGE
-            val data = service.getEpisodes(currentPage).results
+            val data = service.getEpisodes(currentPage).results.map { it.toEpisode() }
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
@@ -37,7 +38,7 @@ class EpisodesPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, EpisodeData>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

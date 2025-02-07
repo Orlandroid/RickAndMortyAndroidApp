@@ -1,17 +1,17 @@
 package com.rickandmortyorlando.orlando.features.episodes
 
 
-import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.model.episode.EpisodeData
+import com.example.domain.models.episodes.Episode
+import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import com.rickandmortyorlando.orlando.features.extensions.click
 
-class EpisodesAdapter(private val clickOnEpisode: (EpisodeData) -> Unit) :
-    PagingDataAdapter<EpisodeData, EpisodesAdapter.EpisodeViewHolder>(EpisodeComparator) {
+class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
+    PagingDataAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(EpisodeComparator) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): EpisodeViewHolder {
@@ -33,10 +33,10 @@ class EpisodesAdapter(private val clickOnEpisode: (EpisodeData) -> Unit) :
 
     inner class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(episode: EpisodeData) = with(binding) {
+        fun bind(episode: Episode) = with(binding) {
             tvEpisode.text = episode.episode
             tvEpisodeName.text = episode.name
-            tvAirDate.text = episode.air_date
+            tvAirDate.text = episode.airDate
             binding.root.click {
                 clickOnEpisode(episode)
             }
@@ -44,12 +44,12 @@ class EpisodesAdapter(private val clickOnEpisode: (EpisodeData) -> Unit) :
     }
 
 
-    object EpisodeComparator : DiffUtil.ItemCallback<EpisodeData>() {
-        override fun areItemsTheSame(oldItem: EpisodeData, newItem: EpisodeData): Boolean {
+    object EpisodeComparator : DiffUtil.ItemCallback<Episode>() {
+        override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: EpisodeData, newItem: EpisodeData): Boolean {
+        override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
             return oldItem == newItem
         }
     }

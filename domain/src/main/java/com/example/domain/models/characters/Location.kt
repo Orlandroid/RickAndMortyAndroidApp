@@ -1,4 +1,4 @@
-package com.example.domain.models.local.characters
+package com.example.domain.models.characters
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat

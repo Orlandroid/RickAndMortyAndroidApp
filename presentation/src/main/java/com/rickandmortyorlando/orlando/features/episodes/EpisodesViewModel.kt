@@ -8,9 +8,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
-import com.example.data.model.episode.EpisodeData
+import com.example.data.model.episode.toEpisode
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.data.pagination.getPagingConfig
+import com.example.domain.models.episodes.Episode
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -32,15 +33,15 @@ class EpisodesViewModel @Inject constructor(
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
 
-    private val _manyEpisodesResponse = MutableLiveData<ApiState<List<EpisodeData>>>()
-    val manyEpisodesResponse: LiveData<ApiState<List<EpisodeData>>>
+    private val _manyEpisodesResponse = MutableLiveData<ApiState<List<Episode>>>()
+    val manyEpisodesResponse: LiveData<ApiState<List<Episode>>>
         get() = _manyEpisodesResponse
 
     var comesFromEpisodesMainMenu: Boolean = false
 
     private lateinit var episodesPagingSource: EpisodesPagingSource
 
-    val getEpisodesPagingSource: Flow<PagingData<EpisodeData>> = Pager(
+    val getEpisodesPagingSource: Flow<PagingData<Episode>> = Pager(
         config = getPagingConfig(),
         pagingSourceFactory = {
             episodesPagingSource = EpisodesPagingSource(service = rickAndMortyService)
@@ -55,7 +56,7 @@ class EpisodesViewModel @Inject constructor(
     fun getManyEpisodesResponse(idsEpisodes: String) {
         viewModelScope.launch {
             safeApiCall(_manyEpisodesResponse, coroutineDispatchers) {
-                val response = repository.getManyEpisodes(idsEpisodes)
+                val response = repository.getManyEpisodes(idsEpisodes).map { it.toEpisode() }
                 withContext(Dispatchers.Main) {
                     _manyEpisodesResponse.value = ApiState.Success(response)
                 }
