@@ -2,8 +2,8 @@ package com.rickandmortyorlando.orlando.features.episode_detail
 
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.character.CharacterData
+import com.example.data.model.episode.EpisodeData
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
@@ -17,7 +17,9 @@ import javax.inject.Inject
 
 sealed class EpisodeDetailState {
     data object Loading : EpisodeDetailState()
-    data class Success(val episode: Episode, val characters: List<Character>) : EpisodeDetailState()
+    data class Success(val episode: EpisodeData, val characters: List<CharacterData>) :
+        EpisodeDetailState()
+
     data class Error(val message: String) : EpisodeDetailState()
 }
 

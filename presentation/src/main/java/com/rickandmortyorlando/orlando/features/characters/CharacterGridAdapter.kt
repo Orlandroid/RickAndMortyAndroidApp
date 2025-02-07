@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.domain.models.remote.character.Character
+import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.ItemCharacterGridBinding
 import com.rickandmortyorlando.orlando.features.extensions.click

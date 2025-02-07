@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import com.example.domain.models.local.SearchCharacter
+import com.example.domain.models.SearchCharacter
 import com.rickandmortyorlando.orlando.databinding.FragmentFilterDialogBinding
 
 class FilterDialogFragment(

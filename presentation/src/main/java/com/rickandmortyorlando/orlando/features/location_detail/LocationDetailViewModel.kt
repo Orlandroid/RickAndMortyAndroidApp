@@ -2,8 +2,9 @@ package com.rickandmortyorlando.orlando.features.location_detail
 
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.data.model.character.toCharacter
+import com.example.data.model.location.SingleLocation
+import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
@@ -17,7 +18,9 @@ import javax.inject.Inject
 
 sealed class LocationState {
     data object Loading : LocationState()
-    data class Success(val location: SingleLocation, val character: List<Character>) : LocationState()
+    data class Success(val location: SingleLocation, val character: List<Character>) :
+        LocationState()
+
     data class Error(val message: String) : LocationState()
 }
 
@@ -41,9 +44,9 @@ class LocationDetailViewModel @Inject constructor(
             val locationResponse = repository.getSingleLocation(locationId)
             idsOfCharacters = getListOfIdsOfCharacters(locationResponse.residents)
             val characterResponse = if (isSingleCharacter()) {
-                listOf(repository.getCharacter(idsOfCharacters))
+                listOf(repository.getCharacter(idsOfCharacters)).map { it.toCharacter() }
             } else {
-                repository.getManyCharacters(idsOfCharacters)
+                repository.getManyCharacters(idsOfCharacters).map { it.toCharacter() }
             }
             _state.value =
                 LocationState.Success(location = locationResponse, character = characterResponse)

@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.episode.EpisodeData
+import com.example.domain.models.characters.Character
 import com.google.gson.Gson
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -66,7 +66,7 @@ class EpisodeDetailFragment :
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                val episode = Gson().fromJson(response, Episode::class.java)
+                val episode = Gson().fromJson(response, EpisodeData::class.java)
                 setDataDetail(episode)
                 viewModel.getManyCharacters(getListOfCharactersId(episode.characters))
                 binding.skeleton.showOriginal()
@@ -103,7 +103,7 @@ class EpisodeDetailFragment :
         return removeCharactersForEpisodesList(characters.toString())
     }
 
-    private fun setDataDetail(episode: Episode) = with(binding) {
+    private fun setDataDetail(episode: EpisodeData) = with(binding) {
         tvNameEpisode.text = episode.name
         tvEpisodeNumber.text = episode.episode
         tvEpisodeDate.text = episode.air_date

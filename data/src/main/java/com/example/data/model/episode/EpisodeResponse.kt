@@ -1,6 +1,11 @@
-package com.example.domain.models.remote.episode
+package com.example.data.model.episode
 
-data class Episode(
+data class EpisodeResponse(
+    val info: Info,
+    val results: List<EpisodeData>
+)
+
+data class EpisodeData(
     val air_date: String,
     val characters: List<String>,
     val created: String,

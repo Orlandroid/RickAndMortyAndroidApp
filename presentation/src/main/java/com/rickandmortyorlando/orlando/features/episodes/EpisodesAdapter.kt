@@ -1,17 +1,17 @@
 package com.rickandmortyorlando.orlando.features.episodes
 
 
-import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.model.episode.EpisodeData
 import com.rickandmortyorlando.orlando.features.extensions.click
 
-class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
-    PagingDataAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(EpisodeComparator) {
+class EpisodesAdapter(private val clickOnEpisode: (EpisodeData) -> Unit) :
+    PagingDataAdapter<EpisodeData, EpisodesAdapter.EpisodeViewHolder>(EpisodeComparator) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): EpisodeViewHolder {
@@ -33,7 +33,7 @@ class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
 
     inner class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(episode: Episode) = with(binding) {
+        fun bind(episode: EpisodeData) = with(binding) {
             tvEpisode.text = episode.episode
             tvEpisodeName.text = episode.name
             tvAirDate.text = episode.air_date
@@ -44,12 +44,12 @@ class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
     }
 
 
-    object EpisodeComparator : DiffUtil.ItemCallback<Episode>() {
-        override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+    object EpisodeComparator : DiffUtil.ItemCallback<EpisodeData>() {
+        override fun areItemsTheSame(oldItem: EpisodeData, newItem: EpisodeData): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+        override fun areContentsTheSame(oldItem: EpisodeData, newItem: EpisodeData): Boolean {
             return oldItem == newItem
         }
     }

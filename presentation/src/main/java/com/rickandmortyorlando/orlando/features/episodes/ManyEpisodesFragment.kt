@@ -9,10 +9,10 @@ import androidx.paging.PagingData
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.data.model.episode.EpisodeData
 import com.google.gson.Gson
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.example.domain.models.remote.episode.Episode
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.observeApiResultGeneric
@@ -67,7 +67,7 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                val episode = Gson().fromJson(response, Episode::class.java)
+                val episode = Gson().fromJson(response, EpisodeData::class.java)
                 viewLifecycleOwner.lifecycleScope.launch {
                     adapter?.submitData(PagingData.from(listOf(episode)))
                 }

@@ -37,13 +37,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.character.CharacterMin
-import com.example.domain.models.remote.character.Location
-import com.example.domain.models.remote.character.getPairInfoLocation
-import com.example.domain.models.remote.character.toMin
-import com.example.domain.models.remote.location.SingleLocation
-import com.example.domain.models.remote.location.toLocation
+import com.example.data.model.location.SingleLocation
+import com.example.data.model.location.toLocation
+import com.example.domain.models.characters.Character
+import com.example.domain.models.local.characters.Location
+import com.example.domain.models.local.characters.getPairInfoLocation
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
@@ -94,7 +92,7 @@ fun LocationDetailContent(
         ItemInfoLocation(location = singleLocation.toLocation())
         LazyColumn {
             items(characters) { character ->
-                ItemCharacter(character = character.toMin())
+                ItemCharacter(character = character)
             }
         }
     }
@@ -104,7 +102,7 @@ fun LocationDetailContent(
 @Composable
 fun ItemCharacter(
     modifier: Modifier = Modifier,
-    character: CharacterMin
+    character: Character
 ) {
     val colorStatus = getColorStatusResource(status = character.status)
     Card(
@@ -219,11 +217,15 @@ fun ItemInfoLocation(
 fun LocationDetailScreenPreview(modifier: Modifier = Modifier) {
     //Todo add preview when we migrate models from data to domain
     ItemCharacter(
-        character = CharacterMin(
+        character = Character(
+            id = 0,
             image = "",
             name = "Rick",
             status = "Alive",
-            species = "Human"
+            species = "Human",
+            urlLocation = "",
+            episode = emptyList(),
+            gender = "",
         )
     )
 }

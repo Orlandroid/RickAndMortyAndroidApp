@@ -5,7 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.episode.EpisodeData
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
@@ -65,7 +65,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
         }
     }
 
-    private fun clickOnEpisode(item: Episode) {
+    private fun clickOnEpisode(item: EpisodeData) {
         val action =
             EpisodesFragmentDirections.navigationToEpisodeDetail(item.id)
         navigateAction(action)

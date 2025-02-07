@@ -5,8 +5,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.PagingData
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.location.toLocation
+import com.example.data.model.location.toLocation
+import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding

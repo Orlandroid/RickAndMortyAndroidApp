@@ -3,9 +3,10 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.remote.character.Character
+import com.example.data.model.character.toCharacter
 import retrofit2.HttpException
 import kotlin.math.max
+import com.example.domain.models.characters.Character
 
 class CharactersPagingSource(
     private val service: RickAndMortyService
@@ -20,7 +21,7 @@ class CharactersPagingSource(
     ): LoadResult<Int, Character> {
         return try {
             val currentPage = params.key ?: START_PAGE
-            val data = service.getCharacters(currentPage).results
+            val data = service.getCharacters(currentPage).results.map { it.toCharacter() }
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
