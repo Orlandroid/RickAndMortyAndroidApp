@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_menuFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_characterFragmentWrapper"
+            app:destination="@id/characterFragmentWrapper" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
@@ -125,4 +128,8 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/characterFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragmentWrapper"
+        android:label="CharacterFragmentWrapper" />
 </navigation>

@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.features.main.AlertDialogs
-import timber.log.Timber
 
 fun Fragment.showProgress() {
     (requireActivity() as MainActivity).showProgress()
@@ -29,21 +28,6 @@ fun Fragment.shouldShowProgress(isLoading: Boolean) {
 fun Fragment.changeToolbarTitle(title: String) {
     (requireActivity() as MainActivity).changeTitleToolbar(title)
 }
-
-fun Fragment.showLog(messageBody: String) {
-    Timber.tag("ANDROID").e(messageBody)
-}
-
-
-fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.message_succes)) {
-    val dialog = AlertDialogs(
-        kindOfMessage = AlertDialogs.SUCCES_MESSAGE,
-        messageBody = messageSuccess
-    )
-    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
-}
-
-fun Fragment.getPackageName(): String = context?.packageName.toString()
 
 fun Fragment.content(content: @Composable () -> Unit): ComposeView {
     return ComposeView(requireContext()).apply {

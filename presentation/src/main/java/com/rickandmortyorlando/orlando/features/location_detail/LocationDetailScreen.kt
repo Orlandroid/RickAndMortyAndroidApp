@@ -43,6 +43,7 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.local.characters.Location
 import com.example.domain.models.local.characters.getPairInfoLocation
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
 
@@ -93,84 +94,6 @@ fun LocationDetailContent(
         LazyColumn {
             items(characters) { character ->
                 ItemCharacter(character = character)
-            }
-        }
-    }
-}
-
-
-@Composable
-fun ItemCharacter(
-    modifier: Modifier = Modifier,
-    character: Character
-) {
-    val colorStatus = getColorStatusResource(status = character.status)
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(2.dp, colorResource(colorStatus)),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
-        ) {
-            SubcomposeAsyncImage(
-                modifier = Modifier
-                    .size(100.dp),
-                model = character.image,
-                contentDescription = "ImageStaff",
-                loading = { CircularProgressIndicator() },
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(top = 8.dp)
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    text = character.name
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Canvas(
-                        modifier = Modifier.size(16.dp),
-                        onDraw = {
-                            drawCircle(color = Color.Green)
-                        }
-                    )
-                    Spacer(Modifier.width(16.dp))
-                    Text(
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier,
-                        text = character.status
-                    )
-                    Spacer(Modifier.width(16.dp))
-                    Text(
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier,
-                        text = "-"
-                    )
-                    Spacer(Modifier.width(16.dp))
-                    Text(
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier,
-                        text = character.species
-                    )
-                }
             }
         }
     }

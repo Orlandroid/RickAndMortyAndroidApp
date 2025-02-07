@@ -77,9 +77,6 @@ android {
 
 
 dependencies {
-    implementation("androidx.compose.material3:material3-android:1.3.1")
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
     val navigation_version = "2.8.5"
     val lifecycle_version = "2.8.7"
     val dagger_hilt_version = "2.49"
@@ -136,6 +133,9 @@ dependencies {
     implementation("androidx.fragment:fragment-compose:1.8.5")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("com.github.skydoves:landscapist-glide:1.3.7")
+    implementation("androidx.compose.material3:material3-android:1.3.1")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("androidx.paging:paging-compose:$paging_version")
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("com.google.truth:truth:1.1.3")
@@ -151,6 +151,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
 
 
 }

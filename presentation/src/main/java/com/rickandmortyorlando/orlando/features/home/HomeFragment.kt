@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
             HomeScreen(
                 clickOnCharacters = {
                     viewModel.comesFromEpisodesMainMenu = false
-                    val action = HomeFragmentDirections.actionMenuFragmentToCharacterFragment()
+                    val action = HomeFragmentDirections.actionMenuFragmentToCharacterFragmentWrapper()
                     findNavController().navigate(action)
                 },
                 clickOnEpisodes = {
