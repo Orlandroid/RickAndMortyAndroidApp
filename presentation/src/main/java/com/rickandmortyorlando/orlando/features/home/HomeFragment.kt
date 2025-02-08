@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment<FragmentMenuBinding>(R.layout.fragment_menu) {
                     findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToEpisodesFragmentWrapper())
                 },
                 clickOnLocation = {
-                    findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragment())
+                    findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragmentWrapper())
                 }
             )
         }

@@ -1,4 +1,5 @@
-package com.rickandmortyorlando.orlando.features.episodes
+package com.rickandmortyorlando.orlando.features.locations
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,49 +21,47 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.example.domain.models.episodes.Episode
+import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun EpisodesScreen(
-    episodes: LazyPagingItems<Episode>,
-    clickOnItem: (episodeId: Int) -> Unit
+fun LocationsScreen(
+    locations: LazyPagingItems<Location>,
+    clickOnItem: (locationId: Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
         //Todo add skeletons when we are in the first page
         items(
-            count = episodes.itemCount,
-            key = episodes.itemKey { it.id }
+            count = locations.itemCount,
+            key = locations.itemKey { it.id }
         ) { index ->
-            episodes[index]?.let { episode ->
-                EpisodeItem(
-                    episode = episode,
+            locations[index]?.let { location ->
+                LocationItem(
+                    location = location,
                     clickOnItem = clickOnItem
                 )
             }
         }
         item {
-            episodes.LoadState(Modifier.fillParentMaxSize())
+            locations.LoadState(Modifier.fillParentMaxSize())
         }
     }
 }
 
+
 @Composable
-private fun EpisodeItem(
-    episode: Episode,
-    clickOnItem: (episodeId: Int) -> Unit
+private fun LocationItem(
+    location: Location,
+    clickOnItem: (locationId: Int) -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxWidth()
-        .clickable { clickOnItem(episode.id) }) {
+        .clickable { clickOnItem(location.id) }) {
         Row(
             modifier =
             Modifier
@@ -76,11 +75,10 @@ private fun EpisodeItem(
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = episode.episode,
+                    text = location.type,
                     fontWeight = FontWeight.Bold
                 )
-                Text(modifier = Modifier.fillMaxWidth(), text = episode.name)
-                Text(modifier = Modifier.fillMaxWidth(), text = episode.airDate)
+                Text(modifier = Modifier.fillMaxWidth(), text = location.name)
             }
             Icon(
                 modifier = Modifier.padding(end = 16.dp),
@@ -96,46 +94,17 @@ private fun EpisodeItem(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
-fun EpisodeItemPreview(modifier: Modifier = Modifier) {
-    EpisodeItem(
-        episode = Episode(
-            airDate = stringResource(R.string.december_2_2013),
-            characters = emptyList(),
+@Composable
+fun LocationsScreenPreview() {
+    LocationItem(
+        location = Location(
+            id = 0,
+            name = stringResource(R.string.earth_c_137),
+            url = "",
+            dimension = "",
             created = "",
-            episode = stringResource(R.string.s01e01),
-            id = 1,
-            name = stringResource(R.string.pilot),
-            url = ""
+            type = stringResource(R.string.planet2)
         ),
         clickOnItem = {})
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun EpisodesScreenPreview() {
-    val mockEpisode = Episode(
-        id = 0,
-        airDate = "December 2, 2013",
-        characters = emptyList(),
-        created = "",
-        episode = "",
-        name = "Pilote",
-        url = ""
-    )
-    val items = flowOf(
-        PagingData.from(
-            listOf(
-                mockEpisode,
-                mockEpisode
-            )
-        )
-    ).collectAsLazyPagingItems()
-    EpisodesScreen(
-        episodes = items,
-        clickOnItem = {}
-    )
-}
-
