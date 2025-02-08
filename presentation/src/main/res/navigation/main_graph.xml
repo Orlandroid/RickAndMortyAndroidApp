@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_menuFragment_to_characterFragmentWrapper"
             app:destination="@id/characterFragmentWrapper" />
+        <action
+            android:id="@+id/action_menuFragment_to_episodesFragmentWrapper"
+            app:destination="@id/episodesFragmentWrapper" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
@@ -132,4 +135,8 @@
         android:id="@+id/characterFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragmentWrapper"
         android:label="CharacterFragmentWrapper" />
+    <fragment
+        android:id="@+id/episodesFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.episodes.EpisodesFragmentWrapper"
+        android:label="EpisodesFragmentWrapper" />
 </navigation>

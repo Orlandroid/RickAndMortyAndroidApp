@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersSearchPagingSource
 import com.example.data.pagination.getPagingConfig
-import com.example.domain.models.SearchCharacter
+import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel

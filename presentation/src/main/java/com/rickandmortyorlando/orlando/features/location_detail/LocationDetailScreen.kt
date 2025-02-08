@@ -28,8 +28,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.data.model.location.SingleLocation
 import com.example.data.model.location.toLocation
 import com.example.domain.models.characters.Character
-import com.example.domain.models.characters.Location
-import com.example.domain.models.characters.getPairInfoLocation
+import com.example.domain.models.location.Location
+import com.example.domain.models.location.getPairInfoLocation
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 

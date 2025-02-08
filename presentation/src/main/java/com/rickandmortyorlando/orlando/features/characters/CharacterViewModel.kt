@@ -12,7 +12,7 @@ import com.example.data.model.character.toCharacter
 import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.CharactersSearchPagingSource
 import com.example.data.pagination.getPagingConfig
-import com.example.domain.models.SearchCharacter
+import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.models.characters.Character
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers

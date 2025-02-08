@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.data.model.character.toCharacter
-import com.example.domain.models.SearchCharacter
+import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.models.characters.Character
 import retrofit2.HttpException
 

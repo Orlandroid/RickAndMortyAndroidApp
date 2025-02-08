@@ -2,7 +2,7 @@ package com.example.data.model.character
 
 import com.example.data.model.Info
 import com.example.domain.models.characters.Character
-import com.example.domain.models.characters.Location
+import com.example.domain.models.location.Location
 
 data class CharacterResponse(
     val info: Info,

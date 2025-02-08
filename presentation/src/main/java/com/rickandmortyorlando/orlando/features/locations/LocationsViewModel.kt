@@ -12,7 +12,7 @@ import com.example.data.pagination.LocationPagingSource
 import com.example.data.pagination.getPagingConfig
 import com.example.data.model.location.LocationsResponse
 import com.example.data.model.location.SingleLocation
-import com.example.domain.models.characters.Location
+import com.example.domain.models.location.Location
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel

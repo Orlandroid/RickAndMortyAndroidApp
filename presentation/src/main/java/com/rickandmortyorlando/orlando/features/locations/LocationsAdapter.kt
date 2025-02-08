@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.characters.Location
+import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.databinding.ItemLocationBinding
 import com.rickandmortyorlando.orlando.features.extensions.click
 
