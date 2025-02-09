@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
@@ -28,8 +29,19 @@ class LocationDetailScreenWrapper :
         savedInstanceState: Bundle?
     ): View {
         return content {
-            LocationDetailScreen(idLocation = args.locationDetail)
+            LocationDetailScreen(
+                idLocation = args.locationDetail,
+                clickOnCharacter = ::clickOnCharacter
+            )
         }
+    }
+
+    private fun clickOnCharacter(characterId: Int) {
+        findNavController().navigate(
+            LocationDetailScreenWrapperDirections.navigationToCharacterDetail(
+                characterId
+            )
+        )
     }
 
     override fun setUpUi() {

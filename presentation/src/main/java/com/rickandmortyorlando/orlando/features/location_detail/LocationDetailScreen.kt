@@ -36,8 +36,9 @@ import com.rickandmortyorlando.orlando.components.ItemCharacter
 
 @Composable
 fun LocationDetailScreen(
+    locationDetailViewModel: LocationDetailViewModel = hiltViewModel(),
     idLocation: Int,
-    locationDetailViewModel: LocationDetailViewModel = hiltViewModel()
+    clickOnCharacter: (characterId: Int) -> Unit = {}
 ) {
     LaunchedEffect(locationDetailViewModel) {
         locationDetailViewModel.getLocationInfo(locationId = idLocation)
@@ -65,7 +66,11 @@ fun LocationDetailScreen(
         is LocationState.Success -> {
             val location = (locationDetailState.value as LocationState.Success).location
             val characters = (locationDetailState.value as LocationState.Success).character
-            LocationDetailContent(singleLocation = location, characters = characters)
+            LocationDetailContent(
+                singleLocation = location,
+                characters = characters,
+                clickOnCharacter = clickOnCharacter
+            )
         }
     }
 }
@@ -74,13 +79,16 @@ fun LocationDetailScreen(
 fun LocationDetailContent(
     modifier: Modifier = Modifier,
     singleLocation: SingleLocation,
-    characters: List<Character>
+    characters: List<Character>,
+    clickOnCharacter: (characterId: Int) -> Unit
 ) {
     Column(modifier = modifier) {
         ItemInfoLocation(location = singleLocation.toLocation())
         LazyColumn {
             items(characters) { character ->
-                ItemCharacter(character = character)
+                ItemCharacter(
+                    character = character,
+                    clickOnItem = { clickOnCharacter(character.id) })
             }
         }
     }
