@@ -1,4 +1,4 @@
-package com.example.domain.models.remote.character
+package com.example.data.model.character
 
 data class Origin(
     val name:String,

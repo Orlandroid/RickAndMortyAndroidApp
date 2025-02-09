@@ -1,11 +1,11 @@
 package com.example.data.api
 
-import com.example.domain.models.remote.location.LocationsResponse
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.character.CharacterResponse
-import com.example.domain.models.remote.episode.EpisodeResponse
-import com.example.domain.models.remote.location.SingleLocation
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.location.LocationsResponse
+import com.example.data.model.character.CharacterData
+import com.example.data.model.character.CharacterResponse
+import com.example.data.model.episode.EpisodeData
+import com.example.data.model.episode.EpisodeResponse
+import com.example.data.model.location.SingleLocation
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,12 +17,12 @@ interface RickAndMortyService {
     suspend fun getCharacters(@Query("page") page: Int): CharacterResponse
 
     @GET("character/{id}")
-    suspend fun getCharacter(@Path("id") id: String): Character
+    suspend fun getCharacter(@Path("id") id: String): CharacterData
 
     @GET
     suspend fun getManyCharacters(
         @Url url: String
-    ): List<Character>
+    ): List<CharacterData>
 
 
     @GET("location/{id}")
@@ -50,7 +50,7 @@ interface RickAndMortyService {
     @GET
     suspend fun getManyEpisodes(
         @Url url: String
-    ): List<Episode>
+    ): List<EpisodeData>
 
 
 }

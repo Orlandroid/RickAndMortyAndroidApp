@@ -2,6 +2,9 @@ package com.rickandmortyorlando.orlando.features.extensions
 
 import android.view.WindowManager
 import androidx.annotation.ColorRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -26,16 +29,12 @@ fun Fragment.changeToolbarTitle(title: String) {
     (requireActivity() as MainActivity).changeTitleToolbar(title)
 }
 
-
-fun Fragment.showSuccessMessage(messageSuccess: String = getString(R.string.message_succes)) {
-    val dialog = AlertDialogs(
-        kindOfMessage = AlertDialogs.SUCCES_MESSAGE,
-        messageBody = messageSuccess
-    )
-    activity?.let { dialog.show(it.supportFragmentManager, "alertMessage") }
+fun Fragment.content(content: @Composable () -> Unit): ComposeView {
+    return ComposeView(requireContext()).apply {
+        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        setContent(content)
+    }
 }
-
-fun Fragment.getPackageName(): String = context?.packageName.toString()
 
 
 fun Fragment.navigateAction(action: NavDirections) {

@@ -1,8 +1,8 @@
 package com.example.data
 
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.character.CharacterData
+import com.example.data.model.episode.EpisodeData
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val rickAndMortyService: RickAndMortyService) {
@@ -19,12 +19,12 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
     suspend fun getSingleLocation(id: Int) = rickAndMortyService.getSingleLocation(id)
 
 
-    suspend fun getManyEpisodes(ids: String): List<Episode> {
+    suspend fun getManyEpisodes(ids: String): List<EpisodeData> {
         val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
         return rickAndMortyService.getManyEpisodes(url = baseUrl)
     }
 
-    suspend fun getManyCharacters(ids: String): List<Character> {
+    suspend fun getManyCharacters(ids: String): List<CharacterData> {
         val baseUrl = "https://rickandmortyapi.com/api/character/$ids"
         return rickAndMortyService.getManyCharacters(url = baseUrl)
     }

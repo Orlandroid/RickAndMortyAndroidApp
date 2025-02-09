@@ -1,9 +1,10 @@
-package com.example.domain.models.remote.character
+package com.example.domain.models.location
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 
 data class Location(
+    val id: Int,
     val name: String,
     val url: String,
     val dimension: String,

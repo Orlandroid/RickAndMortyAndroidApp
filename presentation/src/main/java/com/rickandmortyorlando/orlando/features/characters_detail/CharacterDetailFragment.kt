@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.data.model.location.SingleLocation
+import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
@@ -101,7 +101,7 @@ class CharacterDetailFragment :
             if (characterHasLocation(character)) {
                 viewModel.getSingleLocation(
                     getNumberFromUrWithPrefix(
-                        character.location.url, "location"
+                        character.urlLocation, "location"
                     )
                 )
                 return@observeApiResultGeneric
@@ -122,7 +122,7 @@ class CharacterDetailFragment :
     }
 
     private fun characterHasLocation(character: Character): Boolean {
-        return character.location.url.isNotEmpty()
+        return character.urlLocation.isNotEmpty()
     }
 
     private fun setLocation(singleLocation: SingleLocation) {

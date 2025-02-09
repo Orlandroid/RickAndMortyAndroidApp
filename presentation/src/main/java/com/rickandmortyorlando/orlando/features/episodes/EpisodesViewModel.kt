@@ -8,9 +8,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
+import com.example.data.model.episode.toEpisode
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.data.pagination.getPagingConfig
-import com.example.domain.models.remote.episode.Episode
+import com.example.domain.models.episodes.Episode
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -55,7 +56,7 @@ class EpisodesViewModel @Inject constructor(
     fun getManyEpisodesResponse(idsEpisodes: String) {
         viewModelScope.launch {
             safeApiCall(_manyEpisodesResponse, coroutineDispatchers) {
-                val response = repository.getManyEpisodes(idsEpisodes)
+                val response = repository.getManyEpisodes(idsEpisodes).map { it.toEpisode() }
                 withContext(Dispatchers.Main) {
                     _manyEpisodesResponse.value = ApiState.Success(response)
                 }

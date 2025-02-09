@@ -8,11 +8,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
+import com.example.data.model.character.toCharacter
 import com.example.data.pagination.CharactersPagingSource
 import com.example.data.pagination.CharactersSearchPagingSource
 import com.example.data.pagination.getPagingConfig
-import com.example.domain.models.local.SearchCharacter
-import com.example.domain.models.remote.character.Character
+import com.example.domain.models.characters.SearchCharacter
+import com.example.domain.models.characters.Character
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -41,7 +42,7 @@ class CharacterViewModel @Inject constructor(
 
     fun getManyCharacters(ids: String) = viewModelScope.launch {
         safeApiCall(_manyCharactersResponse, coroutineDispatchers) {
-            val response = repository.getManyCharacters(ids)
+            val response = repository.getManyCharacters(ids).map { it.toCharacter() }
             withContext(Dispatchers.Main) {
                 _manyCharactersResponse.value = ApiState.Success(response)
             }

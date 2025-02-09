@@ -1,4 +1,4 @@
-package com.example.domain.models.remote.character
+package com.example.data.model
 
 data class Info(
     val count: Int,

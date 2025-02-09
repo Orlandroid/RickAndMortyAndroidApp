@@ -1,13 +1,13 @@
 package com.rickandmortyorlando.orlando.features.episodes
 
 
-import com.example.domain.models.remote.episode.Episode
-import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.models.episodes.Episode
+import com.rickandmortyorlando.orlando.databinding.ItemEpisodeBinding
 import com.rickandmortyorlando.orlando.features.extensions.click
 
 class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
@@ -36,7 +36,7 @@ class EpisodesAdapter(private val clickOnEpisode: (Episode) -> Unit) :
         fun bind(episode: Episode) = with(binding) {
             tvEpisode.text = episode.episode
             tvEpisodeName.text = episode.name
-            tvAirDate.text = episode.air_date
+            tvAirDate.text = episode.airDate
             binding.root.click {
                 clickOnEpisode(episode)
             }

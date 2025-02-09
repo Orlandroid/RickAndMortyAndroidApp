@@ -10,8 +10,9 @@ import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.LocationPagingSource
 import com.example.data.pagination.getPagingConfig
-import com.example.domain.models.remote.location.LocationsResponse
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.data.model.location.LocationsResponse
+import com.example.data.model.location.SingleLocation
+import com.example.domain.models.location.Location
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 @HiltViewModel
 class LocationsViewModel @Inject constructor(
@@ -34,6 +36,7 @@ class LocationsViewModel @Inject constructor(
     private val _locationResponse = MutableLiveData<ApiState<LocationsResponse>>()
     val locationResponse: LiveData<ApiState<LocationsResponse>>
         get() = _locationResponse
+
 
     private val _singleLocationResponse = MutableLiveData<ApiState<SingleLocation>>()
     val singleLocationResponse: LiveData<ApiState<SingleLocation>> get() = _singleLocationResponse
@@ -51,7 +54,7 @@ class LocationsViewModel @Inject constructor(
 
     private lateinit var locationPagingSource: LocationPagingSource
 
-    val getLocationsPagingSource: Flow<PagingData<SingleLocation>> = Pager(
+    val getLocationsPagingSource: Flow<PagingData<Location>> = Pager(
         config = getPagingConfig(),
         pagingSourceFactory = {
             locationPagingSource = LocationPagingSource(service = rickAndMortyService)

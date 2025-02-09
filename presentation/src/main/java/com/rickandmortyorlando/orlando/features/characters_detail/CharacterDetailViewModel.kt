@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
-import com.example.domain.models.remote.character.Character
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.data.model.character.toCharacter
+import com.example.data.model.location.SingleLocation
+import com.example.domain.models.characters.Character
 import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -33,7 +34,7 @@ class CharacterDetailViewModel @Inject constructor(
 
     fun getCharacter(id: String) = viewModelScope.launch {
         safeApiCall(_characterResponse, coroutineDispatchers) {
-            val response = repository.getCharacter(id)
+            val response = repository.getCharacter(id).toCharacter()
             withContext(Dispatchers.Main) {
                 _characterResponse.value = ApiState.Success(response)
             }

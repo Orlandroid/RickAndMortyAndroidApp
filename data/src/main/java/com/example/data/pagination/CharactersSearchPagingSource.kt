@@ -3,8 +3,9 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.local.SearchCharacter
-import com.example.domain.models.remote.character.Character
+import com.example.data.model.character.toCharacter
+import com.example.domain.models.characters.SearchCharacter
+import com.example.domain.models.characters.Character
 import retrofit2.HttpException
 
 class CharactersSearchPagingSource(
@@ -28,7 +29,7 @@ class CharactersSearchPagingSource(
                 gender = search.gender,
                 type = search.type,
                 page = currentPage.toString()
-            ).results
+            ).results.map { it.toCharacter() }
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,

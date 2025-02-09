@@ -3,7 +3,8 @@ package com.example.data.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
-import com.example.domain.models.remote.episode.Episode
+import com.example.data.model.episode.toEpisode
+import com.example.domain.models.episodes.Episode
 import retrofit2.HttpException
 
 
@@ -20,7 +21,7 @@ class EpisodesPagingSource(
     ): LoadResult<Int, Episode> {
         return try {
             val currentPage = params.key ?: START_PAGE
-            val data = service.getEpisodes(currentPage).results
+            val data = service.getEpisodes(currentPage).results.map { it.toEpisode() }
             LoadResult.Page(
                 data = data,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
@@ -28,7 +29,8 @@ class EpisodesPagingSource(
             )
         } catch (e: Exception) {
             if (e is HttpException) {
-                val errorString = e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
+                val errorString =
+                    e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
                 LoadResult.Error(Throwable(errorString))
             } else {
                 LoadResult.Error(e)

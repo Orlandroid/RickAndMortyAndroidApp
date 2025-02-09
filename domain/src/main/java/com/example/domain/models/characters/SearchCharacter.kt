@@ -1,4 +1,4 @@
-package com.example.domain.models.local
+package com.example.domain.models.characters
 
 data class SearchCharacter(
     var name: String = "",

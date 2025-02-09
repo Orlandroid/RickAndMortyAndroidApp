@@ -1,6 +1,12 @@
-package com.example.domain.models.remote.location
+package com.example.data.model.location
 
-import com.example.domain.models.remote.character.Location
+import com.example.data.model.Info
+import com.example.domain.models.location.Location
+
+data class LocationsResponse(
+    val info: Info,
+    val results: List<SingleLocation>,
+)
 
 data class SingleLocation(
     val id: Int,
@@ -13,6 +19,7 @@ data class SingleLocation(
 )
 
 fun SingleLocation.toLocation() = Location(
+    id = id,
     name = name,
     url = url,
     dimension = dimension,

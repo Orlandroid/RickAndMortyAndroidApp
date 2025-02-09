@@ -23,6 +23,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
     //id("com.apollographql.apollo3") version "3.8.2"
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -76,9 +77,6 @@ android {
 
 
 dependencies {
-    implementation("androidx.compose.material3:material3-android:1.3.1")
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
     val navigation_version = "2.8.5"
     val lifecycle_version = "2.8.7"
     val dagger_hilt_version = "2.49"
@@ -99,6 +97,7 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     //GSON
     implementation(GOOGLE_GSON)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // LiveData
@@ -117,7 +116,7 @@ dependencies {
     implementation("com.faltenreich:skeletonlayout:5.0.0")
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation("com.airbnb.android:lottie:6.1.0")
-    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.5")
     implementation("com.github.skydoves:powerspinner:1.2.7")
 
     //Compose
@@ -129,9 +128,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
-
+    implementation("androidx.fragment:fragment-compose:1.8.5")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.github.skydoves:landscapist-glide:1.3.7")
+    implementation("androidx.compose.material3:material3-android:1.3.1")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("androidx.paging:paging-compose:$paging_version")
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("com.google.truth:truth:1.1.3")
@@ -147,6 +151,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
 
 
 }

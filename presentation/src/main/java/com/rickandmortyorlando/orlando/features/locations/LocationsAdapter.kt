@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.remote.location.SingleLocation
+import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.databinding.ItemLocationBinding
 import com.rickandmortyorlando.orlando.features.extensions.click
 
 class LocationsAdapter(private val clickOnLocation: (locationId: Int) -> Unit = {}) :
-    PagingDataAdapter<SingleLocation, LocationsAdapter.LocationViewHolder>(LocationComparator) {
+    PagingDataAdapter<Location, LocationsAdapter.LocationViewHolder>(LocationComparator) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -31,19 +31,19 @@ class LocationsAdapter(private val clickOnLocation: (locationId: Int) -> Unit = 
 
     inner class LocationViewHolder(val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(location: SingleLocation) = with(binding) {
+        fun bind(location: Location) = with(binding) {
             root.click { clickOnLocation(location.id) }
             tvType.text = location.type
             tvName.text = location.name
         }
     }
 
-    object LocationComparator : DiffUtil.ItemCallback<SingleLocation>() {
-        override fun areItemsTheSame(oldItem: SingleLocation, newItem: SingleLocation): Boolean {
+    object LocationComparator : DiffUtil.ItemCallback<Location>() {
+        override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SingleLocation, newItem: SingleLocation): Boolean {
+        override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
     }
