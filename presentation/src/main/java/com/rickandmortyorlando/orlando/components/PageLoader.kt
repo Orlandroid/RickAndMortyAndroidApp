@@ -1,4 +1,4 @@
-package com.orlando.androidbase.presentation.features.components
+package com.rickandmortyorlando.orlando.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

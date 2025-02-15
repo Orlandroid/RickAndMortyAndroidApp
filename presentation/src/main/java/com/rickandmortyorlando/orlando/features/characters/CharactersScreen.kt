@@ -13,14 +13,16 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.characters.Character
+import com.rickandmortyorlando.orlando.components.CharacterSkeleton
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
+import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun CharactersScreen(
     characters: LazyPagingItems<Character>,
-    clickOnItem: (Character) -> Unit
+    clickOnItem: (characterId: Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -34,12 +36,21 @@ fun CharactersScreen(
                 ItemCharacter(
                     modifier = Modifier.fillMaxWidth(),
                     character = character,
-                    clickOnItem = clickOnItem
+                    clickOnItem = { clickOnItem(it.id) }
                 )
             }
         }
         item {
-            characters.LoadState(Modifier.fillParentMaxSize())
+            characters.LoadState(
+                modifierPageLoader = Modifier.fillParentMaxSize(),
+                config = LoadStateConfig(
+                    initialLoading = {
+                        for (i in 0..15) {
+                            CharacterSkeleton()
+                        }
+                    }
+                )
+            )
         }
     }
 }
@@ -48,21 +59,11 @@ fun CharactersScreen(
 @Preview(showBackground = true)
 @Composable
 fun CharactersScreenPreview() {
-    val mockCharacter = Character(
-        id = 0,
-        image = "",
-        name = "",
-        status = "",
-        species = "",
-        gender = "",
-        urlLocation = "",
-        episode = emptyList()
-    )
     val items = flowOf(
         PagingData.from(
             listOf(
-                mockCharacter,
-                mockCharacter
+                Character.emptyCharacter(),
+                Character.emptyCharacter()
             ),
             sourceLoadStates =
             LoadStates(

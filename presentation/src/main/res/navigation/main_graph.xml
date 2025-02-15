@@ -137,7 +137,11 @@
     <fragment
         android:id="@+id/characterFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragmentWrapper"
-        android:label="CharacterFragmentWrapper" />
+        android:label="CharacterFragmentWrapper" >
+        <action
+            android:id="@+id/action_characterFragmentWrapper_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/episodesFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.episodes.EpisodesFragmentWrapper"

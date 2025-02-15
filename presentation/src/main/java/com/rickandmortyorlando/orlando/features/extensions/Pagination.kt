@@ -10,7 +10,7 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.rickandmortyorlando.orlando.components.LoadingNextPageItem
-import com.orlando.androidbase.presentation.features.components.PageLoader
+import com.rickandmortyorlando.orlando.components.PageLoader
 
 fun LoadState.Error.showError(onError: () -> Unit) {
     error.message?.let { message ->
@@ -31,10 +31,17 @@ fun CombinedLoadStates.getError(): LoadState.Error? {
 }
 
 @Composable
-fun <T : Any> LazyPagingItems<T>.LoadState(modifierPageLoader: Modifier = Modifier) {
+fun <T : Any> LazyPagingItems<T>.LoadState(
+    modifierPageLoader: Modifier = Modifier,
+    config: LoadStateConfig = LoadStateConfig()
+) {
     when {
         loadState.refresh is LoadState.Loading -> {
-            PageLoader(modifier = modifierPageLoader)
+            if (config.initialLoading == null) {
+                PageLoader(modifier = modifierPageLoader)
+            } else {
+                config.initialLoading?.let { it() }
+            }
         }
 
         loadState.refresh is LoadState.Error -> {
@@ -44,11 +51,13 @@ fun <T : Any> LazyPagingItems<T>.LoadState(modifierPageLoader: Modifier = Modifi
         loadState.append is LoadState.Loading -> {
             Spacer(Modifier.height(16.dp))
             LoadingNextPageItem(modifier = Modifier)
-
         }
 
         loadState.append is LoadState.Error -> {
             Text("Error") //Add one generic error screen
         }
+
     }
 }
+
+data class LoadStateConfig(val initialLoading: @Composable (() -> Unit)? = null)

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterBinding
@@ -28,7 +27,7 @@ class CharacterFragmentWrapper :
     override fun configSearchView() = MainActivity.SearchViewConfig(
         showSearchView = true,
         clickOnSearchIcon = {
-            findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSearchFragment())
+            findNavController().navigate(CharacterFragmentWrapperDirections.actionCharacterFragmentWrapperToSearchFragment())
         }
     )
 
@@ -49,10 +48,10 @@ class CharacterFragmentWrapper :
     }
 
 
-    private fun clickOnCharacter(character: Character) {
+    private fun clickOnCharacter(characterId: Int) {
         findNavController().navigate(
-            CharacterFragmentDirections.navigationToCharacterDetail(
-                character.id
+            CharacterFragmentWrapperDirections.navigationToCharacterDetail(
+                characterId
             )
         )
     }

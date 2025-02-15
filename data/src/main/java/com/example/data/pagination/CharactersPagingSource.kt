@@ -7,6 +7,8 @@ import com.example.data.model.character.toCharacter
 import retrofit2.HttpException
 import kotlin.math.max
 import com.example.domain.models.characters.Character
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 class CharactersPagingSource(
     private val service: RickAndMortyService
@@ -20,6 +22,7 @@ class CharactersPagingSource(
         params: LoadParams<Int>
     ): LoadResult<Int, Character> {
         return try {
+            delay(2.seconds)
             val currentPage = params.key ?: START_PAGE
             val data = service.getCharacters(currentPage).results.map { it.toCharacter() }
             LoadResult.Page(

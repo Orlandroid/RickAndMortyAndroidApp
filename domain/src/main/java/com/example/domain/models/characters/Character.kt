@@ -9,4 +9,17 @@ data class Character(
     val gender: String,
     val urlLocation: String,
     val episode: List<String>
-)
+) {
+    companion object {
+        fun emptyCharacter() = Character(
+            id = 0,
+            image = "",
+            name = "",
+            status = "",
+            species = "",
+            gender = "",
+            urlLocation = "",
+            episode = emptyList()
+        )
+    }
+}
