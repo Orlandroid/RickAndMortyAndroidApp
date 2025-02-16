@@ -27,7 +27,7 @@ class CharacterFragmentWrapper :
     override fun configSearchView() = MainActivity.SearchViewConfig(
         showSearchView = true,
         clickOnSearchIcon = {
-            findNavController().navigate(CharacterFragmentWrapperDirections.actionCharacterFragmentWrapperToSearchFragment())
+            findNavController().navigate(CharacterFragmentWrapperDirections.actionCharacterFragmentWrapperToSearchCharactersFragmentWrapper())
         }
     )
 

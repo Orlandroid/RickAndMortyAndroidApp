@@ -141,6 +141,9 @@
         <action
             android:id="@+id/action_characterFragmentWrapper_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_characterFragmentWrapper_to_searchCharactersFragmentWrapper"
+            app:destination="@id/searchCharactersFragmentWrapper" />
     </fragment>
     <fragment
         android:id="@+id/episodesFragmentWrapper"
@@ -153,5 +156,13 @@
         <action
             android:id="@+id/action_locationsFragmentWrapper_to_locationDetailScreenWrapper"
             app:destination="@id/locationDetailScreenWrapper" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchCharactersFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.search.SearchCharactersFragmentWrapper"
+        android:label="SearchCharactersFragmentWrapper" >
+        <action
+            android:id="@+id/action_searchCharactersFragmentWrapper_to_filterDialogFragment"
+            app:destination="@id/filterDialogFragment" />
     </fragment>
 </navigation>

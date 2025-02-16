@@ -111,7 +111,7 @@ fun CharacterSkeleton(
 }
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 private fun CharacterSkeletonPreview(modifier: Modifier = Modifier) {
     CharacterSkeleton()
 }

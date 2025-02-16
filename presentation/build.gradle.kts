@@ -136,6 +136,7 @@ dependencies {
     implementation("androidx.compose.material3:material3-android:1.3.1")
     implementation("androidx.navigation:navigation-compose:2.8.5")
     implementation("androidx.paging:paging-compose:$paging_version")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
     //Testing
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("com.google.truth:truth:1.1.3")

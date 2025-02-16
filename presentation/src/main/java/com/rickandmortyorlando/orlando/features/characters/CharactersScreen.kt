@@ -27,7 +27,6 @@ fun CharactersScreen(
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
-        //Todo add skeletons when we are in the first page
         items(
             count = characters.itemCount,
             key = characters.itemKey { it.id }
