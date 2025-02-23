@@ -13,7 +13,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.characters.Character
-import com.rickandmortyorlando.orlando.components.CharacterSkeleton
+import com.rickandmortyorlando.orlando.components.skeletons.CharacterSkeleton
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig

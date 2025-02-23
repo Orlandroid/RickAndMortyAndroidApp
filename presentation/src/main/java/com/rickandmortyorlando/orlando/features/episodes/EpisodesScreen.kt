@@ -26,7 +26,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
+import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -37,7 +39,6 @@ fun EpisodesScreen(
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
-        //Todo add skeletons when we are in the first page
         items(
             count = episodes.itemCount,
             key = episodes.itemKey { it.id }
@@ -50,7 +51,15 @@ fun EpisodesScreen(
             }
         }
         item {
-            episodes.LoadState(Modifier.fillParentMaxSize())
+            episodes.LoadState(
+                Modifier.fillParentMaxSize(), config = LoadStateConfig(
+                    initialLoading = {
+                        for (i in 0..15) {
+                            EpisodeSkeleton()
+                        }
+                    }
+                )
+            )
         }
     }
 }
