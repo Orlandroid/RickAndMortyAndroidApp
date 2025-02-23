@@ -25,7 +25,9 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.skeletons.LocationSkeleton
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
+import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 
 @Composable
 fun LocationsScreen(
@@ -35,7 +37,6 @@ fun LocationsScreen(
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
-        //Todo add skeletons when we are in the first page
         items(
             count = locations.itemCount,
             key = locations.itemKey { it.id }
@@ -48,7 +49,16 @@ fun LocationsScreen(
             }
         }
         item {
-            locations.LoadState(Modifier.fillParentMaxSize())
+            locations.LoadState(
+                Modifier.fillParentMaxSize(),
+                config = LoadStateConfig(
+                    initialLoading = {
+                        for (i in 0..15) {
+                            LocationSkeleton()
+                        }
+                    }
+                )
+            )
         }
     }
 }
