@@ -5,9 +5,7 @@ import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.data.model.episode.toEpisode
 import com.example.domain.models.episodes.Episode
-import kotlinx.coroutines.delay
 import retrofit2.HttpException
-import kotlin.time.Duration.Companion.seconds
 
 
 class EpisodesPagingSource(
