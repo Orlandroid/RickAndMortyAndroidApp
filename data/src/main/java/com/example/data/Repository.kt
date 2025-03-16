@@ -5,8 +5,9 @@ import com.example.data.model.character.CharacterData
 import com.example.data.model.episode.EpisodeData
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val rickAndMortyService: RickAndMortyService) {
-
+class Repository @Inject constructor(
+    private val rickAndMortyService: RickAndMortyService
+) {
 
     companion object {
         const val NETWORK_PAGE_SIZE = 20
@@ -21,7 +22,13 @@ class Repository @Inject constructor(private val rickAndMortyService: RickAndMor
 
     suspend fun getManyEpisodes(ids: String): List<EpisodeData> {
         val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
-        return rickAndMortyService.getManyEpisodes(url = baseUrl)
+        if (ids.contains(",")) {
+            val response = rickAndMortyService.getManyEpisodes(url = baseUrl)
+            return response
+        } else {
+            val response = rickAndMortyService.getSingleEpisode(url = baseUrl)
+            return listOf(response)
+        }
     }
 
     suspend fun getManyCharacters(ids: String): List<CharacterData> {

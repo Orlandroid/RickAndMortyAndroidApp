@@ -21,5 +21,13 @@ data class Character(
             urlLocation = "",
             episode = emptyList()
         )
+
+        fun getCharacters(howMany: Int): List<Character> {
+            val characters = arrayListOf<Character>()
+            for (i in 1..howMany) {
+                characters.add(emptyCharacter())
+            }
+            return characters
+        }
     }
 }

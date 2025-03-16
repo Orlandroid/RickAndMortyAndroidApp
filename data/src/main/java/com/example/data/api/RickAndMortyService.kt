@@ -1,10 +1,10 @@
 package com.example.data.api
 
-import com.example.data.model.location.LocationsResponse
 import com.example.data.model.character.CharacterData
 import com.example.data.model.character.CharacterResponse
 import com.example.data.model.episode.EpisodeData
 import com.example.data.model.episode.EpisodeResponse
+import com.example.data.model.location.LocationsResponse
 import com.example.data.model.location.SingleLocation
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -51,6 +51,11 @@ interface RickAndMortyService {
     suspend fun getManyEpisodes(
         @Url url: String
     ): List<EpisodeData>
+
+    @GET
+    suspend fun getSingleEpisode(
+        @Url url: String
+    ): EpisodeData
 
 
 }

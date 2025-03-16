@@ -8,4 +8,18 @@ data class Episode(
     val id: Int,
     val name: String,
     val url: String
-)
+) {
+    companion object {
+        fun mockEpisode() =
+            Episode(
+                airDate = "",
+                characters = emptyList(),
+                created = "Decembre 9, 2013",
+                episode = "S01E02",
+                id = 0,
+                name = "Lawnmower",
+                url = ""
+            )
+    }
+
+}

@@ -11,30 +11,14 @@
     <action
         android:id="@+id/navigation_to_episode_detail"
         app:destination="@id/episodeDetailFragment" />
-
-    <fragment
-        android:id="@+id/characterFragment"
-        android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragment"
-        android:label="fragment_character"
-        tools:layout="@layout/fragment_character">
-        <action
-            android:id="@+id/action_characterFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-    </fragment>
+    <action
+        android:id="@+id/navigation_to_episode_detail_wrapper"
+        app:destination="@id/episodeDetailFragmentWrapper" />
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.rickandmortyorlando.orlando.features.home.HomeFragment"
         android:label="MenuFragment"
         tools:layout="@layout/fragment_menu">
-        <action
-            android:id="@+id/action_menuFragment_to_characterFragment"
-            app:destination="@id/characterFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_episodesFragment"
-            app:destination="@id/episodesFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_locationsFragment"
-            app:destination="@id/locationsFragment" />
         <action
             android:id="@+id/action_menuFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -61,23 +45,6 @@
             app:destination="@id/manyEpisodesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/episodesFragment"
-        android:name="com.rickandmortyorlando.orlando.features.episodes.EpisodesFragment"
-        android:label="EpisodesFragment"
-        tools:layout="@layout/fragment_episodes"/>
-    <fragment
-        android:id="@+id/locationsFragment"
-        android:name="com.rickandmortyorlando.orlando.features.locations.LocationsFragment"
-        android:label="LocationsFragment"
-        tools:layout="@layout/fragment_locations">
-        <action
-            android:id="@+id/action_locationsFragment_to_locationDetailFragment"
-            app:destination="@id/locationDetailFragment" />
-        <action
-            android:id="@+id/action_locationsFragment_to_locationDetailScreenWrapper"
-            app:destination="@id/locationDetailScreenWrapper" />
-    </fragment>
-    <fragment
         android:id="@+id/episodeDetailFragment"
         android:name="com.rickandmortyorlando.orlando.features.episode_detail.EpisodeDetailFragment"
         android:label="EpisodeDetailFragment"
@@ -99,28 +66,10 @@
             app:argType="boolean" />
     </fragment>
     <fragment
-        android:id="@+id/locationDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.features.location_detail.LocationDetailFragment"
-        android:label="LocationDetailFragment"
-        tools:layout="@layout/fragment_location_detail">
-        <argument
-            android:name="idLocation"
-            app:argType="integer" />
-    </fragment>
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.rickandmortyorlando.orlando.features.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.rickandmortyorlando.orlando.features.search.SearchCharactersFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_searchFragment_to_filterDialogFragment"
-            app:destination="@id/filterDialogFragment" />
-    </fragment>
     <fragment
         android:id="@+id/filterDialogFragment"
         android:name="com.rickandmortyorlando.orlando.features.filter_dialog.FilterDialogFragment"
@@ -128,19 +77,16 @@
     <fragment
         android:id="@+id/locationDetailScreenWrapper"
         android:name="com.rickandmortyorlando.orlando.features.location_detail.LocationDetailScreenWrapper"
-        android:label="LocationDetailScreenWrapper" >
+        android:label="LocationDetailScreenWrapper">
         <argument
             android:name="locationDetail"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/characterFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.characters.CharacterFragmentWrapper"
-        android:label="CharacterFragmentWrapper" >
-        <action
-            android:id="@+id/action_characterFragmentWrapper_to_searchFragment"
-            app:destination="@id/searchFragment" />
+        android:label="CharacterFragmentWrapper">
         <action
             android:id="@+id/action_characterFragmentWrapper_to_searchCharactersFragmentWrapper"
             app:destination="@id/searchCharactersFragmentWrapper" />
@@ -152,7 +98,7 @@
     <fragment
         android:id="@+id/locationsFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.locations.LocationsFragmentWrapper"
-        android:label="LocationsFragmentWrapper" >
+        android:label="LocationsFragmentWrapper">
         <action
             android:id="@+id/action_locationsFragmentWrapper_to_locationDetailScreenWrapper"
             app:destination="@id/locationDetailScreenWrapper" />
@@ -160,9 +106,17 @@
     <fragment
         android:id="@+id/searchCharactersFragmentWrapper"
         android:name="com.rickandmortyorlando.orlando.features.search.SearchCharactersFragmentWrapper"
-        android:label="SearchCharactersFragmentWrapper" >
+        android:label="SearchCharactersFragmentWrapper">
         <action
             android:id="@+id/action_searchCharactersFragmentWrapper_to_filterDialogFragment"
             app:destination="@id/filterDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeDetailFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.episode_detail.EpisodeDetailFragmentWrapper"
+        android:label="EpisodeDetailFragmentWrapper">
+        <argument
+            android:name="idEpisode"
+            app:argType="integer" />
     </fragment>
 </navigation>

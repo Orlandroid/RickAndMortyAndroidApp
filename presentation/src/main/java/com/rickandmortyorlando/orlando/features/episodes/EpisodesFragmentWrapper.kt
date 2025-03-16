@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.data.model.episode.EpisodeData
-import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
@@ -43,9 +41,7 @@ class EpisodesFragmentWrapper : BaseFragment<FragmentEpisodesBinding>(R.layout.f
 
 
     private fun clickOnEpisode(episodeId: Int) {
-        val action =
-            EpisodesFragmentDirections.navigationToEpisodeDetail(episodeId)
-        navigateAction(action)
+        navigateAction(EpisodesFragmentWrapperDirections.navigationToEpisodeDetailWrapper(episodeId))
     }
 
 }

@@ -64,5 +64,6 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.3.5")
     implementation("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
+    implementation("com.android.volley:volley:1.2.1")
 
 }
