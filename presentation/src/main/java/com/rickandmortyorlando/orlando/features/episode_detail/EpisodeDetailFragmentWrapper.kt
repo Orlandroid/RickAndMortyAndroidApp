@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.data.model.character.toCharacter
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
@@ -45,10 +46,11 @@ class EpisodeDetailFragmentWrapper :
                 }
 
                 is EpisodeDetailViewState.Loading -> {
-
+                    EpisodeDetailSkeleton()
                 }
 
                 is EpisodeDetailViewState.Success -> {
+
                     val response = (state.value as EpisodeDetailViewState.Success)
                     EpisodeDetailScreen(
                         episode = response.episode,

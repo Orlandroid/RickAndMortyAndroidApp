@@ -18,9 +18,7 @@ import javax.inject.Inject
 
 sealed class EpisodeDetailViewState {
     data object Loading : EpisodeDetailViewState()
-    data class Success(val episode: Episode, val characters: List<CharacterData>) :
-        EpisodeDetailViewState()
-
+    data class Success(val episode: Episode, val characters: List<CharacterData>) : EpisodeDetailViewState()
     data class Error(val message: String) : EpisodeDetailViewState()
 }
 
