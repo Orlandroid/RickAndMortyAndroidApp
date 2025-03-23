@@ -3,15 +3,6 @@ import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNNER
-import com.example.androidbase.presentation.Dependencies.ANDROIDX_APPCOMPAT
-import com.example.androidbase.presentation.Dependencies.ANDROIDX_CORE_KTX
-import com.example.androidbase.presentation.Dependencies.ANDROID_MATERIAL
-import com.example.androidbase.presentation.Dependencies.JUNIT
-import com.example.androidbase.presentation.Dependencies.RETROFIT
-import com.example.androidbase.presentation.Dependencies.RETROFIT_CONVERTER_GSON
-import com.example.androidbase.presentation.Dependencies.RETROFIT_INTERCEPTOR
-import com.example.androidbase.presentation.Dependencies.TEST_EXPRESO
-import com.example.androidbase.presentation.Dependencies.TEST_JUNIT
 
 plugins {
     id("com.android.library")
@@ -52,18 +43,17 @@ android {
 
 dependencies {
     implementation(project(DOMAIN))
-    implementation(ANDROIDX_CORE_KTX)
-    implementation(ANDROIDX_APPCOMPAT)
-    implementation(ANDROID_MATERIAL)
-    testImplementation(JUNIT)
-    androidTestImplementation(TEST_JUNIT)
-    androidTestImplementation(TEST_EXPRESO)
-    implementation(RETROFIT)
-    implementation(RETROFIT_CONVERTER_GSON)
-    implementation(RETROFIT_INTERCEPTOR)
-    implementation("androidx.paging:paging-runtime-ktx:3.3.5")
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
-    implementation("com.android.volley:volley:1.2.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
+    testImplementation(libs.test.junit)
+    androidTestImplementation(libs.test.espresso)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.interceptor)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.volley)
 
 }

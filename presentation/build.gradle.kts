@@ -4,27 +4,17 @@ import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNNER
-import com.example.androidbase.presentation.Dependencies.ANDROIDX_APPCOMPAT
-import com.example.androidbase.presentation.Dependencies.ANDROIDX_CONSTRAINT_LAYOUT
-import com.example.androidbase.presentation.Dependencies.ANDROIDX_CORE_KTX
-import com.example.androidbase.presentation.Dependencies.ANDROID_MATERIAL
-import com.example.androidbase.presentation.Dependencies.GOOGLE_GSON
-import com.example.androidbase.presentation.Dependencies.JUNIT
-import com.example.androidbase.presentation.Dependencies.RETROFIT
-import com.example.androidbase.presentation.Dependencies.RETROFIT_CONVERTER_GSON
-import com.example.androidbase.presentation.Dependencies.RETROFIT_INTERCEPTOR
-import com.example.androidbase.presentation.Dependencies.TEST_EXPRESO
-import com.example.androidbase.presentation.Dependencies.TEST_JUNIT
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
-    //id("com.apollographql.apollo3") version "3.8.2"
-    kotlin("plugin.serialization")
 }
+
 
 android {
     compileSdk = COMPILE_SDK_VERSION
@@ -61,9 +51,6 @@ android {
         dataBinding = true
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -77,81 +64,77 @@ android {
 
 
 dependencies {
-    val navigation_version = "2.8.5"
-    val lifecycle_version = "2.8.7"
-    val dagger_hilt_version = "2.49"
-    val paging_version = "3.3.6"
     implementation(project(DATA))
     implementation(project(DOMAIN))
-    implementation(ANDROIDX_CORE_KTX)
-    implementation(ANDROIDX_APPCOMPAT)
-    implementation(ANDROID_MATERIAL)
-    implementation(ANDROIDX_CONSTRAINT_LAYOUT)
-    testImplementation(JUNIT)
-    androidTestImplementation(TEST_JUNIT)
-    androidTestImplementation(TEST_EXPRESO)
-    implementation(RETROFIT)
-    implementation(RETROFIT_CONVERTER_GSON)
-    implementation(RETROFIT_INTERCEPTOR)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("com.android.volley:volley:1.2.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.test.junit)
+    androidTestImplementation(libs.test.espresso)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.interceptor)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.volley)
     //GSON
-    implementation(GOOGLE_GSON)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation(libs.gson)
+    implementation(libs.kotlinx.serialization.json)
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     //Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:$dagger_hilt_version")
-    kapt("com.google.dagger:hilt-android-compiler:$dagger_hilt_version")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     //Navigation component
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     //Image
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
     //Shimer
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
-    implementation("com.faltenreich:skeletonlayout:5.0.0")
-    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
-    implementation("com.airbnb.android:lottie:6.1.0")
-    implementation("com.apollographql.apollo3:apollo-runtime:3.8.5")
-    implementation("com.github.skydoves:powerspinner:1.2.7")
+    implementation(libs.shimmer)
+    implementation(libs.skeletonlayout)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.lottie)
+    implementation(libs.apollo.runtime)
+    implementation(libs.powerspinner)
 
     //Compose
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material:material")
-    implementation("androidx.compose.runtime:runtime")
-    implementation("androidx.activity:activity-compose:1.9.3")
-    implementation(platform("androidx.compose:compose-bom:2025.03.00"))
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
-    implementation("androidx.fragment:fragment-compose:1.8.6")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    implementation("com.github.skydoves:landscapist-glide:1.3.7")
-    implementation("androidx.compose.material3:material3-android:1.3.1")
-    implementation("androidx.navigation:navigation-compose:2.8.9")
-    implementation("androidx.paging:paging-compose:$paging_version")
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.fragment.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.landscapist.glide)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.accompanist.swiperefresh)
     //Testing
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
-    testImplementation("com.google.truth:truth:1.1.3")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
-    testImplementation("app.cash.turbine:turbine:0.12.1")
-    implementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.7.8")
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.truth)
+    testImplementation(libs.kotlin.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.turbine)
+    implementation(libs.core.testing)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.kotlin.mockito.kotlin)
+    implementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.test.junit)
+    androidTestImplementation(libs.test.espresso)
+    debugImplementation(libs.androidx.ui.tooling)
 
 
 }
