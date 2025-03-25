@@ -32,6 +32,7 @@ import com.example.domain.models.location.Location
 import com.example.domain.models.location.getPairInfoLocation
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.ItemCharacter
+import com.rickandmortyorlando.orlando.components.skeletons.LocationDetailSkeleton
 
 
 @Composable
@@ -51,16 +52,7 @@ fun LocationDetailScreen(
         }
 
         is LocationState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(64.dp),
-                    color = colorResource(R.color.progress_color)
-                )
-            }
+            LocationDetailSkeleton()
         }
 
         is LocationState.Success -> {

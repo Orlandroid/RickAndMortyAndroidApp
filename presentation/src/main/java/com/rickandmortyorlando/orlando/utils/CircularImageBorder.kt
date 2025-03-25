@@ -8,6 +8,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rickandmortyorlando.orlando.R
+import androidx.core.graphics.createBitmap
 
 
 /**
@@ -59,12 +60,8 @@ private fun Bitmap.createBitmapWithBorder(borderSize: Float, borderColor: Int): 
     val borderOffset = (borderSize * 2).toInt()
     val halfWidth = width / 2
     val halfHeight = height / 2
-    val circleRadius = Math.min(halfWidth, halfHeight).toFloat()
-    val newBitmap = Bitmap.createBitmap(
-        width + borderOffset,
-        height + borderOffset,
-        Bitmap.Config.ARGB_8888
-    )
+    val circleRadius = halfWidth.coerceAtMost(halfHeight).toFloat()
+    val newBitmap = createBitmap(width + borderOffset, height + borderOffset)
 
     // Center coordinates of the image
     val centerX = halfWidth + borderSize

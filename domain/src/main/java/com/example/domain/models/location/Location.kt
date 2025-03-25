@@ -16,6 +16,17 @@ data class Location(
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
         return dateFormat.format(created).toString()
     }
+
+    companion object {
+        fun mockLocation() = Location(
+            id = 5,
+            name = "Anatomy Park",
+            url = "https://rickandmortyapi.com/api/location/5",
+            dimension = "Dimension C-137",
+            created = "2017-11-10T13:08:46.060Z",
+            type = "Microverse"
+        )
+    }
 }
 
 fun Location.getPairInfoLocation() = listOf(
