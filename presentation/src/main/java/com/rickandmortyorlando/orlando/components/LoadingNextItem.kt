@@ -22,6 +22,6 @@ fun LoadingNextPageItem(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview(showBackground = true)
-fun LoadingNextPageItemPreview(modifier: Modifier = Modifier) {
+private fun LoadingNextPageItemPreview(modifier: Modifier = Modifier) {
     LoadingNextPageItem()
 }

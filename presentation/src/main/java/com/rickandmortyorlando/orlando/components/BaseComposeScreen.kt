@@ -63,7 +63,7 @@ fun ContentScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun BaseViewPreview() {
+private fun BaseViewPreview() {
     BaseComposeScreen(navController = rememberNavController()) {
         Text(text = "I am just trying to be my best software engineer version")
     }

@@ -69,14 +69,15 @@ private fun LocationItem(
     location: Location,
     clickOnItem: (locationId: Int) -> Unit
 ) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clickable { clickOnItem(location.id) }) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { clickOnItem(location.id) }) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
@@ -106,7 +107,7 @@ private fun LocationItem(
 
 @Preview(showBackground = true)
 @Composable
-fun LocationsScreenPreview() {
+private fun LocationsScreenPreview() {
     LocationItem(
         location = Location(
             id = 0,

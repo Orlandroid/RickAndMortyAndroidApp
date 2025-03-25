@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
+import androidx.core.net.toUri
 
 
 fun Context.showToast(message: String) {
@@ -20,7 +20,7 @@ fun Context.openYoutubeApp(search: String) {
         val youtubeUrlSearch = "https://www.youtube.com/results?search_query="
         val fullUrl = "$youtubeUrlSearch$searchUrl"
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(fullUrl)
+        intent.data = fullUrl.toUri()
         intent.setPackage("com.google.android.youtube")
         startActivity(intent)
     } catch (e: ActivityNotFoundException) {

@@ -36,7 +36,7 @@ fun PageLoader(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview(showBackground = true)
-fun PageLoaderPreview(modifier: Modifier = Modifier) {
+private fun PageLoaderPreview(modifier: Modifier = Modifier) {
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

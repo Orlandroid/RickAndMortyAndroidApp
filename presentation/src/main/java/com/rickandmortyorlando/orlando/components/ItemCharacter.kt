@@ -112,7 +112,7 @@ fun ItemCharacter(
 
 @Composable
 @Preview(showBackground = true)
-fun ItemCharacterPreview(modifier: Modifier = Modifier) {
+private fun ItemCharacterPreview(modifier: Modifier = Modifier) {
     ItemCharacter(
         character = Character(
             id = 0,

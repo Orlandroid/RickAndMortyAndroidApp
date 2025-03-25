@@ -23,20 +23,20 @@ import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
 
 
-
 @Composable
 fun ItemEpisode(
     episode: Episode,
     clickOnItem: (episodeId: Int) -> Unit
 ) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clickable { clickOnItem(episode.id) }) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { clickOnItem(episode.id) }) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
@@ -67,7 +67,7 @@ fun ItemEpisode(
 
 @Composable
 @Preview(showBackground = true)
-fun EpisodeItemPreview(modifier: Modifier = Modifier) {
+private fun EpisodeItemPreview(modifier: Modifier = Modifier) {
     ItemEpisode(
         episode = Episode(
             airDate = stringResource(R.string.december_2_2013),

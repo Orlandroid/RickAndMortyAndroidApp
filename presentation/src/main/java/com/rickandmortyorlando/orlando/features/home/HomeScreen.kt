@@ -92,7 +92,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun ImageCard(
+private fun ImageCard(
     textOnCard: String,
     modifier: Modifier = Modifier,
     painter: Painter,
@@ -105,7 +105,8 @@ fun ImageCard(
     ) {
         ConstraintLayout(Modifier.fillMaxSize()) {
             val (image, text) = createRefs()
-            Image(painter = painter,
+            Image(
+                painter = painter,
                 contentDescription = null,
                 modifier = Modifier.constrainAs(image) {
                     width = Dimension.matchParent
@@ -131,7 +132,7 @@ fun ImageCard(
 
 @Preview(showBackground = true)
 @Composable
-fun SimpleComposablePreview() {
+private fun SimpleComposablePreview() {
     HomeScreen(
         clickOnCharacters = {},
         clickOnLocation = {},

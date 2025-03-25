@@ -14,11 +14,11 @@ data class Character(
         fun emptyCharacter() = Character(
             id = 0,
             image = "",
-            name = "",
-            status = "",
-            species = "",
-            gender = "",
-            urlLocation = "",
+            name = "Rick Sanchez",
+            status = "Alive",
+            species = "Human",
+            gender = "Male",
+            urlLocation = "https://rickandmortyapi.com/api/location/3",
             episode = emptyList()
         )
 

@@ -41,6 +41,6 @@ fun ItemKeyValue(
 
 @Composable
 @Preview(showBackground = true)
-fun ItemKeyValuePreview() {
+private fun ItemKeyValuePreview() {
     ItemKeyValue(key = "Status", value = "Alive")
 }

@@ -47,7 +47,7 @@ fun FilterScreen(
 }
 
 @Composable
-fun FilterScreenContent(
+private fun FilterScreenContent(
     currentFilter: SearchCharacter,
     modifier: Modifier = Modifier,
     searchFilter: (SearchCharacter) -> Unit
@@ -89,7 +89,7 @@ fun FilterScreenContent(
 }
 
 @Composable
-fun InputCharacter(
+private fun InputCharacter(
     searchInfo: SearchCharacter
 ) {
     FilterTextField(
@@ -102,7 +102,7 @@ fun InputCharacter(
 }
 
 @Composable
-fun InputSpecies(
+private fun InputSpecies(
     searchInfo: SearchCharacter
 ) {
     FilterTextField(
@@ -115,7 +115,7 @@ fun InputSpecies(
 }
 
 @Composable
-fun InputType(
+private fun InputType(
     searchInfo: SearchCharacter
 ) {
     FilterTextField(
@@ -127,19 +127,8 @@ fun InputType(
     )
 }
 
-
 @Composable
-@Preview(showBackground = true)
-fun FilterScreenPreview(modifier: Modifier = Modifier) {
-    FilterScreen(
-        currentFilter = SearchCharacter(),
-        onSearchClicked = {}
-    )
-}
-
-
-@Composable
-fun FilterTextField(
+private fun FilterTextField(
     textToSearch: String = "",
     changeSearch: (String) -> Unit,
     label: String
@@ -174,7 +163,7 @@ fun FilterTextField(
 
 // Selecting a status parameter
 @Composable
-fun FilterGivenStatus(
+private fun FilterGivenStatus(
     _selected: String,
     changeSelection: (String) -> Unit
 ) {
@@ -210,7 +199,7 @@ fun FilterGivenStatus(
 
 // Selecting the gender parameter
 @Composable
-fun FilterGivenGender(
+private fun FilterGivenGender(
     _selected: String,
     changeSelection: (String) -> Unit
 ) {
@@ -245,7 +234,7 @@ fun FilterGivenGender(
 }
 
 @Composable
-fun CancelInput(
+private fun CancelInput(
     searchText: () -> Unit
 ) {
     IconButton(
@@ -261,7 +250,7 @@ fun CancelInput(
 }
 
 @Composable
-fun ResultButton(
+private fun ResultButton(
     searchFilter: () -> Unit,
     reset: () -> Unit
 ) {
@@ -287,4 +276,13 @@ fun ResultButton(
             Text(text = "Reset")
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun FilterScreenPreview(modifier: Modifier = Modifier) {
+    FilterScreen(
+        currentFilter = SearchCharacter(),
+        onSearchClicked = {}
+    )
 }
