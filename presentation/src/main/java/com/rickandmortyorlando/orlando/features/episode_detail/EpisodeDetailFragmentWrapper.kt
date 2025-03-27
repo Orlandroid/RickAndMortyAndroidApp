@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.data.model.character.toCharacter
 import com.rickandmortyorlando.orlando.MainActivity
@@ -17,6 +18,7 @@ import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.content
+import com.rickandmortyorlando.orlando.features.extensions.openYoutubeApp
 
 class EpisodeDetailFragmentWrapper :
     BaseFragment<FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
@@ -27,7 +29,7 @@ class EpisodeDetailFragmentWrapper :
     )
 
 
-    private val args: EpisodeDetailFragmentArgs by navArgs()
+    private val args: EpisodeDetailFragmentWrapperArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +56,17 @@ class EpisodeDetailFragmentWrapper :
                     val response = (state.value as EpisodeDetailViewState.Success)
                     EpisodeDetailScreen(
                         episode = response.episode,
-                        characters = response.characters.map { it.toCharacter() }
+                        characters = response.characters.map { it.toCharacter() },
+                        clickOnCharacter = { characterId ->
+                            findNavController().navigate(
+                                EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
+                                    characterId
+                                )
+                            )
+                        },
+                        clickOnWatch = { episodeQuery ->
+                            requireContext().openYoutubeApp(episodeQuery)
+                        }
                     )
                     changeToolbarTitle(response.episode.name)
                 }

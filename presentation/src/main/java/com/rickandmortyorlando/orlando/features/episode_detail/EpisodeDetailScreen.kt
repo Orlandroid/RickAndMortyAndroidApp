@@ -2,6 +2,7 @@ package com.rickandmortyorlando.orlando.features.episode_detail
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,8 @@ import com.rickandmortyorlando.orlando.components.ItemCharacter
 @Composable
 fun EpisodeDetailScreen(
     episode: Episode,
+    clickOnCharacter: (characterId: Int) -> Unit,
+    clickOnWatch: (episodeQuery: String) -> Unit,
     characters: List<Character>
 ) {
     Column(Modifier.fillMaxWidth()) {
@@ -68,7 +71,13 @@ fun EpisodeDetailScreen(
                 Text(modifier = Modifier.weight(1f), text = episode.airDate)
             }
             Spacer(Modifier.height(16.dp))
-            Text(stringResource(R.string.watch), fontWeight = FontWeight.Bold)
+            Text(
+                modifier = Modifier.clickable {
+                    clickOnWatch("${episode.name} ${episode.episode}")
+                },
+                text = stringResource(R.string.watch),
+                fontWeight = FontWeight.Bold
+            )
         }
         Spacer(Modifier.height(8.dp))
         Text(
@@ -87,9 +96,7 @@ fun EpisodeDetailScreen(
             ) { character ->
                 ItemCharacter(
                     character = characters[character],
-                    clickOnItem = {
-
-                    }
+                    clickOnItem = clickOnCharacter
                 )
             }
         }
@@ -101,6 +108,8 @@ fun EpisodeDetailScreen(
 private fun EpisodeDetailScreenPreview() {
     EpisodeDetailScreen(
         episode = Episode.mockEpisode(),
-        characters = Character.getCharacters(9)
+        characters = Character.getCharacters(9),
+        clickOnCharacter = {},
+        clickOnWatch = {}
     )
 }

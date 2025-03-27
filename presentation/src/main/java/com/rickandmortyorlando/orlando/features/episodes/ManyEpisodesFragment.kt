@@ -1,6 +1,6 @@
 package com.rickandmortyorlando.orlando.features.episodes
 
-import android.graphics.drawable.ColorDrawable
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,10 +32,12 @@ class ManyEpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.frag
 
     override fun setUpUi() = with(binding) {
         setStatusBarColor(R.color.status_bar_color)
-        (requireActivity() as MainActivity).changeToolbarColor(ColorDrawable(resources.getColor(R.color.status_bar_color)))
+        (requireActivity() as MainActivity).changeToolbarColor(
+            resources.getColor(R.color.status_bar_color).toDrawable()
+        )
         adapter = EpisodesAdapter {
             val action =
-                ManyEpisodesFragmentDirections.navigationToEpisodeDetail(it.id)
+                ManyEpisodesFragmentDirections.navigationToCharacterDetailWrapper(it.id)
             findNavController().navigate(action)
         }
         recyclerEpisodes.adapter = adapter

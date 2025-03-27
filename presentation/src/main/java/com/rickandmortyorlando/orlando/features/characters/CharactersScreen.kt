@@ -35,7 +35,7 @@ fun CharactersScreen(
                 ItemCharacter(
                     modifier = Modifier.fillMaxWidth(),
                     character = character,
-                    clickOnItem = { clickOnItem(it.id) }
+                    clickOnItem = { clickOnItem(it) }
                 )
             }
         }

@@ -8,9 +8,6 @@
         android:id="@+id/navigation_to_character_detailWrapper"
         app:destination="@id/characterDetailFragmentWrapper" />
     <action
-        android:id="@+id/navigation_to_episode_detail"
-        app:destination="@id/episodeDetailFragment" />
-    <action
         android:id="@+id/navigation_to_episode_detail_wrapper"
         app:destination="@id/episodeDetailFragmentWrapper" />
     <fragment
@@ -42,15 +39,9 @@
         <action
             android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragment"
             app:destination="@id/manyEpisodesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/episodeDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.features.episode_detail.EpisodeDetailFragment"
-        android:label="EpisodeDetailFragment"
-        tools:layout="@layout/fragment_episode_detail">
-        <argument
-            android:name="idEpisode"
-            app:argType="integer" />
+        <action
+            android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragmentWrapper"
+            app:destination="@id/manyEpisodesFragmentWrapper" />
     </fragment>
     <fragment
         android:id="@+id/manyEpisodesFragment"
@@ -117,5 +108,13 @@
         <argument
             android:name="idEpisode"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/manyEpisodesFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.episodes.ManyEpisodesFragmentWrapper"
+        android:label="ManyEpisodesFragmentWrapper" >
+        <argument
+            android:name="idsEpisodes"
+            app:argType="string" />
     </fragment>
 </navigation>

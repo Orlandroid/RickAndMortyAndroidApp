@@ -54,13 +54,15 @@ class CharacterDetailFragmentFragmentWrapper :
                     changeToolbarTitle(state.characterDetail.name)
                     CharacterDetailScreen(
                         uiState = state,
-                        clickOnCharacter = {},
+                        clickOnCharacter = {
+                            //Todo add validation to only navigate to detail screen when the character that we click is different of the current one
+                            findNavController().navigate(CharacterDetailFragmentFragmentWrapperDirections.navigationToCharacterDetailWrapper(it))
+                        },
                         clickOnNumberOfEpisodes = {
                             val idsEpisodes = getListOfEpisodes(state.characterDetail.episode)
                             findNavController().navigate(
-                                CharacterDetailFragmentFragmentWrapperDirections.actionCharacterDetailFragmentWrapperToManyEpisodesFragment(
-                                    idsEpisodes = idsEpisodes,
-                                    isSingleEpisode = idsEpisodes.contains(",").not()
+                                CharacterDetailFragmentFragmentWrapperDirections.actionCharacterDetailFragmentWrapperToManyEpisodesFragmentWrapper(
+                                    idsEpisodes = idsEpisodes
                                 )
                             )
                         }

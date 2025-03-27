@@ -32,8 +32,6 @@ class EpisodeDetailViewModel @Inject constructor(
     networkHelper = networkHelper
 ) {
 
-    private var idsOfCharacters = ""
-
     private val _state = MutableStateFlow<EpisodeDetailViewState>(EpisodeDetailViewState.Loading)
     val state = _state.asStateFlow()
 
@@ -41,6 +39,7 @@ class EpisodeDetailViewModel @Inject constructor(
     //Todo handle error becuase we can have errors for one or another service
     //Todo This operations should be move to one repository
     //Todo this logic has to be move to the use case in the future
+    //Todo getListOfIdsOfCharacters has to move inside of the use case
 
     fun getEpisodeInfo(
         episodeId: String
