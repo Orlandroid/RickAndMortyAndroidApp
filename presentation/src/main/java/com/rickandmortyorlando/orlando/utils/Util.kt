@@ -1,6 +1,9 @@
 package com.rickandmortyorlando.orlando.utils
 
 import android.content.Context
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import com.rickandmortyorlando.orlando.R
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -44,6 +47,27 @@ fun getColorStatusResource(status: String? = "unknown"): Int {
 
         else -> {
             R.color.unknown
+        }
+    }
+}
+
+@Composable
+fun String.getColorStatus(): Color {
+    when (this) {
+        "Alive" -> {
+            return colorResource(R.color.alive)
+        }
+
+        "Dead" -> {
+            return colorResource(R.color.dead)
+        }
+
+        "unknown" -> {
+            return colorResource(R.color.unknown)
+        }
+
+        else -> {
+            return colorResource(R.color.unknown)
         }
     }
 }

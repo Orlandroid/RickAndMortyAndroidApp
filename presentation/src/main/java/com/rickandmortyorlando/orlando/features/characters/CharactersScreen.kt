@@ -61,8 +61,8 @@ fun CharactersScreenPreview() {
     val items = flowOf(
         PagingData.from(
             listOf(
-                Character.emptyCharacter(),
-                Character.emptyCharacter()
+                Character.mockCharacter(),
+                Character.mockCharacter()
             ),
             sourceLoadStates =
             LoadStates(

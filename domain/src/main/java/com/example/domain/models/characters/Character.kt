@@ -8,10 +8,11 @@ data class Character(
     val species: String,
     val gender: String,
     val urlLocation: String,
-    val episode: List<String>
+    val episode: List<String>,
+    val originUrl: String,
 ) {
     companion object {
-        fun emptyCharacter() = Character(
+        fun mockCharacter() = Character(
             id = 0,
             image = "",
             name = "Rick Sanchez",
@@ -19,13 +20,14 @@ data class Character(
             species = "Human",
             gender = "Male",
             urlLocation = "https://rickandmortyapi.com/api/location/3",
-            episode = emptyList()
+            episode = listOf("", ""),
+            originUrl = "https://rickandmortyapi.com/api/location/3"
         )
 
         fun getCharacters(howMany: Int): List<Character> {
             val characters = arrayListOf<Character>()
             for (i in 1..howMany) {
-                characters.add(emptyCharacter())
+                characters.add(mockCharacter())
             }
             return characters
         }

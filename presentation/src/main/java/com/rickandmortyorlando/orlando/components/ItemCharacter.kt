@@ -21,15 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.example.domain.models.characters.Character
-import com.rickandmortyorlando.orlando.theme.Alive
-import com.rickandmortyorlando.orlando.utils.getColorStatusResource
+import com.rickandmortyorlando.orlando.utils.getColorStatus
 
 @Composable
 fun ItemCharacter(
@@ -37,7 +35,7 @@ fun ItemCharacter(
     character: Character,
     clickOnItem: (Character) -> Unit = {}
 ) {
-    val colorStatus = getColorStatusResource(status = character.status)
+    val colorStatus = character.status.getColorStatus()
     Card(
         onClick = { clickOnItem(character) },
         shape = RoundedCornerShape(16.dp),
@@ -45,7 +43,7 @@ fun ItemCharacter(
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, colorResource(colorStatus)),
+        border = BorderStroke(1.dp, colorStatus),
     ) {
         Row(
             modifier = Modifier
@@ -78,10 +76,11 @@ fun ItemCharacter(
                         .padding(bottom = 16.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
+                    val colorStatusColor = character.status.getColorStatus()
                     Canvas(
                         modifier = Modifier.size(16.dp),
                         onDraw = {
-                            drawCircle(color = Alive)
+                            drawCircle(color = colorStatusColor)
                         }
                     )
                     Spacer(Modifier.width(16.dp))
@@ -114,15 +113,6 @@ fun ItemCharacter(
 @Preview(showBackground = true)
 private fun ItemCharacterPreview(modifier: Modifier = Modifier) {
     ItemCharacter(
-        character = Character(
-            id = 0,
-            image = "",
-            name = "Rick",
-            status = "Alive",
-            species = "Human",
-            urlLocation = "",
-            episode = emptyList(),
-            gender = "",
-        )
+        character = Character.mockCharacter()
     )
 }

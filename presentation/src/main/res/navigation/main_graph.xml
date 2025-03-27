@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/menuFragment">
-
     <action
-        android:id="@+id/navigation_to_character_detail"
-        app:destination="@id/characterDetailFragment" />
+        android:id="@+id/navigation_to_character_detailWrapper"
+        app:destination="@id/characterDetailFragmentWrapper" />
     <action
         android:id="@+id/navigation_to_episode_detail"
         app:destination="@id/episodeDetailFragment" />
@@ -33,15 +32,15 @@
             app:destination="@id/locationsFragmentWrapper" />
     </fragment>
     <fragment
-        android:id="@+id/characterDetailFragment"
-        android:name="com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetailFragment"
-        android:label="CharacterDetailFragment"
-        tools:layout="@layout/fragment_character_detail">
+        android:id="@+id/characterDetailFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetailFragmentFragmentWrapper"
+        android:label="CharacterDetailFragmentWrapper"
+        tools:layout="@layout/item_character_grid">
         <argument
             android:name="charcaterId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_characterDetailFragment_to_manyEpisodesFragment"
+            android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragment"
             app:destination="@id/manyEpisodesFragment" />
     </fragment>
     <fragment

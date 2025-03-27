@@ -120,15 +120,6 @@ private fun ItemInfoLocation(
 private fun LocationDetailScreenPreview(modifier: Modifier = Modifier) {
     //Todo add preview when we migrate models from data to domain
     ItemCharacter(
-        character = Character(
-            id = 0,
-            image = "",
-            name = "Rick",
-            status = "Alive",
-            species = "Human",
-            urlLocation = "",
-            episode = emptyList(),
-            gender = "",
-        )
+        character = Character.mockCharacter()
     )
 }

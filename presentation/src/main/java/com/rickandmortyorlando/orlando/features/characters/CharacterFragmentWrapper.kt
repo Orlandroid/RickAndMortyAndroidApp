@@ -50,7 +50,7 @@ class CharacterFragmentWrapper :
 
     private fun clickOnCharacter(characterId: Int) {
         findNavController().navigate(
-            CharacterFragmentWrapperDirections.navigationToCharacterDetail(
+            CharacterFragmentWrapperDirections.navigationToCharacterDetailWrapper(
                 characterId
             )
         )

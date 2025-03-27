@@ -38,7 +38,7 @@ class LocationDetailScreenWrapper :
 
     private fun clickOnCharacter(characterId: Int) {
         findNavController().navigate(
-            LocationDetailScreenWrapperDirections.navigationToCharacterDetail(
+            LocationDetailScreenWrapperDirections.navigationToCharacterDetailWrapper(
                 characterId
             )
         )

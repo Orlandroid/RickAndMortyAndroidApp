@@ -94,7 +94,7 @@ class SearchCharactersFragmentWrapper :
 
     private fun clickOnCharacter(characterId: Int) {
         findNavController().navigate(
-            SearchCharactersFragmentWrapperDirections.navigationToCharacterDetail(
+            SearchCharactersFragmentWrapperDirections.navigationToCharacterDetailWrapper(
                 characterId
             )
         )

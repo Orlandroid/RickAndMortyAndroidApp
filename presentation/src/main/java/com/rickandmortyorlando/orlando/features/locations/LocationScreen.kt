@@ -115,7 +115,8 @@ private fun LocationsScreenPreview() {
             url = "",
             dimension = "",
             created = "",
-            type = stringResource(R.string.planet2)
+            type = stringResource(R.string.planet2),
+            residents = emptyList()
         ),
         clickOnItem = {})
 }

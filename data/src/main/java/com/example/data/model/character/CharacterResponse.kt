@@ -32,5 +32,6 @@ fun CharacterData.toCharacter() = Character(
     species = species,
     gender = gender,
     episode = episode,
-    urlLocation = location.url
+    urlLocation = location.url,
+    originUrl = origin.url
 )

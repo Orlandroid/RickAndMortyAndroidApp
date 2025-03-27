@@ -9,6 +9,7 @@ data class Location(
     val url: String,
     val dimension: String,
     val created: String,
+    val residents: List<String>,
     val type: String
 ) {
     @SuppressLint("SimpleDateFormat")
@@ -24,7 +25,8 @@ data class Location(
             url = "https://rickandmortyapi.com/api/location/5",
             dimension = "Dimension C-137",
             created = "2017-11-10T13:08:46.060Z",
-            type = "Microverse"
+            type = "Microverse",
+            residents = emptyList()
         )
     }
 }

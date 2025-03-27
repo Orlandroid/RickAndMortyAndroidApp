@@ -4,20 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
+import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.content
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CharacterDetailFragmentFragment :
+class CharacterDetailFragmentFragmentWrapper :
     BaseFragment<FragmentCharacterDetailBinding>(R.layout.fragment_character_detail) {
 
-    override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
+    private val args: CharacterDetailFragmentFragmentWrapperArgs by navArgs()
 
+    override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
 
     override fun setUpUi() {
 
@@ -29,7 +37,40 @@ class CharacterDetailFragmentFragment :
         savedInstanceState: Bundle?
     ): View {
         return content {
-            CharacterDetailScreen()
+            val viewModel: CharacterDetailViewModel = hiltViewModel()
+            LaunchedEffect(viewModel) {
+                viewModel.getCharacterDetailInfo(args.charcaterId.toString())
+            }
+            val characterDetailStata = viewModel.state.collectAsStateWithLifecycle()
+            when (characterDetailStata.value) {
+                CharacterDetailState.Loading -> {
+                    //Todo add skeleton Screen of characterDetail
+                    EpisodeDetailSkeleton()
+                }
+
+                is CharacterDetailState.CharacterDetailUiState -> {
+                    val state =
+                        characterDetailStata.value as CharacterDetailState.CharacterDetailUiState
+                    changeToolbarTitle(state.characterDetail.name)
+                    CharacterDetailScreen(
+                        uiState = state,
+                        clickOnCharacter = {},
+                        clickOnNumberOfEpisodes = {
+                            val idsEpisodes = getListOfEpisodes(state.characterDetail.episode)
+                            findNavController().navigate(
+                                CharacterDetailFragmentFragmentWrapperDirections.actionCharacterDetailFragmentWrapperToManyEpisodesFragment(
+                                    idsEpisodes = idsEpisodes,
+                                    isSingleEpisode = idsEpisodes.contains(",").not()
+                                )
+                            )
+                        }
+                    )
+                }
+
+                is CharacterDetailState.Error -> {
+                    //Todo add error screen
+                }
+            }
         }
     }
 

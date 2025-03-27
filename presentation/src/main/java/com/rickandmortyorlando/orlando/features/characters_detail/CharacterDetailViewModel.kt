@@ -1,21 +1,33 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
 import com.example.data.model.character.toCharacter
 import com.example.data.model.location.SingleLocation
 import com.example.domain.models.characters.Character
-import com.example.domain.state.ApiState
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
+import com.rickandmortyorlando.orlando.utils.getNumberFromUrWithPrefix
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
+
+sealed class CharacterDetailState {
+    data object Loading : CharacterDetailState()
+    data class CharacterDetailUiState(
+        val location: SingleLocation? = null,
+        val characterDetail: Character,
+        val characterOfThisLocation: List<Character>? = null
+    ) :
+        CharacterDetailState()
+
+    data class Error(val message: String) : CharacterDetailState()
+}
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
@@ -24,29 +36,34 @@ class CharacterDetailViewModel @Inject constructor(
     coroutineDispatcher: CoroutineDispatchers,
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
-    private val _characterResponse = MutableLiveData<ApiState<Character>>()
-    val characterResponse: LiveData<ApiState<Character>>
-        get() = _characterResponse
-
-    private val _locationResponse = MutableLiveData<ApiState<SingleLocation>>()
-    val locationResponse: LiveData<ApiState<SingleLocation>>
-        get() = _locationResponse
-
-    fun getCharacter(id: String) = viewModelScope.launch {
-        safeApiCall(_characterResponse, coroutineDispatchers) {
-            val response = repository.getCharacter(id).toCharacter()
-            withContext(Dispatchers.Main) {
-                _characterResponse.value = ApiState.Success(response)
-            }
-        }
-    }
+    private val _state = MutableStateFlow<CharacterDetailState>(CharacterDetailState.Loading)
+    val state = _state.asStateFlow()
 
 
-    fun getSingleLocation(id: Int) = viewModelScope.launch {
-        safeApiCall(_locationResponse, coroutineDispatchers) {
-            val response = repository.getSingleLocation(id)
-            withContext(Dispatchers.Main) {
-                _locationResponse.value = ApiState.Success(response)
+    fun getCharacterDetailInfo(idCharacter: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val character = repository.getCharacter(id = idCharacter).toCharacter()
+                var singleLocation: SingleLocation? = null
+                var characterOfThisLocation: List<Character>? = null
+                if (characterHasLocation(character.urlLocation)) {
+                    val locationId = getNumberFromUrWithPrefix(
+                        character.originUrl.ifEmpty { character.urlLocation },
+                        "location"
+                    )
+                    singleLocation = repository.getSingleLocation(locationId)
+                    characterOfThisLocation =
+                        repository.getManyCharacters(getListOfIdsOfCharacters(singleLocation.residents))
+                            .map { it.toCharacter() }
+                }
+                _state.value =
+                    CharacterDetailState.CharacterDetailUiState(
+                        location = singleLocation,
+                        characterDetail = character,
+                        characterOfThisLocation = characterOfThisLocation
+                    )
+            } catch (e: Exception) {
+                _state.value = CharacterDetailState.Error(message = e.message.orEmpty())
             }
         }
     }

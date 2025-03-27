@@ -16,7 +16,19 @@ data class SingleLocation(
     val residents: List<String>,
     val url: String,
     val created: String
-)
+) {
+    companion object {
+        fun getMockSingleLocation() = SingleLocation(
+            id = 5,
+            name = "Anatomy Park",
+            url = "https://rickandmortyapi.com/api/location/5",
+            dimension = "Dimension C-137",
+            created = "2017-11-10T13:08:46.060Z",
+            type = "Microverse",
+            residents = emptyList()
+        )
+    }
+}
 
 fun SingleLocation.toLocation() = Location(
     id = id,
@@ -24,5 +36,6 @@ fun SingleLocation.toLocation() = Location(
     url = url,
     dimension = dimension,
     created = created,
-    type = type
+    type = type,
+    residents = residents
 )

@@ -1,8 +1,9 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,43 +12,54 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.SubcomposeAsyncImage
+import com.example.data.model.location.SingleLocation
+import com.example.data.model.location.toLocation
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.components.ItemCharacter
+import com.rickandmortyorlando.orlando.components.CharacterCard
 import com.rickandmortyorlando.orlando.theme.Alive
+import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
 @Composable
 fun CharacterDetailScreen(
-    characters: List<Character>,
-    clickOnCharacter: (Int) -> Unit
+    uiState: CharacterDetailState.CharacterDetailUiState,
+    clickOnCharacter: (Int) -> Unit,
+    clickOnNumberOfEpisodes: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
+        Spacer(Modifier.height(32.dp))
+        SubcomposeAsyncImage(
             modifier = Modifier
                 .size(200.dp)
                 .clip(CircleShape)
-                .border(width = 2.dp, color = Color.Black, shape = CircleShape),
-            painter = painterResource(R.drawable.dinosaur),
-            contentDescription = null
+                .border(
+                    width = 2.dp,
+                    color = colorResource(getColorStatusResource(uiState.characterDetail.status)),
+                    shape = CircleShape
+                ),
+            model = uiState.characterDetail.image,
+            contentDescription = "ImageStaff",
+            loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
         )
         Spacer(Modifier.height(16.dp))
         Column(
@@ -55,24 +67,29 @@ fun CharacterDetailScreen(
                 .fillMaxWidth()
                 .padding(start = 16.dp)
         ) {
-            CharacterDetail(character = Character.emptyCharacter())
+            CharacterDetail(
+                character = uiState.characterDetail,
+                clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
+            )
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location),
                 fontWeight = FontWeight.Bold
             )
-            LocationDetails(location = Location.mockLocation())
+            uiState.location?.let { LocationDetails(location = it.toLocation()) }
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location_residents),
                 fontWeight = FontWeight.Bold
             )
-            Spacer(Modifier.height(8.dp))
-            LazyColumn {  //// Add a new view to show character in horizontal
-                items(characters) { character ->
-                    ItemCharacter(
-                        character = character,
-                        clickOnItem = { clickOnCharacter(character.id) })
+            Spacer(Modifier.height(16.dp))
+            uiState.characterOfThisLocation?.let { characters ->
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    items(characters) { character ->
+                        CharacterCard(
+                            character = character,
+                            onCharacterClick = { clickOnCharacter(character.id) })
+                    }
                 }
             }
         }
@@ -80,7 +97,7 @@ fun CharacterDetailScreen(
 }
 
 @Composable
-private fun CharacterDetail(character: Character) {
+private fun CharacterDetail(character: Character, clickOnNumberOfEpisodes: () -> Unit) {
     Row {
         Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
         Spacer(Modifier.width(8.dp))
@@ -104,6 +121,16 @@ private fun CharacterDetail(character: Character) {
         Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
         Spacer(Modifier.width(8.dp))
         Text(character.gender)
+    }
+    Spacer(Modifier.height(16.dp))
+    Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
+        Text(
+//            modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
+            text = stringResource(R.string.number_of_episodes),
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(character.episode.size.toString())
     }
 }
 
@@ -131,7 +158,7 @@ private fun LocationDetails(location: Location) {
     Row {
         Text(text = stringResource(R.string.numbers_of_residents), fontWeight = FontWeight.Bold)
         Spacer(Modifier.width(8.dp))
-        Text("3")
+        Text(text = location.residents.size.toString())
     }
 }
 
@@ -139,8 +166,13 @@ private fun LocationDetails(location: Location) {
 @Preview(showBackground = true)
 private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
     CharacterDetailScreen(
-        characters = Character.getCharacters(8),
+        uiState = CharacterDetailState.CharacterDetailUiState(
+            location = SingleLocation.getMockSingleLocation(),
+            characterDetail = Character.mockCharacter(),
+            characterOfThisLocation = Character.getCharacters(4)
+        ),
         clickOnCharacter = {},
+        clickOnNumberOfEpisodes = {}
     )
 }
 

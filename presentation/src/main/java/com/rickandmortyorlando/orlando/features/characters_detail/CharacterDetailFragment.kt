@@ -30,7 +30,7 @@ class CharacterDetailFragment :
     override fun configureToolbar() = MainActivity.ToolbarConfiguration(showToolbar = true)
 
     private val viewModel: CharacterDetailViewModel by viewModels()
-    private val args: CharacterDetailFragmentArgs by navArgs()
+//    private val args: CharacterDetailFragmentArgs by navArgs()
     private var idsOfEpisodesOfTheCharacter = ""
     private var mCharacter: Character? = null
     private var mLocation: SingleLocation? = null
@@ -42,7 +42,7 @@ class CharacterDetailFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getCharacter(args.charcaterId.toString())
+//        viewModel.getCharacter(args.charcaterId.toString())
     }
 
     override fun onResume() {
@@ -65,11 +65,11 @@ class CharacterDetailFragment :
 
     private fun navigateToEpisodes() {
         val isSingleEpisode = idsOfEpisodesOfTheCharacter.contains(",")
-        val action =
-            CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(
-                idsOfEpisodesOfTheCharacter, !isSingleEpisode
-            )
-        findNavController().navigate(action)
+//        val action =
+//            CharacterDetailFragmentDirections.actionCharacterDetailFragmentToManyEpisodesFragment(
+//                idsOfEpisodesOfTheCharacter, !isSingleEpisode
+//            )
+//        findNavController().navigate(action)
     }
 
 
@@ -80,45 +80,45 @@ class CharacterDetailFragment :
     }
 
     private fun observeCharacterResponse() {
-        observeApiResultGeneric(
-            viewModel.characterResponse,
-            shouldCloseTheViewOnApiError = true,
-            onLoading = {
-                with(binding) {
-                    skeletonInfo.showSkeleton()
-                    skeletonLocation.showSkeleton()
-                }
-            }
-        ) { character ->
-            mCharacter = character
-            with(binding) {
-                skeletonInfo.showOriginal()
-                skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
-                skeletonInfo.setMargins(0, 0, 0, 0)
-                setDataToView(character)
-                idsOfEpisodesOfTheCharacter = getListOfEpisodes(character.episode)
-            }
-            if (characterHasLocation(character)) {
-                viewModel.getSingleLocation(
-                    getNumberFromUrWithPrefix(
-                        character.urlLocation, "location"
-                    )
-                )
-                return@observeApiResultGeneric
-            }
-            binding.skeletonLocation.showOriginal()
-            binding.skeletonLocation.gone()
-
-        }
+//        observeApiResultGeneric(
+//            viewModel.characterResponse,
+//            shouldCloseTheViewOnApiError = true,
+//            onLoading = {
+//                with(binding) {
+//                    skeletonInfo.showSkeleton()
+//                    skeletonLocation.showSkeleton()
+//                }
+//            }
+//        ) { character ->
+//            mCharacter = character
+//            with(binding) {
+//                skeletonInfo.showOriginal()
+//                skeletonInfo.setBackgroundColor(resources.getColor(R.color.background))
+//                skeletonInfo.setMargins(0, 0, 0, 0)
+//                setDataToView(character)
+//                idsOfEpisodesOfTheCharacter = getListOfEpisodes(character.episode)
+//            }
+//            if (characterHasLocation(character)) {
+//                viewModel.getSingleLocation(
+//                    getNumberFromUrWithPrefix(
+//                        character.urlLocation, "location"
+//                    )
+//                )
+//                return@observeApiResultGeneric
+//            }
+//            binding.skeletonLocation.showOriginal()
+//            binding.skeletonLocation.gone()
+//
+//        }
     }
 
     private fun observeLocationResponse() {
-        observeApiResultGeneric(
-            viewModel.locationResponse, shouldCloseTheViewOnApiError = true
-        ) { singleLocation ->
-            mLocation = singleLocation
-            setLocation(singleLocation)
-        }
+//        observeApiResultGeneric(
+//            viewModel.locationResponse, shouldCloseTheViewOnApiError = true
+//        ) { singleLocation ->
+//            mLocation = singleLocation
+//            setLocation(singleLocation)
+//        }
     }
 
     private fun characterHasLocation(character: Character): Boolean {
