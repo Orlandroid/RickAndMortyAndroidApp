@@ -36,54 +36,24 @@ fun EpisodeDetailSkeleton() {
         Spacer(Modifier.height(32.dp))
 
         Column(Modifier.padding(start = 32.dp, end = 16.dp)) {
-            Row(Modifier.fillMaxWidth()) {
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
-                Spacer(Modifier.weight(1f))
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
+            for (x in 1..3) {
+                Row(Modifier.fillMaxWidth()) {
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(16.dp)
+                            .background(shimmerBrush())
+                    )
+                    Spacer(Modifier.weight(1f))
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(16.dp)
+                            .background(shimmerBrush())
+                    )
+                }
+                Spacer(Modifier.height(16.dp))
             }
-            Spacer(Modifier.height(16.dp))
-            Row(Modifier.fillMaxWidth()) {
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
-                Spacer(Modifier.weight(1f))
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
-            }
-            Spacer(Modifier.height(16.dp))
-            Row(Modifier.fillMaxWidth()) {
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
-                Spacer(Modifier.weight(1f))
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(16.dp)
-                        .background(shimmerBrush())
-                )
-            }
-            Spacer(Modifier.height(16.dp))
             Spacer(
                 Modifier
                     .width(40.dp)
@@ -94,7 +64,7 @@ fun EpisodeDetailSkeleton() {
         Spacer(Modifier.height(8.dp))
         Row(
             modifier =
-            Modifier.fillMaxWidth(),
+                Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(

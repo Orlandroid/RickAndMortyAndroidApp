@@ -62,6 +62,6 @@ fun LocationDetailSkeleton(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview(showBackground = true)
-fun LocationDetailSkeletonPreview(modifier: Modifier = Modifier) {
+private fun LocationDetailSkeletonPreview(modifier: Modifier = Modifier) {
     LocationDetailSkeleton()
 }

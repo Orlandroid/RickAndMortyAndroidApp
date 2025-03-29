@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.skeletons.CharacterDetailSkeleton
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
@@ -44,8 +45,7 @@ class CharacterDetailFragmentFragmentWrapper :
             val characterDetailStata = viewModel.state.collectAsStateWithLifecycle()
             when (characterDetailStata.value) {
                 CharacterDetailState.Loading -> {
-                    //Todo add skeleton Screen of characterDetail
-                    EpisodeDetailSkeleton()
+                    CharacterDetailSkeleton()
                 }
 
                 is CharacterDetailState.CharacterDetailUiState -> {

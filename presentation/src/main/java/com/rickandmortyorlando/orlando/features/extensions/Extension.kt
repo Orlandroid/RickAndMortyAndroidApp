@@ -14,11 +14,11 @@ fun Context.showToast(message: String) {
 
 
 @SuppressLint("QueryPermissionsNeeded")
-fun Context.openYoutubeApp(search: String) {
+fun Context.openYoutubeApp(episodeName: String) {
     try {
-        val searchUrl = "Rick and morty $search"
+        val queryToSearch = "Rick and morty - $episodeName"
         val youtubeUrlSearch = "https://www.youtube.com/results?search_query="
-        val fullUrl = "$youtubeUrlSearch$searchUrl"
+        val fullUrl = "$youtubeUrlSearch$queryToSearch"
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = fullUrl.toUri()
         intent.setPackage("com.google.android.youtube")

@@ -125,7 +125,7 @@ private fun CharacterDetail(character: Character, clickOnNumberOfEpisodes: () ->
     Spacer(Modifier.height(16.dp))
     Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
         Text(
-//            modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
+            modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
             text = stringResource(R.string.number_of_episodes),
             fontWeight = FontWeight.Bold
         )

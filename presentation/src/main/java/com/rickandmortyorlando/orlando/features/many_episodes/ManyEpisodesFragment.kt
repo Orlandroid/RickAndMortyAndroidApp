@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.features.episodes
+package com.rickandmortyorlando.orlando.features.many_episodes
 
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
@@ -15,6 +15,8 @@ import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodesBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
+import com.rickandmortyorlando.orlando.features.episodes.EpisodesAdapter
+import com.rickandmortyorlando.orlando.features.episodes.EpisodesViewModel
 import com.rickandmortyorlando.orlando.features.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.features.extensions.setStatusBarColor
 import com.rickandmortyorlando.orlando.features.extensions.shouldShowProgress

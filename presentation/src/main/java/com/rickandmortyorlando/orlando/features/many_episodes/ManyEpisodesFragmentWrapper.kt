@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.features.episodes
+package com.rickandmortyorlando.orlando.features.many_episodes
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.features.episodes
+package com.rickandmortyorlando.orlando.features.many_episodes
 
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
@@ -17,9 +17,7 @@ import javax.inject.Inject
 
 sealed class ManyEpisodesViewState {
     data object Loading : ManyEpisodesViewState()
-    data class Content(val episodes: List<Episode>) :
-        ManyEpisodesViewState()
-
+    data class Content(val episodes: List<Episode>) : ManyEpisodesViewState()
     data class Error(val message: String) : ManyEpisodesViewState()
 }
 

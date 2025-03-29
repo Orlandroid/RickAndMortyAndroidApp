@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/manyEpisodesFragment"
-        android:name="com.rickandmortyorlando.orlando.features.episodes.ManyEpisodesFragment"
+        android:name="com.rickandmortyorlando.orlando.features.many_episodes.ManyEpisodesFragment"
         android:label="ManyEpisodesFragment"
         tools:layout="@layout/fragment_episodes">
         <argument
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/manyEpisodesFragmentWrapper"
-        android:name="com.rickandmortyorlando.orlando.features.episodes.ManyEpisodesFragmentWrapper"
+        android:name="com.rickandmortyorlando.orlando.features.many_episodes.ManyEpisodesFragmentWrapper"
         android:label="ManyEpisodesFragmentWrapper" >
         <argument
             android:name="idsEpisodes"
