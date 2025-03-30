@@ -8,6 +8,7 @@ import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
+import com.rickandmortyorlando.orlando.state.BaseViewState
 import com.rickandmortyorlando.orlando.utils.getListOfNumbersFromUrlWithPrefix
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,13 +17,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-sealed class LocationState {
-    data object Loading : LocationState()
-    data class Success(val location: SingleLocation, val character: List<Character>) :
-        LocationState()
-
-    data class Error(val message: String) : LocationState()
-}
+data class LocationDetailUiState(
+    val location: SingleLocation,
+    val characters: List<Character>
+)
 
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
@@ -33,7 +31,8 @@ class LocationDetailViewModel @Inject constructor(
 
     private var idsOfCharacters = ""
 
-    private val _state = MutableStateFlow<LocationState>(LocationState.Loading)
+    private val _state =
+        MutableStateFlow<BaseViewState<LocationDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
 
@@ -49,9 +48,14 @@ class LocationDetailViewModel @Inject constructor(
                 repository.getManyCharacters(idsOfCharacters).map { it.toCharacter() }
             }
             _state.value =
-                LocationState.Success(location = locationResponse, character = characterResponse)
+                BaseViewState.Content(
+                    LocationDetailUiState(
+                        location = locationResponse,
+                        characters = characterResponse
+                    )
+                )
         } catch (e: Exception) {
-            _state.value = LocationState.Error(message = e.message.orEmpty())
+            _state.value = BaseViewState.Error(message = e.message.orEmpty())
         }
     }
 

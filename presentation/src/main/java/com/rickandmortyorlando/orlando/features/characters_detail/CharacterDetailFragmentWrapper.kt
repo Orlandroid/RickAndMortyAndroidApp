@@ -11,12 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.skeletons.CharacterDetailSkeleton
-import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.content
+import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -42,24 +43,28 @@ class CharacterDetailFragmentFragmentWrapper :
             LaunchedEffect(viewModel) {
                 viewModel.getCharacterDetailInfo(args.charcaterId.toString())
             }
-            val characterDetailStata = viewModel.state.collectAsStateWithLifecycle()
-            when (characterDetailStata.value) {
-                CharacterDetailState.Loading -> {
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            when (val currentState = state.value) {
+                is BaseViewState.Loading -> {
                     CharacterDetailSkeleton()
                 }
 
-                is CharacterDetailState.CharacterDetailUiState -> {
-                    val state =
-                        characterDetailStata.value as CharacterDetailState.CharacterDetailUiState
-                    changeToolbarTitle(state.characterDetail.name)
+                is BaseViewState.Content -> {
+                    changeToolbarTitle(currentState.result.characterDetail.name)
                     CharacterDetailScreen(
-                        uiState = state,
-                        clickOnCharacter = {
-                            //Todo add validation to only navigate to detail screen when the character that we click is different of the current one
-                            findNavController().navigate(CharacterDetailFragmentFragmentWrapperDirections.navigationToCharacterDetailWrapper(it))
+                        uiState = currentState.result,
+                        clickOnCharacter = { characterId ->
+                            if (characterId != currentState.result.characterDetail.id) {
+                                findNavController().navigate(
+                                    CharacterDetailFragmentFragmentWrapperDirections.navigationToCharacterDetailWrapper(
+                                        characterId
+                                    )
+                                )
+                            }
                         },
                         clickOnNumberOfEpisodes = {
-                            val idsEpisodes = getListOfEpisodes(state.characterDetail.episode)
+                            val idsEpisodes =
+                                getListOfEpisodes(currentState.result.characterDetail.episode)
                             findNavController().navigate(
                                 CharacterDetailFragmentFragmentWrapperDirections.actionCharacterDetailFragmentWrapperToManyEpisodesFragmentWrapper(
                                     idsEpisodes = idsEpisodes
@@ -69,8 +74,8 @@ class CharacterDetailFragmentFragmentWrapper :
                     )
                 }
 
-                is CharacterDetailState.Error -> {
-                    //Todo add error screen
+                is BaseViewState.Error -> {
+                    ErrorScreen()
                 }
             }
         }

@@ -57,7 +57,7 @@ fun CharactersScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun CharactersScreenPreview() {
+private fun CharactersScreenPreview() {
     val items = flowOf(
         PagingData.from(
             listOf(
@@ -65,11 +65,11 @@ fun CharactersScreenPreview() {
                 Character.mockCharacter()
             ),
             sourceLoadStates =
-            LoadStates(
-                refresh = LoadState.NotLoading(false),
-                append = LoadState.NotLoading(false),
-                prepend = LoadState.NotLoading(false)
-            ),
+                LoadStates(
+                    refresh = LoadState.NotLoading(false),
+                    append = LoadState.NotLoading(false),
+                    prepend = LoadState.NotLoading(false)
+                ),
         )
     ).collectAsLazyPagingItems()
     CharactersScreen(

@@ -27,10 +27,9 @@ import com.rickandmortyorlando.orlando.components.ItemCharacter
 
 @Composable
 fun EpisodeDetailScreen(
-    episode: Episode,
+    uiState: EpisodeDetailUiState,
     clickOnCharacter: (characterId: Int) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
-    characters: List<Character>
 ) {
     Column(Modifier.fillMaxWidth()) {
         Spacer(Modifier.height(8.dp))
@@ -50,7 +49,7 @@ fun EpisodeDetailScreen(
                     modifier = Modifier.weight(1f),
                     text = stringResource(R.string.episode_name)
                 )
-                Text(modifier = Modifier.weight(1f), text = episode.name)
+                Text(modifier = Modifier.weight(1f), text = uiState.episode.name)
             }
             Spacer(Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth()) {
@@ -59,7 +58,7 @@ fun EpisodeDetailScreen(
                     modifier = Modifier.weight(1f),
                     text = stringResource(R.string.episode_number)
                 )
-                Text(modifier = Modifier.weight(1f), text = episode.episode)
+                Text(modifier = Modifier.weight(1f), text = uiState.episode.episode)
             }
             Spacer(Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth()) {
@@ -68,12 +67,12 @@ fun EpisodeDetailScreen(
                     modifier = Modifier.weight(1f),
                     text = stringResource(R.string.episode_date)
                 )
-                Text(modifier = Modifier.weight(1f), text = episode.airDate)
+                Text(modifier = Modifier.weight(1f), text = uiState.episode.airDate)
             }
             Spacer(Modifier.height(16.dp))
             Text(
                 modifier = Modifier.clickable {
-                    clickOnWatch("${episode.name} ${episode.episode}")
+                    clickOnWatch("${uiState.episode.name} ${uiState.episode.episode}")
                 },
                 text = stringResource(R.string.watch),
                 fontWeight = FontWeight.Bold
@@ -92,10 +91,10 @@ fun EpisodeDetailScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             items(
-                count = characters.size
+                count = uiState.characters.size
             ) { character ->
                 ItemCharacter(
-                    character = characters[character],
+                    character = uiState.characters[character],
                     clickOnItem = clickOnCharacter
                 )
             }
@@ -107,8 +106,10 @@ fun EpisodeDetailScreen(
 @Composable
 private fun EpisodeDetailScreenPreview() {
     EpisodeDetailScreen(
-        episode = Episode.mockEpisode(),
-        characters = Character.getCharacters(9),
+        EpisodeDetailUiState(
+            episode = Episode.mockEpisode(),
+            characters = Character.getCharacters(9),
+        ),
         clickOnCharacter = {},
         clickOnWatch = {}
     )

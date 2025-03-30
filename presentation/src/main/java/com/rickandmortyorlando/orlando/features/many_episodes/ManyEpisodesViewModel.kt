@@ -7,6 +7,7 @@ import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
+import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,12 +16,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-sealed class ManyEpisodesViewState {
-    data object Loading : ManyEpisodesViewState()
-    data class Content(val episodes: List<Episode>) : ManyEpisodesViewState()
-    data class Error(val message: String) : ManyEpisodesViewState()
-}
-
 @HiltViewModel
 class ManyEpisodesViewModel @Inject constructor(
     private val repository: Repository,
@@ -28,7 +23,7 @@ class ManyEpisodesViewModel @Inject constructor(
     coroutineDispatcher: CoroutineDispatchers,
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
-    private val _state = MutableStateFlow<ManyEpisodesViewState>(ManyEpisodesViewState.Loading)
+    private val _state = MutableStateFlow<BaseViewState<List<Episode>>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
     fun getEpisodes(idsEpisodes: String) {
@@ -36,11 +31,11 @@ class ManyEpisodesViewModel @Inject constructor(
             try {
                 val episodeResponse = repository.getManyEpisodes(idsEpisodes).map { it.toEpisode() }
                 _state.value =
-                    ManyEpisodesViewState.Content(
-                        episodes = episodeResponse
+                    BaseViewState.Content(
+                        result = episodeResponse
                     )
             } catch (e: Exception) {
-                _state.value = ManyEpisodesViewState.Error(message = e.message.orEmpty())
+                _state.value = BaseViewState.Error(message = e.message.orEmpty())
             }
         }
     }

@@ -38,7 +38,7 @@ import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
 @Composable
 fun CharacterDetailScreen(
-    uiState: CharacterDetailState.CharacterDetailUiState,
+    uiState: CharacterDetailUiState,
     clickOnCharacter: (Int) -> Unit,
     clickOnNumberOfEpisodes: () -> Unit
 ) {
@@ -166,7 +166,7 @@ private fun LocationDetails(location: Location) {
 @Preview(showBackground = true)
 private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
     CharacterDetailScreen(
-        uiState = CharacterDetailState.CharacterDetailUiState(
+        uiState = CharacterDetailUiState(
             location = SingleLocation.getMockSingleLocation(),
             characterDetail = Character.mockCharacter(),
             characterOfThisLocation = Character.getCharacters(4)

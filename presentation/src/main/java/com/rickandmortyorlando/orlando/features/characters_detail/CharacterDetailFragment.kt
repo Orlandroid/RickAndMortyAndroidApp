@@ -3,8 +3,6 @@ package com.rickandmortyorlando.orlando.features.characters_detail
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.data.model.location.SingleLocation
 import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.MainActivity
@@ -12,13 +10,10 @@ import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.databinding.FragmentCharacterDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.click
-import com.rickandmortyorlando.orlando.features.extensions.gone
-import com.rickandmortyorlando.orlando.features.extensions.observeApiResultGeneric
 import com.rickandmortyorlando.orlando.features.extensions.setMargins
 import com.rickandmortyorlando.orlando.features.extensions.setStatusBarColor
 import com.rickandmortyorlando.orlando.utils.getColorStatus
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
-import com.rickandmortyorlando.orlando.utils.getNumberFromUrWithPrefix
 import com.rickandmortyorlando.orlando.utils.loadCircularImage
 import dagger.hilt.android.AndroidEntryPoint
 

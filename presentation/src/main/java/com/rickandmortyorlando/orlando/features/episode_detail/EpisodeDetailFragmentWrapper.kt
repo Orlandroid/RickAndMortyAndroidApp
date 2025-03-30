@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.data.model.character.toCharacter
 import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
 import com.rickandmortyorlando.orlando.features.base.BaseFragment
 import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.content
 import com.rickandmortyorlando.orlando.features.extensions.openYoutubeApp
+import com.rickandmortyorlando.orlando.state.BaseViewState
 
 class EpisodeDetailFragmentWrapper :
     BaseFragment<FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
@@ -42,21 +42,14 @@ class EpisodeDetailFragmentWrapper :
                 viewModel.getEpisodeInfo(args.idEpisode.toString())
             }
             val state = viewModel.state.collectAsStateWithLifecycle()
-            when (state.value) {
-                is EpisodeDetailViewState.Error -> {
-                    Text((state.value as EpisodeDetailViewState.Error).message)
-                }
-
-                is EpisodeDetailViewState.Loading -> {
+            when (val currentState = state.value) {
+                is BaseViewState.Loading -> {
                     EpisodeDetailSkeleton()
                 }
 
-                is EpisodeDetailViewState.Success -> {
-
-                    val response = (state.value as EpisodeDetailViewState.Success)
+                is BaseViewState.Content -> {
                     EpisodeDetailScreen(
-                        episode = response.episode,
-                        characters = response.characters.map { it.toCharacter() },
+                        uiState = currentState.result,
                         clickOnCharacter = { characterId ->
                             findNavController().navigate(
                                 EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
@@ -68,7 +61,11 @@ class EpisodeDetailFragmentWrapper :
                             requireContext().openYoutubeApp(episodeQuery)
                         }
                     )
-                    changeToolbarTitle(response.episode.name)
+                    changeToolbarTitle(currentState.result.episode.name)
+                }
+
+                is BaseViewState.Error -> {
+                    ErrorScreen()
                 }
             }
         }
