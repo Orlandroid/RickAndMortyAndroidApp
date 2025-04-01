@@ -37,23 +37,8 @@
             android:name="charcaterId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragment"
-            app:destination="@id/manyEpisodesFragment" />
-        <action
             android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragmentWrapper"
             app:destination="@id/manyEpisodesFragmentWrapper" />
-    </fragment>
-    <fragment
-        android:id="@+id/manyEpisodesFragment"
-        android:name="com.rickandmortyorlando.orlando.features.many_episodes.ManyEpisodesFragment"
-        android:label="ManyEpisodesFragment"
-        tools:layout="@layout/fragment_episodes">
-        <argument
-            android:name="idsEpisodes"
-            app:argType="string" />
-        <argument
-            android:name="isSingleEpisode"
-            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
