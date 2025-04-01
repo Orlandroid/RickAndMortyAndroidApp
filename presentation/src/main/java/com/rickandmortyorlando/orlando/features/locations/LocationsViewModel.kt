@@ -8,8 +8,8 @@ import com.example.data.Repository
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.LocationPagingSource
 import com.example.data.pagination.getPagingConfig
+import com.example.di.CoroutineDispatchers
 import com.example.domain.models.location.Location
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,8 +3,8 @@ package com.rickandmortyorlando.orlando.features.many_episodes
 import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
 import com.example.data.model.episode.toEpisode
+import com.example.di.CoroutineDispatchers
 import com.example.domain.models.episodes.Episode
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import com.rickandmortyorlando.orlando.state.BaseViewState

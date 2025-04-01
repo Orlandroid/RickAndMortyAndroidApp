@@ -1,10 +1,6 @@
-package com.rickandmortyorlando.orlando.di
+package com.example.di
 
 
-import com.apollographql.apollo3.ApolloClient
-import com.example.data.Repository
-import com.example.data.api.RickAndMortyService
-import com.rickandmortyorlando.orlando.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,23 +44,5 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
-
-
-    @Singleton
-    @Provides
-    fun provideRickAndMortyService(retrofit: Retrofit): RickAndMortyService =
-        retrofit.create(RickAndMortyService::class.java)
-
-
-    @Singleton
-    @Provides
-    fun provideRepository(rickAndMortyService: RickAndMortyService): Repository =
-        Repository(rickAndMortyService)
-
-    @Singleton
-    @Provides
-    fun provideApolloClient(): ApolloClient = ApolloClient.builder()
-        .serverUrl("https://rickandmortyapi.com/graphql")
-        .build()
-
+    
 }

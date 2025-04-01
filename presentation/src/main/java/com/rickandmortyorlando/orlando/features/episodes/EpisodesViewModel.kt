@@ -7,8 +7,8 @@ import androidx.paging.cachedIn
 import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.EpisodesPagingSource
 import com.example.data.pagination.getPagingConfig
+import com.example.di.CoroutineDispatchers
 import com.example.domain.models.episodes.Episode
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.Repository
 import com.example.data.model.character.toCharacter
 import com.example.data.model.location.SingleLocation
+import com.example.di.CoroutineDispatchers
 import com.example.domain.models.characters.Character
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import com.rickandmortyorlando.orlando.state.BaseViewState

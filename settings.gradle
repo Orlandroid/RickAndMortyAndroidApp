@@ -16,3 +16,4 @@ rootProject.name = "PaggingExample"
 include ':presentation'
 include ':domain'
 include ':data'
+include ':di'

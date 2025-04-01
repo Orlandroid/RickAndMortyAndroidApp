@@ -1,4 +1,5 @@
 import com.example.androidbase.presentation.BuildModules.DATA
+import com.example.androidbase.presentation.BuildModules.DI
 import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
@@ -66,6 +67,7 @@ android {
 dependencies {
     implementation(project(DATA))
     implementation(project(DOMAIN))
+    implementation(project(DI))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)

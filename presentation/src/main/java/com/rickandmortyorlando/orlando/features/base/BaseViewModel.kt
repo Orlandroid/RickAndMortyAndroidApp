@@ -3,8 +3,8 @@ package com.rickandmortyorlando.orlando.features.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.di.CoroutineDispatchers
 import com.example.domain.state.ApiState
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

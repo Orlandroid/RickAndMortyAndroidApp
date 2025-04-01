@@ -2,8 +2,8 @@ package com.rickandmortyorlando.orlando.features.characters
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.example.di.CoroutineDispatchers
 import com.example.domain.repository.CharacterRepository
-import com.rickandmortyorlando.orlando.di.CoroutineDispatchers
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
