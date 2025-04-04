@@ -16,7 +16,6 @@ class CharacterViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
-
-    fun getCharacters() = characterRepository.getCharacters().cachedIn(viewModelScope)
-
+    val  characters = characterRepository.getCharacters().cachedIn(viewModelScope)
+    
 }

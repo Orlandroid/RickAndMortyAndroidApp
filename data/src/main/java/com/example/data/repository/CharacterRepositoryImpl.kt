@@ -12,11 +12,14 @@ import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(private val api: RickAndMortyService) : CharacterRepository {
 
+    private lateinit var charactersPagingSource: CharactersPagingSource
+
     override fun getCharacters(): Flow<PagingData<Character>> {
         return Pager(
             config = getPagingConfig(),
             pagingSourceFactory = {
-                CharactersPagingSource(service = api)
+                charactersPagingSource = CharactersPagingSource(service = api)
+                charactersPagingSource
             }
         ).flow
     }

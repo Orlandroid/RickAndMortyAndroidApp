@@ -55,7 +55,7 @@ class SearchCharactersFragmentWrapper :
                 onRefresh = {
                     viewModel.refreshCharactersSearchPagingSource()
                     refreshing = true
-                },
+                }
             ) {
                 CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
             }

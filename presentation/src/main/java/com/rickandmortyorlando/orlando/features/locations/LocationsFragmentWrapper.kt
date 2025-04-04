@@ -34,7 +34,7 @@ class LocationsFragmentWrapper :
     ): View {
         return content {
             val viewModel: LocationsViewModel = hiltViewModel()
-            val locations = viewModel.getLocationsPagingSource.collectAsLazyPagingItems()
+            val locations = viewModel.locations.collectAsLazyPagingItems()
             LocationsScreen(locations = locations, clickOnItem = ::clickOnLocation)
         }
     }

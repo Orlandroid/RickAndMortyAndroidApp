@@ -42,7 +42,7 @@ class CharacterFragmentWrapper :
     ): View {
         return content {
             val viewModel: CharacterViewModel = hiltViewModel()
-            val characters = viewModel.getCharacters().collectAsLazyPagingItems()
+            val characters = viewModel.characters.collectAsLazyPagingItems()
             CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
         }
     }

@@ -3,7 +3,11 @@ package com.example.data.di
 
 import com.example.data.api.RickAndMortyService
 import com.example.data.repository.CharacterRepositoryImpl
+import com.example.data.repository.EpisodesRepositoryImpl
+import com.example.data.repository.LocationsRepositoryImpl
 import com.example.domain.repository.CharacterRepository
+import com.example.domain.repository.EpisodesRepository
+import com.example.domain.repository.LocationsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +23,17 @@ object RepositoryModule {
     fun provideCharactersRepository(
         api: RickAndMortyService,
     ): CharacterRepository = CharacterRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideEpisodesRepository(
+        api: RickAndMortyService,
+    ): EpisodesRepository = EpisodesRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideLocationsRepository(
+        api: RickAndMortyService,
+    ): LocationsRepository = LocationsRepositoryImpl(api)
 
 }

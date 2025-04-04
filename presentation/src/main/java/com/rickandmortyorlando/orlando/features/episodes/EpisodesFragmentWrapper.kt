@@ -34,7 +34,7 @@ class EpisodesFragmentWrapper : BaseFragment<FragmentEpisodesBinding>(R.layout.f
     ): View {
         return content {
             val viewModel: EpisodesViewModel = hiltViewModel()
-            val episodes = viewModel.getEpisodesPagingSource.collectAsLazyPagingItems()
+            val episodes = viewModel.episodes.collectAsLazyPagingItems()
             EpisodesScreen(episodes = episodes, clickOnItem = ::clickOnEpisode)
         }
     }
