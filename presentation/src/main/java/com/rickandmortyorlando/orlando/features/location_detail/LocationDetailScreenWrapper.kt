@@ -36,8 +36,8 @@ class LocationDetailScreenWrapper :
     ): View {
         return content {
             val locationDetailViewModel: LocationDetailViewModel = hiltViewModel()
-            LaunchedEffect(locationDetailViewModel) {
-                locationDetailViewModel.getLocationInfo(locationId = args.locationDetail)
+            LaunchedEffect(Unit) {
+                locationDetailViewModel.getLocationDetail(locationId = args.locationDetail)
             }
             val state = locationDetailViewModel.state.collectAsState()
 

@@ -27,8 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
-import com.example.data.model.location.SingleLocation
-import com.example.data.model.location.toLocation
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
@@ -76,7 +74,7 @@ fun CharacterDetailScreen(
                 text = stringResource(R.string.last_seen_location),
                 fontWeight = FontWeight.Bold
             )
-            uiState.location?.let { LocationDetails(location = it.toLocation()) }
+            uiState.location?.let { LocationDetails(location = it) }
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location_residents),
@@ -167,7 +165,7 @@ private fun LocationDetails(location: Location) {
 private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
     CharacterDetailScreen(
         uiState = CharacterDetailUiState(
-            location = SingleLocation.getMockSingleLocation(),
+            location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
             characterOfThisLocation = Character.getCharacters(4)
         ),

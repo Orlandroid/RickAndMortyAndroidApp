@@ -40,8 +40,8 @@ class CharacterDetailFragmentFragmentWrapper :
     ): View {
         return content {
             val viewModel: CharacterDetailViewModel = hiltViewModel()
-            LaunchedEffect(viewModel) {
-                viewModel.getCharacterDetailInfo(args.charcaterId.toString())
+            LaunchedEffect(Unit) {
+                viewModel.getCharacterDetailInfo(args.charcaterId)
             }
             val state = viewModel.state.collectAsStateWithLifecycle()
             when (val currentState = state.value) {

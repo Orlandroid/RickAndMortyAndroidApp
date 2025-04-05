@@ -1,17 +1,14 @@
 package com.rickandmortyorlando.orlando.features.episode_detail
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.Repository
-import com.example.data.model.character.toCharacter
-import com.example.data.model.episode.toEpisode
-import com.example.di.CoroutineDispatchers
+import com.example.di.IoDispatcher
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
-import com.rickandmortyorlando.orlando.features.base.BaseViewModel
-import com.rickandmortyorlando.orlando.features.main.NetworkHelper
+import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
-import com.rickandmortyorlando.orlando.utils.getListOfNumbersFromUrlWithPrefix
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,47 +22,29 @@ data class EpisodeDetailUiState(
 
 @HiltViewModel
 class EpisodeDetailViewModel @Inject constructor(
-    coroutineDispatchers: CoroutineDispatchers,
-    private val repository: Repository,
-    networkHelper: NetworkHelper
-) : BaseViewModel(
-    coroutineDispatchers = coroutineDispatchers,
-    networkHelper = networkHelper
-) {
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase
+) : ViewModel() {
 
-    private val _state = MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
+    private val _state =
+        MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
 
-    //Todo handle error becuase we can have errors for one or another service
-    //Todo This operations should be move to one repository
-    //Todo this logic has to be move to the use case in the future
-    //Todo getListOfIdsOfCharacters has to move inside of the use case
-
-    fun getEpisodeInfo(
-        episodeId: String
-    ) = viewModelScope.launch {
-        try {
-            val episodeResponse = repository.getManyEpisodes(episodeId)
-            val characters =
-                repository.getManyCharacters(getListOfIdsOfCharacters(episodeResponse[0].characters))
-            _state.value =
-                BaseViewState.Content(
-                    EpisodeDetailUiState(
-                        episode = episodeResponse[0].toEpisode(),
-                        characters = characters.map { it.toCharacter() }
-                    )
+    fun getEpisodeDetail(episodeId: String) = viewModelScope.launch(ioDispatcher) {
+        runCatching {
+            val episodeDetail = getEpisodeDetailUseCase.invoke(episodeId = episodeId)
+            _state.value = BaseViewState.Content(
+                EpisodeDetailUiState(
+                    episode = episodeDetail.episode,
+                    characters = episodeDetail.characters
                 )
-        } catch (e: Exception) {
-            _state.value = BaseViewState.Error(message = e.message.orEmpty())
+            )
+        }.onFailure {
+            println(it.message)
+            _state.value = BaseViewState.Error(message = it.message.orEmpty())
         }
     }
 
-    private fun getListOfIdsOfCharacters(idsInUrl: List<String>): String {
-        return getListOfNumbersFromUrlWithPrefix(
-            idsInUrl,
-            "character"
-        )
-    }
 
 }

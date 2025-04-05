@@ -30,7 +30,7 @@ fun LocationDetailScreen(
     clickOnCharacter: (characterId: Int) -> Unit
 ) {
     Column(modifier = modifier) {
-        ItemInfoLocation(location = uiState.location.toLocation())
+        ItemInfoLocation(location = uiState.location)
         LazyColumn {
             items(uiState.characters) { character ->
                 ItemCharacter(

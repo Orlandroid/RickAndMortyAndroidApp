@@ -7,4 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface EpisodesRepository {
 
     fun getEpisodes(): Flow<PagingData<Episode>>
+
+    suspend fun getEpisode(ids: String): Episode
+
+    suspend fun getManyEpisodes(ids: String): List<Episode>
 }

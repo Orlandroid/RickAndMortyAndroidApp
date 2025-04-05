@@ -6,6 +6,7 @@ import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNN
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -50,4 +51,6 @@ dependencies {
     androidTestImplementation(libs.test.espresso)
     implementation(libs.androidx.constraintlayout)///add pagging3 compose
     implementation(libs.apollo.runtime)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

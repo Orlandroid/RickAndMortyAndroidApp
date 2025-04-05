@@ -39,7 +39,7 @@ class EpisodeDetailFragmentWrapper :
         return content {
             val viewModel: EpisodeDetailViewModel = hiltViewModel()
             LaunchedEffect(Unit) {
-                viewModel.getEpisodeInfo(args.idEpisode.toString())
+                viewModel.getEpisodeDetail(args.idEpisode.toString())
             }
             val state = viewModel.state.collectAsStateWithLifecycle()
             when (val currentState = state.value) {
