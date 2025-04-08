@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASE_URL = "https://rickandmortyapi.com/api/"
+    private const val BASE_URL_RICK_AND_MORTY_IMAGES_EPISODES = "https://api.tvmaze.com/"
 
 
     @Singleton
@@ -44,5 +46,15 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
-    
+
+
+    @Singleton
+    @Provides
+    @Named("episodes")
+    fun provideRetrofitImagesEpisodes(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL_RICK_AND_MORTY_IMAGES_EPISODES)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+
 }

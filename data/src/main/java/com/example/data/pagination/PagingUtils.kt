@@ -1,10 +1,13 @@
 package com.example.data.pagination
 
 import androidx.paging.PagingConfig
-import com.example.data.Repository
+
+const val NETWORK_PAGE_SIZE = 20
+const val PRE_FETCH_DISTANCE = 5
 
 fun getPagingConfig() = PagingConfig(
-    pageSize = Repository.NETWORK_PAGE_SIZE,
+    pageSize = NETWORK_PAGE_SIZE,
     enablePlaceholders = false,
-    prefetchDistance = Repository.PRE_FETCH_DISTANCE
+    prefetchDistance = PRE_FETCH_DISTANCE
 )
+

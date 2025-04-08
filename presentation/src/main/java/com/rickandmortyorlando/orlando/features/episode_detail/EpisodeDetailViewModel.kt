@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.di.IoDispatcher
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
+import com.example.domain.models.episodes.EpisodeImage
 import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 data class EpisodeDetailUiState(
     val episode: Episode,
-    val characters: List<Character>
+    val characters: List<Character>,
+    val episodeImage: EpisodeImage
 )
 
 @HiltViewModel
@@ -26,8 +28,7 @@ class EpisodeDetailViewModel @Inject constructor(
     private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase
 ) : ViewModel() {
 
-    private val _state =
-        MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
+    private val _state = MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
 
@@ -37,7 +38,8 @@ class EpisodeDetailViewModel @Inject constructor(
             _state.value = BaseViewState.Content(
                 EpisodeDetailUiState(
                     episode = episodeDetail.episode,
-                    characters = episodeDetail.characters
+                    characters = episodeDetail.characters,
+                    episodeImage = episodeDetail.episodeImage
                 )
             )
         }.onFailure {

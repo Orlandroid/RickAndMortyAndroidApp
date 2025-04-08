@@ -1,12 +1,9 @@
 package com.rickandmortyorlando.orlando.features.many_episodes
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.Repository
-import com.example.data.model.episode.toEpisode
-import com.example.di.CoroutineDispatchers
 import com.example.domain.models.episodes.Episode
-import com.rickandmortyorlando.orlando.features.base.BaseViewModel
-import com.rickandmortyorlando.orlando.features.main.NetworkHelper
+import com.example.domain.repository.EpisodesRepository
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,24 +15,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ManyEpisodesViewModel @Inject constructor(
-    private val repository: Repository,
-    networkHelper: NetworkHelper,
-    coroutineDispatcher: CoroutineDispatchers,
-) : BaseViewModel(coroutineDispatcher, networkHelper) {
+    private val repository: EpisodesRepository
+
+) : ViewModel() {
 
     private val _state = MutableStateFlow<BaseViewState<List<Episode>>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
     fun getEpisodes(idsEpisodes: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val episodeResponse = repository.getManyEpisodes(idsEpisodes).map { it.toEpisode() }
+            runCatching {
+                val episodeResponse = repository.getManyEpisodes(idsEpisodes)
                 _state.value =
                     BaseViewState.Content(
                         result = episodeResponse
                     )
-            } catch (e: Exception) {
-                _state.value = BaseViewState.Error(message = e.message.orEmpty())
+            }.onFailure {
+                _state.value = BaseViewState.Error(message = it.message.orEmpty())
             }
         }
     }

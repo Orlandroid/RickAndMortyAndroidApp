@@ -1,6 +1,7 @@
 package com.example.data.di
 
 
+import com.example.data.api.RickAndMortyEpisodesImages
 import com.example.data.api.RickAndMortyService
 import com.example.data.repository.CharacterRepositoryImpl
 import com.example.data.repository.EpisodesRepositoryImpl
@@ -12,6 +13,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -28,12 +31,24 @@ object RepositoryModule {
     @Singleton
     fun provideEpisodesRepository(
         api: RickAndMortyService,
-    ): EpisodesRepository = EpisodesRepositoryImpl(api)
+        episodeImageService: RickAndMortyEpisodesImages
+    ): EpisodesRepository =
+        EpisodesRepositoryImpl(api = api, episodeImageService = episodeImageService)
 
     @Provides
     @Singleton
     fun provideLocationsRepository(
         api: RickAndMortyService,
     ): LocationRepository = LocationsRepositoryImpl(api)
+
+    @Singleton
+    @Provides
+    fun provideRickAndMortyService(retrofit: Retrofit): RickAndMortyService =
+        retrofit.create(RickAndMortyService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRickAndMortyEpisodesImages(@Named("episodes") retrofit: Retrofit): RickAndMortyEpisodesImages =
+        retrofit.create(RickAndMortyEpisodesImages::class.java)
 
 }
