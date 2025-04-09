@@ -5,28 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.stringResource
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.ErrorScreen
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
-import com.rickandmortyorlando.orlando.databinding.FragmentEpisodeDetailBinding
-import com.rickandmortyorlando.orlando.features.base.BaseFragment
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.changeToolbarTitle
 import com.rickandmortyorlando.orlando.features.extensions.content
 import com.rickandmortyorlando.orlando.features.extensions.openYoutubeApp
 import com.rickandmortyorlando.orlando.state.BaseViewState
 
-class EpisodeDetailFragmentWrapper :
-    BaseFragment<FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
-
-    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
-        toolbarTitle = getString(R.string.episode_detail),
-        showToolbar = true
-    )
+class EpisodeDetailFragmentWrapper : Fragment(R.layout.fragment_episode_detail) {
 
 
     private val args: EpisodeDetailFragmentWrapperArgs by navArgs()
@@ -42,38 +37,41 @@ class EpisodeDetailFragmentWrapper :
                 viewModel.getEpisodeDetail(args.idEpisode.toString())
             }
             val state = viewModel.state.collectAsStateWithLifecycle()
-            when (val currentState = state.value) {
-                is BaseViewState.Loading -> {
-                    EpisodeDetailSkeleton()
-                }
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = stringResource(R.string.episode_detail),//Todo Change to dynamic name
+                    clickOnBackButton = { findNavController().navigateUp() }
+                )
+            ) {
+                when (val currentState = state.value) {
+                    is BaseViewState.Loading -> {
+                        EpisodeDetailSkeleton()
+                    }
 
-                is BaseViewState.Content -> {
-                    EpisodeDetailScreen(
-                        uiState = currentState.result,
-                        clickOnCharacter = { characterId ->
-                            findNavController().navigate(
-                                EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                                    characterId
+                    is BaseViewState.Content -> {
+                        EpisodeDetailScreen(
+                            uiState = currentState.result,
+                            clickOnCharacter = { characterId ->
+                                findNavController().navigate(
+                                    EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
+                                        characterId
+                                    )
                                 )
-                            )
-                        },
-                        clickOnWatch = { episodeQuery ->
-                            requireContext().openYoutubeApp(episodeQuery)
-                        }
-                    )
-                    changeToolbarTitle(currentState.result.episode.name)
-                }
+                            },
+                            clickOnWatch = { episodeQuery ->
+                                requireContext().openYoutubeApp(episodeQuery)
+                            }
+                        )
+                        changeToolbarTitle(currentState.result.episode.name)
+                    }
 
-                is BaseViewState.Error -> {
-                    ErrorScreen()
+                    is BaseViewState.Error -> {
+                        ErrorScreen()
+                    }
                 }
             }
         }
     }
 
-
-    override fun setUpUi() {
-
-    }
 
 }

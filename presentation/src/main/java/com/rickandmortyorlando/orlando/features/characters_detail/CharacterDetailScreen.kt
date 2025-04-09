@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +32,6 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.CharacterCard
-import com.rickandmortyorlando.orlando.theme.Alive
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
 @Composable
@@ -67,6 +67,7 @@ fun CharacterDetailScreen(
         ) {
             CharacterDetail(
                 character = uiState.characterDetail,
+                statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
                 clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
             )
             Spacer(Modifier.height(32.dp))
@@ -95,14 +96,18 @@ fun CharacterDetailScreen(
 }
 
 @Composable
-private fun CharacterDetail(character: Character, clickOnNumberOfEpisodes: () -> Unit) {
+private fun CharacterDetail(
+    character: Character,
+    statusColor: Color,
+    clickOnNumberOfEpisodes: () -> Unit
+) {
     Row {
         Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
         Spacer(Modifier.width(8.dp))
         Canvas(
             modifier = Modifier.size(14.dp),
             onDraw = {
-                drawCircle(color = Alive)
+                drawCircle(color = statusColor)
             }
         )
         Spacer(Modifier.width(8.dp))

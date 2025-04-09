@@ -5,35 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.databinding.FragmentCharacterBinding
-import com.rickandmortyorlando.orlando.features.base.BaseFragment
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.content
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CharacterFragmentWrapper :
-    BaseFragment<FragmentCharacterBinding>(R.layout.fragment_character) {
+class CharacterFragmentWrapper : Fragment(R.layout.fragment_character) {
 
-    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
-        showToolbar = true, toolbarTitle = getString(R.string.characters)
-    )
-
-    override fun configSearchView() = MainActivity.SearchViewConfig(
-        showSearchView = true,
-        clickOnSearchIcon = {
-            findNavController().navigate(CharacterFragmentWrapperDirections.actionCharacterFragmentWrapperToSearchCharactersFragmentWrapper())
-        }
-    )
-
-    override fun setUpUi() {
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +34,27 @@ class CharacterFragmentWrapper :
         return content {
             val viewModel: CharacterViewModel = hiltViewModel()
             val characters = viewModel.characters.collectAsLazyPagingItems()
-            CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = stringResource(R.string.characters),
+                    clickOnBackButton = { findNavController().navigateUp() },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                findNavController().navigate(CharacterFragmentWrapperDirections.actionCharacterFragmentWrapperToSearchCharactersFragmentWrapper())
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Search,
+                                contentDescription = "Search",
+                                tint = Color.White
+                            )
+                        }
+                    }
+                )
+            ) {
+                CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
+            }
         }
     }
 
