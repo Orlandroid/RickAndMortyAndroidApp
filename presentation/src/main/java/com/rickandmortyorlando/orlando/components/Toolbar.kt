@@ -39,28 +39,6 @@ fun Toolbar(
         },
         actions = {
             toolbarConfiguration.actions?.let { it() }
-//            IconButton(onClick = { /*TODO*/ }) {
-//                Icon(
-//                    imageVector = Icons.Filled.Search,
-//                    contentDescription = "Buscar",
-//                    tint = Color.White
-//                )
-//            }
-//
-//            IconButton(onClick = { /*TODO*/ }) {
-//                Icon(
-//                    painter = painterResource(id = R.drawable.cancel),
-//                    contentDescription = "Filtrar",
-//                    tint = Color.White
-//                )
-//            }
-//            IconButton(onClick = { /*TODO*/ }) {
-//                Icon(
-//                    imageVector = Icons.Filled.Settings,
-//                    contentDescription = "Settings",
-//                    tint = Color.White
-//                )
-//            }
         },
         navigationIcon = {
             if (toolbarConfiguration.showBackIcon) {

@@ -8,12 +8,13 @@ import com.example.data.api.RickAndMortyService
 import com.example.data.pagination.CharactersSearchPagingSource
 import com.example.data.pagination.getPagingConfig
 import com.example.di.CoroutineDispatchers
-import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.models.characters.Character
+import com.example.domain.models.characters.SearchCharacter
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
 import com.rickandmortyorlando.orlando.features.main.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +25,7 @@ class SearchCharactersViewModel @Inject constructor(
 ) : BaseViewModel(coroutineDispatcher, networkHelper) {
 
 
-    var searchCharacter = SearchCharacter()
+    val uiState = MutableStateFlow(SearchCharacter())
 
     private lateinit var charactersSearchPagingSource: CharactersSearchPagingSource
 
@@ -34,7 +35,7 @@ class SearchCharactersViewModel @Inject constructor(
             pagingSourceFactory = {
                 charactersSearchPagingSource = CharactersSearchPagingSource(
                     service = rickAndMortyService,
-                    search = searchCharacter
+                    search = uiState.value
                 )
                 charactersSearchPagingSource
             }
