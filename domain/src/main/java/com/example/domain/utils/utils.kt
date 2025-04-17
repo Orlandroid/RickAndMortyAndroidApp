@@ -1,17 +1,6 @@
 package com.example.domain.utils
 
 
-fun getListOfEpisodes(episodesString: List<String>): String {
-    val episodes = arrayListOf<Int>()
-    episodesString.forEach {
-        episodes.add(it.split("episode/")[1].toInt())
-    }
-    return removeCharactersForEpisodesList(episodes.toString())
-}
-
-fun characterHasLocation(urlLocation: String): Boolean {
-    return urlLocation.isNotEmpty()
-}
 
 fun getListOfIdsOfCharacters(idsInUrl: List<String>): String {
     return getListOfNumbersFromUrlWithPrefix(
