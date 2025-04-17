@@ -47,8 +47,8 @@ As a fan-driven project, this app is a tribute to the wit, humor, and creativity
     <td><strong>Locations</strong></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle_2.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle_3.png" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/episode_detail.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/locations.png" width="100%"></td> 
   </tr>
@@ -57,7 +57,7 @@ As a fan-driven project, this app is a tribute to the wit, humor, and creativity
     <td><strong>Settings</strong></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/location_detail.jpg" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/location_detail.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/settings.png" width="100%"></td>
   </tr>
   
