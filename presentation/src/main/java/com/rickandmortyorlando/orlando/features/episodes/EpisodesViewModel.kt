@@ -2,7 +2,6 @@ package com.rickandmortyorlando.orlando.features.episodes
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.data.api.RickAndMortyService
 import com.example.di.CoroutineDispatchers
 import com.example.domain.repository.EpisodesRepository
 import com.rickandmortyorlando.orlando.features.base.BaseViewModel
@@ -13,7 +12,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EpisodesViewModel @Inject constructor(
-    private val rickAndMortyService: RickAndMortyService,
     networkHelper: NetworkHelper,
     coroutineDispatcher: CoroutineDispatchers,
     private val episodesRepository: EpisodesRepository,

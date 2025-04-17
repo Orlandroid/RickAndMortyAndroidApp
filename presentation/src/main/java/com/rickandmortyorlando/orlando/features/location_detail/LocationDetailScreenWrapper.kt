@@ -6,25 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.rickandmortyorlando.orlando.MainActivity
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.ErrorScreen
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.LocationDetailSkeleton
-import com.rickandmortyorlando.orlando.databinding.FragmentLocationDetailBinding
-import com.rickandmortyorlando.orlando.features.base.BaseFragment
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.content
 import com.rickandmortyorlando.orlando.state.BaseViewState
 
-class LocationDetailScreenWrapper :
-    BaseFragment<FragmentLocationDetailBinding>(R.layout.fragment_location_detail) {
+class LocationDetailScreenWrapper : Fragment(R.layout.fragment_location_detail) {
 
-    override fun configureToolbar() = MainActivity.ToolbarConfiguration(
-        toolbarTitle = getString(R.string.location),
-        showToolbar = true
-    )
 
 
     private val args: LocationDetailScreenWrapperArgs by navArgs()
@@ -41,23 +37,31 @@ class LocationDetailScreenWrapper :
             }
             val state = locationDetailViewModel.state.collectAsState()
 
-            when (val currentState = state.value) {
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = stringResource(R.string.location),
+                    clickOnBackButton = { findNavController().navigateUp() }
+                )
+            ) {
+                when (val currentState = state.value) {
 
-                is BaseViewState.Loading -> {
-                    LocationDetailSkeleton()
-                }
+                    is BaseViewState.Loading -> {
+                        LocationDetailSkeleton()
+                    }
 
-                is BaseViewState.Content -> {
-                    LocationDetailScreen(
-                        uiState = currentState.result,
-                        clickOnCharacter = { clickOnCharacter(it) }
-                    )
-                }
+                    is BaseViewState.Content -> {
+                        LocationDetailScreen(
+                            uiState = currentState.result,
+                            clickOnCharacter = { clickOnCharacter(it) }
+                        )
+                    }
 
-                is BaseViewState.Error -> {
-                    ErrorScreen()
+                    is BaseViewState.Error -> {
+                        ErrorScreen()
+                    }
                 }
             }
+
         }
     }
 
@@ -67,9 +71,5 @@ class LocationDetailScreenWrapper :
                 characterId
             )
         )
-    }
-
-    override fun setUpUi() {
-
     }
 }

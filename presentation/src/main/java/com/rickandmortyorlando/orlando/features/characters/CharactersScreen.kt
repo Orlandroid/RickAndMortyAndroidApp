@@ -41,7 +41,7 @@ fun CharactersScreen(
         }
         item {
             characters.LoadState(
-                modifierPageLoader = Modifier.fillParentMaxSize(),
+                modifier = Modifier.fillParentMaxSize(),
                 config = LoadStateConfig(
                     initialLoading = {
                         for (i in 0..15) {
@@ -69,7 +69,7 @@ private fun CharactersScreenPreview() {
                     refresh = LoadState.NotLoading(false),
                     append = LoadState.NotLoading(false),
                     prepend = LoadState.NotLoading(false)
-                ),
+                )
         )
     ).collectAsLazyPagingItems()
     CharactersScreen(

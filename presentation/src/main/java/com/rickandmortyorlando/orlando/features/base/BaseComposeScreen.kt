@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.components
+package com.rickandmortyorlando.orlando.features.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,24 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.rickandmortyorlando.orlando.theme.Background
+import com.rickandmortyorlando.orlando.components.Toolbar
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 
 
 @Composable
 fun BaseComposeScreen(
-    navController: NavController,
     toolbarConfiguration: ToolbarConfiguration = ToolbarConfiguration(),
-    background: Color = Background,
-    content: @Composable () -> Unit,
+    background: Color = Color.White,
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = {
             if (toolbarConfiguration.showToolbar) {
                 Toolbar(
-                    navController = navController,
-                    toolbarConfiguration = toolbarConfiguration
+                    toolbarConfiguration = toolbarConfiguration,
                 )
             }
         }
@@ -56,15 +53,15 @@ fun ContentScreen(
             .padding(paddingValues)
             .background(background)
     ) {
-        content()
+        content.invoke()
     }
 }
 
 
 @Composable
 @Preview(showBackground = true)
-private fun BaseViewPreview() {
-    BaseComposeScreen(navController = rememberNavController()) {
+fun BaseViewPreview() {
+    BaseComposeScreen {
         Text(text = "I am just trying to be my best software engineer version")
     }
 }

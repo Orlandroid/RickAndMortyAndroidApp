@@ -8,47 +8,6 @@
         android:layout_height="match_parent"
         tools:context=".features.episodes.EpisodesFragment">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/skeleton"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:duration="800"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-
-                <include layout="@layout/skeleton_episode" />
-            </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_episodes"

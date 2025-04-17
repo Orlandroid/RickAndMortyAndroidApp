@@ -32,13 +32,13 @@ fun CombinedLoadStates.getError(): LoadState.Error? {
 
 @Composable
 fun <T : Any> LazyPagingItems<T>.LoadState(
-    modifierPageLoader: Modifier = Modifier,
+    modifier: Modifier = Modifier,
     config: LoadStateConfig = LoadStateConfig()
 ) {
     when {
         loadState.refresh is LoadState.Loading -> {
             if (config.initialLoading == null) {
-                PageLoader(modifier = modifierPageLoader)
+                PageLoader(modifier = modifier)
             } else {
                 config.initialLoading?.let { it() }
             }

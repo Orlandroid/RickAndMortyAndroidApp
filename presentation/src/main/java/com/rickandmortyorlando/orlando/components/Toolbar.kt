@@ -1,8 +1,10 @@
 package com.rickandmortyorlando.orlando.components
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -14,16 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.rickandmortyorlando.orlando.theme.AlwaysWhite
 import com.rickandmortyorlando.orlando.theme.StatusBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Toolbar(
-    navController: NavController,
-    toolbarConfiguration: ToolbarConfiguration,
+    toolbarConfiguration: ToolbarConfiguration
 ) {
     TopAppBar(
         colors =
@@ -38,9 +37,12 @@ fun Toolbar(
                 modifier = Modifier.fillMaxWidth()
             )
         },
+        actions = {
+            toolbarConfiguration.actions?.let { it() }
+        },
         navigationIcon = {
-            if (toolbarConfiguration.isWithBackIcon) {
-                IconButton(onClick = { navController.popBackStack() }) {
+            if (toolbarConfiguration.showBackIcon) {
+                IconButton(onClick = toolbarConfiguration.clickOnBackButton) {
                     Icon(
                         tint = AlwaysWhite,
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -55,9 +57,10 @@ fun Toolbar(
 data class ToolbarConfiguration(
     val showToolbar: Boolean = true,
     val title: String = "Android Developer",
-    val isWithBackIcon: Boolean = true,
+    val showBackIcon: Boolean = true,
     val toolbarBackgroundColor: Color = StatusBarColor,
     val toolbarTextColor: Color = AlwaysWhite,
+    val actions: @Composable (RowScope.() -> Unit?)? = null,
     val clickOnBackButton: () -> Unit = {}
 )
 
@@ -66,7 +69,15 @@ data class ToolbarConfiguration(
 @Composable
 private fun SimpleComposablePreview() {
     Toolbar(
-        navController = rememberNavController(),
-        toolbarConfiguration = ToolbarConfiguration(title = "Android Developer"),
+        toolbarConfiguration = ToolbarConfiguration(title = "Android Developer", actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "Settings",
+                    tint = Color.White
+                )
+            }
+        }
+        )
     )
 }

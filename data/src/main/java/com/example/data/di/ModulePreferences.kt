@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.di
+package com.example.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
