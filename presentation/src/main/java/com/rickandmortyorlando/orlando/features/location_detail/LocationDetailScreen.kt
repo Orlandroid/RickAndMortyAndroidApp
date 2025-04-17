@@ -34,7 +34,7 @@ fun LocationDetailScreen(
             items(uiState.characters) { character ->
                 ItemCharacter(
                     character = character,
-                    clickOnItem = { id, name -> clickOnCharacter(character.id, name) })
+                    clickOnItem = { id, name -> clickOnCharacter(id, name) })
             }
         }
     }

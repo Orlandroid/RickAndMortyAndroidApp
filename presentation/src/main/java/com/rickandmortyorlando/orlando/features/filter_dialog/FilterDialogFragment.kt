@@ -12,8 +12,8 @@ import com.example.domain.models.characters.SearchCharacter
 import com.rickandmortyorlando.orlando.databinding.FragmentFilterDialogBinding
 
 class FilterDialogFragment(
-    val currentFilter: SearchCharacter,
-    val searchInfo: (SearchCharacter) -> Unit
+    private val currentFilter: SearchCharacter,
+    private val searchInfo: (SearchCharacter) -> Unit
 ) : DialogFragment() {
 
     private lateinit var binding: FragmentFilterDialogBinding
@@ -43,7 +43,7 @@ class FilterDialogFragment(
     }
 
 
-    fun setUpUi() {
+    private fun setUpUi() {
         binding.main.setContent {
             FilterScreen(
                 currentFilter = currentFilter,
