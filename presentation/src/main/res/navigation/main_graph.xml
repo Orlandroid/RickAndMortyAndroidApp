@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_characterDetailFragmentWrapper_to_manyEpisodesFragmentWrapper"
             app:destination="@id/manyEpisodesFragmentWrapper" />
+        <argument
+                android:name="characterName"
+                app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

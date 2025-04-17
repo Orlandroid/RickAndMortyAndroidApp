@@ -51,10 +51,11 @@ class EpisodeDetailFragmentWrapper : Fragment(R.layout.fragment_episode_detail) 
                     is BaseViewState.Content -> {
                         EpisodeDetailScreen(
                             uiState = currentState.result,
-                            clickOnCharacter = { characterId ->
+                            clickOnCharacter = { characterId,name ->
                                 findNavController().navigate(
                                     EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                                        characterId
+                                        characterId,
+                                        name
                                     )
                                 )
                             },

@@ -33,11 +33,11 @@ import com.rickandmortyorlando.orlando.utils.getColorStatus
 fun ItemCharacter(
     modifier: Modifier = Modifier,
     character: Character,
-    clickOnItem: (characterId: Int) -> Unit = {}
+    clickOnItem: (characterId: Int, characterName: String) -> Unit = { id, name -> }
 ) {
     val colorStatus = character.status.getColorStatus()
     Card(
-        onClick = { clickOnItem(character.id) },
+        onClick = { clickOnItem(character.id, character.name) },
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
             .fillMaxWidth()

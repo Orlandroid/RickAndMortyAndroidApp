@@ -37,7 +37,7 @@ import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 @Composable
 fun CharacterDetailScreen(
     uiState: CharacterDetailUiState,
-    clickOnCharacter: (Int) -> Unit,
+    clickOnCharacter: (Int, String) -> Unit,
     clickOnNumberOfEpisodes: () -> Unit
 ) {
     Column(
@@ -87,7 +87,7 @@ fun CharacterDetailScreen(
                     items(characters) { character ->
                         CharacterCard(
                             character = character,
-                            onCharacterClick = { clickOnCharacter(character.id) })
+                            onCharacterClick = { clickOnCharacter(character.id, character.name) })
                     }
                 }
             }
@@ -174,7 +174,7 @@ private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
             characterDetail = Character.mockCharacter(),
             characterOfThisLocation = Character.getCharacters(4)
         ),
-        clickOnCharacter = {},
+        clickOnCharacter = { id, name -> },
         clickOnNumberOfEpisodes = {}
     )
 }

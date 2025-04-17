@@ -59,10 +59,11 @@ class CharacterFragmentWrapper : Fragment(R.layout.fragment_character) {
     }
 
 
-    private fun clickOnCharacter(characterId: Int) {
+    private fun clickOnCharacter(characterId: Int, name: String) {
         findNavController().navigate(
             CharacterFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                characterId
+                characterId,
+                name
             )
         )
     }

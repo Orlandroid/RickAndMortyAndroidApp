@@ -39,7 +39,7 @@ class CharacterDetailFragmentFragmentWrapper : Fragment(R.layout.fragment_charac
             val state = viewModel.state.collectAsStateWithLifecycle()
             BaseComposeScreen(
                 toolbarConfiguration = ToolbarConfiguration(
-                    title = "#Change to dynamic name",
+                    title = args.characterName,
                     clickOnBackButton = { findNavController().navigateUp() }
                 )
             ) {
@@ -51,11 +51,12 @@ class CharacterDetailFragmentFragmentWrapper : Fragment(R.layout.fragment_charac
                     is BaseViewState.Content -> {
                         CharacterDetailScreen(
                             uiState = currentState.result,
-                            clickOnCharacter = { characterId ->
+                            clickOnCharacter = { characterId, name ->
                                 if (characterId != currentState.result.characterDetail.id) {
                                     findNavController().navigate(
                                         CharacterDetailFragmentFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                                            characterId
+                                            characterId,
+                                            name
                                         )
                                     )
                                 }

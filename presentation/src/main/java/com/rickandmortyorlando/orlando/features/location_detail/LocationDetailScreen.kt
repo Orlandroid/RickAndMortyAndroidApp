@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.data.model.location.toLocation
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.models.location.getPairInfoLocation
@@ -27,7 +26,7 @@ import com.rickandmortyorlando.orlando.components.ItemCharacter
 fun LocationDetailScreen(
     modifier: Modifier = Modifier,
     uiState: LocationDetailUiState,
-    clickOnCharacter: (characterId: Int) -> Unit
+    clickOnCharacter: (characterId: Int, name: String) -> Unit
 ) {
     Column(modifier = modifier) {
         ItemInfoLocation(location = uiState.location)
@@ -35,7 +34,7 @@ fun LocationDetailScreen(
             items(uiState.characters) { character ->
                 ItemCharacter(
                     character = character,
-                    clickOnItem = { clickOnCharacter(character.id) })
+                    clickOnItem = { id, name -> clickOnCharacter(character.id, name) })
             }
         }
     }

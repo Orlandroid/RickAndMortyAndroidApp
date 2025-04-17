@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -139,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val searchView: SearchView = searchItem.actionView as SearchView
-        searchView.queryHint = searchViewConfig.hintText
+        searchView.queryHint = getString(searchViewConfig.hintText)
         searchView.gravity = View.TEXT_ALIGNMENT_CENTER
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -171,7 +172,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     data class SearchViewConfig(
-        val hintText: String = "Buscar",
+        @StringRes
+        val hintText: Int = R.string.search,
         val showFilterIcon: Boolean = false,
         val showSearchView: Boolean = false,
         val showConfigIcon: Boolean = false,

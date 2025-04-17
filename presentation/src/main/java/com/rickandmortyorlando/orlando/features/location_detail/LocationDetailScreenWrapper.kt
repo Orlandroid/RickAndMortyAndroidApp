@@ -22,7 +22,6 @@ import com.rickandmortyorlando.orlando.state.BaseViewState
 class LocationDetailScreenWrapper : Fragment(R.layout.fragment_location_detail) {
 
 
-
     private val args: LocationDetailScreenWrapperArgs by navArgs()
 
     override fun onCreateView(
@@ -52,7 +51,7 @@ class LocationDetailScreenWrapper : Fragment(R.layout.fragment_location_detail) 
                     is BaseViewState.Content -> {
                         LocationDetailScreen(
                             uiState = currentState.result,
-                            clickOnCharacter = { clickOnCharacter(it) }
+                            clickOnCharacter = { id, name -> clickOnCharacter(id, name) }
                         )
                     }
 
@@ -65,10 +64,11 @@ class LocationDetailScreenWrapper : Fragment(R.layout.fragment_location_detail) 
         }
     }
 
-    private fun clickOnCharacter(characterId: Int) {
+    private fun clickOnCharacter(characterId: Int, name: String) {
         findNavController().navigate(
             LocationDetailScreenWrapperDirections.navigationToCharacterDetailWrapper(
-                characterId
+                characterId,
+                name
             )
         )
     }

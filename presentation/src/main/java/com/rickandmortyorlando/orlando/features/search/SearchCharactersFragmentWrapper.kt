@@ -130,10 +130,11 @@ class SearchCharactersFragmentWrapper : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun clickOnCharacter(characterId: Int) {
+    private fun clickOnCharacter(characterId: Int, name: String) {
         findNavController().navigate(
             SearchCharactersFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                characterId
+                characterId,
+                name
             )
         )
     }

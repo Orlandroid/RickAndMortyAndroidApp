@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun CharactersScreen(
     characters: LazyPagingItems<Character>,
-    clickOnItem: (characterId: Int) -> Unit
+    clickOnItem: (characterId: Int, characterName: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -35,7 +35,7 @@ fun CharactersScreen(
                 ItemCharacter(
                     modifier = Modifier.fillMaxWidth(),
                     character = character,
-                    clickOnItem = { clickOnItem(it) }
+                    clickOnItem = { id, name -> clickOnItem(id, name) }
                 )
             }
         }
@@ -74,6 +74,6 @@ private fun CharactersScreenPreview() {
     ).collectAsLazyPagingItems()
     CharactersScreen(
         characters = items,
-        clickOnItem = {}
+        clickOnItem = { id, name -> }
     )
 }

@@ -30,7 +30,7 @@ import com.rickandmortyorlando.orlando.components.ItemCharacter
 @Composable
 fun EpisodeDetailScreen(
     uiState: EpisodeDetailUiState,
-    clickOnCharacter: (characterId: Int) -> Unit,
+    clickOnCharacter: (characterId: Int, name: String) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -120,7 +120,7 @@ private fun EpisodeDetailScreenPreview() {
                 summary = ""
             )
         ),
-        clickOnCharacter = {},
+        clickOnCharacter = { id, name -> },
         clickOnWatch = {}
     )
 }
