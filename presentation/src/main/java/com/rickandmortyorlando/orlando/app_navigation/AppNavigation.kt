@@ -6,6 +6,7 @@ import androidx.fragment.compose.AndroidFragment
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rickandmortyorlando.orlando.features.characters.CharacterFragmentWrapper
 import com.rickandmortyorlando.orlando.features.home.HomeFragment
 
 
@@ -18,6 +19,9 @@ fun AppNavigation() {
     ) {
         composable<AppNavigationRoutes.HomeScreenRoute> {
             AndroidFragment<HomeFragment>()
+        }
+        composable<AppNavigationRoutes.CharactersScreenRoute> {
+            AndroidFragment<CharacterFragmentWrapper>()
         }
     }
 }
