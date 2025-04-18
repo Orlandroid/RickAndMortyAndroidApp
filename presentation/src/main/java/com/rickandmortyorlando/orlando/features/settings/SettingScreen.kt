@@ -12,8 +12,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,13 +23,11 @@ import com.rickandmortyorlando.orlando.theme.Background
 
 @Composable
 fun SettingScreen(
-    isNightMode: Boolean,
-    modifier: Modifier = Modifier,
-    changeTheme: (isNightMode: Boolean) -> Unit
+    onEvents: (event: SettingsEvents) -> Unit,
+    uiState: SettingsUiState
 ) {
-    val isChecked = remember { mutableStateOf(isNightMode) }
     Column(
-        modifier
+        Modifier
             .background(Background)
             .fillMaxSize()
     ) {
@@ -52,10 +48,9 @@ fun SettingScreen(
                 )
                 Switch(
                     modifier = Modifier.weight(1f),
-                    checked = isChecked.value,
+                    checked = uiState.isNightModeEnable,
                     onCheckedChange = {
-                        isChecked.value = !isChecked.value
-                        changeTheme(isChecked.value)
+                        onEvents(SettingsEvents.OnToggle(it))
                     }
                 )
             }
@@ -65,9 +60,12 @@ fun SettingScreen(
 
 @Composable
 @Preview(showBackground = true)
-private fun SettingsScreenPreview(modifier: Modifier = Modifier) {
-    SettingScreen(
-        changeTheme = {},
-        isNightMode = true
-    )
+private fun SettingsScreenEnablePreview(modifier: Modifier = Modifier) {
+    SettingScreen(onEvents = {}, uiState = SettingsUiState(isNightModeEnable = true))
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun SettingsScreenDisablePreview(modifier: Modifier = Modifier) {
+    SettingScreen(onEvents = {}, uiState = SettingsUiState())
 }
