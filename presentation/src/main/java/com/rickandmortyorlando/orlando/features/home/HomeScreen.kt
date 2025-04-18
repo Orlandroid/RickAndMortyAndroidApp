@@ -28,9 +28,7 @@ import com.rickandmortyorlando.orlando.R
 
 @Composable
 fun HomeScreen(
-    clickOnCharacters: () -> Unit,
-    clickOnLocation: () -> Unit,
-    clickOnEpisodes: () -> Unit
+    onEvents: (event: HomeEvents) -> Unit
 ) {
     val charactersImage = painterResource(id = R.drawable.rick_and_morty)
     val episodesImage = painterResource(id = R.drawable.img_episode)
@@ -54,7 +52,7 @@ fun HomeScreen(
                 R.string.characters
             ), painter = charactersImage
         ) {
-            clickOnCharacters()
+            onEvents(HomeEvents.ClickOnCharacters)
         }
 
         ImageCard(
@@ -68,7 +66,7 @@ fun HomeScreen(
                 R.string.episodes
             ), painter = episodesImage
         ) {
-            clickOnEpisodes()
+            onEvents(HomeEvents.ClickOnEpisodes)
         }
 
         ImageCard(
@@ -84,7 +82,7 @@ fun HomeScreen(
                 R.string.locations
             ), painter = locationsImage
         ) {
-            clickOnLocation()
+            onEvents(HomeEvents.ClickOnLocations)
         }
     }
 
@@ -133,9 +131,5 @@ private fun ImageCard(
 @Preview(showBackground = true)
 @Composable
 private fun SimpleComposablePreview() {
-    HomeScreen(
-        clickOnCharacters = {},
-        clickOnLocation = {},
-        clickOnEpisodes = {}
-    )
+    HomeScreen(onEvents = {})
 }
