@@ -37,7 +37,11 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override suspend fun getManyCharacters(idsCharacters: String): List<Character> {
         val url = "https://rickandmortyapi.com/api/character/$idsCharacters"
-        return api.getManyCharacters(url).map { it.toCharacter() }
+        return if (idsCharacters.contains(",")) {
+            api.getManyCharacters(url).map { it.toCharacter() }
+        } else {
+            listOf(api.getCharacter(id = idsCharacters).toCharacter())
+        }
     }
 
     override fun searchCharacter(searchCharacter: SearchCharacter): Flow<PagingData<Character>> {

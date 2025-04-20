@@ -32,6 +32,7 @@ class ManyEpisodesViewModel @Inject constructor(
                     )
             }.onFailure {
                 _state.value = BaseViewState.Error(message = it.message.orEmpty())
+                print(it.message)
             }
         }
     }
