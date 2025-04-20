@@ -4,20 +4,41 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.episodes.Episode
+import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.ItemEpisode
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
 
+
 @Composable
 fun EpisodesScreen(
+    episodes: LazyPagingItems<Episode>,
+    clickOnItem: (episodeId: Int) -> Unit,
+    clickOnBackButton: () -> Unit
+) {
+    BaseComposeScreen(
+        toolbarConfiguration = ToolbarConfiguration(
+            title = stringResource(R.string.episodes),
+            clickOnBackButton = clickOnBackButton
+        )
+    ) {
+        EpisodesScreenContent(episodes = episodes, clickOnItem = clickOnItem)
+    }
+}
+
+@Composable
+private fun EpisodesScreenContent(
     episodes: LazyPagingItems<Episode>,
     clickOnItem: (episodeId: Int) -> Unit
 ) {
@@ -70,7 +91,7 @@ private fun EpisodesScreenPreview() {
             )
         )
     ).collectAsLazyPagingItems()
-    EpisodesScreen(
+    EpisodesScreenContent(
         episodes = items,
         clickOnItem = {}
     )

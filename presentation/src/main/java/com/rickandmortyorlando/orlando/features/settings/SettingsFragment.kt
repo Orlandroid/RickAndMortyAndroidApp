@@ -35,7 +35,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                     title = stringResource(R.string.settings),
                     clickOnBackButton = { findNavController().navigateUp() })
             ) {
-                SettingScreen(onEvents = viewModel::handleEvents, uiState = uiState)
+                SettingScreen(onEvents = viewModel::handleEvents, uiState = uiState, onBack = {})
             }
         }
     }

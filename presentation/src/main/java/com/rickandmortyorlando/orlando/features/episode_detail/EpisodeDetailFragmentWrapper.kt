@@ -49,20 +49,20 @@ class EpisodeDetailFragmentWrapper : Fragment(R.layout.fragment_episode_detail) 
                     }
 
                     is BaseViewState.Content -> {
-                        EpisodeDetailScreen(
-                            uiState = currentState.result,
-                            clickOnCharacter = { characterId,name ->
-                                findNavController().navigate(
-                                    EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
-                                        characterId,
-                                        name
-                                    )
-                                )
-                            },
-                            clickOnWatch = { episodeQuery ->
-                                requireContext().openYoutubeApp(episodeQuery)
-                            }
-                        )
+//                        EpisodeDetailScreen(
+//                            uiState = currentState.result,
+//                            clickOnCharacter = { characterId,name ->
+//                                findNavController().navigate(
+//                                    EpisodeDetailFragmentWrapperDirections.navigationToCharacterDetailWrapper(
+//                                        characterId,
+//                                        name
+//                                    )
+//                                )
+//                            },
+//                            clickOnWatch = { episodeQuery ->
+//                                requireContext().openYoutubeApp(episodeQuery)
+//                            }
+//                        )
                         changeToolbarTitle(currentState.result.episode.name)
                     }
 

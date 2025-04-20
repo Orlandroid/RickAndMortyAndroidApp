@@ -53,7 +53,10 @@ class CharacterFragmentWrapper : Fragment(R.layout.fragment_character) {
                     }
                 )
             ) {
-                CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
+                CharactersScreen(
+                    characters = characters,
+                    clickOnItem = ::clickOnCharacter
+                )
             }
         }
     }

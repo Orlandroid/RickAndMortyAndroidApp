@@ -34,7 +34,7 @@ class LocationsFragmentWrapper : Fragment(R.layout.fragment_locations) {
                     }
                 )
             ) {
-                LocationsScreen(locations = locations, clickOnItem = ::clickOnLocation)
+                LocationScreen(locations = locations, clickOnItem = ::clickOnLocation, onNavigateBack = {})
             }
         }
     }

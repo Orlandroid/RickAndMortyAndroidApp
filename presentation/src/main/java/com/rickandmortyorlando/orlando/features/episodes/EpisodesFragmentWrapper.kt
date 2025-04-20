@@ -36,7 +36,10 @@ class EpisodesFragmentWrapper : Fragment(R.layout.fragment_episodes) {
                     }
                 )
             ) {
-                EpisodesScreen(episodes = episodes, clickOnItem = ::clickOnEpisode)
+                EpisodesScreen(
+                    episodes = episodes,
+                    clickOnItem = ::clickOnEpisode,
+                    clickOnBackButton = {})
             }
         }
     }

@@ -11,12 +11,14 @@ sealed class HomeEvents {
     data object ClickOnCharacters : HomeEvents()
     data object ClickOnEpisodes : HomeEvents()
     data object ClickOnLocations : HomeEvents()
+    data object ClickOnSettings : HomeEvents()
 }
 
 sealed class HomeEffects {
     data object NavigateToCharacters : HomeEffects()
     data object NavigateToEpisodes : HomeEffects()
     data object NavigateToLocations : HomeEffects()
+    data object NavigateToSettings : HomeEffects()
 }
 
 class HomeViewModel : ViewModel() {
@@ -37,6 +39,10 @@ class HomeViewModel : ViewModel() {
 
             HomeEvents.ClickOnLocations -> {
                 senEffect(HomeEffects.NavigateToLocations)
+            }
+
+            HomeEvents.ClickOnSettings -> {
+                senEffect(HomeEffects.NavigateToSettings)
             }
         }
     }

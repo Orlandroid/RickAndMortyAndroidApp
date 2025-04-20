@@ -50,7 +50,7 @@ class CharacterDetailFragmentFragmentWrapper : Fragment(R.layout.fragment_charac
 
                     is BaseViewState.Content -> {
                         CharacterDetailScreen(
-                            uiState = currentState.result,
+                            viewState = currentState,
                             clickOnCharacter = { characterId, name ->
                                 if (characterId != currentState.result.characterDetail.id) {
                                     findNavController().navigate(
@@ -69,7 +69,8 @@ class CharacterDetailFragmentFragmentWrapper : Fragment(R.layout.fragment_charac
                                         idsEpisodes = idsEpisodes
                                     )
                                 )
-                            }
+                            },
+                            onBack = {}
                         )
                     }
 

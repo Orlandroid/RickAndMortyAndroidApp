@@ -51,6 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_menu) {
                     }
                 )
             ) {
+                val android = viewModel.effects
                 LaunchedEffect(viewModel) {
                     viewModel.effects.collectLatest {
                         when (it) {
@@ -65,6 +66,8 @@ class HomeFragment : Fragment(R.layout.fragment_menu) {
                             HomeEffects.NavigateToLocations -> {
                                 findNavController().navigate(HomeFragmentDirections.actionMenuFragmentToLocationsFragmentWrapper())
                             }
+
+                            HomeEffects.NavigateToSettings -> {}
                         }
                     }
                 }

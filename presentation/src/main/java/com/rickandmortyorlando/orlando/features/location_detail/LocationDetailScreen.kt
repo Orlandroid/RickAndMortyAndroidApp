@@ -19,11 +19,50 @@ import androidx.compose.ui.unit.dp
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.models.location.getPairInfoLocation
+import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemCharacter
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.components.skeletons.LocationDetailSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import com.rickandmortyorlando.orlando.state.BaseViewState
 
 
 @Composable
 fun LocationDetailScreen(
+    viewState: BaseViewState<LocationDetailUiState>,
+    clickOnCharacter: (characterId: Int, name: String) -> Unit,
+    clickOnBack: () -> Unit
+) {
+    when (viewState) {
+
+        is BaseViewState.Loading -> {
+            LocationDetailSkeleton()
+        }
+
+        is BaseViewState.Content -> {
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = viewState.result.location.name,
+                    clickOnBackButton = { clickOnBack() }
+                )
+            ) {
+                LocationDetailScreenContent(
+                    uiState = viewState.result,
+                    clickOnCharacter = { id, name -> clickOnCharacter(id, name) }
+                )
+            }
+        }
+
+        is BaseViewState.Error -> {
+            ErrorScreen()
+        }
+    }
+
+}
+
+
+@Composable
+fun LocationDetailScreenContent(
     modifier: Modifier = Modifier,
     uiState: LocationDetailUiState,
     clickOnCharacter: (characterId: Int, name: String) -> Unit

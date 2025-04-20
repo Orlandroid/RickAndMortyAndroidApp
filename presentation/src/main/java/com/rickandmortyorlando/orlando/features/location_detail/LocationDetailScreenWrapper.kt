@@ -49,10 +49,10 @@ class LocationDetailScreenWrapper : Fragment(R.layout.fragment_location_detail) 
                     }
 
                     is BaseViewState.Content -> {
-                        LocationDetailScreen(
-                            uiState = currentState.result,
-                            clickOnCharacter = { id, name -> clickOnCharacter(id, name) }
-                        )
+//                        LocationDetailScreen(
+//                            uiState = currentState.result,
+//                            clickOnCharacter = { id, name -> clickOnCharacter(id, name) }
+//                        )
                     }
 
                     is BaseViewState.Error -> {

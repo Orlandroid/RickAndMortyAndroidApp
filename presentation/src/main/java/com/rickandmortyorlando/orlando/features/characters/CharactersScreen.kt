@@ -13,14 +13,23 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.characters.Character
-import com.rickandmortyorlando.orlando.components.skeletons.CharacterSkeleton
 import com.rickandmortyorlando.orlando.components.ItemCharacter
+import com.rickandmortyorlando.orlando.components.skeletons.CharacterSkeleton
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
 
+
 @Composable
 fun CharactersScreen(
+    characters: LazyPagingItems<Character>,
+    clickOnItem: (characterId: Int, characterName: String) -> Unit
+) {
+    CharactersScreenContent(characters = characters, clickOnItem = clickOnItem)
+}
+
+@Composable
+private fun CharactersScreenContent(
     characters: LazyPagingItems<Character>,
     clickOnItem: (characterId: Int, characterName: String) -> Unit
 ) {

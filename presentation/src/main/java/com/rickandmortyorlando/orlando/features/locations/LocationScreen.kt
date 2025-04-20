@@ -21,16 +21,41 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.LocationSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
+import kotlinx.coroutines.flow.flowOf
+
 
 @Composable
-fun LocationsScreen(
+fun LocationScreen(
+    locations: LazyPagingItems<Location>,
+    clickOnItem: (locationId: Int) -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    BaseComposeScreen(
+        toolbarConfiguration = ToolbarConfiguration(
+            title = stringResource(R.string.locations),
+            clickOnBackButton = onNavigateBack
+        )
+    ) {
+        LocationsScreenContent(locations = locations, clickOnItem = clickOnItem)
+    }
+}
+
+@Composable
+private fun LocationsScreenContent(
     locations: LazyPagingItems<Location>,
     clickOnItem: (locationId: Int) -> Unit
 ) {
@@ -108,15 +133,19 @@ private fun LocationItem(
 @Preview(showBackground = true)
 @Composable
 private fun LocationsScreenPreview() {
-    LocationItem(
-        location = Location(
-            id = 0,
-            name = stringResource(R.string.earth_c_137),
-            url = "",
-            dimension = "",
-            created = "",
-            type = stringResource(R.string.planet2),
-            residents = emptyList()
-        ),
-        clickOnItem = {})
+    val items = flowOf(
+        PagingData.from(
+            listOf(
+                Location.mockLocation(),
+                Location.mockLocation()
+            ),
+            sourceLoadStates =
+                LoadStates(
+                    refresh = LoadState.NotLoading(false),
+                    append = LoadState.NotLoading(false),
+                    prepend = LoadState.NotLoading(false)
+                )
+        )
+    ).collectAsLazyPagingItems()
+    LocationsScreenContent(locations = items, clickOnItem = {})
 }

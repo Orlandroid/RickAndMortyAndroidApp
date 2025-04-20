@@ -9,8 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,12 +29,39 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 
 
 @Composable
 fun HomeScreen(
     onEvents: (event: HomeEvents) -> Unit
 ) {
+    BaseComposeScreen(
+        toolbarConfiguration = ToolbarConfiguration(
+            showBackIcon = false,
+            title = stringResource(R.string.home),
+            actions = {
+                IconButton(
+                    onClick = {
+                        onEvents(HomeEvents.ClickOnSettings)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = "Settings",
+                        tint = Color.White
+                    )
+                }
+            }
+        )
+    ) {
+        HomeScreenContent(onEvents = onEvents)
+    }
+}
+
+@Composable
+fun HomeScreenContent(onEvents: (event: HomeEvents) -> Unit) {
     val paddingValues = PaddingValues(top = 12.dp, start = 12.dp, end = 12.dp)
     Column(Modifier.fillMaxSize()) {
         ImageCard(

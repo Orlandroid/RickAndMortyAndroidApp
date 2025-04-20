@@ -125,7 +125,10 @@ class SearchCharactersFragmentWrapper : Fragment(R.layout.fragment_search) {
                 }
             ) {
                 //Todo add error when we don,t get any result
-                CharactersScreen(characters = characters, clickOnItem = ::clickOnCharacter)
+                CharactersScreen(
+                    characters = characters,
+                    clickOnItem = ::clickOnCharacter
+                )
             }
         }
     }

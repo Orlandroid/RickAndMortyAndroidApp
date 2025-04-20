@@ -32,10 +32,50 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.CharacterCard
+import com.rickandmortyorlando.orlando.components.ErrorScreen
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.components.skeletons.CharacterDetailSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import com.rickandmortyorlando.orlando.state.BaseViewState
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
+
 
 @Composable
 fun CharacterDetailScreen(
+    viewState: BaseViewState<CharacterDetailUiState>,
+    clickOnCharacter: (Int, String) -> Unit,
+    clickOnNumberOfEpisodes: () -> Unit,
+    onBack: () -> Unit
+) {
+    when (viewState) {
+        is BaseViewState.Loading -> {
+            CharacterDetailSkeleton()
+        }
+
+        is BaseViewState.Error -> {
+            ErrorScreen()
+        }
+
+        is BaseViewState.Content -> {
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = viewState.result.characterDetail.name,
+                    clickOnBackButton = onBack
+                )
+            ) {
+                CharacterDetailScreenContent(
+                    uiState = viewState.result,
+                    clickOnCharacter = clickOnCharacter,
+                    clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun CharacterDetailScreenContent(
     uiState: CharacterDetailUiState,
     clickOnCharacter: (Int, String) -> Unit,
     clickOnNumberOfEpisodes: () -> Unit
@@ -168,7 +208,7 @@ private fun LocationDetails(location: Location) {
 @Composable
 @Preview(showBackground = true)
 private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
-    CharacterDetailScreen(
+    CharacterDetailScreenContent(
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
