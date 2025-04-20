@@ -44,7 +44,7 @@ import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 fun CharacterDetailScreen(
     viewState: BaseViewState<CharacterDetailUiState>,
     clickOnCharacter: (Int, String) -> Unit,
-    clickOnNumberOfEpisodes: () -> Unit,
+    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit,
     onBack: () -> Unit
 ) {
     when (viewState) {
@@ -78,7 +78,7 @@ fun CharacterDetailScreen(
 private fun CharacterDetailScreenContent(
     uiState: CharacterDetailUiState,
     clickOnCharacter: (Int, String) -> Unit,
-    clickOnNumberOfEpisodes: () -> Unit
+    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -108,7 +108,7 @@ private fun CharacterDetailScreenContent(
             CharacterDetail(
                 character = uiState.characterDetail,
                 statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
-                clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
+                clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
             )
             Spacer(Modifier.height(32.dp))
             Text(
@@ -127,7 +127,12 @@ private fun CharacterDetailScreenContent(
                     items(characters) { character ->
                         CharacterCard(
                             character = character,
-                            onCharacterClick = { clickOnCharacter(character.id, character.name) })
+                            onCharacterClick = {
+                                if (uiState.characterDetail.id != character.id) {
+                                    clickOnCharacter(character.id, character.name)
+                                }
+                            }
+                        )
                     }
                 }
             }
@@ -212,7 +217,8 @@ private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
-            characterOfThisLocation = Character.getCharacters(4)
+            characterOfThisLocation = Character.getCharacters(4),
+            idsOfEpisodes = ""
         ),
         clickOnCharacter = { id, name -> },
         clickOnNumberOfEpisodes = {}

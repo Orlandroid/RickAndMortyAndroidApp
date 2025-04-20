@@ -34,4 +34,7 @@ sealed class AppNavigationRoutes {
 
     @Serializable
     data object SettingsRoute
+
+    @Serializable
+    data object DialogRoute
 }

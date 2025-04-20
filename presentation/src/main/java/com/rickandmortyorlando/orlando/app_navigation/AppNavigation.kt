@@ -131,8 +131,8 @@ fun AppNavigation() {
                         )
                     )
                 },
-                clickOnNumberOfEpisodes = {
-                    navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(idsEpisodes = "1,2"))
+                clickOnNumberOfEpisodes = { idsOfEpisodes ->
+                    navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(idsEpisodes = idsOfEpisodes))
                 },
                 onBack = { navController.navigateUp() }
             )

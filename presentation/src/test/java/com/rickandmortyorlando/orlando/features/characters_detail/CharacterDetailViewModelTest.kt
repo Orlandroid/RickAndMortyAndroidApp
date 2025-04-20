@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
+import com.example.domain.utils.getListOfEpisodes
 import org.junit.Test
 
 class CharacterDetailViewModelTest {

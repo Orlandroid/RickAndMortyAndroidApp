@@ -4,6 +4,7 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.LocationRepository
+import com.example.domain.utils.getListOfEpisodes
 import com.example.domain.utils.getListOfIdsOfCharacters
 import com.example.domain.utils.getNumberFromUrWithPrefix
 import javax.inject.Inject
@@ -19,8 +20,9 @@ class GetCharacterDetailUseCase @Inject constructor(
 
     suspend fun invoke(idCharacter: Int): CharacterDetail {
         val character = characterRepository.getCharacter(idCharacter.toString())
+        val idsOfEpisodes = getListOfEpisodes(character.episode)
         var location: Location? = null
-        var charactersOfThisLocation:List<Character>? = null
+        var charactersOfThisLocation: List<Character>? = null
         if (characterHasLocation(character.urlLocation)) {
             val locationId = getNumberFromUrWithPrefix(
                 urlWithNumberInTheFinalCharacter = character.originUrl.ifEmpty { character.urlLocation },
@@ -28,14 +30,20 @@ class GetCharacterDetailUseCase @Inject constructor(
             )
             location = locationsRepository.getLocation(locationId)
             val listOfCharacters = getListOfIdsOfCharacters(location.residents)
-             charactersOfThisLocation = characterRepository.getManyCharacters(listOfCharacters)
+            charactersOfThisLocation = characterRepository.getManyCharacters(listOfCharacters)
         }
-        return CharacterDetail(characterDetail = character, location = location, charactersOfThisLocation = charactersOfThisLocation)
+        return CharacterDetail(
+            characterDetail = character,
+            location = location,
+            charactersOfThisLocation = charactersOfThisLocation,
+            idsOfEpisodes = idsOfEpisodes
+        )
     }
 
     data class CharacterDetail(
         val characterDetail: Character,
         val location: Location? = null,
-        val charactersOfThisLocation: List<Character>? = null
+        val charactersOfThisLocation: List<Character>? = null,
+        val idsOfEpisodes: String
     )
 }
