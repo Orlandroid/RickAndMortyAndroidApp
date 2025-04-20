@@ -18,11 +18,30 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.theme.AlwaysWhite
 import com.rickandmortyorlando.orlando.theme.Background
 
+
 @Composable
 fun SettingScreen(
+    onEvents: (event: SettingsEvents) -> Unit,
+    uiState: SettingsUiState,
+    onBack: () -> Unit
+) {
+    BaseComposeScreen(
+        toolbarConfiguration = ToolbarConfiguration(
+            title = stringResource(R.string.settings),
+            clickOnBackButton = onBack
+        )
+    ) {
+        SettingScreenContent(onEvents = onEvents, uiState = uiState)
+    }
+}
+
+@Composable
+private fun SettingScreenContent(
     onEvents: (event: SettingsEvents) -> Unit,
     uiState: SettingsUiState
 ) {
@@ -61,11 +80,11 @@ fun SettingScreen(
 @Composable
 @Preview(showBackground = true)
 private fun SettingsScreenEnablePreview(modifier: Modifier = Modifier) {
-    SettingScreen(onEvents = {}, uiState = SettingsUiState(isNightModeEnable = true))
+    SettingScreenContent(onEvents = {}, uiState = SettingsUiState(isNightModeEnable = true))
 }
 
 @Composable
 @Preview(showBackground = true)
 private fun SettingsScreenDisablePreview(modifier: Modifier = Modifier) {
-    SettingScreen(onEvents = {}, uiState = SettingsUiState())
+    SettingScreenContent(onEvents = {}, uiState = SettingsUiState())
 }

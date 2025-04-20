@@ -13,11 +13,6 @@ class EpisodesViewModel @Inject constructor(
     private val episodesRepository: EpisodesRepository
 ) : ViewModel() {
 
-
-    var comesFromEpisodesMainMenu: Boolean = false
-
-
     val episodes = episodesRepository.getEpisodes().cachedIn(viewModelScope)
-
 
 }

@@ -2,18 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name="com.rickandmortyorlando.orlando.Application"
-        android:allowBackup="true"
-        android:icon="@drawable/icono_aplicacion"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/icono_aplicacion"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.PaggingExample">
+            android:name="com.rickandmortyorlando.orlando.Application"
+            android:allowBackup="true"
+            android:icon="@drawable/icono_aplicacion"
+            android:label="@string/app_name"
+            android:roundIcon="@drawable/icono_aplicacion"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.PaggingExample">
         <activity
-            android:name="com.rickandmortyorlando.orlando.MainActivity"
-            android:exported="true">
+                android:name="com.rickandmortyorlando.orlando.MainActivityCompose"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

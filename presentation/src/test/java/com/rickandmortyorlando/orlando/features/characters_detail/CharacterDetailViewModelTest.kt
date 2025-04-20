@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
+import com.example.domain.utils.getListOfEpisodes
 import org.junit.Test
 
 class CharacterDetailViewModelTest {
@@ -28,8 +29,25 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
+    fun `get list of  single episode`() {
+        //Given
+        val episodesList = arrayListOf(
+            "https://rickandmortyapi.com/api/episode/27",
+        )
+
+        val expectResult = "27"
+        val idsOfEpisodesOfTheCharacter = getListOfEpisodes(episodesList)
+        //When
+
+
+        //Then
+        assert(expectResult == idsOfEpisodesOfTheCharacter)
+    }
+
+
+    @Test
     fun getSingleLocation() {
-        
+
     }
 
 }

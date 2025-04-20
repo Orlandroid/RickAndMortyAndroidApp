@@ -18,7 +18,8 @@ import javax.inject.Inject
 data class CharacterDetailUiState(
     val location: Location? = null,
     val characterDetail: Character,
-    val characterOfThisLocation: List<Character>? = null
+    val characterOfThisLocation: List<Character>? = null,
+    val idsOfEpisodes: String
 )
 
 @HiltViewModel
@@ -39,11 +40,13 @@ class CharacterDetailViewModel @Inject constructor(
                 CharacterDetailUiState(
                     location = characterDetail.location,
                     characterDetail = characterDetail.characterDetail,
-                    characterOfThisLocation = characterDetail.charactersOfThisLocation
+                    characterOfThisLocation = characterDetail.charactersOfThisLocation,
+                    idsOfEpisodes = characterDetail.idsOfEpisodes
                 )
             )
         }.onFailure {
             _state.value = BaseViewState.Error(message = it.message.orEmpty())
+            print(it.message)
         }
     }
 

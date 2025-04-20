@@ -32,13 +32,53 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.components.CharacterCard
+import com.rickandmortyorlando.orlando.components.ErrorScreen
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.components.skeletons.CharacterDetailSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import com.rickandmortyorlando.orlando.state.BaseViewState
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
+
 
 @Composable
 fun CharacterDetailScreen(
+    viewState: BaseViewState<CharacterDetailUiState>,
+    clickOnCharacter: (Int, String) -> Unit,
+    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit,
+    onBack: () -> Unit
+) {
+    when (viewState) {
+        is BaseViewState.Loading -> {
+            CharacterDetailSkeleton()
+        }
+
+        is BaseViewState.Error -> {
+            ErrorScreen()
+        }
+
+        is BaseViewState.Content -> {
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = viewState.result.characterDetail.name,
+                    clickOnBackButton = onBack
+                )
+            ) {
+                CharacterDetailScreenContent(
+                    uiState = viewState.result,
+                    clickOnCharacter = clickOnCharacter,
+                    clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun CharacterDetailScreenContent(
     uiState: CharacterDetailUiState,
     clickOnCharacter: (Int, String) -> Unit,
-    clickOnNumberOfEpisodes: () -> Unit
+    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -68,7 +108,7 @@ fun CharacterDetailScreen(
             CharacterDetail(
                 character = uiState.characterDetail,
                 statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
-                clickOnNumberOfEpisodes = clickOnNumberOfEpisodes
+                clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
             )
             Spacer(Modifier.height(32.dp))
             Text(
@@ -87,7 +127,12 @@ fun CharacterDetailScreen(
                     items(characters) { character ->
                         CharacterCard(
                             character = character,
-                            onCharacterClick = { clickOnCharacter(character.id, character.name) })
+                            onCharacterClick = {
+                                if (uiState.characterDetail.id != character.id) {
+                                    clickOnCharacter(character.id, character.name)
+                                }
+                            }
+                        )
                     }
                 }
             }
@@ -168,11 +213,12 @@ private fun LocationDetails(location: Location) {
 @Composable
 @Preview(showBackground = true)
 private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
-    CharacterDetailScreen(
+    CharacterDetailScreenContent(
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
-            characterOfThisLocation = Character.getCharacters(4)
+            characterOfThisLocation = Character.getCharacters(4),
+            idsOfEpisodes = ""
         ),
         clickOnCharacter = { id, name -> },
         clickOnNumberOfEpisodes = {}

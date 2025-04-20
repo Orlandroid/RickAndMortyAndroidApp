@@ -39,11 +39,16 @@ class EpisodesRepositoryImpl @Inject constructor(
 
     override suspend fun getManyEpisodes(ids: String): List<Episode> {
         val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
-        return api.getManyEpisodes(baseUrl).map { it.toEpisode() }
+        return if (ids.contains(",")) {
+            api.getManyEpisodes(baseUrl).map { it.toEpisode() }
+        } else {
+            listOf(api.getSingleEpisode(baseUrl).toEpisode())
+        }
     }
 
     override suspend fun getImageOfEpisode(episodeName: String): EpisodeImage {
-        return episodeImageService.getImagesEpisodes().first { it.name.equals(episodeName,true) }.toEpisodeImage()
+        return episodeImageService.getImagesEpisodes().first { it.name.equals(episodeName, true) }
+            .toEpisodeImage()
     }
 
 }

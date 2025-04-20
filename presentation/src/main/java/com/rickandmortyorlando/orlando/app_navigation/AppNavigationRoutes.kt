@@ -5,14 +5,36 @@ import kotlinx.serialization.Serializable
 
 sealed class AppNavigationRoutes {
     @Serializable
-    data object HomeScreenRoute
+    data object HomeRoute
 
     @Serializable
-    data object CharactersScreenRoute
+    data object CharactersRoute
 
     @Serializable
-    data object EpisodesScreenRoute
+    data class CharactersDetailRoute(val id: Int, val name: String)
 
     @Serializable
-    data object LocationScreenRoute
+    data object SearchCharactersRoute
+
+    @Serializable
+    data object EpisodesRoute
+
+    @Serializable
+    data class EpisodesDetailRoute(val id: Int)
+
+    @Serializable
+    data class ManyEpisodesRoute(val idsEpisodes: String)
+
+    @Serializable
+    data object LocationsRoute
+
+    @Serializable
+    data class LocationDetailRoute(val id: Int)
+
+
+    @Serializable
+    data object SettingsRoute
+
+    @Serializable
+    data object DialogRoute
 }

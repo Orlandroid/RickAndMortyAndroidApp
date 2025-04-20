@@ -25,10 +25,50 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemCharacter
+import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
+import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
+import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import com.rickandmortyorlando.orlando.state.BaseViewState
+
 
 @Composable
 fun EpisodeDetailScreen(
+    viewState: BaseViewState<EpisodeDetailUiState>,
+    clickOnCharacter: (characterId: Int, name: String) -> Unit,
+    clickOnWatch: (episodeQuery: String) -> Unit
+) {
+    when (viewState) {
+        is BaseViewState.Loading -> {
+            EpisodeDetailSkeleton()
+        }
+
+        is BaseViewState.Error -> {
+            ErrorScreen()
+        }
+
+        is BaseViewState.Content -> {
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = viewState.result.episode.name,
+                    clickOnBackButton = {
+                        //Todo navigate Back
+                    }
+                )
+            ) {
+                EpisodeDetailScreenContent(
+                    uiState = viewState.result,
+                    clickOnCharacter = clickOnCharacter,
+                    clickOnWatch = clickOnWatch
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EpisodeDetailScreenContent(
     uiState: EpisodeDetailUiState,
     clickOnCharacter: (characterId: Int, name: String) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
@@ -104,7 +144,7 @@ fun EpisodeDetailScreen(
 @Preview(showBackground = true)
 @Composable
 private fun EpisodeDetailScreenPreview() {
-    EpisodeDetailScreen(
+    EpisodeDetailScreenContent(
         EpisodeDetailUiState(
             episode = Episode.mockEpisode(),
             characters = Character.getCharacters(9),
