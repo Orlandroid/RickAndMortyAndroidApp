@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -28,10 +29,41 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import kotlinx.coroutines.flow.collectLatest
 
+
+@Composable
+fun HomeRote(navController: NavController) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    LaunchedEffect(viewModel) {
+        viewModel.effects.collectLatest {
+            when (it) {
+                HomeEffects.NavigateToCharacters -> {
+                    navController.navigate(AppNavigationRoutes.CharactersRoute)
+                }
+
+                HomeEffects.NavigateToEpisodes -> {
+                    navController.navigate(AppNavigationRoutes.EpisodesRoute)
+                }
+
+                HomeEffects.NavigateToLocations -> {
+                    navController.navigate(AppNavigationRoutes.LocationsRoute)
+                }
+
+                HomeEffects.NavigateToSettings -> {
+                    navController.navigate(AppNavigationRoutes.SettingsRoute)
+                }
+            }
+        }
+    }
+    HomeScreen(onEvents = viewModel::onEvents)
+}
 
 @Composable
 fun HomeScreen(

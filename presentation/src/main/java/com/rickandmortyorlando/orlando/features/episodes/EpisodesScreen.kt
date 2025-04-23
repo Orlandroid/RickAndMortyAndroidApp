@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ItemEpisode
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton
@@ -20,6 +23,18 @@ import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
 
+@Composable
+fun EpisodesRoute(navController: NavController) {
+    val viewModel: EpisodesViewModel = hiltViewModel()
+    val episodes = viewModel.episodes.collectAsLazyPagingItems()
+    EpisodesScreen(
+        episodes = episodes,
+        clickOnItem = {
+            navController.navigate(AppNavigationRoutes.EpisodesDetailRoute(it))
+        },
+        clickOnBackButton = { navController.navigateUp() }
+    )
+}
 
 @Composable
 fun EpisodesScreen(

@@ -22,17 +22,44 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.domain.models.characters.Character
 import com.example.domain.models.characters.SearchCharacter
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.characters.CharactersScreen
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
+
+
+@Composable
+fun SearchCharacterRoute(navController: NavController) {
+    val viewModel: SearchCharactersViewModel = hiltViewModel()
+    val characters = viewModel.getCharactersSearchPagingSource.collectAsLazyPagingItems()
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    SearchCharacterScreen(
+        onBack = { navController.navigateUp() },
+        characters = characters,
+        events = viewModel::handleEvents,
+        uiState = uiState.value,
+        clickOnCharacter = { id, name ->
+            navController.navigate(
+                AppNavigationRoutes.CharactersDetailRoute(
+                    id = id,
+                    name = name
+                )
+            )
+        }
+    )
+}
 
 @Composable
 fun SearchCharacterScreen(

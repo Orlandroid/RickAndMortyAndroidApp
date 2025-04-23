@@ -18,6 +18,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,10 +29,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.CharacterCard
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
@@ -41,6 +47,30 @@ import com.rickandmortyorlando.orlando.utils.getColorStatusResource
 
 
 @Composable
+fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
+    val viewModel: CharacterDetailViewModel = hiltViewModel()
+    LaunchedEffect(Unit) {
+        viewModel.getCharacterDetailInfo(idCharacter)
+    }
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    CharacterDetailScreen(
+        viewState = state,
+        clickOnCharacter = { id, name ->
+            navController.navigate(
+                AppNavigationRoutes.CharactersDetailRoute(
+                    id = id,
+                    name = name
+                )
+            )
+        },
+        clickOnNumberOfEpisodes = { idsOfEpisodes ->
+            navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(idsEpisodes = idsOfEpisodes))
+        },
+        onBack = { navController.navigateUp() }
+    )
+}
+
+@Composable
 fun CharacterDetailScreen(
     viewState: BaseViewState<CharacterDetailUiState>,
     clickOnCharacter: (Int, String) -> Unit,
@@ -49,7 +79,14 @@ fun CharacterDetailScreen(
 ) {
     when (viewState) {
         is BaseViewState.Loading -> {
-            CharacterDetailSkeleton()
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = stringResource(R.string.characters),
+                    clickOnBackButton = onBack
+                )
+            ) {
+                CharacterDetailSkeleton()
+            }
         }
 
         is BaseViewState.Error -> {
@@ -212,7 +249,7 @@ private fun LocationDetails(location: Location) {
 
 @Composable
 @Preview(showBackground = true)
-private fun CharacterDetailScreenPreview(modifier: Modifier = Modifier) {
+private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
     CharacterDetailScreenContent(
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),

@@ -21,7 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.fragment.findNavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
@@ -30,12 +31,29 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.LocationSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
 import kotlinx.coroutines.flow.flowOf
+
+
+@Composable
+fun LocationRoute(navController: NavController) {
+    val viewModel: LocationsViewModel = hiltViewModel()
+    val locations = viewModel.locations.collectAsLazyPagingItems()
+    LocationScreen(
+        locations = locations,
+        clickOnItem = {
+            navController.navigate(AppNavigationRoutes.LocationDetailRoute(it))
+        },
+        onNavigateBack = {
+            navController.navigateUp()
+        }
+    )
+}
 
 
 @Composable

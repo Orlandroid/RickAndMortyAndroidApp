@@ -12,36 +12,78 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
+import com.rickandmortyorlando.orlando.features.extensions.openYoutubeApp
 import com.rickandmortyorlando.orlando.state.BaseViewState
 
+
+@Composable
+fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
+    val context = LocalContext.current
+    val viewModel: EpisodeDetailViewModel = hiltViewModel()
+    LaunchedEffect(Unit) {
+        viewModel.getEpisodeDetail(episodesId)
+    }
+    val state = viewModel.state.collectAsStateWithLifecycle()
+    EpisodeDetailScreen(
+        viewState = state.value,
+        clickOnCharacter = { characterId, characterName ->
+            navController.navigate(
+                AppNavigationRoutes.CharactersDetailRoute(
+                    id = characterId,
+                    name = characterName
+                )
+            )
+        },
+        clickOnWatch = { episodeName ->
+            context.openYoutubeApp(episodeName)
+        },
+        onBackPress = {
+            navController.navigateUp()
+        }
+    )
+}
 
 @Composable
 fun EpisodeDetailScreen(
     viewState: BaseViewState<EpisodeDetailUiState>,
     clickOnCharacter: (characterId: Int, name: String) -> Unit,
-    clickOnWatch: (episodeQuery: String) -> Unit
+    clickOnWatch: (episodeQuery: String) -> Unit,
+    onBackPress: () -> Unit
 ) {
     when (viewState) {
         is BaseViewState.Loading -> {
-            EpisodeDetailSkeleton()
+            BaseComposeScreen(
+                toolbarConfiguration = ToolbarConfiguration(
+                    title = stringResource(R.string.episode_detail),
+                    clickOnBackButton = onBackPress
+                )
+            ) {
+                EpisodeDetailSkeleton()
+            }
         }
 
         is BaseViewState.Error -> {
@@ -52,9 +94,7 @@ fun EpisodeDetailScreen(
             BaseComposeScreen(
                 toolbarConfiguration = ToolbarConfiguration(
                     title = viewState.result.episode.name,
-                    clickOnBackButton = {
-                        //Todo navigate Back
-                    }
+                    clickOnBackButton = onBackPress
                 )
             ) {
                 EpisodeDetailScreenContent(
