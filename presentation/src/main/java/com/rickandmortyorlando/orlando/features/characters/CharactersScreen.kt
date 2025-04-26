@@ -57,11 +57,10 @@ fun CharacterRoute(navController: NavController) {
     ) {
         CharactersScreen(
             characters = characters,
-            clickOnItem = { characterId, characterName ->
+            clickOnItem = { characterId ->
                 navController.navigate(
                     AppNavigationRoutes.CharactersDetailRoute(
-                        id = characterId,
-                        name = characterName
+                        id = characterId
                     )
                 )
             }
@@ -72,7 +71,7 @@ fun CharacterRoute(navController: NavController) {
 @Composable
 fun CharactersScreen(
     characters: LazyPagingItems<Character>,
-    clickOnItem: (characterId: Int, characterName: String) -> Unit
+    clickOnItem: (characterId: Int) -> Unit
 ) {
     CharactersScreenContent(characters = characters, clickOnItem = clickOnItem)
 }
@@ -80,7 +79,7 @@ fun CharactersScreen(
 @Composable
 private fun CharactersScreenContent(
     characters: LazyPagingItems<Character>,
-    clickOnItem: (characterId: Int, characterName: String) -> Unit
+    clickOnItem: (characterId: Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
@@ -93,7 +92,7 @@ private fun CharactersScreenContent(
                 ItemCharacter(
                     modifier = Modifier.fillMaxWidth(),
                     character = character,
-                    clickOnItem = { id, name -> clickOnItem(id, name) }
+                    clickOnItem = { id -> clickOnItem(id) }
                 )
             }
         }
@@ -132,6 +131,6 @@ private fun CharactersScreenPreview() {
     ).collectAsLazyPagingItems()
     CharactersScreen(
         characters = items,
-        clickOnItem = { id, name -> }
+        clickOnItem = { id -> }
     )
 }

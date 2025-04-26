@@ -11,7 +11,7 @@ sealed class AppNavigationRoutes {
     data object CharactersRoute
 
     @Serializable
-    data class CharactersDetailRoute(val id: Int, val name: String)
+    data class CharactersDetailRoute(val id: Int)
 
     @Serializable
     data object SearchCharactersRoute

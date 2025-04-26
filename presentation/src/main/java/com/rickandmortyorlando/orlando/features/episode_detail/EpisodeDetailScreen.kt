@@ -50,11 +50,10 @@ fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     EpisodeDetailScreen(
         viewState = state.value,
-        clickOnCharacter = { characterId, characterName ->
+        clickOnCharacter = { characterId ->
             navController.navigate(
                 AppNavigationRoutes.CharactersDetailRoute(
-                    id = characterId,
-                    name = characterName
+                    id = characterId
                 )
             )
         },
@@ -70,7 +69,7 @@ fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
 @Composable
 fun EpisodeDetailScreen(
     viewState: BaseViewState<EpisodeDetailUiState>,
-    clickOnCharacter: (characterId: Int, name: String) -> Unit,
+    clickOnCharacter: (characterId: Int) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
     onBackPress: () -> Unit
 ) {
@@ -110,7 +109,7 @@ fun EpisodeDetailScreen(
 @Composable
 private fun EpisodeDetailScreenContent(
     uiState: EpisodeDetailUiState,
-    clickOnCharacter: (characterId: Int, name: String) -> Unit,
+    clickOnCharacter: (characterId: Int) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -200,7 +199,7 @@ private fun EpisodeDetailScreenPreview() {
                 summary = ""
             )
         ),
-        clickOnCharacter = { id, name -> },
+        clickOnCharacter = { id -> },
         clickOnWatch = {}
     )
 }

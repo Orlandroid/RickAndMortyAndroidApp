@@ -50,12 +50,9 @@ fun SearchCharacterRoute(navController: NavController) {
         characters = characters,
         events = viewModel::handleEvents,
         uiState = uiState.value,
-        clickOnCharacter = { id, name ->
+        clickOnCharacter = { id ->
             navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(
-                    id = id,
-                    name = name
-                )
+                AppNavigationRoutes.CharactersDetailRoute(id = id)
             )
         }
     )
@@ -67,7 +64,7 @@ fun SearchCharacterScreen(
     characters: LazyPagingItems<Character>,
     events: (event: SearchCharacterEvents) -> Unit,
     onBack: () -> Unit,
-    clickOnCharacter: (id: Int, name: String) -> Unit
+    clickOnCharacter: (id: Int) -> Unit
 ) {
     BaseComposeScreen(
         toolbarConfiguration = ToolbarConfiguration(
@@ -90,7 +87,7 @@ private fun SearchCharacterScreenContent(
     characters: LazyPagingItems<Character>,
     events: (event: SearchCharacterEvents) -> Unit,
     name: String,
-    clickOnCharacter: (id: Int, name: String) -> Unit
+    clickOnCharacter: (id: Int) -> Unit
 ) {
     var refreshing by remember { mutableStateOf(false) }
     LaunchedEffect(refreshing) {

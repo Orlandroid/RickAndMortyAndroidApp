@@ -55,12 +55,9 @@ fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     CharacterDetailScreen(
         viewState = state,
-        clickOnCharacter = { id, name ->
+        clickOnCharacter = { id ->
             navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(
-                    id = id,
-                    name = name
-                )
+                AppNavigationRoutes.CharactersDetailRoute(id = id)
             )
         },
         clickOnNumberOfEpisodes = { idsOfEpisodes ->
@@ -73,7 +70,7 @@ fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
 @Composable
 fun CharacterDetailScreen(
     viewState: BaseViewState<CharacterDetailUiState>,
-    clickOnCharacter: (Int, String) -> Unit,
+    clickOnCharacter: (Int) -> Unit,
     clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit,
     onBack: () -> Unit
 ) {
@@ -114,7 +111,7 @@ fun CharacterDetailScreen(
 @Composable
 private fun CharacterDetailScreenContent(
     uiState: CharacterDetailUiState,
-    clickOnCharacter: (Int, String) -> Unit,
+    clickOnCharacter: (Int) -> Unit,
     clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit
 ) {
     Column(
@@ -166,7 +163,7 @@ private fun CharacterDetailScreenContent(
                             character = character,
                             onCharacterClick = {
                                 if (uiState.characterDetail.id != character.id) {
-                                    clickOnCharacter(character.id, character.name)
+                                    clickOnCharacter(character.id)
                                 }
                             }
                         )
@@ -257,7 +254,7 @@ private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
             characterOfThisLocation = Character.getCharacters(4),
             idsOfEpisodes = ""
         ),
-        clickOnCharacter = { id, name -> },
+        clickOnCharacter ={ id -> },
         clickOnNumberOfEpisodes = {}
     )
 }

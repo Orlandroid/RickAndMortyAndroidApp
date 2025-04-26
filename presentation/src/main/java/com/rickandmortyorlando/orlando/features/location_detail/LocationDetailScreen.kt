@@ -35,7 +35,7 @@ import com.rickandmortyorlando.orlando.state.BaseViewState
 
 
 @Composable
-fun LocationDetailRoute(navController: NavController,locationId:Int) {
+fun LocationDetailRoute(navController: NavController, locationId: Int) {
     val locationDetailViewModel: LocationDetailViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
         locationDetailViewModel.getLocationDetail(locationId = locationId)
@@ -43,12 +43,9 @@ fun LocationDetailRoute(navController: NavController,locationId:Int) {
     val state = locationDetailViewModel.state.collectAsState()
     LocationDetailScreen(
         viewState = state.value,
-        clickOnCharacter = { id, name ->
+        clickOnCharacter = { id ->
             navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(
-                    id = id,
-                    name = name
-                )
+                AppNavigationRoutes.CharactersDetailRoute(id = id)
             )
         },
         clickOnBack = {
@@ -60,7 +57,7 @@ fun LocationDetailRoute(navController: NavController,locationId:Int) {
 @Composable
 fun LocationDetailScreen(
     viewState: BaseViewState<LocationDetailUiState>,
-    clickOnCharacter: (characterId: Int, name: String) -> Unit,
+    clickOnCharacter: (characterId: Int) -> Unit,
     clickOnBack: () -> Unit
 ) {
     when (viewState) {
@@ -85,7 +82,7 @@ fun LocationDetailScreen(
             ) {
                 LocationDetailScreenContent(
                     uiState = viewState.result,
-                    clickOnCharacter = { id, name -> clickOnCharacter(id, name) }
+                    clickOnCharacter = { id -> clickOnCharacter(id) }
                 )
             }
         }
@@ -102,7 +99,7 @@ fun LocationDetailScreen(
 fun LocationDetailScreenContent(
     modifier: Modifier = Modifier,
     uiState: LocationDetailUiState,
-    clickOnCharacter: (characterId: Int, name: String) -> Unit
+    clickOnCharacter: (characterId: Int) -> Unit
 ) {
     Column(modifier = modifier) {
         ItemInfoLocation(location = uiState.location)
@@ -110,7 +107,7 @@ fun LocationDetailScreenContent(
             items(uiState.characters) { character ->
                 ItemCharacter(
                     character = character,
-                    clickOnItem = { id, name -> clickOnCharacter(id, name) })
+                    clickOnItem = { id -> clickOnCharacter(id) })
             }
         }
     }
