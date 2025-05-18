@@ -115,6 +115,7 @@ private fun LocationItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(colorResource(R.color.white))
             .clickable { clickOnItem(location.id) }) {
         Row(
             modifier =
@@ -130,9 +131,14 @@ private fun LocationItem(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = location.type,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(R.color.black)
                 )
-                Text(modifier = Modifier.fillMaxWidth(), text = location.name)
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = location.name,
+                    color = colorResource(R.color.black)
+                )
             }
             Icon(
                 modifier = Modifier.padding(end = 16.dp),

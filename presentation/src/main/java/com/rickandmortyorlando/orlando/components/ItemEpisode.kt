@@ -30,6 +30,7 @@ fun ItemEpisode(
 ) {
     Column(
         modifier = Modifier
+            .background(colorResource(R.color.white))
             .fillMaxWidth()
             .clickable { clickOnItem(episode.id) }) {
         Row(
@@ -46,10 +47,19 @@ fun ItemEpisode(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = episode.episode,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(R.color.black)
                 )
-                Text(modifier = Modifier.fillMaxWidth(), text = episode.name)
-                Text(modifier = Modifier.fillMaxWidth(), text = episode.airDate)
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = episode.name,
+                    color = colorResource(R.color.black)
+                )
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = episode.airDate,
+                    color = colorResource(R.color.black)
+                )
             }
             Icon(
                 modifier = Modifier.padding(end = 16.dp),

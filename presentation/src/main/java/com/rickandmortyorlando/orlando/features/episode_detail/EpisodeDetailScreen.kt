@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.features.episode_detail
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -112,7 +114,12 @@ private fun EpisodeDetailScreenContent(
     clickOnCharacter: (characterId: Int) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colorResource(R.color.background)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Spacer(Modifier.height(8.dp))
         SubcomposeAsyncImage(
             model = uiState.episodeImage.imageUrl,
@@ -125,27 +132,42 @@ private fun EpisodeDetailScreenContent(
                 Text(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f),
-                    text = stringResource(R.string.episode_name)
+                    text = stringResource(R.string.episode_name),
+                    color = colorResource(R.color.black)
                 )
-                Text(modifier = Modifier.weight(1f), text = uiState.episode.name)
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = uiState.episode.name,
+                    color = colorResource(R.color.black)
+                )
             }
             Spacer(Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth()) {
                 Text(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f),
-                    text = stringResource(R.string.episode_number)
+                    text = stringResource(R.string.episode_number),
+                    color = colorResource(R.color.black)
                 )
-                Text(modifier = Modifier.weight(1f), text = uiState.episode.episode)
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = uiState.episode.episode,
+                    color = colorResource(R.color.black)
+                )
             }
             Spacer(Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth()) {
                 Text(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f),
-                    text = stringResource(R.string.episode_date)
+                    text = stringResource(R.string.episode_date),
+                    color = colorResource(R.color.black)
                 )
-                Text(modifier = Modifier.weight(1f), text = uiState.episode.airDate)
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = uiState.episode.airDate,
+                    color = colorResource(R.color.black)
+                )
             }
             Spacer(Modifier.height(16.dp))
             Text(
@@ -153,7 +175,8 @@ private fun EpisodeDetailScreenContent(
                     clickOnWatch("${uiState.episode.name} ${uiState.episode.episode}")
                 },
                 text = stringResource(R.string.watch),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = colorResource(R.color.black)
             )
         }
         Spacer(Modifier.height(8.dp))
@@ -162,7 +185,8 @@ private fun EpisodeDetailScreenContent(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.characters),
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = colorResource(R.color.black)
         )
         Spacer(Modifier.height(32.dp))
         LazyColumn(

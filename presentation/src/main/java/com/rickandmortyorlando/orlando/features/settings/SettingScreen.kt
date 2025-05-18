@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,13 +64,13 @@ private fun SettingScreenContent(
 ) {
     Column(
         Modifier
-            .background(Background)
+            .background(colorResource(R.color.background))
             .fillMaxSize()
     ) {
         Card(
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp),
-            colors = CardDefaults.cardColors(containerColor = AlwaysWhite)
+            colors = CardDefaults.cardColors(containerColor = colorResource(R.color.background_card))
         ) {
             Row(
                 Modifier.fillMaxWidth(),

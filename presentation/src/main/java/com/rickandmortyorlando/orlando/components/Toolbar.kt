@@ -14,8 +14,10 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.theme.AlwaysWhite
 import com.rickandmortyorlando.orlando.theme.StatusBarColor
 
@@ -27,7 +29,7 @@ fun Toolbar(
     TopAppBar(
         colors =
             topAppBarColors(
-                containerColor = toolbarConfiguration.toolbarBackgroundColor,
+                containerColor = colorResource(R.color.status_bar_color),
                 titleContentColor = toolbarConfiguration.toolbarTextColor,
             ),
         title = {
@@ -58,7 +60,7 @@ data class ToolbarConfiguration(
     val showToolbar: Boolean = true,
     val title: String = "Android Developer",
     val showBackIcon: Boolean = true,
-    val toolbarBackgroundColor: Color = StatusBarColor,
+    val toolbarBackgroundColor: Int = R.color.status_bar_color,
     val toolbarTextColor: Color = AlwaysWhite,
     val actions: @Composable (RowScope.() -> Unit?)? = null,
     val clickOnBackButton: () -> Unit = {}

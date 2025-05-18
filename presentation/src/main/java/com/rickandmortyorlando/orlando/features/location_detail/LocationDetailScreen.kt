@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -101,7 +102,7 @@ fun LocationDetailScreenContent(
     uiState: LocationDetailUiState,
     clickOnCharacter: (characterId: Int) -> Unit
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.background(colorResource(R.color.background))) {
         ItemInfoLocation(location = uiState.location)
         LazyColumn {
             items(uiState.characters) { character ->

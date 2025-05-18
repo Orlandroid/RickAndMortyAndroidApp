@@ -1,8 +1,10 @@
 package com.rickandmortyorlando.orlando.features.home
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -95,7 +98,11 @@ fun HomeScreen(
 @Composable
 fun HomeScreenContent(onEvents: (event: HomeEvents) -> Unit) {
     val paddingValues = PaddingValues(top = 12.dp, start = 12.dp, end = 12.dp)
-    Column(Modifier.fillMaxSize()) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(colorResource(R.color.background))
+    ) {
         ImageCard(
             modifier = Modifier
                 .padding(paddingValues)
@@ -140,7 +147,7 @@ fun ImageCard(
         onClick = clickOnCard,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White,
+            containerColor = colorResource(R.color.background_card),
         ),
         border = BorderStroke(2.dp, Color.Black),
         shape = RoundedCornerShape(8.dp)
@@ -167,7 +174,7 @@ fun ImageCard(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun SimpleComposablePreview() {
     HomeScreen(onEvents = {})

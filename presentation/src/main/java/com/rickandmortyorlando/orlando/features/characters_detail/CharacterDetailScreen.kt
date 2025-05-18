@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -116,7 +117,8 @@ private fun CharacterDetailScreenContent(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(colorResource(R.color.background)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(32.dp))
@@ -147,13 +149,15 @@ private fun CharacterDetailScreenContent(
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = colorResource(R.color.black)
             )
             uiState.location?.let { LocationDetails(location = it) }
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location_residents),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = colorResource(R.color.black)
             )
             Spacer(Modifier.height(16.dp))
             uiState.characterOfThisLocation?.let { characters ->
@@ -181,7 +185,11 @@ private fun CharacterDetail(
     clickOnNumberOfEpisodes: () -> Unit
 ) {
     Row {
-        Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.status),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
         Canvas(
             modifier = Modifier.size(14.dp),
@@ -190,29 +198,38 @@ private fun CharacterDetail(
             }
         )
         Spacer(Modifier.width(8.dp))
-        Text(character.status)
+        Text(character.status, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.species), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.species),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(character.species)
+        Text(character.species, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.gender),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(character.gender)
+        Text(character.gender, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
         Text(
             modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
             text = stringResource(R.string.number_of_episodes),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
         )
         Spacer(Modifier.width(8.dp))
-        Text(character.episode.size.toString())
+        Text(character.episode.size.toString(), color = colorResource(R.color.black))
     }
 }
 
@@ -220,27 +237,43 @@ private fun CharacterDetail(
 private fun LocationDetails(location: Location) {
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.name), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.name),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(location.name)
+        Text(text = location.name, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.type), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.type),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(location.type)
+        Text(text = location.type, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.dimension), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.dimension),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(location.dimension)
+        Text(text = location.dimension, color = colorResource(R.color.black))
     }
     Spacer(Modifier.height(16.dp))
     Row {
-        Text(text = stringResource(R.string.numbers_of_residents), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.numbers_of_residents),
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.black)
+        )
         Spacer(Modifier.width(8.dp))
-        Text(text = location.residents.size.toString())
+        Text(text = location.residents.size.toString(), color = colorResource(R.color.black))
     }
 }
 
@@ -254,7 +287,7 @@ private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
             characterOfThisLocation = Character.getCharacters(4),
             idsOfEpisodes = ""
         ),
-        clickOnCharacter ={ id -> },
+        clickOnCharacter = { id -> },
         clickOnNumberOfEpisodes = {}
     )
 }

@@ -21,12 +21,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.example.domain.models.characters.Character
+import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.utils.getColorStatus
 
 @Composable
@@ -42,8 +44,8 @@ fun ItemCharacter(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, colorStatus),
+        colors = CardDefaults.cardColors(containerColor = colorResource(R.color.background_card)),
+        border = BorderStroke(1.dp, colorStatus)
     ) {
         Row(
             modifier = Modifier

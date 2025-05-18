@@ -26,4 +26,5 @@
     <color name="always_white">#FFFFFFFF</color>
     <color name="always_black">#FF000000</color>
     <color name="status_bar_color">#FF6200EE</color>
+    <color name="background_card">#FFFFFFFF</color>
 </resources>

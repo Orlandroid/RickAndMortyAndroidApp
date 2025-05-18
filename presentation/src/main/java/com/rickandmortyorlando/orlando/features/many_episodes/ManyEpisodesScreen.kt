@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.many_episodes
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,12 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemEpisode
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
@@ -23,7 +26,10 @@ import com.rickandmortyorlando.orlando.state.BaseViewState
 
 
 @Composable
-fun ManyEpisodesRoute(navController: NavController, idsEpisodes: String) {
+fun ManyEpisodesRoute(
+    navController: NavController,
+    idsEpisodes: String
+) {
     val viewModel: ManyEpisodesViewModel = hiltViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -31,16 +37,25 @@ fun ManyEpisodesRoute(navController: NavController, idsEpisodes: String) {
     }
     ManyEpisodesScreen(
         viewState = state,
-        onNavigateBack = { navController.navigateUp() }
+        onNavigateBack = { navController.navigateUp() },
+        navigateToEpisodeDetail = {
+            navController.navigate(
+                AppNavigationRoutes.EpisodesDetailRoute(
+                    id = it
+                )
+            )
+        }
     )
 }
 
 @Composable
 fun ManyEpisodesScreen(
     viewState: BaseViewState<List<Episode>>,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    navigateToEpisodeDetail: (idEpisode: Int) -> Unit = {}
 ) {
     BaseComposeScreen(
+        background = colorResource(R.color.white),
         toolbarConfiguration = ToolbarConfiguration(
             title = stringResource(R.string.episodes),
             clickOnBackButton = onNavigateBack
@@ -57,17 +72,15 @@ fun ManyEpisodesScreen(
 
             is BaseViewState.Content -> {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colorResource(R.color.background))
                 ) {
                     items(viewState.result) { episode ->
                         ItemEpisode(
                             episode = episode,
-                            clickOnItem = { episodesId ->
-//                                findNavController().navigate(
-//                                    ManyEpisodesFragmentWrapperDirections.navigationToEpisodeDetailWrapper(
-//                                        episodesId
-//                                    )
-//                                )
+                            clickOnItem = { episodeId ->
+                                navigateToEpisodeDetail.invoke(episodeId)
                             }
                         )
                     }
