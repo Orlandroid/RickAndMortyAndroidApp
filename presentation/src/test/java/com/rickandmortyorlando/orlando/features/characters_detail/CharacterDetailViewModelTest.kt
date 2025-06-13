@@ -1,53 +1,67 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
-import com.example.domain.utils.getListOfEpisodes
+import com.example.domain.models.characters.Character
+import com.example.domain.models.location.Location
+import com.example.domain.usecases.GetCharacterDetailUseCase
+import com.rickandmortyorlando.orlando.state.BaseViewState
+import io.mockk.coEvery
+import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Test
 
+
+@OptIn(ExperimentalCoroutinesApi::class)
 class CharacterDetailViewModelTest {
 
+    private lateinit var characterDetailViewModel: CharacterDetailViewModel
+    private val characterDetailUseCase = mockk<GetCharacterDetailUseCase>()
 
-    @Test
-    fun `get list of episodes`() {
-        //Given
-        val episodesList = arrayListOf(
-            "https://rickandmortyapi.com/api/episode/1",
-            "https://rickandmortyapi.com/api/episode/2",
-            "https://rickandmortyapi.com/api/episode/3",
-            "https://rickandmortyapi.com/api/episode/4",
-            "https://rickandmortyapi.com/api/episode/10",
-            "https://rickandmortyapi.com/api/episode/11",
-            "https://rickandmortyapi.com/api/episode/12",
+    @Before
+    fun setup() {
+        characterDetailViewModel = CharacterDetailViewModel(
+            ioDispatcher = UnconfinedTestDispatcher(),
+            characterDetailUseCase = characterDetailUseCase
         )
-
-        val expectResult = "1,2,3,4,10,11,12"
-        val idsOfEpisodesOfTheCharacter = getListOfEpisodes(episodesList)
-        //When
-
-
-        //Then
-        assert(expectResult == idsOfEpisodesOfTheCharacter)
     }
 
     @Test
-    fun `get list of  single episode`() {
-        //Given
-        val episodesList = arrayListOf(
-            "https://rickandmortyapi.com/api/episode/27",
+    fun `when we get the initial state this should be loading`() {
+        val state = characterDetailViewModel.state
+        assert(state.value == BaseViewState.Loading)
+    }
+
+    @Test
+    fun `when use case  return date state should be BaseViewState Content`() = runTest {
+        val mockCharacterDetail = GetCharacterDetailUseCase.CharacterDetail(
+            characterDetail = Character.mockCharacter(),
+            location = Location.mockLocation(),
+            idsOfEpisodes = "1,2,3"
         )
+        coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
 
-        val expectResult = "27"
-        val idsOfEpisodesOfTheCharacter = getListOfEpisodes(episodesList)
-        //When
+        characterDetailViewModel.getCharacterDetailInfo(0)
 
-
-        //Then
-        assert(expectResult == idsOfEpisodesOfTheCharacter)
+        val state = characterDetailViewModel.state.value as BaseViewState.Content
+        assert(state.result == mockCharacterDetail.toCharacterDetail())
     }
 
 
     @Test
-    fun getSingleLocation() {
+    fun `when use case  return date state should be BaseViewState Error`() = runTest {
+        val mockCharacterDetail = GetCharacterDetailUseCase.CharacterDetail(
+            characterDetail = Character.mockCharacter(),
+            idsOfEpisodes = "1,2,3"
+        )
+        coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
 
+        characterDetailViewModel.getCharacterDetailInfo(0)
+
+        val state = characterDetailViewModel.state.value as BaseViewState.Content
+        assert(state.result == mockCharacterDetail.toCharacterDetail())
     }
+
 
 }

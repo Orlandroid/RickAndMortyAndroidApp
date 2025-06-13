@@ -124,12 +124,9 @@ dependencies {
     //Testing
     testImplementation(libs.mockwebserver)
     testImplementation(libs.truth)
-    testImplementation(libs.kotlin.mockito.kotlin)
-    testImplementation(libs.mockito.inline)
     testImplementation(libs.turbine)
     implementation(libs.core.testing)
     testImplementation(libs.jetbrains.kotlinx.coroutines.test)
-    testImplementation(libs.kotlin.mockito.kotlin)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.jetbrains.kotlinx.coroutines.test)
     testImplementation(libs.core.testing)
@@ -137,7 +134,7 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
     debugImplementation(libs.androidx.ui.tooling)
-
+    testImplementation(libs.mockk)
 
 }
 

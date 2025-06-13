@@ -10,4 +10,18 @@ data class EpisodeImage(
     val average: Double?,
     val imageUrl: String,
     val summary: String
-)
+) {
+    companion object{
+        fun mockEpisodeIMage() = EpisodeImage(
+            imageUrl = "",
+            url = "",
+            name = "",
+            season = 1,
+            number = 1,
+            type = "",
+            average = 0.0,
+            id = 0,
+            summary = ""
+        )
+    }
+}

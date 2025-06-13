@@ -22,6 +22,14 @@ data class CharacterDetailUiState(
     val idsOfEpisodes: String
 )
 
+fun GetCharacterDetailUseCase.CharacterDetail.toCharacterDetail() =
+    CharacterDetailUiState(
+        location = location,
+        characterDetail = characterDetail,
+        characterOfThisLocation = charactersOfThisLocation,
+        idsOfEpisodes = idsOfEpisodes
+    )
+
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -36,14 +44,7 @@ class CharacterDetailViewModel @Inject constructor(
     fun getCharacterDetailInfo(idCharacter: Int) = viewModelScope.launch(ioDispatcher) {
         runCatching {
             val characterDetail = characterDetailUseCase.invoke(idCharacter)
-            _state.value = BaseViewState.Content(
-                CharacterDetailUiState(
-                    location = characterDetail.location,
-                    characterDetail = characterDetail.characterDetail,
-                    characterOfThisLocation = characterDetail.charactersOfThisLocation,
-                    idsOfEpisodes = characterDetail.idsOfEpisodes
-                )
-            )
+            _state.value = BaseViewState.Content(characterDetail.toCharacterDetail())
         }.onFailure {
             _state.value = BaseViewState.Error(message = it.message.orEmpty())
             print(it.message)

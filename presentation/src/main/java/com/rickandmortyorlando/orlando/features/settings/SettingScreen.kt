@@ -41,7 +41,7 @@ fun SettingsRoute(navController: NavController) {
 
 
 @Composable
-fun SettingScreen(
+private fun SettingScreen(
     onEvents: (event: SettingsEvents) -> Unit,
     uiState: SettingsUiState,
     onBack: () -> Unit

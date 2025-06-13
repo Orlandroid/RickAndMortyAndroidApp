@@ -66,7 +66,7 @@ fun HomeRote(navController: NavController) {
 }
 
 @Composable
-fun HomeScreen(
+private fun HomeScreen(
     onEvents: (event: HomeEvents) -> Unit
 ) {
     BaseComposeScreen(
@@ -93,7 +93,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeScreenContent(onEvents: (event: HomeEvents) -> Unit) {
+private fun HomeScreenContent(onEvents: (event: HomeEvents) -> Unit) {
     val paddingValues = PaddingValues(top = 12.dp, start = 12.dp, end = 12.dp)
     Column(Modifier.fillMaxSize()) {
         ImageCard(
@@ -129,7 +129,7 @@ fun HomeScreenContent(onEvents: (event: HomeEvents) -> Unit) {
 }
 
 @Composable
-fun ImageCard(
+private fun ImageCard(
     modifier: Modifier = Modifier,
     imageCard: Painter,
     @StringRes
