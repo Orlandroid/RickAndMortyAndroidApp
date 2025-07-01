@@ -1,12 +1,13 @@
 package com.rickandmortyorlando.orlando.features.settings
 
+import app.cash.turbine.test
 import com.example.data.preferences.RickAndMortyPreferences
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -24,6 +25,7 @@ class SettingsViewModelTest {
 
     @Before
     fun setup() {
+        every { rickAndMortyPreferences.getIsNightMode() } returns true
         viewModel = SettingsViewModel(rickAndMortyPreferences)
         Dispatchers.setMain(UnconfinedTestDispatcher())
     }
@@ -36,9 +38,11 @@ class SettingsViewModelTest {
     @Test
     fun `when OnToggle event is call  with true param check that state isEnable = true `() =
         runTest {
+            val viewModel = spyk(objToCopy = viewModel, recordPrivateCalls = true)
             viewModel.handleEvents(SettingsEvents.OnToggle(isEnable = true))
             val uiState = viewModel.uiState
             assert(uiState.value.isNightModeEnable)
+            verify { viewModel["changeTheme"].invoke(true) }
         }
 
     @Test
@@ -52,15 +56,9 @@ class SettingsViewModelTest {
     @Test
     fun `when init check that initial state of isEnable take the correct value from preferences `() =
         runTest {
-            every { rickAndMortyPreferences.getIsNightMode() } returns true
-            var lastState: SettingsUiState? = null
-            val job = launch {
-                viewModel.uiState.collectLatest {
-                    lastState = it
-                }
+            viewModel.uiState.test {
+                assert(awaitItem().isNightModeEnable)
             }
-            job.join()
-            assert(lastState!!.isNightModeEnable)
         }
 
 }

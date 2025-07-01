@@ -28,10 +28,10 @@ data class SettingsUiState(val isNightModeEnable: Boolean = false)
 class SettingsViewModel @Inject constructor(
     private val rickAndMortyPreferences: RickAndMortyPreferences
 ) : ViewModel() {
-
     private val _uiState =
         MutableStateFlow(SettingsUiState().copy(isNightModeEnable = isNightMode()))
     val uiState = _uiState.asStateFlow()
+
 
     private val _effects: Channel<SettingsEffect> = Channel()
 

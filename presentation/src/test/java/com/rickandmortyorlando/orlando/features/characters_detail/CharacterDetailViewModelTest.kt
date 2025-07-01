@@ -2,6 +2,7 @@ package com.rickandmortyorlando.orlando.features.characters_detail
 
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
+import com.example.domain.repository.CharacterRepository
 import com.example.domain.usecases.GetCharacterDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import io.mockk.coEvery
@@ -18,6 +19,7 @@ class CharacterDetailViewModelTest {
 
     private lateinit var characterDetailViewModel: CharacterDetailViewModel
     private val characterDetailUseCase = mockk<GetCharacterDetailUseCase>()
+    private val characterRepository = mockk<CharacterRepository>()
 
     @Before
     fun setup() {
@@ -34,7 +36,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when use case  return date state should be BaseViewState Content`() = runTest {
+    fun `when use case  return data state should be BaseViewState Content`() = runTest {
         val mockCharacterDetail = GetCharacterDetailUseCase.CharacterDetail(
             characterDetail = Character.mockCharacter(),
             location = Location.mockLocation(),
@@ -42,7 +44,7 @@ class CharacterDetailViewModelTest {
         )
         coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
 
-        characterDetailViewModel.getCharacterDetailInfo(0)
+        characterDetailViewModel.getCharacterDetailInfo(5)
 
         val state = characterDetailViewModel.state.value as BaseViewState.Content
         assert(state.result == mockCharacterDetail.toCharacterDetail())
@@ -50,11 +52,12 @@ class CharacterDetailViewModelTest {
 
 
     @Test
-    fun `when use case  return date state should be BaseViewState Error`() = runTest {
+    fun `when use case  return error state should be BaseViewState Error`() = runTest {
         val mockCharacterDetail = GetCharacterDetailUseCase.CharacterDetail(
             characterDetail = Character.mockCharacter(),
             idsOfEpisodes = "1,2,3"
         )
+        coEvery { characterRepository.getCharacter(any()) } throws Throwable(message = "")
         coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
 
         characterDetailViewModel.getCharacterDetailInfo(0)

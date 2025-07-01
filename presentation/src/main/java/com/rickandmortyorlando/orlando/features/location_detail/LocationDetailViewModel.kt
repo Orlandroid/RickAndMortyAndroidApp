@@ -20,6 +20,9 @@ data class LocationDetailUiState(
     val characters: List<Character>
 )
 
+fun GetLocationDetailUseCase.LocationDetail.toUi() =
+    LocationDetailUiState(location = location, characters = characters)
+
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -27,7 +30,8 @@ class LocationDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _state = MutableStateFlow<BaseViewState<LocationDetailUiState>>(BaseViewState.Loading)
+    private val _state =
+        MutableStateFlow<BaseViewState<LocationDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
     fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {

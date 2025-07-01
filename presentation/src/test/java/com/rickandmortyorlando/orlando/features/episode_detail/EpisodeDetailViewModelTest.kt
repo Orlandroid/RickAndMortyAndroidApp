@@ -27,7 +27,6 @@ class EpisodeDetailViewModelTest {
 
     @Test
     fun `should emit Content state when GetEpisodeDetailUseCase case returns data`() = runTest {
-        val episodeId = "1"
         val episode = Episode.mockEpisode()
 
         val episodeImage = EpisodeImage.mockEpisodeIMage()
@@ -35,9 +34,9 @@ class EpisodeDetailViewModelTest {
 
         val detail = GetEpisodeDetailUseCase.EpisodeDetail(episode, characters, episodeImage)
 
-        coEvery { getEpisodeDetailUseCase.invoke(episodeId) } returns detail
+        coEvery { getEpisodeDetailUseCase.invoke(any()) } returns detail
 
-        viewModel.getEpisodeDetail(episodeId)
+        viewModel.getEpisodeDetail("1")
 
         val state = viewModel.state.value as BaseViewState.Content
 
@@ -50,12 +49,14 @@ class EpisodeDetailViewModelTest {
     @Test
     fun `should emit Error state when use case throws exception`() = runTest {
         val episodeId = "1"
-        coEvery { getEpisodeDetailUseCase.invoke(episodeId) } throws RuntimeException("Network error")
+        val defaultError = "invalid id"
+        coEvery { getEpisodeDetailUseCase.invoke(episodeId) } throws Throwable(message = defaultError)
 
         viewModel.getEpisodeDetail(episodeId)
 
         val state = viewModel.state.value
         assert(state is BaseViewState.Error)
+        assert((state as BaseViewState.Error).message == defaultError)
     }
 
     @Test

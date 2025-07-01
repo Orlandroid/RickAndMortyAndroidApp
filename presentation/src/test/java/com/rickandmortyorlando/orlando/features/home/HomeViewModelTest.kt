@@ -44,7 +44,7 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `when ClickOnEpisodes event is call check that NavigateToCharacters effect is emit`() =
+    fun `when ClickOnEpisodes event is call check that NavigateToEpisodes effect is emit`() =
         runTest {
             viewModel.effects.test {
                 viewModel.onEvents(HomeEvents.ClickOnEpisodes)
@@ -53,7 +53,7 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `when ClickOnLocations event is call check that NavigateToCharacters effect is emit`() =
+    fun `when ClickOnLocations event is call check that NavigateToLocations effect is emit`() =
         runTest {
             viewModel.effects.test {
                 viewModel.onEvents(HomeEvents.ClickOnLocations)
@@ -62,11 +62,13 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `when ClickOnSettings event is call check that NavigateToCharacters effect is emit`() =
+    fun `when ClickOnSettings event is call check that NavigateToSettings effect is emit`() =
         runTest {
             viewModel.effects.test {
                 viewModel.onEvents(HomeEvents.ClickOnSettings)
+                viewModel.onEvents(HomeEvents.ClickOnLocations)
                 assertEquals(HomeEffects.NavigateToSettings, awaitItem())
+                assertEquals(HomeEffects.NavigateToLocations, awaitItem())
             }
         }
 
