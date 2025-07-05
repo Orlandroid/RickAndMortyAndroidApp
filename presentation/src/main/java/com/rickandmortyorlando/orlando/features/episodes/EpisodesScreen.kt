@@ -37,7 +37,7 @@ fun EpisodesRoute(navController: NavController) {
 }
 
 @Composable
-fun EpisodesScreen(
+private fun EpisodesScreen(
     episodes: LazyPagingItems<Episode>,
     clickOnItem: (episodeId: Int) -> Unit,
     clickOnBackButton: () -> Unit

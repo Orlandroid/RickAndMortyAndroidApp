@@ -36,7 +36,7 @@ fun ManyEpisodesRoute(navController: NavController, idsEpisodes: String) {
 }
 
 @Composable
-fun ManyEpisodesScreen(
+private fun ManyEpisodesScreen(
     viewState: BaseViewState<List<Episode>>,
     onNavigateBack: () -> Unit
 ) {

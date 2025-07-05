@@ -41,7 +41,7 @@ fun BaseComposeScreen(
 
 
 @Composable
-fun ContentScreen(
+private fun ContentScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     background: Color,

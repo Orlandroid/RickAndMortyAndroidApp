@@ -93,7 +93,7 @@ fun CharacterDetailScreen(
         is BaseViewState.Content -> {
             BaseComposeScreen(
                 toolbarConfiguration = ToolbarConfiguration(
-                    title = viewState.result.characterDetail.name,
+                    title = viewState.result.characterDetail?.name.orEmpty(),
                     clickOnBackButton = onBack
                 )
             ) {
@@ -126,10 +126,10 @@ private fun CharacterDetailScreenContent(
                 .clip(CircleShape)
                 .border(
                     width = 2.dp,
-                    color = colorResource(getColorStatusResource(uiState.characterDetail.status)),
+                    color = colorResource(getColorStatusResource(uiState.characterDetail?.status.orEmpty())),
                     shape = CircleShape
                 ),
-            model = uiState.characterDetail.image,
+            model = uiState.characterDetail?.image,
             contentDescription = "ImageStaff",
             loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
         )
@@ -139,11 +139,13 @@ private fun CharacterDetailScreenContent(
                 .fillMaxWidth()
                 .padding(start = 16.dp)
         ) {
-            CharacterDetail(
-                character = uiState.characterDetail,
-                statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
-                clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
-            )
+            uiState.characterDetail?.let {
+                CharacterDetail(
+                    character = uiState.characterDetail,
+                    statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
+                    clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
+                )
+            }
             Spacer(Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.last_seen_location),
@@ -162,7 +164,7 @@ private fun CharacterDetailScreenContent(
                         CharacterCard(
                             character = character,
                             onCharacterClick = {
-                                if (uiState.characterDetail.id != character.id) {
+                                if (uiState.characterDetail?.id != character.id) {
                                     clickOnCharacter(character.id)
                                 }
                             }
@@ -254,7 +256,7 @@ private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
             characterOfThisLocation = Character.getCharacters(4),
             idsOfEpisodes = ""
         ),
-        clickOnCharacter ={ id -> },
+        clickOnCharacter = { id -> },
         clickOnNumberOfEpisodes = {}
     )
 }

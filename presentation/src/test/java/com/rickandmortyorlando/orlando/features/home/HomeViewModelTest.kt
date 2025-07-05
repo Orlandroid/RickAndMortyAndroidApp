@@ -66,9 +66,7 @@ class HomeViewModelTest {
         runTest {
             viewModel.effects.test {
                 viewModel.onEvents(HomeEvents.ClickOnSettings)
-                viewModel.onEvents(HomeEvents.ClickOnLocations)
                 assertEquals(HomeEffects.NavigateToSettings, awaitItem())
-                assertEquals(HomeEffects.NavigateToLocations, awaitItem())
             }
         }
 

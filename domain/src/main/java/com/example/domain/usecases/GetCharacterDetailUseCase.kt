@@ -4,6 +4,10 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.LocationRepository
+import com.example.domain.state.ApiResult
+import com.example.domain.state.getData
+import com.example.domain.state.isError
+import com.example.domain.state.isSuccess
 import com.example.domain.utils.getListOfEpisodes
 import com.example.domain.utils.getListOfIdsOfCharacters
 import com.example.domain.utils.getNumberFromUrWithPrefix
@@ -14,34 +18,42 @@ class GetCharacterDetailUseCase @Inject constructor(
     private val locationsRepository: LocationRepository
 ) {
 
-    private fun characterHasLocation(urlLocation: String): Boolean {
-        return urlLocation.isNotEmpty()
-    }
-
-    suspend fun invoke(idCharacter: Int): CharacterDetail {
-        val character = characterRepository.getCharacter(idCharacter.toString())
-        val idsOfEpisodes = getListOfEpisodes(character.episode)
-        var location: Location? = null
-        var charactersOfThisLocation: List<Character>? = null
-        if (characterHasLocation(character.urlLocation)) {
-            val locationId = getNumberFromUrWithPrefix(
-                urlWithNumberInTheFinalCharacter = character.originUrl.ifEmpty { character.urlLocation },
-                prefix = "location"
-            )
-            location = locationsRepository.getLocation(locationId)
-            val listOfCharacters = getListOfIdsOfCharacters(location.residents)
-            charactersOfThisLocation = characterRepository.getManyCharacters(listOfCharacters)
+    suspend fun invoke(idCharacter: Int): ApiResult<CharacterDetail> {
+        val characterResponse = characterRepository.getCharacter(idCharacter.toString())
+        val character = if (characterResponse.isSuccess()) {
+            characterResponse.getData()
+        } else {
+            val errorMessage = (characterResponse as ApiResult.Error).msg
+            return ApiResult.Error(msg = errorMessage)
         }
-        return CharacterDetail(
-            characterDetail = character,
-            location = location,
-            charactersOfThisLocation = charactersOfThisLocation,
-            idsOfEpisodes = idsOfEpisodes
+        val idsOfEpisodes = getListOfEpisodes(character.episode)
+        if (character.hasNotLocation()) {
+            return ApiResult.Success(
+                data = CharacterDetail(
+                    characterDetail = character,
+                    idsOfEpisodes = idsOfEpisodes
+                )
+            )
+        }
+        val locationId = getNumberFromUrWithPrefix(
+            urlWithNumberInTheFinalCharacter = character.originUrl.ifEmpty { character.urlLocation },
+            prefix = "location"
+        )
+        val location = locationsRepository.getLocation(locationId)
+        val listOfCharacters = getListOfIdsOfCharacters(location.residents)
+        val charactersOfThisLocation = characterRepository.getManyCharacters(listOfCharacters)
+        return ApiResult.Success(
+            data = CharacterDetail(
+                characterDetail = character,
+                location = location,
+                charactersOfThisLocation = charactersOfThisLocation,
+                idsOfEpisodes = idsOfEpisodes
+            )
         )
     }
 
     data class CharacterDetail(
-        val characterDetail: Character,
+        val characterDetail: Character? = null,
         val location: Location? = null,
         val charactersOfThisLocation: List<Character>? = null,
         val idsOfEpisodes: String

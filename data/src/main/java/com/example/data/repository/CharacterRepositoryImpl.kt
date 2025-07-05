@@ -10,6 +10,7 @@ import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.characters.Character
 import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.repository.CharacterRepository
+import com.example.domain.state.ApiResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -31,8 +32,13 @@ class CharacterRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getCharacter(idCharacter: String): Character {
-        return api.getCharacter(idCharacter).toCharacter()
+    override suspend fun getCharacter(idCharacter: String): ApiResult<Character> {
+        return runCatching {
+            api.getCharacter(idCharacter).toCharacter()
+        }.fold(
+            onSuccess = { character -> ApiResult.Success(character) },
+            onFailure = { throwable -> ApiResult.Error(msg = throwable.message.orEmpty()) }
+        )
     }
 
     override suspend fun getManyCharacters(idsCharacters: String): List<Character> {

@@ -59,7 +59,7 @@ fun SearchCharacterRoute(navController: NavController) {
 }
 
 @Composable
-fun SearchCharacterScreen(
+private fun SearchCharacterScreen(
     uiState: SearchCharacter,
     characters: LazyPagingItems<Character>,
     events: (event: SearchCharacterEvents) -> Unit,

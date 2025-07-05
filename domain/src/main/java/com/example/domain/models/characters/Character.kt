@@ -32,4 +32,8 @@ data class Character(
             return characters
         }
     }
+
+    fun hasNotLocation(): Boolean {
+        return urlLocation.isEmpty()
+    }
 }

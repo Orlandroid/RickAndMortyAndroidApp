@@ -57,7 +57,7 @@ fun LocationRoute(navController: NavController) {
 
 
 @Composable
-fun LocationScreen(
+private fun LocationScreen(
     locations: LazyPagingItems<Location>,
     clickOnItem: (locationId: Int) -> Unit,
     onNavigateBack: () -> Unit

@@ -67,7 +67,7 @@ fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
 }
 
 @Composable
-fun EpisodeDetailScreen(
+private fun EpisodeDetailScreen(
     viewState: BaseViewState<EpisodeDetailUiState>,
     clickOnCharacter: (characterId: Int) -> Unit,
     clickOnWatch: (episodeQuery: String) -> Unit,

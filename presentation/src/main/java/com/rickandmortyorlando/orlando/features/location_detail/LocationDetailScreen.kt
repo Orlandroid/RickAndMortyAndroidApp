@@ -55,7 +55,7 @@ fun LocationDetailRoute(navController: NavController, locationId: Int) {
 }
 
 @Composable
-fun LocationDetailScreen(
+private fun LocationDetailScreen(
     viewState: BaseViewState<LocationDetailUiState>,
     clickOnCharacter: (characterId: Int) -> Unit,
     clickOnBack: () -> Unit
@@ -96,7 +96,7 @@ fun LocationDetailScreen(
 
 
 @Composable
-fun LocationDetailScreenContent(
+private fun LocationDetailScreenContent(
     modifier: Modifier = Modifier,
     uiState: LocationDetailUiState,
     clickOnCharacter: (characterId: Int) -> Unit

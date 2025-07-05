@@ -3,6 +3,7 @@ package com.rickandmortyorlando.orlando.features.characters_detail
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
+import com.example.domain.state.ApiResult
 import com.example.domain.usecases.GetCharacterDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import io.mockk.coEvery
@@ -42,7 +43,9 @@ class CharacterDetailViewModelTest {
             location = Location.mockLocation(),
             idsOfEpisodes = "1,2,3"
         )
-        coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
+        coEvery { characterDetailUseCase.invoke(any()) } returns ApiResult.Success(
+            mockCharacterDetail
+        )
 
         characterDetailViewModel.getCharacterDetailInfo(5)
 
@@ -58,7 +61,9 @@ class CharacterDetailViewModelTest {
             idsOfEpisodes = "1,2,3"
         )
         coEvery { characterRepository.getCharacter(any()) } throws Throwable(message = "")
-        coEvery { characterDetailUseCase.invoke(any()) } returns mockCharacterDetail
+        coEvery { characterDetailUseCase.invoke(any()) } returns ApiResult.Success(
+            mockCharacterDetail
+        )
 
         characterDetailViewModel.getCharacterDetailInfo(0)
 
