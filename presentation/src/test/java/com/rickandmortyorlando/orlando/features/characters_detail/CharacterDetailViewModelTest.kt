@@ -13,6 +13,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import com.google.common.truth.Truth.assertThat
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -33,7 +34,7 @@ class CharacterDetailViewModelTest {
     @Test
     fun `when we get the initial state this should be loading`() {
         val state = characterDetailViewModel.state
-        assert(state.value == BaseViewState.Loading)
+        assertThat(state.value).isEqualTo(BaseViewState.Loading)
     }
 
     @Test
@@ -50,7 +51,7 @@ class CharacterDetailViewModelTest {
         characterDetailViewModel.getCharacterDetailInfo(5)
 
         val state = characterDetailViewModel.state.value as BaseViewState.Content
-        assert(state.result == mockCharacterDetail.toCharacterDetail())
+        assertThat(state.result).isEqualTo(mockCharacterDetail.toCharacterDetail())
     }
 
 
@@ -68,7 +69,7 @@ class CharacterDetailViewModelTest {
         characterDetailViewModel.getCharacterDetailInfo(0)
 
         val state = characterDetailViewModel.state.value as BaseViewState.Content
-        assert(state.result == mockCharacterDetail.toCharacterDetail())
+        assertThat(state.result).isEqualTo(mockCharacterDetail.toCharacterDetail())
     }
 
 

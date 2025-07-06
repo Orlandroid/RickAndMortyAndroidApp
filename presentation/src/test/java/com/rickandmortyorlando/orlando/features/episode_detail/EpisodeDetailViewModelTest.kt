@@ -13,6 +13,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import com.google.common.truth.Truth.assertThat
 
 @ExperimentalCoroutinesApi
 class EpisodeDetailViewModelTest {
@@ -40,7 +41,6 @@ class EpisodeDetailViewModelTest {
 
         val state = viewModel.state.value as BaseViewState.Content
 
-
         assertEquals(episode, state.result.episode)
         assertEquals(characters, state.result.characters)
         assertEquals(episodeImage, state.result.episodeImage)
@@ -56,7 +56,7 @@ class EpisodeDetailViewModelTest {
 
         val state = viewModel.state.value
         assert(state is BaseViewState.Error)
-        assert((state as BaseViewState.Error).message == defaultError)
+        assertThat((state as BaseViewState.Error).message).isEqualTo(defaultError)
     }
 
     @Test

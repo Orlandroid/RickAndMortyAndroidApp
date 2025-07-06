@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import com.google.common.truth.Truth.assertThat
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -31,7 +32,7 @@ class LocationDetailViewModelTest {
     @Test
     fun `when we get the initial state this should be loading`() {
         val state = viewModel.state
-        assert(state.value == BaseViewState.Loading)
+        assertThat(state.value).isEqualTo(BaseViewState.Loading)
     }
 
     @Test

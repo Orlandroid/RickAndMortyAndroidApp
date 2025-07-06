@@ -2,6 +2,7 @@ package com.rickandmortyorlando.orlando.features.settings
 
 import app.cash.turbine.test
 import com.example.data.preferences.RickAndMortyPreferences
+import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
@@ -41,8 +42,8 @@ class SettingsViewModelTest {
             val viewModel = spyk(objToCopy = viewModel, recordPrivateCalls = true)
             viewModel.handleEvents(SettingsEvents.OnToggle(isEnable = true))
             val uiState = viewModel.uiState
-            assert(uiState.value.isNightModeEnable)
-            verify { viewModel["changeTheme"].invoke(true) }
+            assertThat(uiState.value.isNightModeEnable).isTrue()
+            verify(exactly = 1) { viewModel["changeTheme"].invoke(true) }
         }
 
     @Test
@@ -50,14 +51,14 @@ class SettingsViewModelTest {
         runTest {
             viewModel.handleEvents(SettingsEvents.OnToggle(isEnable = false))
             val uiState = viewModel.uiState
-            assert(uiState.value.isNightModeEnable.not())
+            assertThat(uiState.value.isNightModeEnable).isFalse()
         }
 
     @Test
     fun `when init check that initial state of isEnable take the correct value from preferences `() =
         runTest {
             viewModel.uiState.test {
-                assert(awaitItem().isNightModeEnable)
+                assertThat(awaitItem().isNightModeEnable).isTrue()
             }
         }
 

@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
+import com.google.common.truth.Truth.assertThat
 
 class NetworkHelperTest {
 
@@ -18,13 +19,13 @@ class NetworkHelperTest {
     @Test
     fun isConnectedToNetwork() {
         every { networkHelper.isNetworkConnected() } returns false
-        assert(networkHelper.isNetworkConnected().not())
+        assertThat(networkHelper.isNetworkConnected()).isFalse()
     }
 
     @Test
     fun isConnectedToNetwork_true_trueReturned() {
         every { networkHelper.isNetworkConnected() } returns true
-        assert(networkHelper.isNetworkConnected())
+        assertThat(networkHelper.isNetworkConnected()).isTrue()
     }
 
 }
