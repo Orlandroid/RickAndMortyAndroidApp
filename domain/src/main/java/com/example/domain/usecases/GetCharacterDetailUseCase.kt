@@ -5,6 +5,7 @@ import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.LocationRepository
 import com.example.domain.state.ApiResult
+import com.example.domain.state.FAIL_RESPONSE_FROM_SERVER
 import com.example.domain.state.getData
 import com.example.domain.state.isError
 import com.example.domain.state.isSuccess
@@ -20,12 +21,10 @@ class GetCharacterDetailUseCase @Inject constructor(
 
     suspend fun invoke(idCharacter: Int): ApiResult<CharacterDetail> {
         val characterResponse = characterRepository.getCharacter(idCharacter.toString())
-        val character = if (characterResponse.isSuccess()) {
-            characterResponse.getData()
-        } else {
-            val errorMessage = (characterResponse as ApiResult.Error).msg
-            return ApiResult.Error(msg = errorMessage)
+        if (characterResponse.isError()) {
+            return ApiResult.Error(msg = FAIL_RESPONSE_FROM_SERVER)
         }
+        val character = characterResponse.getData()
         val idsOfEpisodes = getListOfEpisodes(character.episode)
         if (character.hasNotLocation()) {
             return ApiResult.Success(
@@ -39,9 +38,24 @@ class GetCharacterDetailUseCase @Inject constructor(
             urlWithNumberInTheFinalCharacter = character.originUrl.ifEmpty { character.urlLocation },
             prefix = "location"
         )
-        val location = locationsRepository.getLocation(locationId)
-        val listOfCharacters = getListOfIdsOfCharacters(location.residents)
-        val charactersOfThisLocation = characterRepository.getManyCharacters(listOfCharacters)
+        val locationResponse = locationsRepository.getLocation(locationId)
+        if (locationResponse.isError()) {
+            return ApiResult.Success(
+                data = CharacterDetail(
+                    characterDetail = character,
+                    idsOfEpisodes = idsOfEpisodes
+                )
+            )
+        }
+        val location = locationResponse.getData()
+        val listOfCharacters = getListOfIdsOfCharacters(locationResponse.getData().residents)
+        val charactersOfThisLocationResponse =
+            characterRepository.getManyCharacters(listOfCharacters)
+        val charactersOfThisLocation = if (charactersOfThisLocationResponse.isSuccess()) {
+            charactersOfThisLocationResponse.getData()
+        } else {
+            emptyList()
+        }
         return ApiResult.Success(
             data = CharacterDetail(
                 characterDetail = character,

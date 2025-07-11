@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.di.IoDispatcher
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
+import com.example.domain.state.getData
+import com.example.domain.state.getMessage
+import com.example.domain.state.isError
 import com.example.domain.usecases.GetLocationDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,18 +38,19 @@ class LocationDetailViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {
-        runCatching {
-            val locationDetail = getLocationDetailUseCase.invoke(locationId)
-            _state.value =
-                BaseViewState.Content(
-                    LocationDetailUiState(
-                        location = locationDetail.location,
-                        characters = locationDetail.characters
-                    )
-                )
-        }.onFailure {
-            _state.value = BaseViewState.Error(message = it.message.orEmpty())
+        val locationDetail = getLocationDetailUseCase.invoke(locationId)
+        if (locationDetail.isError()) {
+            _state.value = BaseViewState.Error(message = locationDetail.getMessage())
+            return@launch
         }
+        val location = locationDetail.getData()
+        _state.value =
+            BaseViewState.Content(
+                LocationDetailUiState(
+                    location = location.location,
+                    characters = location.characters
+                )
+            )
     }
 
 }

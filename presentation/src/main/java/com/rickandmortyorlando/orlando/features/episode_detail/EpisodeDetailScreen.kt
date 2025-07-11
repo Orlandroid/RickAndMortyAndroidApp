@@ -115,7 +115,7 @@ private fun EpisodeDetailScreenContent(
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(Modifier.height(8.dp))
         SubcomposeAsyncImage(
-            model = uiState.episodeImage.imageUrl,
+            model = uiState.episodeImage?.imageUrl,
             contentDescription = "EpisodeImage",
             loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
         )

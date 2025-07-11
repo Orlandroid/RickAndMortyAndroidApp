@@ -6,6 +6,9 @@ import com.example.di.IoDispatcher
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
+import com.example.domain.state.getData
+import com.example.domain.state.getMessage
+import com.example.domain.state.isError
 import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +22,7 @@ import javax.inject.Inject
 data class EpisodeDetailUiState(
     val episode: Episode,
     val characters: List<Character>,
-    val episodeImage: EpisodeImage
+    val episodeImage: EpisodeImage? = null
 )
 
 @HiltViewModel
@@ -28,24 +31,25 @@ class EpisodeDetailViewModel @Inject constructor(
     private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
+    private val _state =
+        MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
 
     fun getEpisodeDetail(episodeId: String) = viewModelScope.launch(ioDispatcher) {
-        runCatching {
-            val episodeDetail = getEpisodeDetailUseCase.invoke(episodeId = episodeId)
-            _state.value = BaseViewState.Content(
-                EpisodeDetailUiState(
-                    episode = episodeDetail.episode,
-                    characters = episodeDetail.characters,
-                    episodeImage = episodeDetail.episodeImage
-                )
-            )
-        }.onFailure {
-            println(it.message)
-            _state.value = BaseViewState.Error(message = it.message.orEmpty())
+        val episodeDetail = getEpisodeDetailUseCase.invoke(episodeId = episodeId)
+        if (episodeDetail.isError()) {
+            _state.value = BaseViewState.Error(message = episodeDetail.getMessage())
+            return@launch
         }
+        val episode = episodeDetail.getData()
+        _state.value = BaseViewState.Content(
+            EpisodeDetailUiState(
+                episode = episode.episode,
+                characters = episode.characters,
+                episodeImage = episode.episodeImage
+            )
+        )
     }
 
 

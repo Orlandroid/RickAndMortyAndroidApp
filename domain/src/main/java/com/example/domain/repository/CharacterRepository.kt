@@ -12,7 +12,7 @@ interface CharacterRepository {
 
     suspend fun getCharacter(idCharacter: String): ApiResult<Character>
 
-    suspend fun getManyCharacters(idsCharacters: String): List<Character>
+    suspend fun getManyCharacters(idsCharacters: String): ApiResult<List<Character>>
 
     fun searchCharacter(searchCharacter: SearchCharacter): Flow<PagingData<Character>>
 }

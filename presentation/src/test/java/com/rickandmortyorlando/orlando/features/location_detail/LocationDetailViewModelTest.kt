@@ -2,6 +2,8 @@ package com.rickandmortyorlando.orlando.features.location_detail
 
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
+import com.example.domain.state.ApiResult
+import com.example.domain.state.FAIL_RESPONSE_FROM_SERVER
 import com.example.domain.usecases.GetLocationDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import io.mockk.coEvery
@@ -37,25 +39,24 @@ class LocationDetailViewModelTest {
 
     @Test
     fun `should emit Error state when GetLocationDetailUseCase throws exception`() = runTest {
-        val defaultError = "invalid id"
-        coEvery { getLocationDetailUSeCase.invoke(locationId = any()) } throws Throwable(message = defaultError)
+        coEvery { getLocationDetailUSeCase.invoke(locationId = any()) } returns ApiResult.Error(msg = FAIL_RESPONSE_FROM_SERVER)
 
         viewModel.getLocationDetail(1)
 
         val state = viewModel.state.value
         assert(state is BaseViewState.Error)
-        assert((state as BaseViewState.Error).message == defaultError)
+        assert((state as BaseViewState.Error).message == FAIL_RESPONSE_FROM_SERVER)
     }
 
     @Test
-    fun `should emit Content state when GetLocationDetailUseCase case returns data`() = runTest {
+    fun `should emit Content state when GetLocationDetailUseCase case returns success`() = runTest {
 
         val detail = GetLocationDetailUseCase.LocationDetail(
             location = Location.mockLocation(),
             Character.getCharacters(8)
         )
 
-        coEvery { getLocationDetailUSeCase.invoke(any()) } returns detail
+        coEvery { getLocationDetailUSeCase.invoke(any()) } returns ApiResult.Success(detail)
 
         viewModel.getLocationDetail(1)
 

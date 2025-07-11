@@ -11,8 +11,10 @@ import com.example.data.pagination.getPagingConfig
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
 import com.example.domain.repository.EpisodesRepository
+import com.example.domain.state.ApiResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlin.runCatching
 
 class EpisodesRepositoryImpl @Inject constructor(
     private val api: RickAndMortyService,
@@ -32,9 +34,14 @@ class EpisodesRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getEpisode(ids: String): Episode {
-        val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
-        return api.getSingleEpisode(baseUrl).toEpisode()
+    override suspend fun getEpisode(ids: String): ApiResult<Episode> {
+        return runCatching {
+            val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
+            api.getSingleEpisode(baseUrl).toEpisode()
+        }.fold(
+            onSuccess = { ApiResult.Success(it) },
+            onFailure = { ApiResult.Error(msg = it.message.orEmpty()) }
+        )
     }
 
     override suspend fun getManyEpisodes(ids: String): List<Episode> {
@@ -46,9 +53,14 @@ class EpisodesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getImageOfEpisode(episodeName: String): EpisodeImage {
-        return episodeImageService.getImagesEpisodes().first { it.name.equals(episodeName, true) }
-            .toEpisodeImage()
+    override suspend fun getImageOfEpisode(episodeName: String): ApiResult<EpisodeImage> {
+        return kotlin.runCatching {
+            episodeImageService.getImagesEpisodes().first { it.name.equals(episodeName, true) }
+                .toEpisodeImage()
+        }
+            .fold(
+                onSuccess = { ApiResult.Success(it) },
+                onFailure = { ApiResult.Error(msg = it.message.orEmpty()) })
     }
 
 }

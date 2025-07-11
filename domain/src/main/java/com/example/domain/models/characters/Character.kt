@@ -20,7 +20,7 @@ data class Character(
             species = "Human",
             gender = "Male",
             urlLocation = "https://rickandmortyapi.com/api/location/3",
-            episode = listOf("", ""),
+            episode = listOf(getEpisodeUrl(1), getEpisodeUrl(2)),
             originUrl = "https://rickandmortyapi.com/api/location/3"
         )
 
@@ -31,6 +31,8 @@ data class Character(
             }
             return characters
         }
+
+        private fun getEpisodeUrl(idEpisode:Int) = "https://rickandmortyapi.com/api/episode/$idEpisode"
     }
 
     fun hasNotLocation(): Boolean {

@@ -3,6 +3,7 @@ package com.rickandmortyorlando.orlando.features.episode_detail
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
+import com.example.domain.state.ApiResult
 import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import io.mockk.coEvery
@@ -27,7 +28,7 @@ class EpisodeDetailViewModelTest {
     }
 
     @Test
-    fun `should emit Content state when GetEpisodeDetailUseCase case returns data`() = runTest {
+    fun `should emit Content state when GetEpisodeDetailUseCase case returns success`() = runTest {
         val episode = Episode.mockEpisode()
 
         val episodeImage = EpisodeImage.mockEpisodeIMage()
@@ -35,7 +36,7 @@ class EpisodeDetailViewModelTest {
 
         val detail = GetEpisodeDetailUseCase.EpisodeDetail(episode, characters, episodeImage)
 
-        coEvery { getEpisodeDetailUseCase.invoke(any()) } returns detail
+        coEvery { getEpisodeDetailUseCase.invoke(any()) } returns ApiResult.Success(detail)
 
         viewModel.getEpisodeDetail("1")
 
@@ -50,7 +51,7 @@ class EpisodeDetailViewModelTest {
     fun `should emit Error state when use case throws exception`() = runTest {
         val episodeId = "1"
         val defaultError = "invalid id"
-        coEvery { getEpisodeDetailUseCase.invoke(episodeId) } throws Throwable(message = defaultError)
+        coEvery { getEpisodeDetailUseCase.invoke(episodeId) } returns ApiResult.Error(msg = defaultError)
 
         viewModel.getEpisodeDetail(episodeId)
 
@@ -61,6 +62,6 @@ class EpisodeDetailViewModelTest {
 
     @Test
     fun `when init then state of state should be Loading`() {
-        assertEquals(viewModel.state.value, BaseViewState.Loading)
+        assertThat(viewModel.state.value).isEqualTo(BaseViewState.Loading)
     }
 }
