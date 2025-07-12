@@ -7,8 +7,8 @@ import com.example.domain.repository.LocationRepository
 import com.example.domain.state.ApiResult
 import com.example.domain.state.FAIL_RESPONSE_FROM_SERVER
 import com.example.domain.state.getData
+import com.example.domain.state.getDataOrNull
 import com.example.domain.state.isError
-import com.example.domain.state.isSuccess
 import com.example.domain.utils.getListOfEpisodes
 import com.example.domain.utils.getListOfIdsOfCharacters
 import com.example.domain.utils.getNumberFromUrWithPrefix
@@ -48,14 +48,9 @@ class GetCharacterDetailUseCase @Inject constructor(
             )
         }
         val location = locationResponse.getData()
-        val listOfCharacters = getListOfIdsOfCharacters(locationResponse.getData().residents)
-        val charactersOfThisLocationResponse =
-            characterRepository.getManyCharacters(listOfCharacters)
-        val charactersOfThisLocation = if (charactersOfThisLocationResponse.isSuccess()) {
-            charactersOfThisLocationResponse.getData()
-        } else {
-            emptyList()
-        }
+        val listOfCharacters = getListOfIdsOfCharacters(location.residents)
+        val charactersOfThisLocationResponse = characterRepository.getManyCharacters(listOfCharacters)
+        val charactersOfThisLocation = charactersOfThisLocationResponse.getDataOrNull()
         return ApiResult.Success(
             data = CharacterDetail(
                 characterDetail = character,

@@ -1,8 +1,5 @@
 package com.example.domain.models.location
 
-import android.annotation.SuppressLint
-import java.text.SimpleDateFormat
-
 data class Location(
     val id: Int,
     val name: String,
@@ -12,11 +9,6 @@ data class Location(
     val residents: List<String>,
     val type: String
 ) {
-    @SuppressLint("SimpleDateFormat")
-    fun getCreatedFormat(): String {
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
-        return dateFormat.format(created).toString()
-    }
 
     companion object {
         fun mockLocation() = Location(

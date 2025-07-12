@@ -143,6 +143,7 @@ private fun CharacterDetailScreenContent(
                 CharacterDetail(
                     character = uiState.characterDetail,
                     statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
+                    //Move this to the events we don,t need to do this in the UI
                     clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
                 )
             }
