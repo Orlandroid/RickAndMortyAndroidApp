@@ -2,7 +2,7 @@ package com.example.domain.state
 
 sealed class ApiResult<out T> {
     class Success<out T>(val data: T) : ApiResult<T>()
-    class Error(val msg: String) : ApiResult<Nothing>()
+    class Error(val msg: String = FAIL_RESPONSE_FROM_SERVER) : ApiResult<Nothing>()
 }
 
 fun <T> ApiResult<T>.isSuccess() = this is ApiResult.Success

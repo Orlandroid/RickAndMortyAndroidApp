@@ -29,7 +29,7 @@ class GetEpisodeDetailUseCase @Inject constructor(
         val idOfCharactersOfThisEpisode = getListOfIdsOfCharacters(episode.characters)
         val charactersResponse = characterRepository.getManyCharacters(idOfCharactersOfThisEpisode)
         if (charactersResponse.isError()) {
-            ApiResult.Success(EpisodeDetail(episode = episode, episodeImage = episodeImage))
+            return ApiResult.Success(EpisodeDetail(episode = episode, episodeImage = episodeImage))
         }
         return ApiResult.Success(
             EpisodeDetail(

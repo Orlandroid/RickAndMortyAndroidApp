@@ -13,7 +13,7 @@ data class EpisodeImage(
 ) {
     companion object{
         fun mockEpisodeIMage() = EpisodeImage(
-            imageUrl = "",
+            imageUrl = "https://static.tvmaze.com/uploads/images/medium_landscape/292/730352.jpg",
             url = "",
             name = "",
             season = 1,
