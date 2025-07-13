@@ -24,6 +24,9 @@ class GetLocationDetailUseCase @Inject constructor(
             return ApiResult.Error(msg = FAIL_RESPONSE_FROM_SERVER)
         }
         val location = locationResponse.getData()
+        if (location.residents.isEmpty()) {
+            return ApiResult.Error()
+        }
         val idOfCharacters = getListOfIdsOfCharacters(location.residents)
         val characterResponse = if (idOfCharacters.isSingleCharacter()) {
             val characterResponse = characterRepository.getCharacter(idCharacter = idOfCharacters)
@@ -41,14 +44,23 @@ class GetLocationDetailUseCase @Inject constructor(
                 )
             )
         } else {
-            characterRepository.getManyCharacters(idsCharacters = idOfCharacters)
+            val characterResponse =
+                characterRepository.getManyCharacters(idsCharacters = idOfCharacters)
+            if (characterResponse.isError()) {
+                return ApiResult.Success(
+                    LocationDetail(
+                        location = location
+                    )
+                )
+            } else {
+                return ApiResult.Success(
+                    LocationDetail(
+                        location = location,
+                        characterResponse.getData()
+                    )
+                )
+            }
         }
-        return ApiResult.Success(
-            LocationDetail(
-                location = location,
-                characters = characterResponse.getData()
-            )
-        )
     }
 
     data class LocationDetail(

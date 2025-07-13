@@ -11,15 +11,27 @@ data class Location(
 ) {
 
     companion object {
-        fun mockLocation() = Location(
+        fun mockLocation(residents: Residents = Residents.Empty) = Location(
             id = 5,
             name = "Anatomy Park",
             url = "https://rickandmortyapi.com/api/location/5",
             dimension = "Dimension C-137",
             created = "2017-11-10T13:08:46.060Z",
             type = "Microverse",
-            residents = emptyList()
+            residents = when (residents) {
+                Residents.Empty -> emptyList()
+                Residents.Single -> listOf(getUrlResident())
+                Residents.MoreThanOne -> listOf(getUrlResident(), getUrlResident())
+            }
         )
+
+        private fun getUrlResident() = "https://rickandmortyapi.com/api/character/1"
+    }
+
+    sealed class Residents {
+        data object Empty : Residents()
+        data object Single : Residents()
+        data object MoreThanOne : Residents()
     }
 }
 
