@@ -7,8 +7,8 @@ import com.example.domain.repository.LocationRepository
 import com.example.domain.state.ApiResult
 import com.example.domain.state.FAIL_RESPONSE_FROM_SERVER
 import com.example.domain.state.getData
+import com.example.domain.state.getDataOrNull
 import com.example.domain.state.isError
-import com.example.domain.state.isSuccess
 import com.example.domain.utils.getListOfIdsOfCharacters
 import com.example.domain.utils.isSingleCharacter
 import javax.inject.Inject
@@ -28,43 +28,31 @@ class GetLocationDetailUseCase @Inject constructor(
             return ApiResult.Error()
         }
         val idOfCharacters = getListOfIdsOfCharacters(location.residents)
-        val characterResponse = if (idOfCharacters.isSingleCharacter()) {
+        if (idOfCharacters.isSingleCharacter()) {
             val characterResponse = characterRepository.getCharacter(idCharacter = idOfCharacters)
-            if (characterResponse.isSuccess()) {
-                return ApiResult.Success(
-                    LocationDetail(
-                        location = location,
-                        characters = listOf(characterResponse.getData())
-                    )
-                )
-            }
             return ApiResult.Success(
                 LocationDetail(
-                    location = location
+                    location = location,
+                    characters = if (characterResponse.isError()) {
+                        emptyList()
+                    } else {
+                        listOf(characterResponse.getData())
+                    }
                 )
             )
-        } else {
-            val characterResponse =
-                characterRepository.getManyCharacters(idsCharacters = idOfCharacters)
-            if (characterResponse.isError()) {
-                return ApiResult.Success(
-                    LocationDetail(
-                        location = location
-                    )
-                )
-            } else {
-                return ApiResult.Success(
-                    LocationDetail(
-                        location = location,
-                        characterResponse.getData()
-                    )
-                )
-            }
         }
+        val characterResponse = characterRepository.getManyCharacters(idsCharacters = idOfCharacters)
+        return ApiResult.Success(
+            LocationDetail(
+                location = location,
+                characters = characterResponse.getDataOrNull()
+            )
+        )
+
     }
 
     data class LocationDetail(
         val location: Location,
-        val characters: List<Character> = emptyList()
+        val characters: List<Character>? = null
     )
 }

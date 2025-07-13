@@ -24,7 +24,7 @@ data class LocationDetailUiState(
 )
 
 fun GetLocationDetailUseCase.LocationDetail.toUi() =
-    LocationDetailUiState(location = location, characters = characters)
+    LocationDetailUiState(location = location, characters = characters ?: emptyList())
 
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
@@ -48,7 +48,7 @@ class LocationDetailViewModel @Inject constructor(
             BaseViewState.Content(
                 LocationDetailUiState(
                     location = location.location,
-                    characters = location.characters
+                    characters = location.characters ?: emptyList()
                 )
             )
     }
