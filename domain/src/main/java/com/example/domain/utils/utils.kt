@@ -1,7 +1,6 @@
 package com.example.domain.utils
 
 
-
 fun getListOfIdsOfCharacters(idsInUrl: List<String>): String {
     return getListOfNumbersFromUrlWithPrefix(
         idsInUrl,
@@ -28,7 +27,11 @@ fun getNumberFromUrWithPrefix(urlWithNumberInTheFinalCharacter: String, prefix: 
     return urlWithNumberInTheFinalCharacter.split("$prefix/")[1].toInt()
 }
 
- fun String.isSingleCharacter() = !this.contains(",")
+fun getNumberOfLocationFromUrl(locationUrl: String): Int {
+    return locationUrl.split("location/")[1].toInt()
+}
+
+fun String.isSingleCharacter() = !this.contains(",")
 
 fun getListOfEpisodes(episodesString: List<String>): String {
     val episodes = arrayListOf<Int>()

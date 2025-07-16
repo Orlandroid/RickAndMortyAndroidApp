@@ -9,9 +9,9 @@ import com.example.domain.state.FAIL_RESPONSE_FROM_SERVER
 import com.example.domain.state.getData
 import com.example.domain.state.getDataOrNull
 import com.example.domain.state.isError
+import com.example.domain.utils.getNumberOfLocationFromUrl
 import com.example.domain.utils.getListOfEpisodes
 import com.example.domain.utils.getListOfIdsOfCharacters
-import com.example.domain.utils.getNumberFromUrWithPrefix
 import javax.inject.Inject
 
 class GetCharacterDetailUseCase @Inject constructor(
@@ -34,9 +34,8 @@ class GetCharacterDetailUseCase @Inject constructor(
                 )
             )
         }
-        val locationId = getNumberFromUrWithPrefix(
-            urlWithNumberInTheFinalCharacter = character.originUrl.ifEmpty { character.urlLocation },
-            prefix = "location"
+        val locationId = getNumberOfLocationFromUrl(
+            locationUrl = character.originUrl.ifEmpty { character.urlLocation }
         )
         val locationResponse = locationsRepository.getLocation(locationId)
         if (locationResponse.isError()) {
@@ -49,7 +48,8 @@ class GetCharacterDetailUseCase @Inject constructor(
         }
         val location = locationResponse.getData()
         val listOfCharacters = getListOfIdsOfCharacters(location.residents)
-        val charactersOfThisLocationResponse = characterRepository.getManyCharacters(listOfCharacters)
+        val charactersOfThisLocationResponse =
+            characterRepository.getManyCharacters(listOfCharacters)
         val charactersOfThisLocation = charactersOfThisLocationResponse.getDataOrNull()
         return ApiResult.Success(
             data = CharacterDetail(

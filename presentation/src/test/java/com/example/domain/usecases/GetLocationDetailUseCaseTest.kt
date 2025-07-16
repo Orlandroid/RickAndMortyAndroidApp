@@ -82,7 +82,8 @@ class GetLocationDetailUseCaseTest {
     fun `when  getLocation success and locations has one resident and getCharacter fails`() =
         runTest {
             val expectedResult = GetLocationDetailUseCase.LocationDetail(
-                location = mockLocationSingleResident
+                location = mockLocationSingleResident,
+                characters = emptyList()
             )
             coEvery { locationRepository.getLocation(any()) } returns ApiResult.Success(
                 mockLocationSingleResident
