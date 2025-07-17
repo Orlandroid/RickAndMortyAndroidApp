@@ -44,17 +44,27 @@ class EpisodesRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getManyEpisodes(ids: String): List<Episode> {
+    override suspend fun getManyEpisodes(ids: String): ApiResult<List<Episode>> {
         val baseUrl = "https://rickandmortyapi.com/api/episode/$ids"
         return if (ids.contains(",")) {
-            api.getManyEpisodes(baseUrl).map { it.toEpisode() }
+            runCatching {
+                api.getManyEpisodes(baseUrl).map { it.toEpisode() }
+            }.fold(
+                onSuccess = { ApiResult.Success(it) },
+                onFailure = { ApiResult.Error(msg = it.message.orEmpty()) }
+            )
         } else {
-            listOf(api.getSingleEpisode(baseUrl).toEpisode())
+            runCatching {
+                listOf(api.getSingleEpisode(baseUrl).toEpisode())
+            }.fold(
+                onSuccess = { ApiResult.Success(it) },
+                onFailure = { ApiResult.Error(msg = it.message.orEmpty()) }
+            )
         }
     }
 
     override suspend fun getImageOfEpisode(episodeName: String): ApiResult<EpisodeImage> {
-        return kotlin.runCatching {
+        return runCatching {
             episodeImageService.getImagesEpisodes().first { it.name.equals(episodeName, true) }
                 .toEpisodeImage()
         }

@@ -12,7 +12,7 @@ interface EpisodesRepository {
 
     suspend fun getEpisode(ids: String): ApiResult<Episode>
 
-    suspend fun getManyEpisodes(ids: String): List<Episode>
+    suspend fun getManyEpisodes(ids: String): ApiResult<List<Episode>>
 
     suspend fun getImageOfEpisode(episodeName: String): ApiResult<EpisodeImage>
 }
