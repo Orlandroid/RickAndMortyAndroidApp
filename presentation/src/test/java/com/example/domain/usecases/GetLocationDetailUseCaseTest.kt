@@ -41,7 +41,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
             coVerify(inverse = true) { characterRepository.getCharacter(any()) }
-            assert(result is ApiResult.Error)
+            assertThat(result).isInstanceOf(ApiResult.Error::class.java)
         }
 
     @Test
@@ -54,7 +54,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getCharacter(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
-            assert(result is ApiResult.Error)
+            assertThat(result).isInstanceOf(ApiResult.Error::class.java)
         }
 
     @Test
@@ -74,7 +74,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
-            assert(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
@@ -93,7 +93,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
-            assert(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
@@ -114,7 +114,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
-            assert(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
@@ -132,7 +132,7 @@ class GetLocationDetailUseCaseTest {
             coVerify(exactly = 1) { locationRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
-            assert(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 }

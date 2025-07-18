@@ -1,7 +1,6 @@
 package com.example.domain.usecases
 
 
-import android.annotation.SuppressLint
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
@@ -44,7 +43,6 @@ class GetCharacterDetailUseCaseTest {
             assertThat(result is ApiResult.Error)
         }
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getCharacter,getLocation,getManyCharacters success`() =
         runTest {
@@ -64,12 +62,11 @@ class GetCharacterDetailUseCaseTest {
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { locationsRepository.getLocation(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getCharacter,getLocation success and getManyCharacters fails`() =
         runTest {
@@ -86,11 +83,11 @@ class GetCharacterDetailUseCaseTest {
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { locationsRepository.getLocation(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
-    @SuppressLint("CheckResult")
+
     @Test
     fun `when getCharacter,getManyCharacters success and getLocation fails`() =
         runTest {
@@ -108,7 +105,7 @@ class GetCharacterDetailUseCaseTest {
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { locationsRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             assertThat(result.getData()).isEqualTo(expectedResult)
         }
 }

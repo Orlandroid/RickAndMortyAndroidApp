@@ -41,10 +41,9 @@ class GetEpisodeDetailUseCaseTest {
             coVerify(exactly = 1) { episodesRepository.getEpisode(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
             coVerify(inverse = true) { episodesRepository.getImageOfEpisode(any()) }
-            assertThat(result is ApiResult.Error)
+            assertThat(result).isInstanceOf(ApiResult.Error::class.java)
         }
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getEpisode, getImageOfEpisode, getManyCharacters return success`() =
         runTest {
@@ -64,12 +63,11 @@ class GetEpisodeDetailUseCaseTest {
             coVerify(exactly = 1) { episodesRepository.getEpisode(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
             coVerify(exactly = 1) { episodesRepository.getImageOfEpisode(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val data = result.getData()
             assertThat(data).isEqualTo(expectedUseCaseResponse)
         }
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getEpisode return success and getImageOfEpisode,getManyCharacters fails`() =
         runTest {
@@ -83,12 +81,11 @@ class GetEpisodeDetailUseCaseTest {
             coVerify(exactly = 1) { episodesRepository.getEpisode(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
             coVerify(exactly = 1) { episodesRepository.getImageOfEpisode(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val data = result.getData()
             assertThat(data).isEqualTo(expectedUseCaseResponse)
         }
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getEpisode,getImageOfEpisode return success and getManyCharacters fails`() =
         runTest {
@@ -105,12 +102,11 @@ class GetEpisodeDetailUseCaseTest {
             coVerify(exactly = 1) { episodesRepository.getEpisode(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
             coVerify(exactly = 1) { episodesRepository.getImageOfEpisode(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val data = result.getData()
             assertThat(data).isEqualTo(expectedUseCaseResponse)
         }
 
-    @SuppressLint("CheckResult")
     @Test
     fun `when getEpisode,getManyCharacters return success and getImageOfEpisode fails`() =
         runTest {
@@ -127,7 +123,7 @@ class GetEpisodeDetailUseCaseTest {
             coVerify(exactly = 1) { episodesRepository.getEpisode(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
             coVerify(exactly = 1) { episodesRepository.getImageOfEpisode(any()) }
-            assertThat(result is ApiResult.Success)
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val data = result.getData()
             assertThat(data).isEqualTo(expectedUseCaseResponse)
         }
