@@ -14,7 +14,7 @@ import com.example.domain.state.ApiResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharacterRepositoryImpl @Inject constructor(
+class RemoteCharacterRepository @Inject constructor(
     private val api: RickAndMortyService
 ) :
     CharacterRepository {

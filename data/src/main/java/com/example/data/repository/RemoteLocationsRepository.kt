@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import kotlin.runCatching
 
-class LocationsRepositoryImpl @Inject constructor(private val api: RickAndMortyService) :
+class RemoteLocationsRepository @Inject constructor(private val api: RickAndMortyService) :
     LocationRepository {
 
     private lateinit var locationPagingSource: LocationPagingSource

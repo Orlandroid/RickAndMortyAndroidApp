@@ -3,9 +3,9 @@ package com.example.data.di
 
 import com.example.data.api.RickAndMortyEpisodesImages
 import com.example.data.api.RickAndMortyService
-import com.example.data.repository.CharacterRepositoryImpl
-import com.example.data.repository.EpisodesRepositoryImpl
-import com.example.data.repository.LocationsRepositoryImpl
+import com.example.data.repository.RemoteCharacterRepository
+import com.example.data.repository.RemoteEpisodesRepository
+import com.example.data.repository.RemoteLocationsRepository
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.EpisodesRepository
 import com.example.domain.repository.LocationRepository
@@ -25,7 +25,7 @@ object RepositoryModule {
     @Singleton
     fun provideCharactersRepository(
         api: RickAndMortyService,
-    ): CharacterRepository = CharacterRepositoryImpl(api)
+    ): CharacterRepository = RemoteCharacterRepository(api)
 
     @Provides
     @Singleton
@@ -33,13 +33,13 @@ object RepositoryModule {
         api: RickAndMortyService,
         episodeImageService: RickAndMortyEpisodesImages
     ): EpisodesRepository =
-        EpisodesRepositoryImpl(api = api, episodeImageService = episodeImageService)
+        RemoteEpisodesRepository(api = api, episodeImageService = episodeImageService)
 
     @Provides
     @Singleton
     fun provideLocationsRepository(
         api: RickAndMortyService,
-    ): LocationRepository = LocationsRepositoryImpl(api)
+    ): LocationRepository = RemoteLocationsRepository(api)
 
     @Singleton
     @Provides

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import kotlin.runCatching
 
-class EpisodesRepositoryImpl @Inject constructor(
+class RemoteEpisodesRepository @Inject constructor(
     private val api: RickAndMortyService,
     private val episodeImageService: RickAndMortyEpisodesImages
 ) : EpisodesRepository {

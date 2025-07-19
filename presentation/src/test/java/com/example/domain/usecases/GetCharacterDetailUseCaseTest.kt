@@ -40,7 +40,7 @@ class GetCharacterDetailUseCaseTest {
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(inverse = true) { locationsRepository.getLocation(any()) }
             coVerify(inverse = true) { characterRepository.getManyCharacters(any()) }
-            assertThat(result is ApiResult.Error)
+            assertThat(result).isInstanceOf(ApiResult.Error::class.java)
         }
 
     @Test

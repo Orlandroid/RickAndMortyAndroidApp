@@ -1,6 +1,5 @@
 package com.example.domain.usecases
 
-import android.annotation.SuppressLint
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
