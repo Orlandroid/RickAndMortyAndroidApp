@@ -21,7 +21,7 @@ fun AppProgress(modifier: Modifier = Modifier) {
 }
 
 @Composable
-@Preview(showBackground = true, apiLevel = 33)
+@Preview(showBackground = true)
 fun AppProgressPreview(modifier: Modifier = Modifier) {
     AppProgress()
 }

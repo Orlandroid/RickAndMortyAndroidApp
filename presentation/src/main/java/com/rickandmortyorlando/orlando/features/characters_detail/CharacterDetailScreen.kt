@@ -44,13 +44,24 @@ import com.rickandmortyorlando.orlando.components.skeletons.CharacterDetailSkele
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
-fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
+fun CharacterDetailRoute(
+    navController: NavController,
+    idCharacter: Int
+) {
     val viewModel: CharacterDetailViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
         viewModel.getCharacterDetailInfo(idCharacter)
+        viewModel.effects.collectLatest {
+            when (it) {
+                is CharacterDetailEffects.NavigateToManyEpisodesScreen -> {
+                    navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(it.idsOfEpisodes))
+                }
+            }
+        }
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
     CharacterDetailScreen(
@@ -60,8 +71,8 @@ fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
                 AppNavigationRoutes.CharactersDetailRoute(id = id)
             )
         },
-        clickOnNumberOfEpisodes = { idsOfEpisodes ->
-            navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(idsEpisodes = idsOfEpisodes))
+        clickOnNumberOfEpisodes = {
+            viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
         },
         onBack = { navController.navigateUp() }
     )
@@ -71,7 +82,7 @@ fun CharacterDetailRoute(navController: NavController, idCharacter: Int) {
 fun CharacterDetailScreen(
     viewState: BaseViewState<CharacterDetailUiState>,
     clickOnCharacter: (Int) -> Unit,
-    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit,
+    clickOnNumberOfEpisodes: () -> Unit,
     onBack: () -> Unit
 ) {
     when (viewState) {
@@ -112,7 +123,7 @@ fun CharacterDetailScreen(
 private fun CharacterDetailScreenContent(
     uiState: CharacterDetailUiState,
     clickOnCharacter: (Int) -> Unit,
-    clickOnNumberOfEpisodes: (idsOfEpisodes: String) -> Unit
+    clickOnNumberOfEpisodes: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -143,8 +154,7 @@ private fun CharacterDetailScreenContent(
                 CharacterDetail(
                     character = uiState.characterDetail,
                     statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
-                    //Move this to the events we don,t need to do this in the UI
-                    clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes(uiState.idsOfEpisodes) }
+                    clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes() }
                 )
             }
             Spacer(Modifier.height(32.dp))
