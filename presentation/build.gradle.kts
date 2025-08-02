@@ -133,6 +133,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
+    androidTestImplementation(libs.test.espresso)
     debugImplementation(libs.androidx.ui.tooling)
     testImplementation(libs.mockk)
 
