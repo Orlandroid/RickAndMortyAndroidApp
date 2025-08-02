@@ -136,6 +136,10 @@ dependencies {
     androidTestImplementation(libs.test.espresso)
     debugImplementation(libs.androidx.ui.tooling)
     testImplementation(libs.mockk)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.test.manifest)
 
 }
 

@@ -48,6 +48,8 @@ pagingCommonAndroid = "3.3.6"
 jetbrainsKotlinJvm = "2.2.0"
 corutinesTest = "1.10.2"
 mockk = "1.14.5"
+androidx-test = "1.7.0"
+compose = "1.8.3"
 
 [libraries]
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
@@ -103,6 +105,10 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 
 
 [plugins]
