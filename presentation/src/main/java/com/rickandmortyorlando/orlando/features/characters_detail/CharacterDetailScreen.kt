@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -79,7 +81,7 @@ fun CharacterDetailRoute(
 }
 
 @Composable
-fun CharacterDetailScreen(
+internal fun CharacterDetailScreen(
     viewState: BaseViewState<CharacterDetailUiState>,
     clickOnCharacter: (Int) -> Unit,
     clickOnNumberOfEpisodes: () -> Unit,
@@ -127,6 +129,7 @@ private fun CharacterDetailScreenContent(
 ) {
     Column(
         modifier = Modifier
+            .testTag("CharacterDetailScreenContent")
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
