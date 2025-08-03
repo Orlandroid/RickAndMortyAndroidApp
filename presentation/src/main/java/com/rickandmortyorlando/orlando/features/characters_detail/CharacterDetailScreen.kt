@@ -1,6 +1,5 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
-import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -173,7 +172,10 @@ private fun CharacterDetailScreenContent(
             )
             Spacer(Modifier.height(16.dp))
             uiState.characterOfThisLocation?.let { characters ->
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                LazyRow(
+                    modifier = Modifier.testTag("CharactersOfThisLocation"),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
                     items(characters) { character ->
                         CharacterCard(
                             character = character,
@@ -196,67 +198,71 @@ private fun CharacterDetail(
     statusColor: Color,
     clickOnNumberOfEpisodes: () -> Unit
 ) {
-    Row {
-        Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Canvas(
-            modifier = Modifier.size(14.dp),
-            onDraw = {
-                drawCircle(color = statusColor)
-            }
-        )
-        Spacer(Modifier.width(8.dp))
-        Text(character.status)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.species), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(character.species)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(character.gender)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
-        Text(
-            modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
-            text = stringResource(R.string.number_of_episodes),
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(Modifier.width(8.dp))
-        Text(character.episode.size.toString())
+    Column(Modifier.testTag("CharacterDetail")) {
+        Row {
+            Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Canvas(
+                modifier = Modifier.size(14.dp),
+                onDraw = {
+                    drawCircle(color = statusColor)
+                }
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(character.status)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.species), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(character.species)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(character.gender)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
+            Text(
+                modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
+                text = stringResource(R.string.number_of_episodes),
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(character.episode.size.toString())
+        }
     }
 }
 
 @Composable
 private fun LocationDetails(location: Location) {
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.name), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(location.name)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.type), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(location.type)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.dimension), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(location.dimension)
-    }
-    Spacer(Modifier.height(16.dp))
-    Row {
-        Text(text = stringResource(R.string.numbers_of_residents), fontWeight = FontWeight.Bold)
-        Spacer(Modifier.width(8.dp))
-        Text(text = location.residents.size.toString())
+    Column(Modifier.testTag("LocationDetails")) {
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.name), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(location.name)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.type), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(location.type)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.dimension), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(location.dimension)
+        }
+        Spacer(Modifier.height(16.dp))
+        Row {
+            Text(text = stringResource(R.string.numbers_of_residents), fontWeight = FontWeight.Bold)
+            Spacer(Modifier.width(8.dp))
+            Text(text = location.residents.size.toString())
+        }
     }
 }
 
@@ -267,8 +273,7 @@ private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
-            characterOfThisLocation = Character.getCharacters(4),
-            idsOfEpisodes = ""
+            characterOfThisLocation = Character.getCharacters(4)
         ),
         clickOnCharacter = { id -> },
         clickOnNumberOfEpisodes = {}

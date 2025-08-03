@@ -21,16 +21,14 @@ import javax.inject.Inject
 data class CharacterDetailUiState(
     val location: Location? = null,
     val characterDetail: Character? = null,
-    val characterOfThisLocation: List<Character>? = null,
-    val idsOfEpisodes: String
+    val characterOfThisLocation: List<Character>? = null
 )
 
 fun GetCharacterDetailUseCase.CharacterDetail.toCharacterDetail() =
     CharacterDetailUiState(
         location = location,
         characterDetail = characterDetail,
-        characterOfThisLocation = charactersOfThisLocation,
-        idsOfEpisodes = idsOfEpisodes
+        characterOfThisLocation = charactersOfThisLocation
     )
 
 sealed class CharacterDetailEvents {
