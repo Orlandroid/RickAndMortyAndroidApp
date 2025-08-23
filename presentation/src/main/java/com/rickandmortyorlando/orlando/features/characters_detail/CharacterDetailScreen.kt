@@ -37,7 +37,8 @@ import coil.compose.SubcomposeAsyncImage
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes.CharactersDetailRoute
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes.ManyEpisodesRoute
 import com.rickandmortyorlando.orlando.components.CharacterCard
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
@@ -59,7 +60,11 @@ fun CharacterDetailRoute(
         viewModel.effects.collectLatest {
             when (it) {
                 is CharacterDetailEffects.NavigateToManyEpisodesScreen -> {
-                    navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(it.idsOfEpisodes))
+                    navController.navigate(ManyEpisodesRoute(it.idsOfEpisodes))
+                }
+
+                is CharacterDetailEffects.NavigateToCharacterDetail -> {
+                    navController.navigate(CharactersDetailRoute(id = it.characterId))
                 }
             }
         }
@@ -67,10 +72,8 @@ fun CharacterDetailRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
     CharacterDetailScreen(
         viewState = state,
-        clickOnCharacter = { id ->
-            navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(id = id)
-            )
+        clickOnCharacter = { characterId ->
+            viewModel.handleEvent(CharacterDetailEvents.OnCharacterClicked(characterId))
         },
         clickOnNumberOfEpisodes = {
             viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
@@ -179,11 +182,7 @@ private fun CharacterDetailScreenContent(
                     items(characters) { character ->
                         CharacterCard(
                             character = character,
-                            onCharacterClick = {
-                                if (uiState.characterDetail?.id != character.id) {
-                                    clickOnCharacter(character.id)
-                                }
-                            }
+                            onCharacterClick = clickOnCharacter
                         )
                     }
                 }
@@ -268,7 +267,7 @@ private fun LocationDetails(location: Location) {
 
 @Composable
 @Preview(showBackground = true)
-private fun CharacterDetailOnContent(modifier: Modifier = Modifier) {
+private fun CharacterDetailOnContent() {
     CharacterDetailScreenContent(
         uiState = CharacterDetailUiState(
             location = Location.mockLocation(),

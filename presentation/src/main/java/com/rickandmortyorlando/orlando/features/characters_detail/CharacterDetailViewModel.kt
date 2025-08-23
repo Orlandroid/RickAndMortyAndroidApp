@@ -7,7 +7,9 @@ import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.state.getData
 import com.example.domain.usecases.GetCharacterDetailUseCase
+import com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetailEffects.*
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import com.rickandmortyorlando.orlando.state.asContentOrNull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
@@ -24,19 +26,20 @@ data class CharacterDetailUiState(
     val characterOfThisLocation: List<Character>? = null
 )
 
-fun GetCharacterDetailUseCase.CharacterDetail.toCharacterDetail() =
-    CharacterDetailUiState(
-        location = location,
-        characterDetail = characterDetail,
-        characterOfThisLocation = charactersOfThisLocation
-    )
+fun GetCharacterDetailUseCase.CharacterDetail.toCharacterDetail() = CharacterDetailUiState(
+    location = location,
+    characterDetail = characterDetail,
+    characterOfThisLocation = charactersOfThisLocation
+)
 
 sealed class CharacterDetailEvents {
     data object OnClickOnNumberOfEpisodes : CharacterDetailEvents()
+    data class OnCharacterClicked(val characterId: Int) : CharacterDetailEvents()
 }
 
 sealed class CharacterDetailEffects {
     data class NavigateToManyEpisodesScreen(val idsOfEpisodes: String) : CharacterDetailEffects()
+    data class NavigateToCharacterDetail(val characterId: Int) : CharacterDetailEffects()
 }
 
 @HiltViewModel
@@ -73,7 +76,17 @@ class CharacterDetailViewModel @Inject constructor(
             is CharacterDetailEvents.OnClickOnNumberOfEpisodes -> {
                 viewModelScope.launch {
                     idsOfEpisodes?.let {
-                        _effects.send(CharacterDetailEffects.NavigateToManyEpisodesScreen(it))
+                        _effects.send(NavigateToManyEpisodesScreen(it))
+                    }
+                }
+            }
+
+            is CharacterDetailEvents.OnCharacterClicked -> {
+                val idCharacter = _state.value.asContentOrNull()?.result?.characterDetail?.id
+                if (idCharacter == null) return
+                if (idCharacter != event.characterId) {
+                    viewModelScope.launch {
+                        _effects.send(NavigateToCharacterDetail(event.characterId))
                     }
                 }
             }
