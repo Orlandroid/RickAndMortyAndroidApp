@@ -1,36 +1,70 @@
-# RickApi
+# RickApi  
 
-🚀 Rick and Morty Explorer App
+🚀 **Rick and Morty Explorer App**  
 
-Dive into the multiverse with the Rick and Morty Explorer App, an Android application meticulously crafted for fans of the beloved animated series. This app serves as your portal to a wealth of information about the show, including characters, locations, and episodes.
+Dive into the multiverse with the **Rick and Morty Explorer App**, an Android application built with **Jetpack Compose** and following the **MVI architecture**. This fan-driven project serves as your portal to everything from characters to episodes and locations in the beloved series.  
 
+---
 
-  #### Character Showcase 
-  Explore an extensive catalog of characters from the Rick and Morty universe. Each character comes to life with detailed information, including their origin, species, and episode appearances.
+## ✨ Features  
 
-  #### Location Directory
-  Embark on a journey through the bizarre and varied locations featured in the series. From alien planets to alternate dimensions, discover the places that set the stage for Rick and Morty's adventures.
+#### 👤 Character Showcase  
+Browse a rich catalog of characters from the Rick and Morty universe. Each entry includes:  
+- Name, species, and status  
+- Origin and last known location  
+- Full list of episode appearances  
 
-  #### Episode Guide
-  Stay up-to-date with every episode of the series. Get synopses, air dates, and a glimpse into the chaos that unfolds in each episode.
+#### 🌍 Location Directory  
+Explore the bizarre and varied places featured in the series. From alien planets to alternate dimensions, discover the multiverse where Rick and Morty’s adventures unfold.  
 
-🌐 Data Source:
-All the information within the app is dynamically fetched from the Rick and Morty API, ensuring real-time accuracy and completeness.
+#### 📺 Episode Guide  
+Access every episode with:  
+- Title and synopsis  
+- Air date  
+- Character appearances  
 
+---
 
-🌌 Why Rick and Morty?
-As a fan-driven project, this app is a tribute to the wit, humor, and creativity that define the Rick and Morty universe. It's not just an app; it's a fan's journey through the infinite possibilities of animated storytelling.
+## 🌐 Data Source  
+All content is dynamically fetched from the [Rick and Morty API](https://rickandmortyapi.com/), ensuring up-to-date and complete information.  
 
+---
 
-##  🛠 IN PROGRESS 🛠
+## 🎨 Why Rick and Morty?  
+This app is more than a project—it’s a tribute to the **wit, creativity, and chaos** of the Rick and Morty universe. Built by fans, for fans.  
 
+---
+
+## 🛠️ Tech Stack  
+
+The app leverages a modern Android stack:  
+
+- ✅ **Jetpack Compose** (UI)  
+- ✅ **MVI Architecture**  
+- ✅ **Clean Architecture** principles  
+- ✅ **Kotlin Coroutines** + **Flow**  
+- ✅ **Dagger Hilt** (dependency injection)  
+- ✅ **Retrofit** (networking)  
+- ✅ **Room** (local persistence)  
+- ✅ **Paging 3** (infinite scrolling)  
+- ✅ **Navigation Component** + **Safe Args**  
+- ✅ **Material 3** (design system)  
+- ✅ **BaseViewModel** for shared logic  
+
+### 🧪 Testing  
+- ✅ **Unit Testing** with JUnit & Coroutines Test  
+- ✅ **UI Testing** with Jetpack Compose Test & Espresso  
+
+---
+
+## 📱 Screenshots & Demo  
 
 <table>
   <tr>
     <td><strong>Home</strong></td>
-    <td><strong>Lista de caracteres</strong></td>
-    <td><strong>Episodios</strong></td>
-    <td><strong>Caracter Detail</strong></td>
+    <td><strong>Characters</strong></td>
+    <td><strong>Episodes</strong></td>
+    <td><strong>Character Detail</strong></td>
   </tr>
   <tr>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/home.png" width="100%"></td>
@@ -39,51 +73,24 @@ As a fan-driven project, this app is a tribute to the wit, humor, and creativity
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td> 
   </tr>
   
-  
   <tr>
-    <td><strong>Detalle</strong></td>
-    <td><strong>Detalle</strong></td>
     <td><strong>Episode Detail</strong></td>
     <td><strong>Locations</strong></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/detalle.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/episode_detail.png" width="100%"></td>
-    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/locations.png" width="100%"></td> 
-  </tr>
-   <tr>
     <td><strong>Location Detail</strong></td>
     <td><strong>Settings</strong></td>
   </tr>
   <tr>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/episode_detail.png" width="100%"></td>
+    <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/locations.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/location_detail.png" width="100%"></td>
     <td><img src="https://github.com/Orlandroid/images_for_repos/blob/main/rick/settings.png" width="100%"></td>
   </tr>
-  
-</table>
+</table>  
 
+🎥 **Demo Video:**  
+https://user-images.githubusercontent.com/39423969/202087739-8fd3b7a3-6280-4a81-b02c-6b8db8187bf8.mp4  
 
+---
 
-https://user-images.githubusercontent.com/39423969/202087739-8fd3b7a3-6280-4a81-b02c-6b8db8187bf8.mp4
-
-## Tech &amp; Tools
-* ✅ Clean Architecture
-* ✅ MVVM
-* ✅ Kotlin DSL
-* ✅ Kotlin Coroutines
-* ✅ Navigation Component
-* ✅ Safe-Args
-* ✅ Dagger Hilt
-* ✅ ViewModel
-* ✅ Retrofit
-* ✅ Material3
-* ✅ Room
-* ✅ Paging 3
-* ✅ View Binding
-* ✅ Lifecycle
-* ✅ Single-Activity
-* ✅ Lifecycle
-* ✅ BaseViewModel
-
-
+## 🚧 Status  
+🛠 **In Progress** – continuously improving with new features, optimizations, and testing coverage.  
