@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
+import androidx.annotation.ColorRes
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -66,6 +67,10 @@ fun CharacterDetailRoute(
                 is CharacterDetailEffects.NavigateToCharacterDetail -> {
                     navController.navigate(CharactersDetailRoute(id = it.characterId))
                 }
+
+                CharacterDetailEffects.NavigateBack -> {
+                    navController.navigateUp()
+                }
             }
         }
     }
@@ -78,7 +83,7 @@ fun CharacterDetailRoute(
         clickOnNumberOfEpisodes = {
             viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
         },
-        onBack = { navController.navigateUp() }
+        onBack = { viewModel.handleEvent(CharacterDetailEvents.OnBack) }
     )
 }
 
@@ -132,22 +137,13 @@ private fun CharacterDetailScreenContent(
     Column(
         modifier = Modifier
             .testTag("CharacterDetailScreenContent")
-            .fillMaxWidth(),
+            .fillMaxWidth().padding(start = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(32.dp))
-        SubcomposeAsyncImage(
-            modifier = Modifier
-                .size(200.dp)
-                .clip(CircleShape)
-                .border(
-                    width = 2.dp,
-                    color = colorResource(getColorStatusResource(uiState.characterDetail?.status.orEmpty())),
-                    shape = CircleShape
-                ),
-            model = uiState.characterDetail?.image,
-            contentDescription = "ImageStaff",
-            loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
+        CharacterImage(
+            image = uiState.characterDetail?.image,
+            borderColor = uiState.imageBorderColor
         )
         Spacer(Modifier.height(16.dp))
         Column(
@@ -189,6 +185,26 @@ private fun CharacterDetailScreenContent(
             }
         }
     }
+}
+
+@Composable
+private fun CharacterImage(
+    image: String?,
+    @ColorRes borderColor: Int
+) {
+    SubcomposeAsyncImage(
+        modifier = Modifier
+            .size(200.dp)
+            .clip(CircleShape)
+            .border(
+                width = 2.dp,
+                color = colorResource(borderColor),
+                shape = CircleShape
+            ),
+        model = image,
+        contentDescription = "ImageStaff",
+        loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
+    )
 }
 
 @Composable
