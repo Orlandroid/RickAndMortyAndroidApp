@@ -14,12 +14,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
+import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemEpisode
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -28,22 +30,30 @@ fun ManyEpisodesRoute(navController: NavController, idsEpisodes: String) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.getEpisodes(idsEpisodes)
+        viewModel.effects.collectLatest {
+            when (it) {
+                is ManyEpisodesEffects.NavigateToEpisodeDetail -> {
+                    navController.navigate(AppNavigationRoutes.EpisodesDetailRoute(it.episodeId))
+                }
+            }
+        }
     }
     ManyEpisodesScreen(
         viewState = state,
-        onNavigateBack = { navController.navigateUp() }
+        onNavigateBack = { navController.navigateUp() },
+        onItemClicked = { viewModel.onEvents(ManyEpisodesEvents.OnEpisodeClicked(it)) }
     )
 }
 
 @Composable
 private fun ManyEpisodesScreen(
     viewState: BaseViewState<List<Episode>>,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onItemClicked: (episodeId: Int) -> Unit
 ) {
     BaseComposeScreen(
         toolbarConfiguration = ToolbarConfiguration(
-            title = stringResource(R.string.episodes),
-            clickOnBackButton = onNavigateBack
+            title = stringResource(R.string.episodes), clickOnBackButton = onNavigateBack
         )
     ) {
         when (viewState) {
@@ -62,13 +72,7 @@ private fun ManyEpisodesScreen(
                     items(viewState.result) { episode ->
                         ItemEpisode(
                             episode = episode,
-                            clickOnItem = { episodesId ->
-//                                findNavController().navigate(
-//                                    ManyEpisodesFragmentWrapperDirections.navigationToEpisodeDetailWrapper(
-//                                        episodesId
-//                                    )
-//                                )
-                            }
+                            clickOnItem = onItemClicked
                         )
                     }
                 }

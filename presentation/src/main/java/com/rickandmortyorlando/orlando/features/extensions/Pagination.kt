@@ -40,7 +40,7 @@ fun <T : Any> LazyPagingItems<T>.LoadState(
             if (config.initialLoading == null) {
                 PageLoader(modifier = modifier)
             } else {
-                config.initialLoading?.let { it() }
+                config.initialLoading()
             }
         }
 

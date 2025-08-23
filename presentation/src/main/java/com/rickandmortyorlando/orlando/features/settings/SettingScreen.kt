@@ -95,12 +95,12 @@ private fun SettingScreenContent(
 
 @Composable
 @Preview(showBackground = true)
-private fun SettingsScreenEnablePreview(modifier: Modifier = Modifier) {
+private fun SettingsScreenEnablePreview() {
     SettingScreenContent(onEvents = {}, uiState = SettingsUiState(isNightModeEnable = true))
 }
 
 @Composable
 @Preview(showBackground = true)
-private fun SettingsScreenDisablePreview(modifier: Modifier = Modifier) {
+private fun SettingsScreenDisablePreview() {
     SettingScreenContent(onEvents = {}, uiState = SettingsUiState())
 }
