@@ -23,9 +23,6 @@ data class LocationDetailUiState(
     val characters: List<Character>
 )
 
-fun GetLocationDetailUseCase.LocationDetail.toUi() =
-    LocationDetailUiState(location = location, characters = characters ?: emptyList())
-
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,

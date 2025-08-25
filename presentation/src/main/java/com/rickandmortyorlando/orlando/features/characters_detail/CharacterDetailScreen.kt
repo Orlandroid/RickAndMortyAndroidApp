@@ -52,8 +52,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterDetailRoute(
-    navController: NavController,
-    idCharacter: Int
+    navController: NavController, idCharacter: Int
 ) {
     val viewModel: CharacterDetailViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
@@ -75,16 +74,11 @@ fun CharacterDetailRoute(
         }
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
-    CharacterDetailScreen(
-        viewState = state,
-        clickOnCharacter = { characterId ->
-            viewModel.handleEvent(CharacterDetailEvents.OnCharacterClicked(characterId))
-        },
-        clickOnNumberOfEpisodes = {
-            viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
-        },
-        onBack = { viewModel.handleEvent(CharacterDetailEvents.OnBack) }
-    )
+    CharacterDetailScreen(viewState = state, clickOnCharacter = { characterId ->
+        viewModel.handleEvent(CharacterDetailEvents.OnCharacterClicked(characterId))
+    }, clickOnNumberOfEpisodes = {
+        viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
+    }, onBack = { viewModel.handleEvent(CharacterDetailEvents.OnBack) })
 }
 
 @Composable
@@ -98,8 +92,7 @@ internal fun CharacterDetailScreen(
         is BaseViewState.Loading -> {
             BaseComposeScreen(
                 toolbarConfiguration = ToolbarConfiguration(
-                    title = stringResource(R.string.characters),
-                    clickOnBackButton = onBack
+                    title = stringResource(R.string.characters), clickOnBackButton = onBack
                 )
             ) {
                 CharacterDetailSkeleton()
@@ -137,13 +130,12 @@ private fun CharacterDetailScreenContent(
     Column(
         modifier = Modifier
             .testTag("CharacterDetailScreenContent")
-            .fillMaxWidth().padding(start = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .padding(start = 16.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(32.dp))
         CharacterImage(
-            image = uiState.characterDetail?.image,
-            borderColor = uiState.imageBorderColor
+            image = uiState.characterDetail?.image, borderColor = uiState.imageBorderColor
         )
         Spacer(Modifier.height(16.dp))
         Column(
@@ -155,8 +147,7 @@ private fun CharacterDetailScreenContent(
                 CharacterDetail(
                     character = uiState.characterDetail,
                     statusColor = colorResource(getColorStatusResource(uiState.characterDetail.status)),
-                    clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes() }
-                )
+                    clickOnNumberOfEpisodes = { clickOnNumberOfEpisodes() })
             }
             Spacer(Modifier.height(32.dp))
             Text(
@@ -177,8 +168,7 @@ private fun CharacterDetailScreenContent(
                 ) {
                     items(characters) { character ->
                         CharacterCard(
-                            character = character,
-                            onCharacterClick = clickOnCharacter
+                            character = character, onCharacterClick = clickOnCharacter
                         )
                     }
                 }
@@ -189,65 +179,82 @@ private fun CharacterDetailScreenContent(
 
 @Composable
 private fun CharacterImage(
-    image: String?,
-    @ColorRes borderColor: Int
+    image: String?, @ColorRes borderColor: Int
 ) {
     SubcomposeAsyncImage(
         modifier = Modifier
             .size(200.dp)
             .clip(CircleShape)
             .border(
-                width = 2.dp,
-                color = colorResource(borderColor),
-                shape = CircleShape
+                width = 2.dp, color = colorResource(borderColor), shape = CircleShape
             ),
         model = image,
         contentDescription = "ImageStaff",
-        loading = { CircularProgressIndicator(Modifier.padding(16.dp)) }
-    )
+        loading = { CircularProgressIndicator(Modifier.padding(16.dp)) })
 }
 
 @Composable
 private fun CharacterDetail(
-    character: Character,
-    statusColor: Color,
-    clickOnNumberOfEpisodes: () -> Unit
+    character: Character, statusColor: Color, clickOnNumberOfEpisodes: () -> Unit
 ) {
     Column(Modifier.testTag("CharacterDetail")) {
-        Row {
-            Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
-            Spacer(Modifier.width(8.dp))
-            Canvas(
-                modifier = Modifier.size(14.dp),
-                onDraw = {
-                    drawCircle(color = statusColor)
-                }
-            )
-            Spacer(Modifier.width(8.dp))
-            Text(character.status)
-        }
+        Status(statusColor = statusColor, status = character.status)
         Spacer(Modifier.height(16.dp))
-        Row {
-            Text(text = stringResource(R.string.species), fontWeight = FontWeight.Bold)
-            Spacer(Modifier.width(8.dp))
-            Text(character.species)
-        }
+        Specie(character.species)
         Spacer(Modifier.height(16.dp))
-        Row {
-            Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
-            Spacer(Modifier.width(8.dp))
-            Text(character.gender)
-        }
+        Gender(gender = character.gender)
         Spacer(Modifier.height(16.dp))
-        Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
-            Text(
-                modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
-                text = stringResource(R.string.number_of_episodes),
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(Modifier.width(8.dp))
-            Text(character.episode.size.toString())
-        }
+        NumberOfEpisodes(
+            clickOnNumberOfEpisodes = clickOnNumberOfEpisodes,
+            numberOfEpisodes = character.episode.size.toString()
+        )
+    }
+}
+
+@Composable
+private fun Gender(gender: String) {
+    Row {
+        Text(text = stringResource(R.string.gender), fontWeight = FontWeight.Bold)
+        Spacer(Modifier.width(8.dp))
+        Text(gender)
+    }
+}
+
+@Composable
+private fun Specie(specie: String) {
+    Row {
+        Text(text = stringResource(R.string.species), fontWeight = FontWeight.Bold)
+        Spacer(Modifier.width(8.dp))
+        Text(specie)
+    }
+}
+
+@Composable
+private fun Status(statusColor: Color, status: String) {
+    Row {
+        Text(text = stringResource(R.string.status), fontWeight = FontWeight.Bold)
+        Spacer(Modifier.width(8.dp))
+        Canvas(
+            modifier = Modifier.size(14.dp), onDraw = {
+                drawCircle(color = statusColor)
+            })
+        Spacer(Modifier.width(8.dp))
+        Text(status)
+    }
+}
+
+@Composable
+private fun NumberOfEpisodes(
+    clickOnNumberOfEpisodes: () -> Unit, numberOfEpisodes: String
+) {
+    Row(Modifier.clickable { clickOnNumberOfEpisodes.invoke() }) {
+        Text(
+            modifier = Modifier.clickable { clickOnNumberOfEpisodes.invoke() },
+            text = stringResource(R.string.number_of_episodes),
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(numberOfEpisodes)
     }
 }
 
@@ -289,9 +296,6 @@ private fun CharacterDetailOnContent() {
             location = Location.mockLocation(),
             characterDetail = Character.mockCharacter(),
             characterOfThisLocation = Character.getCharacters(4)
-        ),
-        clickOnCharacter = { id -> },
-        clickOnNumberOfEpisodes = {}
-    )
+        ), clickOnCharacter = { id -> }, clickOnNumberOfEpisodes = {})
 }
 
