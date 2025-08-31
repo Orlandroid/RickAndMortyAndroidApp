@@ -29,9 +29,9 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.rickandmortyorlando.orlando.R
 import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
+import com.rickandmortyorlando.orlando.components.CharactersScreenContent
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
-import com.rickandmortyorlando.orlando.features.characters.CharactersScreen
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
@@ -107,7 +107,7 @@ private fun SearchCharacterScreenContent(
             }
         ) {
             //Todo add error when we don,t get any result
-            CharactersScreen(
+            CharactersScreenContent(
                 characters = characters,
                 clickOnItem = clickOnCharacter
             )
