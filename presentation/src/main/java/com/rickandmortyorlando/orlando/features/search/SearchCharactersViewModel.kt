@@ -24,7 +24,8 @@ data class SearchCharacterUiState(
     val species: String = "",
     val gender: String = "",
     val type: String = "",
-    val isRefreshing: Boolean = false
+    val isRefreshing: Boolean = false,
+    val totalOfItemForSearch: Int? = null
 )
 
 sealed class SearchCharacterEvents {
@@ -51,7 +52,10 @@ class SearchCharactersViewModel @Inject constructor(
             pagingSourceFactory = {
                 charactersSearchPagingSource = CharactersSearchPagingSource(
                     service = rickAndMortyService,
-                    search = uiState.value.toSearchCharacter()
+                    search = uiState.value.toSearchCharacter(),
+                    getTotalOfItems = { total ->
+                        _uiState.update { it.copy(totalOfItemForSearch = total) }
+                    }
                 )
                 charactersSearchPagingSource
             }

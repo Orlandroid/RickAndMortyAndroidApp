@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    private val characterRepository: CharacterRepository,
+    private val characterRepository: CharacterRepository
 ) : ViewModel() {
 
-    val  characters = characterRepository.getCharacters().cachedIn(viewModelScope)
-    
+    val characters = characterRepository.getCharacters().cachedIn(viewModelScope)
+
 }

@@ -4,13 +4,14 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.api.RickAndMortyService
 import com.example.data.model.character.toCharacter
-import com.example.domain.models.characters.SearchCharacter
 import com.example.domain.models.characters.Character
+import com.example.domain.models.characters.SearchCharacter
 import retrofit2.HttpException
 
 class CharactersSearchPagingSource(
     private val service: RickAndMortyService,
-    private val search: SearchCharacter
+    private val search: SearchCharacter,
+    private val getTotalOfItems: (Int) -> Unit = {}
 ) : PagingSource<Int, Character>() {
 
     companion object {
@@ -29,11 +30,15 @@ class CharactersSearchPagingSource(
                 gender = search.gender,
                 type = search.type,
                 page = currentPage.toString()
-            ).results.map { it.toCharacter() }
+            )
+            if (currentPage == START_PAGE) {
+                getTotalOfItems(data.info.count)
+            }
+            val characters = data.results.map { it.toCharacter() }
             LoadResult.Page(
-                data = data,
+                data = characters,
                 prevKey = if (currentPage == START_PAGE) null else currentPage - 1,
-                nextKey = if (data.isEmpty()) null else currentPage.plus(1)
+                nextKey = if (data.info.next == null) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
             if (e is HttpException) {

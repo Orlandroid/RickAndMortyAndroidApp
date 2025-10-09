@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -50,8 +52,7 @@ fun SearchCharacterRoute(navController: NavController) {
             navController.navigate(
                 AppNavigationRoutes.CharactersDetailRoute(id = id)
             )
-        }
-    )
+        })
 }
 
 @Composable
@@ -64,8 +65,7 @@ private fun SearchCharacterScreen(
 ) {
     BaseComposeScreen(
         toolbarConfiguration = ToolbarConfiguration(
-            title = stringResource(R.string.search),
-            clickOnBackButton = onBack
+            title = stringResource(R.string.search), clickOnBackButton = onBack
         )
     ) {
         SearchCharacterScreenContent(
@@ -73,7 +73,8 @@ private fun SearchCharacterScreen(
             events = events,
             name = uiState.name,
             clickOnCharacter = clickOnCharacter,
-            isRefreshing = uiState.isRefreshing
+            isRefreshing = uiState.isRefreshing,
+            totalOfResults = uiState.totalOfItemForSearch
         )
     }
 }
@@ -85,6 +86,7 @@ private fun SearchCharacterScreenContent(
     events: (event: SearchCharacterEvents) -> Unit,
     name: String,
     isRefreshing: Boolean,
+    totalOfResults: Int?,
     clickOnCharacter: (id: Int) -> Unit,
 ) {
     LaunchedEffect(isRefreshing) {
@@ -100,17 +102,23 @@ private fun SearchCharacterScreenContent(
             InputSearch(name = name, onEvents = events)
         }
         SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-            onRefresh = {
+            state = rememberSwipeRefreshState(isRefreshing = isRefreshing), onRefresh = {
                 events(SearchCharacterEvents.OnSendQuery)
                 events(SearchCharacterEvents.OnSwipeRefresh(true))
+            }) {
+            Column {
+                totalOfResults?.let { total ->
+                    Text(
+                        fontSize = 24.sp,
+                        modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 6.dp),
+                        text = stringResource(R.string.total_of_items, totalOfResults)
+                    )
+                }
+                //Todo add error when we don,t get any result
+                CharactersScreenContent(
+                    characters = characters, clickOnItem = clickOnCharacter
+                )
             }
-        ) {
-            //Todo add error when we don,t get any result
-            CharactersScreenContent(
-                characters = characters,
-                clickOnItem = clickOnCharacter
-            )
         }
     }
 }
@@ -137,8 +145,7 @@ private fun RowScope.InputSearch(
         singleLine = true
     )
     AnimatedVisibility(
-        modifier = Modifier.padding(end = 8.dp),
-        visible = name.isNotEmpty()
+        modifier = Modifier.padding(end = 8.dp), visible = name.isNotEmpty()
     ) {
         Icon(
             modifier = Modifier.clickable {
