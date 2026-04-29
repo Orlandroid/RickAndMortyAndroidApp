@@ -1,3 +1,5 @@
+import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -6,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.di"
-    compileSdk = 35
+    compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
         minSdk = 22

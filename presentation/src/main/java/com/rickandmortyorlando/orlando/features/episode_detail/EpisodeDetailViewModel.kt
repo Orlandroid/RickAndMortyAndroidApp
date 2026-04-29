@@ -27,7 +27,7 @@ data class EpisodeDetailUiState(
 
 @HiltViewModel
 class EpisodeDetailViewModel @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase
 ) : ViewModel() {
 
