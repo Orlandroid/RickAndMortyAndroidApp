@@ -32,21 +32,30 @@ import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.LocationDetailSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
 fun LocationDetailRoute(navController: NavController, locationId: Int) {
     val locationDetailViewModel: LocationDetailViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
+        //Change this to get the location detail only once, and not every time the screen is recomposed
         locationDetailViewModel.getLocationDetail(locationId = locationId)
+        locationDetailViewModel.effects.collectLatest {
+            when (it) {
+                is LocationDetailEffects.NavigateToCharacterDetail -> {
+                    navController.navigate(
+                        AppNavigationRoutes.CharactersDetailRoute(id = it.characterId)
+                    )
+                }
+            }
+        }
     }
     val state = locationDetailViewModel.state.collectAsState()
     LocationDetailScreen(
         viewState = state.value,
         clickOnCharacter = { id ->
-            navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(id = id)
-            )
+            locationDetailViewModel.onEvents(LocationDetailEvents.OnCharacterClicked(id))
         },
         clickOnBack = {
             navController.navigateUp()
