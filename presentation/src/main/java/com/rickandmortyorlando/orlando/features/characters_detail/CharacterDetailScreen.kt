@@ -52,9 +52,14 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterDetailRoute(
-    navController: NavController, idCharacter: Int
+    navController: NavController,
+    idCharacter: Int
 ) {
-    val viewModel: CharacterDetailViewModel = hiltViewModel()
+    val viewModel: CharacterDetailViewModel =
+        hiltViewModel(creationCallback = { factory: CharacterDetailViewModelFactory ->
+            factory.create(characterId = idCharacter)
+        }
+        )
     LaunchedEffect(Unit) {
         viewModel.getCharacterDetailInfo(idCharacter)
         viewModel.effects.collectLatest {

@@ -15,14 +15,17 @@ import com.rickandmortyorlando.orlando.features.characters_detail.CharacterDetai
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import com.rickandmortyorlando.orlando.state.asContentOrNull
 import com.rickandmortyorlando.orlando.utils.getColorStatusResource
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @Stable
 data class CharacterDetailUiState(
@@ -52,10 +55,11 @@ sealed class CharacterDetailEffects {
     data object NavigateBack : CharacterDetailEffects()
 }
 
-@HiltViewModel
-class CharacterDetailViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = CharacterDetailViewModelFactory::class)
+class CharacterDetailViewModel @AssistedInject constructor(
+    private val characterDetailUseCase: GetCharacterDetailUseCase,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val characterDetailUseCase: GetCharacterDetailUseCase
+    @Assisted private val characterId: Int
 ) : ViewModel() {
 
 
@@ -65,7 +69,13 @@ class CharacterDetailViewModel @Inject constructor(
 
     private val _state =
         MutableStateFlow<BaseViewState<CharacterDetailUiState>>(BaseViewState.Loading)
-    val state = _state.asStateFlow()
+    val state = _state.onStart {
+        getCharacterDetailInfo(idCharacter = characterId)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = BaseViewState.Loading
+    )
 
     private var idsOfEpisodes: String? = null
 
