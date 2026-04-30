@@ -3,6 +3,7 @@ package com.rickandmortyorlando.orlando.features.episodes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,16 +22,26 @@ import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun EpisodesRoute(navController: NavController) {
     val viewModel: EpisodesViewModel = hiltViewModel()
     val episodes = viewModel.episodes.collectAsLazyPagingItems()
+    LaunchedEffect(Unit) {
+        viewModel.effects.collectLatest {
+            when (it) {
+                is EpisodesEffects.NavigateToEpisodeDetail -> {
+                    navController.navigate(AppNavigationRoutes.EpisodesDetailRoute(it.episodeId))
+                }
+            }
+        }
+    }
     EpisodesScreen(
         episodes = episodes,
         clickOnItem = {
-            navController.navigate(AppNavigationRoutes.EpisodesDetailRoute(it))
+            viewModel.onEvents(EpisodesEvents.OnEpisodeClicked(it))
         },
         clickOnBackButton = { navController.navigateUp() }
     )

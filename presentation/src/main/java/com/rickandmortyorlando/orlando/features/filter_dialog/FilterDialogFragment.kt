@@ -11,6 +11,8 @@ import androidx.fragment.app.DialogFragment
 import com.example.domain.models.characters.SearchCharacter
 import com.rickandmortyorlando.orlando.databinding.FragmentFilterDialogBinding
 
+
+//Migrate to compose screen and use the dialog fragment just to show the compose screen, then dismiss it when the search button is clicked
 class FilterDialogFragment(
     private val currentFilter: SearchCharacter,
     private val searchInfo: (SearchCharacter) -> Unit

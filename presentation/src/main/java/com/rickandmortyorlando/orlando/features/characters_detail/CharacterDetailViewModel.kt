@@ -54,7 +54,7 @@ sealed class CharacterDetailEffects {
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val characterDetailUseCase: GetCharacterDetailUseCase
 ) : ViewModel() {
 
