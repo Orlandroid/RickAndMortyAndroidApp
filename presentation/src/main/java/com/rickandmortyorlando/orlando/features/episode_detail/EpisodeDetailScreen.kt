@@ -38,6 +38,7 @@ import com.rickandmortyorlando.orlando.components.skeletons.EpisodeDetailSkeleto
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.openYoutubeApp
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -47,18 +48,31 @@ fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
     LaunchedEffect(Unit) {
         viewModel.getEpisodeDetail(episodesId)
     }
+    LaunchedEffect(Unit) {
+        viewModel.effects.collectLatest {
+            when (it) {
+                is EpisodeDetailEffects.NavigateToCharacterDetail -> {
+                    navController.navigate(
+                        AppNavigationRoutes.CharactersDetailRoute(
+                            id = it.characterId
+                        )
+                    )
+                }
+
+                is EpisodeDetailEffects.OpenYoutube -> {
+                    context.openYoutubeApp(episodeName = it.episodeName)
+                }
+            }
+        }
+    }
     val state = viewModel.state.collectAsStateWithLifecycle()
     EpisodeDetailScreen(
         viewState = state.value,
         clickOnCharacter = { characterId ->
-            navController.navigate(
-                AppNavigationRoutes.CharactersDetailRoute(
-                    id = characterId
-                )
-            )
+            viewModel.onEvents(EpisodeDetailEvents.OnCharacterClicked(episodeId = characterId))
         },
         clickOnWatch = { episodeName ->
-            context.openYoutubeApp(episodeName)
+            viewModel.onEvents(EpisodeDetailEvents.OnWatchClicked(episodeName = episodeName))
         },
         onBackPress = {
             navController.navigateUp()

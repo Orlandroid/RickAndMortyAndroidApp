@@ -13,11 +13,23 @@ import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+sealed class EpisodeDetailEvents {
+    data class OnCharacterClicked(val episodeId: Int) : EpisodeDetailEvents()
+    data class OnWatchClicked(val episodeName: String) : EpisodeDetailEvents()
+}
+
+sealed class EpisodeDetailEffects {
+    data class NavigateToCharacterDetail(val characterId: Int) : EpisodeDetailEffects()
+    data class OpenYoutube(val episodeName: String) : EpisodeDetailEffects()
+}
 
 data class EpisodeDetailUiState(
     val episode: Episode,
@@ -35,6 +47,10 @@ class EpisodeDetailViewModel @Inject constructor(
         MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
     val state = _state.asStateFlow()
 
+    private val _effects = Channel<EpisodeDetailEffects>()
+
+    val effects = _effects.receiveAsFlow()
+
 
     fun getEpisodeDetail(episodeId: String) = viewModelScope.launch(ioDispatcher) {
         val episodeDetail = getEpisodeDetailUseCase.invoke(episodeId = episodeId)
@@ -50,6 +66,24 @@ class EpisodeDetailViewModel @Inject constructor(
                 episodeImage = episode.episodeImage
             )
         )
+    }
+
+    fun onEvents(event: EpisodeDetailEvents) {
+        when (event) {
+
+            is EpisodeDetailEvents.OnCharacterClicked -> {
+                viewModelScope.launch {
+                    _effects.send(EpisodeDetailEffects.NavigateToCharacterDetail(characterId = event.episodeId))
+                }
+            }
+
+            is EpisodeDetailEvents.OnWatchClicked -> {
+                viewModelScope.launch {
+                    _effects.send(EpisodeDetailEffects.OpenYoutube(episodeName = event.episodeName))
+                }
+
+            }
+        }
     }
 
 
