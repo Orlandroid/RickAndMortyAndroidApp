@@ -74,11 +74,16 @@ fun CharacterDetailRoute(
         }
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
-    CharacterDetailScreen(viewState = state, clickOnCharacter = { characterId ->
-        viewModel.handleEvent(CharacterDetailEvents.OnCharacterClicked(characterId))
-    }, clickOnNumberOfEpisodes = {
-        viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
-    }, onBack = { viewModel.handleEvent(CharacterDetailEvents.OnBack) })
+    CharacterDetailScreen(
+        viewState = state,
+        clickOnCharacter = { characterId ->
+            viewModel.handleEvent(CharacterDetailEvents.OnCharacterClicked(characterId))
+        },
+        clickOnNumberOfEpisodes = {
+            viewModel.handleEvent(CharacterDetailEvents.OnClickOnNumberOfEpisodes)
+        },
+        onBack = { viewModel.handleEvent(CharacterDetailEvents.OnBack) }
+    )
 }
 
 @Composable
