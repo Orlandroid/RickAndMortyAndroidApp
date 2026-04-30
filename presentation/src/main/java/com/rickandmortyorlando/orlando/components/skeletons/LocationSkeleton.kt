@@ -26,9 +26,9 @@ fun LocationSkeleton() {
     ) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
@@ -66,6 +66,6 @@ fun LocationSkeleton() {
 
 @Composable
 @Preview(showBackground = true)
-private fun LocationSkeletonPreview(modifier: Modifier = Modifier) {
+private fun LocationSkeletonPreview() {
     LocationSkeleton()
 }

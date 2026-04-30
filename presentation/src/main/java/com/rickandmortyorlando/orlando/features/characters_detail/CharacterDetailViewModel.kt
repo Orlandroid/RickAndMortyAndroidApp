@@ -29,7 +29,7 @@ data class CharacterDetailUiState(
     val location: Location? = null,
     val characterDetail: Character? = null,
     val characterOfThisLocation: List<Character>? = null,
-    @ColorRes
+    @param:ColorRes
     val imageBorderColor: Int = com.rickandmortyorlando.orlando.R.color.unknown
 )
 

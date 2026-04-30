@@ -67,7 +67,7 @@ fun ItemEpisode(
 
 @Composable
 @Preview(showBackground = true)
-private fun EpisodeItemPreview(modifier: Modifier = Modifier) {
+private fun EpisodeItemPreview() {
     ItemEpisode(
         episode = Episode(
             airDate = stringResource(R.string.december_2_2013),

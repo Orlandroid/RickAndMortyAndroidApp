@@ -26,9 +26,9 @@ fun EpisodeSkeleton() {
     ) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
@@ -72,6 +72,6 @@ fun EpisodeSkeleton() {
 
 @Composable
 @Preview(showBackground = true)
-private fun EpisodeSkeletonPreview(modifier: Modifier = Modifier) {
+private fun EpisodeSkeletonPreview() {
     EpisodeSkeleton()
 }

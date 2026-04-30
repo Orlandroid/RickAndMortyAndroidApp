@@ -25,7 +25,7 @@ data class LocationDetailUiState(
 
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getLocationDetailUseCase: GetLocationDetailUseCase
 ) : ViewModel() {
 

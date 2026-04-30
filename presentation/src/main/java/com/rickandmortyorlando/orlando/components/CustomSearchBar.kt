@@ -106,6 +106,6 @@ fun CustomSearchBar(
 
 @Composable
 @Preview(showBackground = true)
-fun CustomSearchBarPreview(modifier: Modifier = Modifier) {
+fun CustomSearchBarPreview() {
     CustomSearchBar(value = "Andorid", placeholder = "Search", navigateUp = {}, onValueChange = {})
 }

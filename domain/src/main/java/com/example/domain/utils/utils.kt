@@ -23,9 +23,6 @@ fun getListOfNumbersFromUrlWithPrefix(
     return removeCharactersForEpisodesList(episodes.toString())
 }
 
-fun getNumberFromUrWithPrefix(urlWithNumberInTheFinalCharacter: String, prefix: String): Int {
-    return urlWithNumberInTheFinalCharacter.split("$prefix/")[1].toInt()
-}
 
 fun getNumberOfLocationFromUrl(locationUrl: String): Int {
     return locationUrl.split("location/")[1].toInt()

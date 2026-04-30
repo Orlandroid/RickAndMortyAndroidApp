@@ -1,4 +1,4 @@
-package com.rickandmortyorlando.orlando.utils
+package com.rickandmortyorlando.orlando.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width

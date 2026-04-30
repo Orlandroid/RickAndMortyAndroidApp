@@ -151,7 +151,7 @@ private fun ItemInfoLocation(
 
 @Composable
 @Preview(showBackground = true, widthDp = 350)
-private fun LocationDetailScreenPreview(modifier: Modifier = Modifier) {
+private fun LocationDetailScreenPreview() {
     ItemCharacter(
         character = Character.mockCharacter()
     )

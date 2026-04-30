@@ -92,6 +92,6 @@ fun EpisodeDetailSkeleton() {
 
 @Composable
 @Preview(showBackground = true)
-fun EpisodeDetailSkeletonPreview(modifier: Modifier = Modifier) {
+fun EpisodeDetailSkeletonPreview() {
     EpisodeDetailSkeleton()
 }

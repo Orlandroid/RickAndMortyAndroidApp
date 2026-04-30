@@ -111,7 +111,7 @@ fun ItemCharacter(
 
 @Composable
 @Preview(showBackground = true)
-private fun ItemCharacterPreview(modifier: Modifier = Modifier) {
+private fun ItemCharacterPreview() {
     ItemCharacter(
         character = Character.mockCharacter()
     )

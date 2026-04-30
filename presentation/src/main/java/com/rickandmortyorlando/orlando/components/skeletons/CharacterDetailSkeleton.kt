@@ -32,7 +32,8 @@ import com.rickandmortyorlando.orlando.components.shimmerBrush
 @Composable
 fun CharacterDetailSkeleton() {
     Column(
-        modifier = Modifier.testTag("CharacterDetailSkeleton")
+        modifier = Modifier
+            .testTag("CharacterDetailSkeleton")
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -214,6 +215,6 @@ fun CharacterDetailSkeleton() {
 
 @Composable
 @Preview(showBackground = true)
-private fun CharacterDetailSkeletonPreview(modifier: Modifier = Modifier) {
+private fun CharacterDetailSkeletonPreview() {
     CharacterDetailSkeleton()
 }

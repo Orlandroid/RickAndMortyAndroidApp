@@ -30,6 +30,6 @@ fun TextLink(
 
 @Composable
 @Preview(showBackground = true)
-private fun TextLinkPreview(modifier: Modifier = Modifier) {
+private fun TextLinkPreview() {
     TextLink(text = "Android")
 }

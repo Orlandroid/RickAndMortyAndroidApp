@@ -280,7 +280,7 @@ private fun ResultButton(
 
 @Composable
 @Preview(showBackground = true)
-private fun FilterScreenPreview(modifier: Modifier = Modifier) {
+private fun FilterScreenPreview() {
     FilterScreen(
         currentFilter = SearchCharacter(),
         onSearchClicked = {}

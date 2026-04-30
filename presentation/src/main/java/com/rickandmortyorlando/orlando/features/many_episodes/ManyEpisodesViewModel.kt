@@ -30,7 +30,7 @@ sealed class ManyEpisodesEffects {
 @HiltViewModel
 class ManyEpisodesViewModel @Inject constructor(
     private val repository: EpisodesRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
 
