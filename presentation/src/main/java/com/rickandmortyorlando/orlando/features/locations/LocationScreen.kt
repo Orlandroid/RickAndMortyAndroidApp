@@ -14,6 +14,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -37,6 +38,7 @@ import com.rickandmortyorlando.orlando.components.skeletons.LocationSkeleton
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
 import com.rickandmortyorlando.orlando.features.extensions.LoadState
 import com.rickandmortyorlando.orlando.features.extensions.LoadStateConfig
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
 
 
@@ -44,10 +46,19 @@ import kotlinx.coroutines.flow.flowOf
 fun LocationRoute(navController: NavController) {
     val viewModel: LocationsViewModel = hiltViewModel()
     val locations = viewModel.locations.collectAsLazyPagingItems()
+    LaunchedEffect(Unit) {
+        viewModel.effects.collectLatest {
+            when (it) {
+                is LocationEffects.NavigateToLocationDetail -> {
+                    navController.navigate(AppNavigationRoutes.LocationDetailRoute(it.locationId))
+                }
+            }
+        }
+    }
     LocationScreen(
         locations = locations,
         clickOnItem = {
-            navController.navigate(AppNavigationRoutes.LocationDetailRoute(it))
+            viewModel.onEvents(LocationEvents.OnLocationClicked(it))
         },
         onNavigateBack = {
             navController.navigateUp()

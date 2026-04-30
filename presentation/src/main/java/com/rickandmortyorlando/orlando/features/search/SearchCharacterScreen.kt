@@ -111,7 +111,7 @@ private fun SearchCharacterScreenContent(
                     Text(
                         fontSize = 24.sp,
                         modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 6.dp),
-                        text = stringResource(R.string.total_of_items, totalOfResults)
+                        text = stringResource(R.string.total_of_items, total)
                     )
                 }
                 //Todo add error when we don,t get any result
