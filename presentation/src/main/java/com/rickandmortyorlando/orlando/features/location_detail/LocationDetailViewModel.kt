@@ -2,7 +2,6 @@ package com.rickandmortyorlando.orlando.features.location_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.example.di.IoDispatcher
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
@@ -10,17 +9,18 @@ import com.example.domain.state.getData
 import com.example.domain.state.getMessage
 import com.example.domain.state.isError
 import com.example.domain.usecases.GetLocationDetailUseCase
-import com.rickandmortyorlando.orlando.features.locations.LocationEffects
-import com.rickandmortyorlando.orlando.features.locations.LocationEvents
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 sealed class LocationDetailEvents {
@@ -36,16 +36,23 @@ data class LocationDetailUiState(
     val characters: List<Character>
 )
 
-@HiltViewModel
-class LocationDetailViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = LocationDetailViewModelFactory::class)
+class LocationDetailViewModel @AssistedInject constructor(
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val getLocationDetailUseCase: GetLocationDetailUseCase
+    private val getLocationDetailUseCase: GetLocationDetailUseCase,
+    @Assisted private val locationId: Int
 ) : ViewModel() {
 
 
     private val _state =
         MutableStateFlow<BaseViewState<LocationDetailUiState>>(BaseViewState.Loading)
-    val state = _state.asStateFlow()
+    val state = _state.onStart {
+        getLocationDetail(locationId = locationId)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = BaseViewState.Loading
+    )
 
     private val _effects = Channel<LocationDetailEffects>()
 
@@ -62,7 +69,7 @@ class LocationDetailViewModel @Inject constructor(
         }
     }
 
-    fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {
+    private fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {
         val locationDetail = getLocationDetailUseCase.invoke(locationId)
         if (locationDetail.isError()) {
             _state.value = BaseViewState.Error(message = locationDetail.getMessage())

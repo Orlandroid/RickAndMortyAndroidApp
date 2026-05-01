@@ -80,7 +80,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
     private var idsOfEpisodes: String? = null
 
 
-    fun getCharacterDetailInfo(idCharacter: Int) = viewModelScope.launch(ioDispatcher) {
+    private fun getCharacterDetailInfo(idCharacter: Int) = viewModelScope.launch(ioDispatcher) {
         runCatching {
             val characterDetail = characterDetailUseCase.invoke(idCharacter).getData()
             idsOfEpisodes = characterDetail.idsOfEpisodes

@@ -37,10 +37,11 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun LocationDetailRoute(navController: NavController, locationId: Int) {
-    val locationDetailViewModel: LocationDetailViewModel = hiltViewModel()
+    val locationDetailViewModel: LocationDetailViewModel =
+        hiltViewModel(creationCallback = { factory: LocationDetailViewModelFactory ->
+            factory.create(locationId)
+        })
     LaunchedEffect(Unit) {
-        //Change this to get the location detail only once, and not every time the screen is recomposed
-        locationDetailViewModel.getLocationDetail(locationId = locationId)
         locationDetailViewModel.effects.collectLatest {
             when (it) {
                 is LocationDetailEffects.NavigateToCharacterDetail -> {
