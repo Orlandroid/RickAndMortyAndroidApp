@@ -9,14 +9,17 @@ import com.example.domain.state.getData
 import com.example.domain.state.getMessage
 import com.example.domain.state.isError
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 sealed class ManyEpisodesEvents {
@@ -27,10 +30,11 @@ sealed class ManyEpisodesEffects {
     data class NavigateToEpisodeDetail(val episodeId: Int) : ManyEpisodesEffects()
 }
 
-@HiltViewModel
-class ManyEpisodesViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ManyEpisodesViewModelFactory::class)
+class ManyEpisodesViewModel @AssistedInject constructor(
     private val repository: EpisodesRepository,
-    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @Assisted private val episodesIds: Int
 ) : ViewModel() {
 
 
@@ -39,7 +43,13 @@ class ManyEpisodesViewModel @Inject constructor(
     val effects = _effects.receiveAsFlow()
 
     private val _state = MutableStateFlow<BaseViewState<List<Episode>>>(BaseViewState.Loading)
-    val state = _state.asStateFlow()
+    val state = _state.onStart {
+        getEpisodes(idsEpisodes = episodesIds.toString())
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = BaseViewState.Loading
+    )
 
     fun onEvents(event: ManyEpisodesEvents) {
         when (event) {
@@ -52,7 +62,7 @@ class ManyEpisodesViewModel @Inject constructor(
     }
 
 
-    fun getEpisodes(idsEpisodes: String) {
+    private fun getEpisodes(idsEpisodes: String) {
         viewModelScope.launch(ioDispatcher) {
             val episodeResponse = repository.getManyEpisodes(idsEpisodes)
             if (episodeResponse.isError()) {
