@@ -58,10 +58,8 @@ fun CharacterDetailRoute(
     val viewModel: CharacterDetailViewModel =
         hiltViewModel(creationCallback = { factory: CharacterDetailViewModelFactory ->
             factory.create(characterId = idCharacter)
-        }
-        )
+        })
     LaunchedEffect(Unit) {
-        viewModel.getCharacterDetailInfo(idCharacter)
         viewModel.effects.collectLatest {
             when (it) {
                 is CharacterDetailEffects.NavigateToManyEpisodesScreen -> {

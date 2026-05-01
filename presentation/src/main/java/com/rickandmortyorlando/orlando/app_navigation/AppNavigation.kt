@@ -47,7 +47,7 @@ fun AppNavigation() {
         }
         composable<AppNavigationRoutes.EpisodesDetailRoute> {
             val args = it.toRoute<AppNavigationRoutes.EpisodesDetailRoute>()
-            EpisodesDetailRoute(navController = navController, episodesId = args.id.toString())
+            EpisodesDetailRoute(navController = navController, episodesId = args.id)
         }
         composable<AppNavigationRoutes.LocationsRoute> {
             LocationRoute(navController)

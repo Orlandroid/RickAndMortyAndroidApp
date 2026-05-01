@@ -42,12 +42,17 @@ import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
-fun EpisodesDetailRoute(navController: NavController, episodesId: String) {
+fun EpisodesDetailRoute(
+    navController: NavController,
+    episodesId: Int
+) {
     val context = LocalContext.current
-    val viewModel: EpisodeDetailViewModel = hiltViewModel()
-    LaunchedEffect(Unit) {
-        viewModel.getEpisodeDetail(episodesId)
-    }
+    val viewModel: EpisodeDetailViewModel =
+        hiltViewModel(creationCallback = {
+            factory: EpisodeDetailViewModelFactory ->
+            factory.create(episodeId = episodesId)
+        }
+        )
     LaunchedEffect(Unit) {
         viewModel.effects.collectLatest {
             when (it) {

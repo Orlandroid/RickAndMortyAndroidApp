@@ -11,14 +11,17 @@ import com.example.domain.state.getMessage
 import com.example.domain.state.isError
 import com.example.domain.usecases.GetEpisodeDetailUseCase
 import com.rickandmortyorlando.orlando.state.BaseViewState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 sealed class EpisodeDetailEvents {
@@ -37,15 +40,22 @@ data class EpisodeDetailUiState(
     val episodeImage: EpisodeImage? = null
 )
 
-@HiltViewModel
-class EpisodeDetailViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = EpisodeDetailViewModelFactory::class)
+class EpisodeDetailViewModel @AssistedInject constructor(
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase
+    private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase,
+    @Assisted private val episodeId: Int
 ) : ViewModel() {
 
     private val _state =
         MutableStateFlow<BaseViewState<EpisodeDetailUiState>>(BaseViewState.Loading)
-    val state = _state.asStateFlow()
+    val state = _state.onStart {
+        getEpisodeDetail(episodeId = episodeId.toString())
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = BaseViewState.Loading
+    )
 
     private val _effects = Channel<EpisodeDetailEffects>()
 
