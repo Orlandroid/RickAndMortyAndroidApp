@@ -48,11 +48,9 @@ fun EpisodesDetailRoute(
 ) {
     val context = LocalContext.current
     val viewModel: EpisodeDetailViewModel =
-        hiltViewModel(creationCallback = {
-            factory: EpisodeDetailViewModelFactory ->
+        hiltViewModel(creationCallback = { factory: EpisodeDetailViewModelFactory ->
             factory.create(episodeId = episodesId)
-        }
-        )
+        })
     LaunchedEffect(Unit) {
         viewModel.effects.collectLatest {
             when (it) {

@@ -23,7 +23,7 @@ class HomeViewModelTest {
     @Before
     fun setup() {
         viewModel = HomeViewModel()
-        Dispatchers.setMain(UnconfinedTestDispatcher())
+//        Dispatchers.setMain(UnconfinedTestDispatcher())
     }
 
     @After

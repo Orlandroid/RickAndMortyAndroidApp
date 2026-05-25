@@ -24,7 +24,11 @@ class EpisodeDetailViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = EpisodeDetailViewModel(UnconfinedTestDispatcher(), getEpisodeDetailUseCase)
+        viewModel = EpisodeDetailViewModel(
+            ioDispatcher = UnconfinedTestDispatcher(),
+            getEpisodeDetailUseCase = getEpisodeDetailUseCase,
+            episodeId = 1
+        )
     }
 
     @Test

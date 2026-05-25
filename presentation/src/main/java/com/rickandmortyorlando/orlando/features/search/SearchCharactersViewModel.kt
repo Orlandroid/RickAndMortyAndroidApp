@@ -25,7 +25,8 @@ data class SearchCharacterUiState(
     val gender: String = "",
     val type: String = "",
     val isRefreshing: Boolean = false,
-    val totalOfItemForSearch: Int? = null
+    val totalOfItemForSearch: Int? = null,
+    val hasPerformedSearch: Boolean = false
 )
 
 sealed class SearchCharacterEvents {
@@ -71,13 +72,17 @@ class SearchCharactersViewModel @Inject constructor(
             }
 
             is SearchCharacterEvents.OnSendQuery -> {
+                _uiState.update {
+                    it.copy(hasPerformedSearch = true)
+                }
                 refreshCharactersSearchPagingSource()
             }
 
             is SearchCharacterEvents.OnClearQuery -> {
                 _uiState.update {
-                    it.copy(name = "")
+                    it.copy(name = "", hasPerformedSearch = false, totalOfItemForSearch = null)
                 }
+                refreshCharactersSearchPagingSource()
             }
 
             is SearchCharacterEvents.OnSwipeRefresh -> {

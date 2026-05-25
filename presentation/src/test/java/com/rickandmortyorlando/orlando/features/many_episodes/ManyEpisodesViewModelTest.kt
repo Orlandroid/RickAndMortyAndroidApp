@@ -24,7 +24,8 @@ class ManyEpisodesViewModelTest {
     fun setup() {
         manyEpisodesViewModel = ManyEpisodesViewModel(
             repository = repository,
-            ioDispatcher = testDispatcher
+            ioDispatcher = testDispatcher,
+            episodesIds = 1
         )
     }
 

@@ -1,6 +1,7 @@
 package com.rickandmortyorlando.orlando.features.characters_detail
 
 import androidx.annotation.ColorRes
+import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,8 +33,7 @@ data class CharacterDetailUiState(
     val location: Location? = null,
     val characterDetail: Character? = null,
     val characterOfThisLocation: List<Character>? = null,
-    @param:ColorRes
-    val imageBorderColor: Int = com.rickandmortyorlando.orlando.R.color.unknown
+    @param:ColorRes val imageBorderColor: Int = com.rickandmortyorlando.orlando.R.color.unknown
 )
 
 fun GetCharacterDetailUseCase.CharacterDetail.toCharacterDetail() = CharacterDetailUiState(
@@ -80,7 +80,8 @@ class CharacterDetailViewModel @AssistedInject constructor(
     private var idsOfEpisodes: String? = null
 
 
-    private fun getCharacterDetailInfo(idCharacter: Int) = viewModelScope.launch(ioDispatcher) {
+    @VisibleForTesting
+    internal fun getCharacterDetailInfo(idCharacter: Int) = viewModelScope.launch(ioDispatcher) {
         runCatching {
             val characterDetail = characterDetailUseCase.invoke(idCharacter).getData()
             idsOfEpisodes = characterDetail.idsOfEpisodes

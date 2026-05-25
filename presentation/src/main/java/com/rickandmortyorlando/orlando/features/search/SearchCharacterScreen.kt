@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -114,10 +115,25 @@ private fun SearchCharacterScreenContent(
                         text = stringResource(R.string.total_of_items, total)
                     )
                 }
-                //Todo add error when we don,t get any result
-                CharactersScreenContent(
-                    characters = characters, clickOnItem = clickOnCharacter
-                )
+                // Show empty state when search was performed but returned no results
+                if (totalOfResults == 0) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(R.string.no_results_found),
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(vertical = 16.dp)
+                        )
+                    }
+                } else {
+                    CharactersScreenContent(
+                        characters = characters, clickOnItem = clickOnCharacter
+                    )
+                }
             }
         }
     }

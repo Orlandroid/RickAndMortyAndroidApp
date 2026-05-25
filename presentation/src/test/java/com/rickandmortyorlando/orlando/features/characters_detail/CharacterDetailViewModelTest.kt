@@ -27,7 +27,8 @@ class CharacterDetailViewModelTest {
     fun setup() {
         characterDetailViewModel = CharacterDetailViewModel(
             ioDispatcher = UnconfinedTestDispatcher(),
-            characterDetailUseCase = characterDetailUseCase
+            characterDetailUseCase = characterDetailUseCase,
+            characterId = 1
         )
     }
 

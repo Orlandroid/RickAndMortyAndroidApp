@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.many_episodes
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.di.IoDispatcher
@@ -62,7 +63,8 @@ class ManyEpisodesViewModel @AssistedInject constructor(
     }
 
 
-    private fun getEpisodes(idsEpisodes: String) {
+    @VisibleForTesting
+    internal fun getEpisodes(idsEpisodes: String) {
         viewModelScope.launch(ioDispatcher) {
             val episodeResponse = repository.getManyEpisodes(idsEpisodes)
             if (episodeResponse.isError()) {

@@ -1,5 +1,6 @@
 package com.rickandmortyorlando.orlando.features.location_detail
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.di.IoDispatcher
@@ -69,7 +70,8 @@ class LocationDetailViewModel @AssistedInject constructor(
         }
     }
 
-    private fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {
+    @VisibleForTesting
+    internal fun getLocationDetail(locationId: Int) = viewModelScope.launch(ioDispatcher) {
         val locationDetail = getLocationDetailUseCase.invoke(locationId)
         if (locationDetail.isError()) {
             _state.value = BaseViewState.Error(message = locationDetail.getMessage())
