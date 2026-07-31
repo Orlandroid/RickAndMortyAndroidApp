@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-//Todo this is jus a generic error screen updated for one the has to be more releated to rick and morty
+
 @Composable
 fun ErrorScreen(
     errorMessage: String = "",

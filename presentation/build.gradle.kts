@@ -5,6 +5,7 @@ import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNNER
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
@@ -56,8 +57,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
     namespace = "com.rickandmortyorlando.orlando"
 
@@ -72,9 +75,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.test.junit)
-    androidTestImplementation(libs.test.espresso)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.interceptor)
@@ -126,14 +126,12 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.turbine)
     implementation(libs.core.testing)
-    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
-    implementation(libs.kotlinx.coroutines.android)
-    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
     testImplementation(libs.core.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
-    androidTestImplementation(libs.test.espresso)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    implementation(libs.kotlinx.coroutines.android)
     debugImplementation(libs.androidx.ui.tooling)
     testImplementation(libs.mockk)
     androidTestImplementation(libs.androidx.test.runner)
