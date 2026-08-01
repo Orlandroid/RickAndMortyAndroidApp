@@ -90,7 +90,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     //Navigation component
-    implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     //Image
     implementation(libs.glide)
@@ -110,7 +109,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.coil.compose)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.landscapist.glide)
     implementation(libs.androidx.material3.android)
