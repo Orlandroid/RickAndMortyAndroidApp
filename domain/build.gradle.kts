@@ -50,7 +50,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
-    implementation(libs.androidx.constraintlayout)///add pagging3 compose
     implementation(libs.apollo.runtime)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

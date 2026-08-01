@@ -74,7 +74,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.interceptor)
@@ -96,9 +95,6 @@ dependencies {
     //Image
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
-    //Shimer
-    implementation(libs.shimmer)
-    implementation(libs.skeletonlayout)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.lottie)
     implementation(libs.apollo.runtime)
