@@ -95,7 +95,6 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.androidx.paging.runtime.ktx)
-    implementation(libs.lottie)
     implementation(libs.apollo.runtime)
     implementation(libs.powerspinner)
 
