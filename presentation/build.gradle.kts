@@ -84,13 +84,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    // LiveData
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     //Dagger - Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    //Navigation component
-    implementation(libs.androidx.navigation.ui.ktx)
     //Image
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
@@ -118,7 +114,7 @@ dependencies {
     testImplementation(libs.mockwebserver)
     testImplementation(libs.truth)
     testImplementation(libs.turbine)
-    implementation(libs.core.testing)
+//    implementation(libs.core.testing)
     testImplementation(libs.core.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)

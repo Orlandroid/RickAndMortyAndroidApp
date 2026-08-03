@@ -1,14 +1,16 @@
+import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "com.example.characters"
     compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
@@ -39,6 +41,7 @@ android {
 
 dependencies {
 
+    implementation(project(DOMAIN))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -51,4 +54,9 @@ dependencies {
     implementation(libs.retrofit.interceptor)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.compose.navigation)
+    implementation(libs.bundles.compose.testing)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
 }
