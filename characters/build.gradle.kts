@@ -1,3 +1,5 @@
+import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.DI
 import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -41,7 +43,9 @@ android {
 
 dependencies {
 
+    implementation(project(CORE))
     implementation(project(DOMAIN))
+    implementation(project(DI))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -59,4 +63,5 @@ dependencies {
     implementation(libs.bundles.compose.testing)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.accompanist.swiperefresh)
 }
