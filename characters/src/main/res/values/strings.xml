@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="caracteres">Characters</string>
+    <string name="last_seen_location_residents">Last seen location residents</string>
+    <string name="last_seen_location">Last seen location</string>
+    <string name="characters">Characters</string>
+    <string name="episodes">episodes</string>
+    <string name="locations">Locations</string>
+    <string name="location">Location</string>
+    <string name="status"><b>Status:</b></string>
+    <string name="search">Search</string>
+    <string name="species"><b>Species:</b></string>
+    <string name="gender"><b>Gender:</b></string>
+    <string name="name">Name:</string>
+    <string name="type">Type:</string>
+    <string name="dimension">Dimension:</string>
+    <string name="number_of_residents">Number of Residents:</string>
+    <string name="number_of_episodes"><b>Number of episodes:</b></string>
+    <string name="total_of_items">Total of items %1$d</string>
+    <string name="no_results_found">No results found</string>
+</resources>
