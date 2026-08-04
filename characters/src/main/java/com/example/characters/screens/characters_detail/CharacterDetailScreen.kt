@@ -42,6 +42,7 @@ import com.example.core.ui.base.BaseComposeScreen
 import com.example.core.ui.components.ErrorScreen
 import com.example.core.ui.components.ToolbarConfiguration
 import com.example.core.ui.state.BaseViewState
+import com.example.core.util.getColorStatusResource
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import kotlinx.coroutines.flow.collectLatest

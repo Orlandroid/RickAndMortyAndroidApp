@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.core.R
 import com.example.core.ui.components.shimmerBrush
+import com.example.core.ui.components.skeletons.CharacterSkeleton
 
 @Composable
 fun EpisodeDetailSkeleton() {

@@ -2,14 +2,8 @@ package com.example.characters.screens.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-//import com.example.data.api.RickAndMortyService
-//import com.example.data.pagination.CharactersSearchPagingSource
-//import com.example.data.pagination.getPagingConfig
-//import com.example.domain.models.characters.Character
-//import com.rickandmortyorlando.orlando.mappers.toSearchCharacter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

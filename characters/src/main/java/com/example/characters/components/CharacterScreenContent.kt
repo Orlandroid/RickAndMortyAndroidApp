@@ -8,6 +8,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.core.extensions.LoadState
 import com.example.core.extensions.LoadStateConfig
+import com.example.core.ui.components.ItemCharacter
 import com.example.domain.models.characters.Character
 
 @Composable
@@ -25,7 +26,11 @@ fun CharactersScreenContent(
             characters[index]?.let { character ->
                 ItemCharacter(
                     modifier = Modifier.fillMaxWidth(),
-                    character = character,
+                    id = character.id,
+                    image = character.image,
+                    name = character.name,
+                    status = character.status,
+                    species = character.species,
                     clickOnItem = { id -> clickOnItem(id) }
                 )
             }
