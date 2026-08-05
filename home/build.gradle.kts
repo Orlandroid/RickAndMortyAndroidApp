@@ -43,4 +43,6 @@ dependencies {
     implementation(libs.bundles.compose.navigation)
     implementation(libs.bundles.compose.testing)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.bundles.base.testing)
+    testImplementation(libs.turbine)
 }

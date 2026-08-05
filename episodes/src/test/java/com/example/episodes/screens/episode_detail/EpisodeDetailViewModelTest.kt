@@ -1,11 +1,12 @@
-package com.rickandmortyorlando.orlando.features.episode_detail
+package com.example.episodes.screens.episode_detail
+
+import com.example.core.ui.state.BaseViewState
 
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
 import com.example.domain.state.ApiResult
 import com.example.domain.usecases.GetEpisodeDetailUseCase
-import com.rickandmortyorlando.orlando.state.BaseViewState
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
@@ -61,7 +62,8 @@ class EpisodeDetailViewModelTest {
 
         val state = viewModel.state.value
         assert(state is BaseViewState.Error)
-        assertThat((state as BaseViewState.Error).message).isEqualTo(defaultError)
+        com.google.common.truth.Truth.assertThat((state as BaseViewState.Error).message)
+            .isEqualTo(defaultError)
     }
 
     @Test

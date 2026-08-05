@@ -1,6 +1,6 @@
 package com.example.domain.usecases
 
-import com.google.common.truth.Truth.assertThat
+
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.models.location.Location.Residents
@@ -8,6 +8,7 @@ import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.LocationRepository
 import com.example.domain.state.ApiResult
 import com.example.domain.state.getData
+import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

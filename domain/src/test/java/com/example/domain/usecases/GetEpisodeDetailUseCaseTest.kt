@@ -1,5 +1,6 @@
 package com.example.domain.usecases
 
+
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage

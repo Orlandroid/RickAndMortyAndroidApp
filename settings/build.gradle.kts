@@ -42,4 +42,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.compose.navigation)
     implementation(libs.bundles.compose.testing)
+    implementation(libs.bundles.base.testing)
+    testImplementation(libs.turbine)
 }

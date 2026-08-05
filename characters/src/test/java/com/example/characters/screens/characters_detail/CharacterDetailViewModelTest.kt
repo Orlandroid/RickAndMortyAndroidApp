@@ -1,11 +1,13 @@
-package com.rickandmortyorlando.orlando.features.characters_detail
+package com.example.characters.screens.characters_detail
 
+
+import com.example.core.ui.state.BaseViewState
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.state.ApiResult
 import com.example.domain.usecases.GetCharacterDetailUseCase
-import com.rickandmortyorlando.orlando.state.BaseViewState
+import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,7 +15,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import com.google.common.truth.Truth.assertThat
 
 
 @OptIn(ExperimentalCoroutinesApi::class)

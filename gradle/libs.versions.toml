@@ -121,6 +121,12 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "hiltAndroidGrad
 
 [bundles]
 
+base_testing = [
+    "mockk",
+    "jetbrains-kotlinx-coroutines-test",
+    "truth",
+]
+
 compose = [
     "androidx-compose-bom",
     "androidx-runtime",

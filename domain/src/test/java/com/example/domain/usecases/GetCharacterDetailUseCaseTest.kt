@@ -1,7 +1,6 @@
 package com.example.domain.usecases
 
 
-import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.repository.CharacterRepository
 import com.example.domain.repository.LocationRepository
@@ -14,6 +13,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import com.example.domain.models.characters.Character
 
 class GetCharacterDetailUseCaseTest {
 
@@ -62,8 +62,9 @@ class GetCharacterDetailUseCaseTest {
             coVerify(exactly = 1) { characterRepository.getCharacter(any()) }
             coVerify(exactly = 1) { locationsRepository.getLocation(any()) }
             coVerify(exactly = 1) { characterRepository.getManyCharacters(any()) }
-            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
-            assertThat(result.getData()).isEqualTo(expectedResult)
+            com.google.common.truth.Truth.assertThat(result)
+                .isInstanceOf(ApiResult.Success::class.java)
+            com.google.common.truth.Truth.assertThat(result.getData()).isEqualTo(expectedResult)
         }
 
 
