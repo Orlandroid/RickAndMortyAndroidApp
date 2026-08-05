@@ -1,6 +1,12 @@
+import com.example.androidbase.presentation.BuildModules.CHARACTERS
 import com.example.androidbase.presentation.BuildModules.DATA
 import com.example.androidbase.presentation.BuildModules.DI
 import com.example.androidbase.presentation.BuildModules.DOMAIN
+import com.example.androidbase.presentation.BuildModules.EPISODES
+import com.example.androidbase.presentation.BuildModules.SETTINGS
+import com.example.androidbase.presentation.BuildModules.HOME
+import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.LOCATIONS
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
@@ -70,6 +76,12 @@ android {
 dependencies {
     implementation(project(DATA))
     implementation(project(DOMAIN))
+    implementation(project(CORE))
+    implementation(project(CHARACTERS))
+    implementation(project(LOCATIONS))
+    implementation(project(EPISODES))
+    implementation(project(SETTINGS))
+    implementation(project(HOME))
     implementation(project(DI))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

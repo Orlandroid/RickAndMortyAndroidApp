@@ -117,7 +117,7 @@ navigation-safe-gradle = { id = "androidx.navigation.safeargs", version.ref = "n
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-android-built-in1-kotlin = { id = "com.android.built-in-kotlin", version.ref = "androidBuiltInKotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "hiltAndroidGradle" }
 
 [bundles]
 

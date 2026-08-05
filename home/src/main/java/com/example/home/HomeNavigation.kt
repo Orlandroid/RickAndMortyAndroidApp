@@ -10,7 +10,7 @@ import com.example.home.screens.home.HomeRote
 fun NavGraphBuilder.homeNavigationGraph(
     navController: NavHostController
 ) {
-    navigation<AppNavigationRoutes.HomeRoute>(
+    navigation<AppNavigationRoutes.HomeRouteNavigation>(
         startDestination = AppNavigationRoutes.HomeRoute
     ) {
         composable<AppNavigationRoutes.HomeRoute> {

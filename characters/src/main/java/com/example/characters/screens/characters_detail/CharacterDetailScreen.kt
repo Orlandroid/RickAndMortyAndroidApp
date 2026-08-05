@@ -36,7 +36,6 @@ import coil.compose.SubcomposeAsyncImage
 import com.example.characters.R
 import com.example.characters.components.CharacterCard
 import com.example.characters.components.CharacterDetailSkeleton
-import com.example.characters.util.getColorStatusResource
 import com.example.core.navigation.AppNavigationRoutes
 import com.example.core.ui.base.BaseComposeScreen
 import com.example.core.ui.components.ErrorScreen

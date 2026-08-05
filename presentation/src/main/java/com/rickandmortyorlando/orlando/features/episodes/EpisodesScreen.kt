@@ -13,9 +13,9 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.example.core.navigation.AppNavigationRoutes
 import com.example.domain.models.episodes.Episode
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ItemEpisode
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.components.skeletons.EpisodeSkeleton

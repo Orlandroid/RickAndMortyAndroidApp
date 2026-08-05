@@ -2,8 +2,8 @@ package com.example.settings.screens.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.preferences.RickAndMortyPreferences
-import com.rickandmortyorlando.orlando.utils.ThemeUtils
+//import com.example.data.preferences.RickAndMortyPreferences
+//import com.rickandmortyorlando.orlando.utils.ThemeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +26,7 @@ data class SettingsUiState(val isNightModeEnable: Boolean = false)
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val rickAndMortyPreferences: RickAndMortyPreferences
+
 ) : ViewModel() {
     private val _uiState =
         MutableStateFlow(SettingsUiState().copy(isNightModeEnable = isNightMode()))
@@ -51,9 +51,10 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun changeTheme(isNightMode: Boolean) {
-        rickAndMortyPreferences.saveIsNightMode(isNightMode)
-        ThemeUtils.themeUtils.setNightMode(isNightMode)
+//        rickAndMortyPreferences.saveIsNightMode(isNightMode)
+//        ThemeUtils.themeUtils.setNightMode(isNightMode)
     }
 
-    private fun isNightMode() = rickAndMortyPreferences.getIsNightMode()
+//    private fun isNightMode() = rickAndMortyPreferences.getIsNightMode()
+    private fun isNightMode() = true
 }

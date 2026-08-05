@@ -4,37 +4,52 @@ import kotlinx.serialization.Serializable
 
 
 sealed class AppNavigationRoutes {
-    @Serializable
-    data object HomeRoute
 
     @Serializable
-    data object CharactersRoute
+    data object HomeRouteNavigation : AppNavigationRoutes()
+
+    @Serializable
+    data object HomeRoute : AppNavigationRoutes()
+
+
+    @Serializable
+    data object CharactersNavigationRoute : AppNavigationRoutes()
+
+    @Serializable
+    data object CharactersRoute : AppNavigationRoutes()
 
     @Serializable
     data class CharactersDetailRoute(val id: Int)
 
     @Serializable
-    data object SearchCharactersRoute
-
-    @Serializable
-    data object EpisodesRoute
-
-    @Serializable
-    data class EpisodesDetailRoute(val id: Int)
-
-    @Serializable
-    data class ManyEpisodesRoute(val idsEpisodes: String)
-
-    @Serializable
-    data object LocationsRoute
-
-    @Serializable
-    data class LocationDetailRoute(val id: Int)
+    data object SearchCharactersRoute : AppNavigationRoutes()
 
 
     @Serializable
-    data object SettingsRoute
+    data object EpisodesNavigationRoute : AppNavigationRoutes()
 
     @Serializable
-    data object DialogRoute
+    data object EpisodesRoute : AppNavigationRoutes()
+
+    @Serializable
+    data class EpisodesDetailRoute(val id: Int) : AppNavigationRoutes()
+
+    @Serializable
+    data class ManyEpisodesRoute(val idsEpisodes: String) : AppNavigationRoutes()
+
+    @Serializable
+    data object LocationsNavigationRoute : AppNavigationRoutes()
+
+    @Serializable
+    data object LocationsRoute : AppNavigationRoutes()
+
+    @Serializable
+    data class LocationDetailRoute(val id: Int) : AppNavigationRoutes()
+
+
+    @Serializable
+    data object SettingsNavigationRoute : AppNavigationRoutes()
+
+    @Serializable
+    data object SettingsRoute : AppNavigationRoutes()
 }

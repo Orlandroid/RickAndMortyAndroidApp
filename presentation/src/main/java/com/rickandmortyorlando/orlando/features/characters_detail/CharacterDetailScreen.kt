@@ -35,11 +35,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
+import com.example.core.navigation.AppNavigationRoutes
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes.CharactersDetailRoute
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes.ManyEpisodesRoute
 import com.rickandmortyorlando.orlando.components.CharacterCard
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
@@ -63,11 +62,11 @@ fun CharacterDetailRoute(
         viewModel.effects.collectLatest {
             when (it) {
                 is CharacterDetailEffects.NavigateToManyEpisodesScreen -> {
-                    navController.navigate(ManyEpisodesRoute(it.idsOfEpisodes))
+                    navController.navigate(AppNavigationRoutes.ManyEpisodesRoute(it.idsOfEpisodes))
                 }
 
                 is CharacterDetailEffects.NavigateToCharacterDetail -> {
-                    navController.navigate(CharactersDetailRoute(id = it.characterId))
+                    navController.navigate(AppNavigationRoutes.CharactersDetailRoute(id = it.characterId))
                 }
 
                 CharacterDetailEffects.NavigateBack -> {

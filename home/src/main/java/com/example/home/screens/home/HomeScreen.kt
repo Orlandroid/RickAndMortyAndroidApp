@@ -45,19 +45,19 @@ fun HomeRote(navController: NavController) {
         viewModel.effects.collectLatest {
             when (it) {
                 HomeEffects.NavigateToCharacters -> {
-                    navController.navigate(AppNavigationRoutes.CharactersRoute)
+                    navController.navigate(AppNavigationRoutes.CharactersNavigationRoute)
                 }
 
                 HomeEffects.NavigateToEpisodes -> {
-                    navController.navigate(AppNavigationRoutes.EpisodesRoute)
+                    navController.navigate(AppNavigationRoutes.EpisodesNavigationRoute)
                 }
 
                 HomeEffects.NavigateToLocations -> {
-                    navController.navigate(AppNavigationRoutes.LocationsRoute)
+                    navController.navigate(AppNavigationRoutes.LocationsNavigationRoute)
                 }
 
                 HomeEffects.NavigateToSettings -> {
-                    navController.navigate(AppNavigationRoutes.SettingsRoute)
+                    navController.navigate(AppNavigationRoutes.SettingsNavigationRoute)
                 }
             }
         }

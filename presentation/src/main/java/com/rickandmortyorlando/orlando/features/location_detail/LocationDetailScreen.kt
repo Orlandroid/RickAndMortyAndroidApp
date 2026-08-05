@@ -21,11 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.core.navigation.AppNavigationRoutes
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.models.location.getPairInfoLocation
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration

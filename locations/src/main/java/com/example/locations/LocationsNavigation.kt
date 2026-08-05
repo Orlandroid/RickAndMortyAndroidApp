@@ -13,7 +13,7 @@ import com.example.locations.screens.locations.LocationRoute
 fun NavGraphBuilder.locationsNavigationGraph(
     navController: NavHostController
 ) {
-    navigation<AppNavigationRoutes.LocationsRoute>(
+    navigation<AppNavigationRoutes.LocationsNavigationRoute>(
         startDestination = AppNavigationRoutes.LocationsRoute
     ) {
         composable<AppNavigationRoutes.LocationsRoute> {

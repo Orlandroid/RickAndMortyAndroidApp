@@ -6,11 +6,11 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.characters.util.getColorStatusResource
 import com.example.core.IoDispatcher
 import com.example.core.ui.state.BaseViewState
 import com.example.core.ui.state.asContentOrNull
 import com.example.core.ui.theme.Unknown
+import com.example.core.util.getColorStatusResource
 import com.example.domain.models.characters.Character
 import com.example.domain.models.location.Location
 import com.example.domain.state.getData

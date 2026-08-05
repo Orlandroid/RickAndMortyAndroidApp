@@ -1,6 +1,5 @@
 package com.example.core.util
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.example.core.ui.theme.Alive
 import com.example.core.ui.theme.Dead

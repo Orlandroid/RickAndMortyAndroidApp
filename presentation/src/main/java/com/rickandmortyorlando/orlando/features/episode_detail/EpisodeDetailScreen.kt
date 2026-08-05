@@ -26,11 +26,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
+import com.example.core.navigation.AppNavigationRoutes
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
 import com.rickandmortyorlando.orlando.components.ErrorScreen
 import com.rickandmortyorlando.orlando.components.ItemCharacter
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration

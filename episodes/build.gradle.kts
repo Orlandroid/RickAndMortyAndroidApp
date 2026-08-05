@@ -2,6 +2,7 @@ import com.example.androidbase.presentation.BuildModules.CORE
 import com.example.androidbase.presentation.BuildModules.DI
 import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -16,7 +17,7 @@ android {
     compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdk = 22
+        minSdk = MIN_SDK_VERSION
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }

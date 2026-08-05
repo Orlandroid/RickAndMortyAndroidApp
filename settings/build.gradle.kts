@@ -1,8 +1,8 @@
 import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.android.built.in1.kotlin)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -13,13 +13,13 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = MIN_SDK_VERSION
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
 }

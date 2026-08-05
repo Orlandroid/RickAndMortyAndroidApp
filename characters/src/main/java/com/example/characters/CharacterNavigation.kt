@@ -14,7 +14,7 @@ import com.example.core.navigation.AppNavigationRoutes
 fun NavGraphBuilder.charactersNavigationGraph(
     navController: NavHostController
 ) {
-    navigation<AppNavigationRoutes.CharactersRoute>(
+    navigation<AppNavigationRoutes.CharactersNavigationRoute>(
         startDestination = AppNavigationRoutes.CharactersRoute
     ) {
         composable<AppNavigationRoutes.CharactersRoute> {

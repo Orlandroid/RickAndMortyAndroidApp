@@ -17,10 +17,9 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.core.navigation.AppNavigationRoutes
 import com.example.domain.models.characters.Character
 import com.rickandmortyorlando.orlando.R
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes
-import com.rickandmortyorlando.orlando.app_navigation.AppNavigationRoutes.CharactersDetailRoute
 import com.rickandmortyorlando.orlando.components.CharactersScreenContent
 import com.rickandmortyorlando.orlando.components.ToolbarConfiguration
 import com.rickandmortyorlando.orlando.features.base.BaseComposeScreen
@@ -37,7 +36,7 @@ fun CharacterRoute(navController: NavController) {
             when (it) {
                 is CharacterEffects.NavigateToCharacterDetail -> {
                     navController.navigate(
-                        CharactersDetailRoute(
+                        AppNavigationRoutes.CharactersDetailRoute(
                             id = it.characterId
                         )
                     )

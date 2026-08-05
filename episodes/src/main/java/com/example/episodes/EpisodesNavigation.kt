@@ -14,7 +14,7 @@ import com.example.episodes.screens.many_episodes.ManyEpisodesRoute
 fun NavGraphBuilder.episodesNavigationGraph(
     navController: NavHostController
 ) {
-    navigation<AppNavigationRoutes.EpisodesRoute>(
+    navigation<AppNavigationRoutes.EpisodesNavigationRoute>(
         startDestination = AppNavigationRoutes.EpisodesRoute
     ) {
         composable<AppNavigationRoutes.EpisodesRoute> {
