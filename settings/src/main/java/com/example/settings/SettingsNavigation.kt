@@ -10,7 +10,7 @@ import com.example.settings.screens.settings.SettingsRoute
 fun NavGraphBuilder.settingsNavigationGraph(
     navController: NavHostController
 ) {
-    navigation<AppNavigationRoutes.SettingsRoute>(
+    navigation<AppNavigationRoutes.SettingsNavigationRoute>(
         startDestination = AppNavigationRoutes.SettingsRoute
     ) {
         composable<AppNavigationRoutes.SettingsRoute> {

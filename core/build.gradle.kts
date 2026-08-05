@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    id("kotlin-kapt")
 }
 
 android {
@@ -48,11 +47,6 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.interceptor)
-    kapt(libs.hilt.android.compiler)
-    implementation(libs.hilt.android)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.compose.navigation)
     implementation(libs.bundles.compose.testing)

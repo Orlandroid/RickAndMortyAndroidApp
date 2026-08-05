@@ -1,12 +1,10 @@
 import com.example.androidbase.presentation.BuildModules.CHARACTERS
-import com.example.androidbase.presentation.BuildModules.DATA
-import com.example.androidbase.presentation.BuildModules.DI
-import com.example.androidbase.presentation.BuildModules.DOMAIN
-import com.example.androidbase.presentation.BuildModules.EPISODES
-import com.example.androidbase.presentation.BuildModules.SETTINGS
-import com.example.androidbase.presentation.BuildModules.HOME
 import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.DATA
+import com.example.androidbase.presentation.BuildModules.EPISODES
+import com.example.androidbase.presentation.BuildModules.HOME
 import com.example.androidbase.presentation.BuildModules.LOCATIONS
+import com.example.androidbase.presentation.BuildModules.SETTINGS
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
@@ -55,8 +53,6 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
-        dataBinding = true
         compose = true
     }
     compileOptions {
@@ -75,36 +71,22 @@ android {
 
 dependencies {
     implementation(project(DATA))
-    implementation(project(DOMAIN))
     implementation(project(CORE))
     implementation(project(CHARACTERS))
     implementation(project(LOCATIONS))
     implementation(project(EPISODES))
     implementation(project(SETTINGS))
     implementation(project(HOME))
-    implementation(project(DI))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.interceptor)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.volley)
     //GSON
-    implementation(libs.gson)
     implementation(libs.kotlinx.serialization.json)
-    // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     //Dagger - Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    //Image
-    implementation(libs.glide)
-    annotationProcessor(libs.compiler)
-    implementation(libs.androidx.paging.runtime.ktx)
-    implementation(libs.apollo.runtime)
-    implementation(libs.powerspinner)
 
     //Compose
     implementation(libs.androidx.ui)
@@ -114,19 +96,14 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.coil.compose)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.landscapist.glide)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.paging.compose)
-    implementation(libs.accompanist.swiperefresh)
     //Testing
     testImplementation(libs.mockwebserver)
     testImplementation(libs.truth)
     testImplementation(libs.turbine)
-//    implementation(libs.core.testing)
     testImplementation(libs.core.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
