@@ -41,16 +41,11 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
-    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.compose.navigation)
     implementation(libs.bundles.compose.testing)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.kotlinx.serialization.json)
 }

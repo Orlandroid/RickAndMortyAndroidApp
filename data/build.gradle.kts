@@ -43,9 +43,6 @@ android {
 
 dependencies {
     implementation(project(DOMAIN))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
     implementation(libs.retrofit)
@@ -54,6 +51,5 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.volley)
 
 }

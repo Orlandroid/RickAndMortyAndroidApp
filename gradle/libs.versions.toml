@@ -4,7 +4,6 @@ activityCompose = "1.13.0"
 agp = "9.3.1"
 apolloRuntime = "3.8.6"
 coilCompose = "2.7.0"
-glideCompiler = "5.0.9"
 composeBom = "2025.08.00"
 constraintlayoutCompose = "1.1.2"
 coreTestingVersion = "2.2.0"
@@ -16,30 +15,26 @@ kotlin_coruntines_android = "1.11.0"
 coreKtx = "1.19.0"
 kotlinSerialization = "2.4.10"
 kotlinxSerializationJson = "1.11.0"
-landscapistGlide = "2.5.1"
 legacySupportV4 = "1.0.0"
-lifecycleViewmodelKtx = "2.9.2"
+lifecycleViewmodelKtx = "2.11.0"
 material3Android = "1.3.2"
 mockwebserver = "5.4.0"
 navigationCompose = "2.9.8"
 navigationUiKtx = "2.9.8"
-pagingRuntimeKtx = "3.3.6"
-powerspinner = "1.2.7"
+pagingRuntimeKtx = "3.5.0"
 retrofit = "3.0.0"
 android-material = "1.14.0"
 androidx-appcompat = "1.7.1"
 test-junit = "1.3.0"
 junit = "4.13.2"
 test-espresso = "3.7.0"
-gson = "2.14.0"
 retrofit-interceptor = "5.4.0"
 uiTooling = "1.11.4"
 volley = "1.2.1"
-pagingCommonAndroid = "3.3.6"
+pagingCommonAndroid = "3.5.0"
 jetbrainsKotlinJvm = "2.4.10"
 androidx-test = "1.7.0"
 compose = "1.11.4"
-glide = "5.0.9"
 #testing
 truth = "1.4.5"
 turbine = "1.2.1"
@@ -50,21 +45,16 @@ androidBuiltInKotlin = "9.3.1"
 [libraries]
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
 
-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glideCompiler" }
 core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTestingVersion" }
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "corutinesTest" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin_coruntines_android" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-landscapist-glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "landscapistGlide" }
 mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
-powerspinner = { module = "com.github.skydoves:powerspinner", version.ref = "powerspinner" }
 test-junit = { module = "androidx.test.ext:junit", version.ref = "test-junit" }
 junit = { module = "junit:junit", version.ref = "junit" }
 test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "test-espresso" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "retrofit-interceptor" }

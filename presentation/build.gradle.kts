@@ -80,9 +80,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.volley)
-    //GSON
     implementation(libs.kotlinx.serialization.json)
     //Dagger - Hilt
     implementation(libs.hilt.android)

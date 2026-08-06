@@ -42,14 +42,14 @@ class CharactersSearchPagingSource(
             )
         } catch (e: Exception) {
             return if (e is HttpException) {
-                handleHttpExceptionException(e)
+                handleHttpException(e)
             } else {
                 LoadResult.Error(e)
             }
         }
     }
 
-    private fun handleHttpExceptionException(e: HttpException): LoadResult<Int, Character> {
+    private fun handleHttpException(e: HttpException): LoadResult<Int, Character> {
         if (e.code() == 404) {
             getTotalOfItems(0)
             return LoadResult.Page(

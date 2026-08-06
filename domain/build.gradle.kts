@@ -41,9 +41,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
     implementation(libs.androidx.paging.common.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
@@ -52,6 +49,5 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     testImplementation(libs.mockk)
-    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
     testImplementation(libs.truth)
 }
