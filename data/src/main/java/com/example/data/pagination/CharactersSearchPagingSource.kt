@@ -41,14 +41,27 @@ class CharactersSearchPagingSource(
                 nextKey = if (data.info.next == null) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
-            if (e is HttpException) {
-                val errorString =
-                    e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
-                LoadResult.Error(Throwable(errorString))
+            return if (e is HttpException) {
+                handleHttpExceptionException(e)
             } else {
                 LoadResult.Error(e)
             }
         }
+    }
+
+    private fun handleHttpExceptionException(e: HttpException): LoadResult<Int, Character> {
+        if (e.code() == 404) {
+            getTotalOfItems(0)
+            return LoadResult.Page(
+                data = emptyList(),
+                prevKey = null,
+                nextKey = null
+            )
+        }
+        val errorString =
+            e.response()?.errorBody()?.byteStream()?.bufferedReader().use { it?.readText() }
+        return LoadResult.Error(Throwable(errorString))
+
     }
 
     override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
