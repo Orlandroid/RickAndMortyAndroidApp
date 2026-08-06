@@ -1,18 +1,24 @@
+import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.DI
+import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "com.example.characters"
     compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdk = 22
+        minSdk = MIN_SDK_VERSION
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -39,6 +45,9 @@ android {
 
 dependencies {
 
+    implementation(project(CORE))
+    implementation(project(DOMAIN))
+    implementation(project(DI))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -46,9 +55,13 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.retrofit.interceptor)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.compose.navigation)
+    implementation(libs.bundles.compose.testing)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.accompanist.swiperefresh)
+    implementation(libs.bundles.base.testing)
 }

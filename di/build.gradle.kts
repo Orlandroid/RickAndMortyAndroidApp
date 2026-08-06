@@ -1,4 +1,5 @@
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
+import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -12,7 +13,7 @@ android {
     compileSdk = COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdk = 22
+        minSdk = MIN_SDK_VERSION
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -39,13 +40,6 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.test.junit)
-    androidTestImplementation(libs.test.espresso)
-    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.interceptor)

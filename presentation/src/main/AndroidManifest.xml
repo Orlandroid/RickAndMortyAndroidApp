@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name="com.rickandmortyorlando.orlando.Application"
+            android:name="com.rickandmortyorlando.presentation.Application"
             android:allowBackup="true"
             android:icon="@drawable/icono_aplicacion"
             android:label="@string/app_name"
@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.PaggingExample">
         <activity
-                android:name="com.rickandmortyorlando.orlando.MainActivityCompose"
+                android:name="com.rickandmortyorlando.presentation.MainActivityCompose"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

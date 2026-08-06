@@ -1,6 +1,5 @@
 import com.example.androidbase.presentation.ConfigData.COMPILE_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
-import com.example.androidbase.presentation.ConfigData.TARGET_SDK_VERSION
 import com.example.androidbase.presentation.ConfigData.TEST_INSTRUMENTATION_RUNNER
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -42,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -50,8 +48,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
-    implementation(libs.androidx.constraintlayout)///add pagging3 compose
     implementation(libs.apollo.runtime)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    testImplementation(libs.mockk)
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
 }

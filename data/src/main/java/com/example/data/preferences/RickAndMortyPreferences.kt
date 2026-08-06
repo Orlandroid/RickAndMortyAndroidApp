@@ -1,20 +1,21 @@
 package com.example.data.preferences
 
 import android.content.SharedPreferences
+import com.example.domain.ThemePreferences
 import javax.inject.Inject
 
 class RickAndMortyPreferences @Inject constructor(sharedPreferences: SharedPreferences) :
-    PreferencesManager(sharedPreferences) {
+    PreferencesManager(sharedPreferences), ThemePreferences {
 
     companion object {
         const val IS_NIGHT_MODE = "isNightMode"
     }
 
-    fun saveIsNightMode(isNightMode: Boolean?) {
+    override fun saveIsNightMode(isNightMode: Boolean?) {
         savePreferenceKey(IS_NIGHT_MODE, isNightMode)
     }
 
-    fun getIsNightMode(): Boolean {
+    override fun getIsNightMode(): Boolean {
         return preferences.getBoolean(IS_NIGHT_MODE, false)
     }
 

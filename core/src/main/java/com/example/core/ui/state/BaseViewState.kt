@@ -1,0 +1,10 @@
+package com.example.core.ui.state
+
+sealed class BaseViewState<out T> {
+    data object Loading : BaseViewState<Nothing>()
+    data class Content<T>(val result: T) : BaseViewState<T>()
+    data class Error(val message: String) : BaseViewState<Nothing>()
+}
+
+fun <T> BaseViewState<T>.asContentOrNull(): BaseViewState.Content<T>? =
+    this as? BaseViewState.Content<T>
