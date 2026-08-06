@@ -1,5 +1,9 @@
 package com.example.core
 
+import com.example.di.DefaultDispatcher
+import com.example.di.IoDispatcher
+import com.example.di.MainDispatcher
+import com.example.di.MainImmediateDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

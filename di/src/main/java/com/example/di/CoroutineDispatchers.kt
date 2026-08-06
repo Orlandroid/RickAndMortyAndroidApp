@@ -1,4 +1,4 @@
-package com.example.core
+package com.example.di
 
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.example.core.ui.theme.components.skeletons
+package com.example.core.ui.components.skeletons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

@@ -2,7 +2,7 @@ package com.example.episodes.screens.episode_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.IoDispatcher
+import com.example.di.IoDispatcher
 import com.example.core.ui.state.BaseViewState
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode

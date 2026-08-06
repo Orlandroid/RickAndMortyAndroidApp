@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.domain.ThemePreferences
+import com.example.settings.utils.ThemeUtils
 
 
 sealed class SettingsEvents {
@@ -26,7 +28,7 @@ data class SettingsUiState(val isNightModeEnable: Boolean = false)
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-
+private val themePreferences: ThemePreferences
 ) : ViewModel() {
     private val _uiState =
         MutableStateFlow(SettingsUiState().copy(isNightModeEnable = isNightMode()))
@@ -51,10 +53,9 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun changeTheme(isNightMode: Boolean) {
-//        rickAndMortyPreferences.saveIsNightMode(isNightMode)
-//        ThemeUtils.themeUtils.setNightMode(isNightMode)
+        themePreferences.saveIsNightMode(isNightMode)
+        ThemeUtils.themeUtils.setNightMode(isNightMode)
     }
 
-//    private fun isNightMode() = rickAndMortyPreferences.getIsNightMode()
-    private fun isNightMode() = true
+    private fun isNightMode() = themePreferences.getIsNightMode()
 }

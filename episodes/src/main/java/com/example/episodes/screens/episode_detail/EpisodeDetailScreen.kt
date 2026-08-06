@@ -34,7 +34,7 @@ import com.example.core.ui.components.ErrorScreen
 import com.example.core.ui.components.ItemCharacter
 import com.example.core.ui.components.ToolbarConfiguration
 import com.example.core.ui.state.BaseViewState
-import com.example.core.ui.theme.components.skeletons.EpisodeDetailSkeleton
+import com.example.core.ui.components.skeletons.EpisodeDetailSkeleton
 import com.example.domain.models.characters.Character
 import com.example.domain.models.episodes.Episode
 import com.example.domain.models.episodes.EpisodeImage

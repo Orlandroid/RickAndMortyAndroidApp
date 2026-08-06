@@ -1,4 +1,4 @@
-package com.example.core.ui.theme.components.skeletons
+package com.example.core.ui.components.skeletons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.core.R
 import com.example.core.ui.components.shimmerBrush
-import com.example.core.ui.components.skeletons.CharacterSkeleton
 
 @Composable
 fun EpisodeDetailSkeleton() {

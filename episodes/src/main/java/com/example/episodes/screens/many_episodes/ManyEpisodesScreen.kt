@@ -17,7 +17,7 @@ import com.example.core.ui.base.BaseComposeScreen
 import com.example.core.ui.components.ErrorScreen
 import com.example.core.ui.components.ToolbarConfiguration
 import com.example.core.ui.state.BaseViewState
-import com.example.core.ui.theme.components.skeletons.EpisodeSkeleton
+import com.example.core.ui.components.skeletons.EpisodeSkeleton
 import com.example.domain.models.episodes.Episode
 import com.example.episodes.components.ItemEpisode
 import kotlinx.coroutines.flow.collectLatest

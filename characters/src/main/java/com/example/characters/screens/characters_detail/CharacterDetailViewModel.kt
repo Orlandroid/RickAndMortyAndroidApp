@@ -6,7 +6,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.IoDispatcher
+import com.example.di.IoDispatcher
 import com.example.core.ui.state.BaseViewState
 import com.example.core.ui.state.asContentOrNull
 import com.example.core.ui.theme.Unknown

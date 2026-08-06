@@ -1,4 +1,5 @@
 import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -33,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(CORE))
+    implementation(project(DOMAIN))
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
