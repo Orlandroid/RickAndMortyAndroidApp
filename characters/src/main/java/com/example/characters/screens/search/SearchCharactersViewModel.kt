@@ -67,25 +67,31 @@ class SearchCharactersViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(hasPerformedSearch = true)
                 }
-//                refreshCharactersSearchPagingSource()
+                searchQuery.value = SearchCharacter(
+                    name = uiState.value.name,
+                    status = uiState.value.status,
+                    species = uiState.value.species,
+                    gender = uiState.value.gender,
+                    type = uiState.value.type
+                )
             }
 
             is SearchCharacterEvents.OnClearQuery -> {
                 _uiState.update {
-                    it.copy(name = "", hasPerformedSearch = false, totalOfItemForSearch = null)
+                    SearchCharacterUiState()
                 }
-//                refreshCharactersSearchPagingSource()
+
+                searchQuery.value = SearchCharacter()
             }
 
             is SearchCharacterEvents.OnSwipeRefresh -> {
                 _uiState.update {
                     it.copy(isRefreshing = event.isRefreshing)
                 }
+                searchQuery.value = searchQuery.value
             }
         }
     }
-
-//    private fun refreshCharactersSearchPagingSource() = charactersSearchPagingSource.invalidate()
 
 
 }
