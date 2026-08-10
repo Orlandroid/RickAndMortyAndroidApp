@@ -35,6 +35,7 @@ pagingCommonAndroid = "3.5.0"
 jetbrainsKotlinJvm = "2.4.10"
 androidx-test = "1.7.0"
 compose = "1.11.4"
+ksp = "2.3.4"
 #testing
 truth = "1.4.5"
 turbine = "1.2.1"
@@ -93,7 +94,6 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 
 
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
-androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 
@@ -107,6 +107,7 @@ navigation-safe-gradle = { id = "androidx.navigation.safeargs", version.ref = "n
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "hiltAndroidGradle" }
 
 [bundles]

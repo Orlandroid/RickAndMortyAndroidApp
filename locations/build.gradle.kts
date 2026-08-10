@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.android)
     id("dagger.hilt.android.plugin")
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -49,6 +49,6 @@ dependencies {
     implementation(libs.bundles.compose.navigation)
     implementation(libs.bundles.compose.testing)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.bundles.base.testing)
 }

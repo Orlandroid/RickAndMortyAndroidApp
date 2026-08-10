@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -47,7 +47,7 @@ dependencies {
     androidTestImplementation(libs.test.espresso)
     implementation(libs.apollo.runtime)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     testImplementation(libs.mockk)
     testImplementation(libs.truth)
 }

@@ -16,9 +16,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
+    alias(libs.plugins.ksp)
 }
 
 
@@ -83,7 +83,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
     //Compose
     implementation(libs.androidx.ui)

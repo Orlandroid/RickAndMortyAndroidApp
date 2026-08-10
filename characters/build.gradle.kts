@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
 }
 
@@ -55,7 +55,7 @@ dependencies {
     androidTestImplementation(libs.test.junit)
     androidTestImplementation(libs.test.espresso)
     implementation(libs.kotlinx.coroutines.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.compose.navigation)

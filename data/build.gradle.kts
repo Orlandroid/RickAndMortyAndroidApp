@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
 }
 
@@ -50,6 +50,6 @@ dependencies {
     implementation(libs.retrofit.interceptor)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
 }
