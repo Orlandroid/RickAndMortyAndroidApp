@@ -100,7 +100,6 @@ androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", v
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-android-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidGradle" }
 navigation-safe-gradle = { id = "androidx.navigation.safeargs", version.ref = "navigationUiKtx" }
