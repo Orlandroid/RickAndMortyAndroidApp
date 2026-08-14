@@ -1,4 +1,5 @@
 import com.example.androidbase.presentation.BuildModules.CORE
+import com.example.androidbase.presentation.BuildModules.DATA
 import com.example.androidbase.presentation.BuildModules.DOMAIN
 import com.example.androidbase.presentation.ConfigData.MIN_SDK_VERSION
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -6,6 +7,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -45,4 +48,6 @@ dependencies {
     implementation(libs.bundles.compose.testing)
     implementation(libs.bundles.base.testing)
     testImplementation(libs.turbine)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 }

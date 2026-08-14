@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.data.preferences.PreferencesManager
 import com.example.data.preferences.RickAndMortyPreferences
+import com.example.domain.ThemePreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +30,7 @@ object ModulePreferences {
 
     @Singleton
     @Provides
-    fun provideLoginPreferences(sharedPreferences: SharedPreferences) =
+    fun provideLoginPreferences(sharedPreferences: SharedPreferences): ThemePreferences =
         RickAndMortyPreferences(sharedPreferences)
 
 
