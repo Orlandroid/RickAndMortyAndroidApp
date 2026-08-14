@@ -50,4 +50,5 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.bundles.base.testing)
+    implementation(libs.compose.material.icons.core)
 }

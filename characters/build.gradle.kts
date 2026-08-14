@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.bundles.base.testing)
+    implementation(libs.compose.material.icons.core)
 }

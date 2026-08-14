@@ -63,5 +63,6 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.bundles.base.testing)
     testImplementation(libs.turbine)
+    implementation(libs.compose.material.icons.core)
 
 }

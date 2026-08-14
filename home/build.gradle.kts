@@ -44,4 +44,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.bundles.base.testing)
     testImplementation(libs.turbine)
+    implementation(libs.compose.material.icons.core)
 }
